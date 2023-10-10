@@ -1,6 +1,9 @@
 package fr.unice.polytech.kaleate;
 
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.fr.Alors;
+import io.cucumber.java.fr.Quand;
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;
@@ -35,4 +38,34 @@ public class UserStory1Test {
     public void j_ai_ajoute_le_menu(String campus){
 
     }
+
+    @Alors("je devrais voir la liste des menus de l'ensemble des restaurant {string}")
+    public void je_devrais_voir_la_liste_des_menus_de_l_ensemble_des_restaurant(String string) {
+        // Write code here that turns the phrase above into concrete actions
+
+    }
+
+    @Quand("je saisie le menu {string}")
+    public void je_saisie_le_menu(String string) {
+        // Write code here that turns the phrase above into concrete actions
+
+    }
+    @Alors("Ma commande est crée avec le menu à l'interieur")
+    public void ma_commande_est_crée_avec_le_menu_à_l_interieur() {
+        // Write code here that turns the phrase above into concrete actions
+    }
+
+
+    @Quand("je valide ma commande")
+    public void je_valide_ma_commande() {
+        // Write code here that turns the phrase above into concrete actions
+
+    }
+    @Alors("je vais être redirigé vers le paiement de ma commande")
+    public void je_vais_être_redirigé_vers_le_paiement_de_ma_commande() {
+        // Write code here that turns the phrase above into concrete actions
+
+    }
+
+
 }
