@@ -1,13 +1,13 @@
-#language: fr
-Fonctionnalité: Selectionner un menu pour commander
+#language: en
+Feature: Selectionner un menu pour commander
 
-  Contexte:
-    Étant donné que je suis un utilisateur
+  Context:
+    Given je suis un utilisateur
 
-  Scénario: Choisir le créneau de 12h à 12h15
-    Étant donné que je suis un utilisateur qui souhaite commander
-    Alors je précise le créneau de ma commande pour avoir la liste des menus disponibles
+  Scenario: Choisir le créneau de 12h à 12h15
+    Given je suis un utilisateur qui souhaite commander
+    Then je precise le creneau de ma commande pour avoir la liste des menus disponibles
 
-  Scénario: Prendre le menu "Sushi Salsa"
-    Étant donné que je suis un utilisateur qui souhaite commander
-    Alors je sélectionne le menu "Sushi Salsa"
+  Scenario: Prendre le menu "Sushi Salsa"
+    Given je suis un utilisateur qui souhaite commander dans la liste des menus disponibles pour le creneau
+    Then je selectionne le menu "Sushi Salsa"

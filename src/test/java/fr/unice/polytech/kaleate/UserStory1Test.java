@@ -9,8 +9,13 @@ import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;
 import org.junit.platform.suite.api.Suite;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
+import static org.junit.Assert.*;
 
 @Suite
 @IncludeEngines("cucumber")
@@ -19,53 +24,46 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "fr.unice.polytech.kaleate")
 public class UserStory1Test {
 
-    @Given("je suis un utilisateur connecté")
-    public void je_suis_connecte_avec_mon_compte_etudiant() {
+    static Utilisateur utilisateur;
+    static ListMenus menus;
+    static ListMenus menusDansCreneau;
+    static Creneau creneau;
 
-    }
-
-     @Given("je suis un utilisateur {string} {string} connecté du campus {string}")
-    public void je_suis_un_utilisateur_campus(String name,String surname, String campus){
-
-     }
-
-     @Given("j'ai la liste des menus de l'ensemble des restaurants {string}")
-     public void j_ai_la_liste_des_menus_du_campus(String campus){
-
-     }
-
-    @Given("j'ai ajouté le menu {string}")
-    public void j_ai_ajoute_le_menu(String campus){
-
-    }
-
-    @Alors("je devrais voir la liste des menus de l'ensemble des restaurant {string}")
-    public void je_devrais_voir_la_liste_des_menus_de_l_ensemble_des_restaurant(String string) {
+    @Given("je suis un utilisateur")
+    public void je_suis_un_utilisateur() {
         // Write code here that turns the phrase above into concrete actions
-
+        utilisateur = new Utilisateur("nom", "prenom");
     }
 
-    @Quand("je saisie le menu {string}")
-    public void je_saisie_le_menu(String string) {
-        // Write code here that turns the phrase above into concrete actions
-
-    }
-    @Alors("Ma commande est crée avec le menu à l'interieur")
-    public void ma_commande_est_crée_avec_le_menu_à_l_interieur() {
-        // Write code here that turns the phrase above into concrete actions
+    @Given("je suis un utilisateur qui souhaite commander")
+    public void je_suis_un_utilisateur_qui_souhaite_commander() {
+        menus = new ListMenus(Menu.getMenus());
     }
 
+    @Then("je precise le creneau de ma commande pour avoir la liste des menus disponibles")
+    public void je_precise_le_creneau_de_ma_commande_pour_avoir_la_liste_des_menus_disponibles() {
+        Date debut = new Date();
+        Date fin = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(debut);
+        calendar.add(Calendar.HOUR_OF_DAY, 2);
 
-    @Quand("je valide ma commande")
-    public void je_valide_ma_commande() {
-        // Write code here that turns the phrase above into concrete actions
-
+        creneau = new Creneau(debut, fin);
+        menusDansCreneau = menus.getMenusDansCreneau(creneau);
+        assertTrue(menusDansCreneau.size() == 3);
+        assertTrue(menusDansCreneau.contains(menus.get(0)));
+        assertFalse(menusDansCreneau.contains(menus.get(3)));
     }
-    @Alors("je vais être redirigé vers le paiement de ma commande")
-    public void je_vais_être_redirigé_vers_le_paiement_de_ma_commande() {
-        // Write code here that turns the phrase above into concrete actions
 
+    @Given("je suis un utilisateur qui souhaite commander dans la liste des menus disponibles pour le creneau")
+    public void je_suis_un_utilisateur_qui_souhaite_commander_dans_la_liste_des_menus_disponibles_pour_le_creneau() {
+        //TODO jsp quoi y mettre
     }
 
-
+    @Then("je selectionne le menu {string}")
+    public void je_selectionne_le_menu(String string) {
+        Menu menu = menusDansCreneau.getMenuParNom(string);
+        Menu m = menus.get(0);
+        assertEquals(menu, menusDansCreneau.getMenuParNom(string));
+    }
 }
