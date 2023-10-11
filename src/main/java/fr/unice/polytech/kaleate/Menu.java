@@ -67,38 +67,4 @@ public class Menu {
         return "Menu : " + this.getName() + " / " + this.getPrice() + "€" + " / " + this.getCreneau().getDebut() + " - " + this.getCreneau().getFin();
     }
 
-    //TODO DELETE AFTER TESTS
-    public static List<Menu> getMenus(){
-        List<Menu> menus = new ArrayList<Menu>();
-
-        // date qui fonctionnent
-        Date db = new Date();
-        Date df = new Date();
-
-        Calendar c = Calendar.getInstance();
-        c.setTime(df);
-        c.add(Calendar.DATE, 1);
-        df = c.getTime();
-
-        menus.add(new Menu(10, "Burger cheese", new Creneau(db, df)));
-        menus.add(new Menu(12, "Burger double cheese", new Creneau(db, df)));
-        menus.add(new Menu(8, "Hamburger classic", new Creneau(db, df)));
-
-
-        // date qui ne fonctionnent pas
-        Date dnb = new Date();
-        Date dnf = new Date();
-
-        Calendar c2 = Calendar.getInstance();
-        c2.setTime(dnf);
-        c2.add(Calendar.DATE, 2);
-        dnb = c2.getTime();
-        c2.add(Calendar.DATE, 1);
-        dnf = c2.getTime();
-
-        menus.add(new Menu(10, "NOT Burger cheese", new Creneau(dnb, dnf)));
-        menus.add(new Menu(12, "NOT Burger double cheese", new Creneau(dnb, dnf)));
-        menus.add(new Menu(8, "NOT Hamburger classic", new Creneau(dnb, dnf)));
-        return menus;
-    }
 }

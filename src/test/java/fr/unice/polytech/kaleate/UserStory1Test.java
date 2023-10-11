@@ -9,6 +9,7 @@ import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;
 import org.junit.platform.suite.api.Suite;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +30,42 @@ public class UserStory1Test {
     static ListMenus menusDansCreneau;
     static Creneau creneau;
 
+    //Generateur de menus
+    public static List<Menu> getMenus(){
+        List<Menu> menus = new ArrayList<Menu>();
+
+        // date qui fonctionnent
+        Date db = new Date();
+        Date df = new Date();
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(df);
+        c.add(Calendar.DATE, 1);
+        df = c.getTime();
+
+        menus.add(new Menu(10, "Burger cheese", new Creneau(db, df)));
+        menus.add(new Menu(12, "Burger double cheese", new Creneau(db, df)));
+        menus.add(new Menu(8, "Hamburger classic", new Creneau(db, df)));
+
+
+        // date qui ne fonctionnent pas
+        Date dnb = new Date();
+        Date dnf = new Date();
+
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(dnf);
+        c2.add(Calendar.DATE, 2);
+        dnb = c2.getTime();
+        c2.add(Calendar.DATE, 1);
+        dnf = c2.getTime();
+
+        menus.add(new Menu(10, "NOT Burger cheese", new Creneau(dnb, dnf)));
+        menus.add(new Menu(12, "NOT Burger double cheese", new Creneau(dnb, dnf)));
+        menus.add(new Menu(8, "NOT Hamburger classic", new Creneau(dnb, dnf)));
+        return menus;
+    }
+
+
     @Given("je suis un utilisateur")
     public void je_suis_un_utilisateur() {
         // Write code here that turns the phrase above into concrete actions
@@ -37,7 +74,10 @@ public class UserStory1Test {
 
     @Given("je suis un utilisateur qui souhaite commander")
     public void je_suis_un_utilisateur_qui_souhaite_commander() {
-        menus = new ListMenus(Menu.getMenus());
+        menus = new ListMenus(getMenus());
+
+        //TODO delete this
+        System.out.println(menus);
     }
 
     @Then("je precise le creneau de ma commande pour avoir la liste des menus disponibles")
@@ -50,6 +90,10 @@ public class UserStory1Test {
 
         creneau = new Creneau(debut, fin);
         menusDansCreneau = menus.getMenusDansCreneau(creneau);
+
+        //TODO delete this
+        System.out.println(menusDansCreneau);
+
         assertTrue(menusDansCreneau.size() == 3);
         assertTrue(menusDansCreneau.contains(menus.get(0)));
         assertFalse(menusDansCreneau.contains(menus.get(3)));
@@ -63,6 +107,10 @@ public class UserStory1Test {
     @Then("je selectionne le menu {string}")
     public void je_selectionne_le_menu(String string) {
         Menu menu = menusDansCreneau.getMenuParNom(string);
+
+        //TODO delete this
+        System.out.println(menu);
+
         Menu m = menus.get(0);
         assertEquals(menu, menusDansCreneau.getMenuParNom(string));
     }

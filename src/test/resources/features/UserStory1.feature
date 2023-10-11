@@ -10,4 +10,4 @@ Feature: Selectionner un menu pour commander
 
   Scenario: Prendre le menu "Sushi Salsa"
     Given je suis un utilisateur qui souhaite commander dans la liste des menus disponibles pour le creneau
-    Then je selectionne le menu "Sushi Salsa"
+    Then je selectionne le menu "Burger cheese"

@@ -18,7 +18,6 @@ public class ListMenus extends ArrayList<Menu> {
 
     public ListMenus getMenusDansCreneau(Creneau creneau){
         ListMenus listMenu = new ListMenus(this);
-        System.out.println(listMenu);
         listMenu = new ListMenus(listMenu.stream().filter(menu -> !menu.estComprisDansCreneau(creneau)).toList());
         return listMenu;
     }
