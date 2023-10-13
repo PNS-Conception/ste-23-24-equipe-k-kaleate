@@ -94,7 +94,12 @@ public class UserStory1Test {
         Date fin = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(debut);
-        calendar.add(Calendar.HOUR_OF_DAY, 2);
+        calendar.set(Calendar.HOUR, 12);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        debut = calendar.getTime();
+        calendar.set(Calendar.MINUTE, 15);
+        fin = calendar.getTime();
 
         creneau = new Creneau(debut, fin);
         menusDansCreneau = restaurants.getMenusDansCreneau(creneau);
@@ -118,6 +123,8 @@ public class UserStory1Test {
         //TODO
         menus = restaurants.getRestaurantByName(string).getMenus();
 
+        //TODO delete this
+        System.out.println(menus);
     }
 
     @Then("je selectionne le menu {string}")
