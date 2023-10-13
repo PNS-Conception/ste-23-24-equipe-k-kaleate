@@ -8,6 +8,10 @@ Feature: Selectionner un menu pour commander
     Given je suis un utilisateur qui souhaite commander
     Then je precise le creneau de ma commande pour avoir la liste des menus disponibles
 
-  Scenario: Prendre le menu "Sushi Salsa"
+  Scenario:
+    Given je suis un utilisateur qui souhaite commander dans la liste des menus du restaurant "Burger King"
+    Then je selectionne le menu "Burger cheese"
+
+  Scenario: Prendre le menu "Burger cheese"
     Given je suis un utilisateur qui souhaite commander dans la liste des menus disponibles pour le creneau
     Then je selectionne le menu "Burger cheese"

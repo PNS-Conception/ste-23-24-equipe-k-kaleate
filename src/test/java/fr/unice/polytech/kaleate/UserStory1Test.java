@@ -25,6 +25,7 @@ import static org.junit.Assert.*;
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "fr.unice.polytech.kaleate")
 public class UserStory1Test {
 
+    static ListRestaurants restaurants;
     static Utilisateur utilisateur;
     static ListMenus menus;
     static ListMenus menusDansCreneau;
@@ -65,6 +66,13 @@ public class UserStory1Test {
         return menus;
     }
 
+    public static ListRestaurants getRestaurants(){
+        ListRestaurants restaurants = new ListRestaurants();
+        restaurants.add(new Restaurant("Burger King", new ListMenus(getMenus())));
+        restaurants.add(new Restaurant("Not Burger King", new ListMenus(getMenus())));
+        return restaurants;
+    }
+
 
     @Given("je suis un utilisateur")
     public void je_suis_un_utilisateur() {
@@ -74,10 +82,10 @@ public class UserStory1Test {
 
     @Given("je suis un utilisateur qui souhaite commander")
     public void je_suis_un_utilisateur_qui_souhaite_commander() {
-        menus = new ListMenus(getMenus());
+        restaurants = getRestaurants();
 
         //TODO delete this
-        System.out.println(menus);
+        System.out.println(restaurants);
     }
 
     @Then("je precise le creneau de ma commande pour avoir la liste des menus disponibles")
@@ -89,19 +97,27 @@ public class UserStory1Test {
         calendar.add(Calendar.HOUR_OF_DAY, 2);
 
         creneau = new Creneau(debut, fin);
-        menusDansCreneau = menus.getMenusDansCreneau(creneau);
+        menusDansCreneau = restaurants.getMenusDansCreneau(creneau);
 
         //TODO delete this
         System.out.println(menusDansCreneau);
 
-        assertTrue(menusDansCreneau.size() == 3);
-        assertTrue(menusDansCreneau.contains(menus.get(0)));
-        assertFalse(menusDansCreneau.contains(menus.get(3)));
+        assertTrue(menusDansCreneau.size() == 6);
+        assertTrue(menusDansCreneau.contains(restaurants.getRestaurantByName("Burger King").getMenus().get(0)));
+        assertFalse(menusDansCreneau.contains(restaurants.getRestaurantByName("Burger King").getMenus().get(3)));
     }
 
     @Given("je suis un utilisateur qui souhaite commander dans la liste des menus disponibles pour le creneau")
     public void je_suis_un_utilisateur_qui_souhaite_commander_dans_la_liste_des_menus_disponibles_pour_le_creneau() {
         //TODO jsp quoi y mettre
+        menus = restaurants.getMenusDansCreneau(creneau);
+    }
+
+    @Given("je suis un utilisateur qui souhaite commander dans la liste des menus du restaurant {string}")
+    public void je_suis_un_utilisateur_qui_souhaite_commander_dans_la_liste_des_menus_du_restaurant(String string) {
+        //TODO
+        menus = restaurants.getRestaurantByName(string).getMenus();
+
     }
 
     @Then("je selectionne le menu {string}")
