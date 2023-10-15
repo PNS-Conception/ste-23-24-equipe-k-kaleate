@@ -1,9 +1,7 @@
 package fr.unice.polytech.kaleate;
 
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.fr.Alors;
-import io.cucumber.java.fr.Quand;
+import io.cucumber.java.fr.Etantdonnéque;
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;
@@ -74,21 +72,20 @@ public class UserStory1Test {
     }
 
 
-    @Given("je suis un utilisateur")
+    @Etantdonnéque("je suis un utilisateur")
     public void je_suis_un_utilisateur() {
         // Write code here that turns the phrase above into concrete actions
         utilisateur = new Utilisateur("nom", "prenom");
+        assertNotNull(utilisateur);
     }
 
-    @Given("je suis un utilisateur qui souhaite commander")
+    @Etantdonnéque("je suis un utilisateur qui souhaite commander")
     public void je_suis_un_utilisateur_qui_souhaite_commander() {
         restaurants = getRestaurants();
-
-        //TODO delete this
-        System.out.println(restaurants);
+        assertNotEquals(restaurants.size(),0);
     }
 
-    @Then("je precise le creneau de ma commande pour avoir la liste des menus disponibles")
+    @Alors("je precise le creneau de ma commande pour avoir la liste des menus disponibles")
     public void je_precise_le_creneau_de_ma_commande_pour_avoir_la_liste_des_menus_disponibles() {
         Date debut = new Date();
         Date fin = new Date();
@@ -104,37 +101,33 @@ public class UserStory1Test {
         creneau = new Creneau(debut, fin);
         menusDansCreneau = restaurants.getMenusDansCreneau(creneau);
 
-        //TODO delete this
-        System.out.println(menusDansCreneau);
-
         assertTrue(menusDansCreneau.size() == 6);
         assertTrue(menusDansCreneau.contains(restaurants.getRestaurantByName("Burger King").getMenus().get(0)));
+        assertTrue(menusDansCreneau.contains(restaurants.getRestaurantByName("Not Burger King").getMenus().get(0)));
+        assertTrue(menusDansCreneau.contains(restaurants.getRestaurantByName("Burger King").getMenus().get(1)));
+        assertTrue(menusDansCreneau.contains(restaurants.getRestaurantByName("Not Burger King").getMenus().get(1)));
+        assertTrue(menusDansCreneau.contains(restaurants.getRestaurantByName("Burger King").getMenus().get(2)));
+        assertTrue(menusDansCreneau.contains(restaurants.getRestaurantByName("Not Burger King").getMenus().get(2)));
         assertFalse(menusDansCreneau.contains(restaurants.getRestaurantByName("Burger King").getMenus().get(3)));
     }
 
-    @Given("je suis un utilisateur qui souhaite commander dans la liste des menus disponibles pour le creneau")
+    @Etantdonnéque("je suis un utilisateur qui souhaite commander dans la liste des menus disponibles pour le creneau")
     public void je_suis_un_utilisateur_qui_souhaite_commander_dans_la_liste_des_menus_disponibles_pour_le_creneau() {
-        //TODO jsp quoi y mettre
         menus = restaurants.getMenusDansCreneau(creneau);
+        assertNotEquals(menus.size(),0);
     }
 
-    @Given("je suis un utilisateur qui souhaite commander dans la liste des menus du restaurant {string}")
+    @Etantdonnéque("je suis un utilisateur qui souhaite commander dans la liste des menus du restaurant {string}")
     public void je_suis_un_utilisateur_qui_souhaite_commander_dans_la_liste_des_menus_du_restaurant(String string) {
-        //TODO
         menus = restaurants.getRestaurantByName(string).getMenus();
-
-        //TODO delete this
-        System.out.println(menus);
+        assertNotEquals(menus.size(),0);
     }
 
-    @Then("je selectionne le menu {string}")
+    @Alors("je selectionne le menu {string}")
     public void je_selectionne_le_menu(String string) {
         Menu menu = menusDansCreneau.getMenuParNom(string);
-
-        //TODO delete this
-        System.out.println(menu);
-
         Menu m = menus.get(0);
         assertEquals(menu, menusDansCreneau.getMenuParNom(string));
+        assertEquals(m,menu);
     }
 }
