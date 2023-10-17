@@ -15,8 +15,7 @@ import java.util.*;
 
 import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 @Suite
 @IncludeEngines("cucumber")
@@ -26,8 +25,8 @@ import static org.junit.Assert.assertNotNull;
 
 public class UserStory2Test {
 
-    Restaurant restaurant;
-    Commande commandeSelectionnee;
+   static Restaurant restaurant = new Restaurant();
+    static Commande commandeSelectionnee;
 
     public static List<Menu> getMenus(){
         List<Menu> menus = new ArrayList<Menu>();
@@ -92,6 +91,7 @@ public class UserStory2Test {
     }
     @Quand("je sélectionne la première commande")
     public void je_sélectionne_la_première_commande() {
+
         commandeSelectionnee = restaurant.getListCommande().get(0);
 
 
@@ -112,7 +112,8 @@ public class UserStory2Test {
     @Alors("Le restaurant valide la prise en charge de la commande")
     public void le_restaurant_valide_la_prise_en_charge_de_la_commande() {
         // Write code here that turns the phrase above into concrete actions
-
+        restaurant.validerCommande(commandeSelectionnee);
+        assertEquals(commandeSelectionnee.getStatut(),StatutCommande.VALIDEE);
     }
 
     @Etantdonnéque("La commande doit être commmencée à être préparée pour être livrée à temps")

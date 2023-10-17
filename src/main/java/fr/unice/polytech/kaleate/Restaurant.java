@@ -57,6 +57,10 @@ public class Restaurant {
     }
 
     public boolean validerCommande(Commande commande){
+        if(commande.getStatut()!= StatutCommande.EN_CREATION){
+            return false;
+        }
+        commande.setStatut(StatutCommande.VALIDEE);
         return true;
     }
 }
