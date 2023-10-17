@@ -129,5 +129,6 @@ public class UserStory1Test {
         Menu m = new ListMenus(menus).get(0);
         assertEquals(menu, (Menu) new ListMenus(menusDansCreneau).getParNom(string));
         assertEquals(m,menu);
+        Commande commande = new Commande(utilisateur, menu);
     }
 }

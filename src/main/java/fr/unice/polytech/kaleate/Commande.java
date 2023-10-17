@@ -5,9 +5,17 @@ import java.util.Set;
 
 public class Commande {
     private Set<Menu> menus;
+    private Utilisateur utilisateur;
 
-    public Commande(Set<Menu> menus){
+    public Commande(Utilisateur utilisateur, Set<Menu> menus){
         this.menus = menus;
+        this.utilisateur = utilisateur;
+    }
+
+    public Commande(Utilisateur utilisateur, Menu menu){
+        this.menus = new HashSet<>();
+        this.menus.add(menu);
+        this.utilisateur = utilisateur;
     }
 
     public Commande(){
