@@ -55,4 +55,8 @@ public class Restaurant {
     public void setListCommande(ListCommande listCommande) {
         this.listCommande = listCommande;
     }
+
+    public boolean validerCommande(Commande commande){
+        return true;
+    }
 }

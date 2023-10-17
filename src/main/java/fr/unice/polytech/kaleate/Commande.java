@@ -7,6 +7,8 @@ public class Commande {
     private Set<Menu> menus;
     private Utilisateur utilisateur;
 
+    private StatutCommande statut = StatutCommande.EN_CREATION;
+
     private int id;
 
     private static int nextID = 1;
@@ -62,5 +64,13 @@ public class Commande {
 
     public Utilisateur getUtilisateur() {
         return utilisateur;
+    }
+
+    public StatutCommande getStatut() {
+        return statut;
+    }
+
+    public void setStatut(StatutCommande statut) {
+        this.statut = statut;
     }
 }
