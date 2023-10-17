@@ -15,6 +15,7 @@ import java.util.*;
 
 import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 @Suite
@@ -26,6 +27,7 @@ import static org.junit.Assert.assertNotNull;
 public class UserStory2Test {
 
     Restaurant restaurant;
+    Commande commandeSelectionnee;
 
     public static List<Menu> getMenus(){
         List<Menu> menus = new ArrayList<Menu>();
@@ -71,36 +73,40 @@ public class UserStory2Test {
     @Etantdonnéque("Je suis un restaurateur qui travaille à {string}")
     public void je_suis_un_restaurateur_qui_travaille_à(String string) {
          restaurant = new Restaurant(string);
-
+         restaurant.setListCommande(getCommandes());
         assertNotNull(restaurant);
 
     }
 
     @Alors("Je demande à voir la liste des commandes passées dans mon restaurant")
     public void je_demande_à_voir_la_liste_des_commandes_passées_dans_mon_restaurant() {
-        // Write code here that turns the phrase above into concrete actions
-
+        assertNotEquals(restaurant.getListCommande().size(),0);
+        assertNotNull(restaurant.getListCommande().get(0).getPrice());
+        assertNotNull(restaurant.getListCommande().get(0).getMenus());
     }
 
     @Etantdonnéque("J'ai la liste des commandes passées dans mon restaurant")
     public void j_ai_la_liste_des_commandes_passées_dans_mon_restaurant() {
-        // Write code here that turns the phrase above into concrete actions
+        // je ne sais pas quoi coder la
 
     }
     @Quand("je sélectionne la première commande")
     public void je_sélectionne_la_première_commande() {
-        // Write code here that turns the phrase above into concrete actions
+        commandeSelectionnee = restaurant.getListCommande().get(0);
+
 
     }
     @Alors("je vois toutes les informations de la commande")
     public void je_vois_toutes_les_informations_de_la_commande() {
-        // Write code here that turns the phrase above into concrete actions
-
+        assertNotNull(commandeSelectionnee.getPrice());
+        assertNotNull(commandeSelectionnee.getMenus());
+        assertNotNull(commandeSelectionnee.getUtilisateur());
+        assertNotNull(commandeSelectionnee.getId());
     }
 
     @Etantdonnéque("Le restaurant peut préparer la commande")
     public void le_restaurant_peut_préparer_la_commande() {
-        // Write code here that turns the phrase above into concrete actions
+        //TODO : intégrer les capacités aux restaurant pour vérifier ca.
 
     }
     @Alors("Le restaurant valide la prise en charge de la commande")

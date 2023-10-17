@@ -15,4 +15,8 @@ public class ListCommande extends ArrayList<Commande> {
     public Commande getCommandeById(int id){
         return this.stream().filter(commande -> commande.getId()==id).findFirst().orElse(null);
     }
+    public ListCommande getCommandeByCreneau(Creneau creneau){
+        //TODO : A tester
+        return this.stream().filter(commande -> commande.getMenus().stream().filter(menu -> menu.getCreneau().equals(creneau)).isParallel();
+    }
 }

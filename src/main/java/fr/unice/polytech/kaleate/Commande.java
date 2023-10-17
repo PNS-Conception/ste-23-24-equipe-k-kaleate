@@ -59,4 +59,8 @@ public class Commande {
     public void setId(int id) {
         this.id = id;
     }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
 }

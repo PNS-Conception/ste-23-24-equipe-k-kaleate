@@ -47,4 +47,12 @@ public class Restaurant {
         return "\n" + name +
                 "\n" + menus;
     }
+
+    public ListCommande getListCommande() {
+        return listCommande;
+    }
+
+    public void setListCommande(ListCommande listCommande) {
+        this.listCommande = listCommande;
+    }
 }
