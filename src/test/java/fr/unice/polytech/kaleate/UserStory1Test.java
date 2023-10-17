@@ -25,8 +25,8 @@ public class UserStory1Test {
 
     static ListRestaurants restaurants;
     static Utilisateur utilisateur;
-    static ListMenus menus;
-    static ListMenus menusDansCreneau;
+    static List menus;
+    static List menusDansCreneau;
     static Creneau creneau;
 
     //Generateur de menus
@@ -102,32 +102,32 @@ public class UserStory1Test {
         menusDansCreneau = restaurants.getMenusDansCreneau(creneau);
 
         assertTrue(menusDansCreneau.size() == 6);
-        assertTrue(menusDansCreneau.contains(restaurants.getRestaurantByName("Burger King").getMenus().get(0)));
-        assertTrue(menusDansCreneau.contains(restaurants.getRestaurantByName("Not Burger King").getMenus().get(0)));
-        assertTrue(menusDansCreneau.contains(restaurants.getRestaurantByName("Burger King").getMenus().get(1)));
-        assertTrue(menusDansCreneau.contains(restaurants.getRestaurantByName("Not Burger King").getMenus().get(1)));
-        assertTrue(menusDansCreneau.contains(restaurants.getRestaurantByName("Burger King").getMenus().get(2)));
-        assertTrue(menusDansCreneau.contains(restaurants.getRestaurantByName("Not Burger King").getMenus().get(2)));
-        assertFalse(menusDansCreneau.contains(restaurants.getRestaurantByName("Burger King").getMenus().get(3)));
+        assertTrue(menusDansCreneau.contains(((Restaurant) (restaurants.getParNom("Burger King"))).getMenus().get(0)));
+        assertTrue(menusDansCreneau.contains(((Restaurant) (restaurants.getParNom("Burger King"))).getMenus().get(0)));
+        assertTrue(menusDansCreneau.contains(((Restaurant) (restaurants.getParNom("Burger King"))).getMenus().get(1)));
+        assertTrue(menusDansCreneau.contains(((Restaurant) (restaurants.getParNom("Burger King"))).getMenus().get(1)));
+        assertTrue(menusDansCreneau.contains(((Restaurant) (restaurants.getParNom("Burger King"))).getMenus().get(2)));
+        assertTrue(menusDansCreneau.contains(((Restaurant) (restaurants.getParNom("Burger King"))).getMenus().get(2)));
+        assertFalse(menusDansCreneau.contains(((Restaurant) (restaurants.getParNom("Burger King"))).getMenus().get(3)));
     }
 
     @Etantdonnéque("je suis un utilisateur qui souhaite commander dans la liste des menus disponibles pour le creneau")
     public void je_suis_un_utilisateur_qui_souhaite_commander_dans_la_liste_des_menus_disponibles_pour_le_creneau() {
-        menus = restaurants.getMenusDansCreneau(creneau);
+        menus = new ListRestaurants(restaurants).getMenusDansCreneau(creneau);
         assertNotEquals(menus.size(),0);
     }
 
     @Etantdonnéque("je suis un utilisateur qui souhaite commander dans la liste des menus du restaurant {string}")
     public void je_suis_un_utilisateur_qui_souhaite_commander_dans_la_liste_des_menus_du_restaurant(String string) {
-        menus = restaurants.getRestaurantByName(string).getMenus();
+        menus = ((Restaurant) (restaurants.getParNom(string))).getMenus();
         assertNotEquals(menus.size(),0);
     }
 
     @Alors("je selectionne le menu {string}")
     public void je_selectionne_le_menu(String string) {
-        Menu menu = menusDansCreneau.getMenuParNom(string);
-        Menu m = menus.get(0);
-        assertEquals(menu, menusDansCreneau.getMenuParNom(string));
+        Menu menu = (Menu) new ListMenus(menus).getParNom(string);
+        Menu m = new ListMenus(menus).get(0);
+        assertEquals(menu, (Menu) new ListMenus(menusDansCreneau).getParNom(string));
         assertEquals(m,menu);
     }
 }
