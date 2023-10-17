@@ -1,8 +1,10 @@
 package fr.unice.polytech.kaleate;
 
 public class Restaurant {
-    ListMenus menus;
-    String name;
+    private ListMenus menus;
+    private String name;
+
+    private ListCommande listCommande;
 
     public Restaurant(){
         this.menus = new ListMenus();

@@ -11,8 +11,11 @@ import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;
 import org.junit.platform.suite.api.Suite;
 
+import java.util.*;
+
 import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
+import static org.junit.Assert.assertNotNull;
 
 @Suite
 @IncludeEngines("cucumber")
@@ -22,18 +25,59 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 
 public class UserStory2Test {
 
+    Restaurant restaurant;
+
+    public static List<Menu> getMenus(){
+        List<Menu> menus = new ArrayList<Menu>();
+
+        // date qui fonctionnent
+        Date db = new Date();
+        Date df = new Date();
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(df);
+        c.add(Calendar.DATE, 1);
+        df = c.getTime();
+
+        menus.add(new Menu(10, "Burger cheese", new Creneau(db, df)));
+        menus.add(new Menu(12, "Burger double cheese", new Creneau(db, df)));
+        menus.add(new Menu(8, "Hamburger classic", new Creneau(db, df)));
+
+
+        // date qui ne fonctionnent pas
+        Date dnb = new Date();
+        Date dnf = new Date();
+
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(dnf);
+        c2.add(Calendar.DATE, 2);
+        dnb = c2.getTime();
+        c2.add(Calendar.DATE, 1);
+        dnf = c2.getTime();
+
+        menus.add(new Menu(10, "NOT Burger cheese", new Creneau(dnb, dnf)));
+        menus.add(new Menu(12, "NOT Burger double cheese", new Creneau(dnb, dnf)));
+        menus.add(new Menu(8, "NOT Hamburger classic", new Creneau(dnb, dnf)));
+        return menus;
+    }
+    public static ListCommande getCommandes(){
+        Utilisateur utilisateur = new Utilisateur("Nom","Prenom");
+        ListCommande listCommande = new ListCommande();
+        for(Menu m : getMenus()){
+            listCommande.add(new Commande(utilisateur,m));
+        }
+        return listCommande;
+    }
     @Etantdonnéque("Je suis un restaurateur qui travaille à {string}")
     public void je_suis_un_restaurateur_qui_travaille_à(String string) {
-        // Write code here that turns the phrase above into concrete actions
+         restaurant = new Restaurant(string);
+
+        assertNotNull(restaurant);
 
     }
-    @Quand("J'ecris {string} dans le terminal")
-    public void j_ecris_dans_le_terminal(String string) {
-        // Write code here that turns the phrase above into concrete actions
 
-    }
-    @Alors("Je vois la liste des commandes passées dans mon restaurant")
-    public void je_vois_la_liste_des_commandes_passées_dans_mon_restaurant() {
+    @Alors("Je demande à voir la liste des commandes passées dans mon restaurant")
+    public void je_demande_à_voir_la_liste_des_commandes_passées_dans_mon_restaurant() {
         // Write code here that turns the phrase above into concrete actions
 
     }
@@ -53,13 +97,25 @@ public class UserStory2Test {
         // Write code here that turns the phrase above into concrete actions
 
     }
+
+    @Etantdonnéque("Le restaurant peut préparer la commande")
+    public void le_restaurant_peut_préparer_la_commande() {
+        // Write code here that turns the phrase above into concrete actions
+
+    }
+    @Alors("Le restaurant valide la prise en charge de la commande")
+    public void le_restaurant_valide_la_prise_en_charge_de_la_commande() {
+        // Write code here that turns the phrase above into concrete actions
+
+    }
+
     @Etantdonnéque("La commande doit être commmencée à être préparée pour être livrée à temps")
     public void la_commande_doit_être_commmencée_à_être_préparée_pour_être_livrée_à_temps() {
         // Write code here that turns the phrase above into concrete actions
 
     }
-    @Quand("J'ecris {string} et {string} qui correspond au numéro de la commande")
-    public void j_ecris_et_qui_correspond_au_numéro_de_la_commande(String string, String string2) {
+    @Quand("Je sélectionne la commande pour la mettre en préparation")
+    public void je_sélectionne_la_commande_pour_la_mettre_en_préparation() {
         // Write code here that turns the phrase above into concrete actions
 
     }
