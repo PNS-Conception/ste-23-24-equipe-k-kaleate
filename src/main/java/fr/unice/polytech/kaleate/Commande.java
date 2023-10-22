@@ -1,6 +1,7 @@
 package fr.unice.polytech.kaleate;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Commande {
@@ -44,5 +45,17 @@ public class Commande {
             price += menu.getPrice();
         }
         return price;
+    }
+
+    public Utilisateur getUtilisateur(){
+        return this.utilisateur;
+    }
+
+    public List<Menu> getListMenus() {
+        return this.menus.stream().toList();
+    }
+
+    public boolean contains(Menu menu) {
+        return this.menus.contains(menu);
     }
 }
