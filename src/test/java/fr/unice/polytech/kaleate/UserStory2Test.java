@@ -63,9 +63,23 @@ public class UserStory2Test {
     }
     public static ListCommande getCommandes(){
         Utilisateur utilisateur = new Utilisateur("Nom","Prenom");
+
+        Date debut = new Date();
+        Date fin = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(debut);
+        calendar.set(Calendar.HOUR, 12);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        debut = calendar.getTime();
+        calendar.set(Calendar.MINUTE, 15);
+        fin = calendar.getTime();
+
+       Creneau creneau = new Creneau(debut, fin);
+
         ListCommande listCommande = new ListCommande();
         for(Menu m : getMenus()){
-            listCommande.add(new Commande(utilisateur,m));
+            listCommande.add(new Commande(utilisateur,m,creneau));
         }
         return listCommande;
     }
@@ -86,7 +100,7 @@ public class UserStory2Test {
 
     @Etantdonnéque("J'ai la liste des commandes passées dans mon restaurant")
     public void j_ai_la_liste_des_commandes_passées_dans_mon_restaurant() {
-        // je ne sais pas quoi coder la
+
 
     }
     @Quand("je sélectionne la première commande")
@@ -111,25 +125,41 @@ public class UserStory2Test {
     }
     @Alors("Le restaurant valide la prise en charge de la commande")
     public void le_restaurant_valide_la_prise_en_charge_de_la_commande() {
-        // Write code here that turns the phrase above into concrete actions
-        restaurant.validerCommande(commandeSelectionnee);
+
+        assertTrue(restaurant.validerCommande(commandeSelectionnee));
         assertEquals(commandeSelectionnee.getStatut(),StatutCommande.VALIDEE);
     }
 
     @Etantdonnéque("La commande doit être commmencée à être préparée pour être livrée à temps")
     public void la_commande_doit_être_commmencée_à_être_préparée_pour_être_livrée_à_temps() {
-        // Write code here that turns the phrase above into concrete actions
-
+        commandeSelectionnee.getMenus().stream().toList().get(0).setTempsPreparation(10);
+        Date dateTOT = new Date();
+        Date dateTARD = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateTOT);
+        calendar.set(Calendar.HOUR, 11);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        dateTOT = calendar.getTime();
+        //trop tot pour commencer à préparer
+        assertFalse(restaurant.doitEtrePreparee(commandeSelectionnee,dateTOT));
+        calendar.set(Calendar.MINUTE, 60);
+        dateTARD = calendar.getTime();
+        //trop tard/à l'heure pour commencer à préparer
+        assertTrue(restaurant.doitEtrePreparee(commandeSelectionnee,dateTARD));
     }
     @Quand("Je sélectionne la commande pour la mettre en préparation")
     public void je_sélectionne_la_commande_pour_la_mettre_en_préparation() {
-        // Write code here that turns the phrase above into concrete actions
-
+        assertTrue(restaurant.preparerCommande(commandeSelectionnee));
+        assertFalse(restaurant.preparerCommande(getCommandes().get(2)));
     }
     @Alors("La commande ne peut plus être modifié par le client")
     public void la_commande_ne_peut_plus_être_modifié_par_le_client() {
-        // Write code here that turns the phrase above into concrete actions
+        Date db = new Date();
+        Date df = new Date();
 
+        assertFalse(commandeSelectionnee.addMenu(new Menu(12, "NOT Burger double cheese", new Creneau(db, df))));
+        assertFalse(commandeSelectionnee.removeMenu(commandeSelectionnee.getMenus().stream().toList().get(0)));
     }
 
 }

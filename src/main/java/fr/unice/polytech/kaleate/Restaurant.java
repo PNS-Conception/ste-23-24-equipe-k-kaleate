@@ -1,9 +1,10 @@
 package fr.unice.polytech.kaleate;
 
+import java.util.Date;
+
 public class Restaurant {
     private ListMenus menus;
     private String name;
-
     private ListCommande listCommande;
 
     public Restaurant(){
@@ -62,5 +63,21 @@ public class Restaurant {
         }
         commande.setStatut(StatutCommande.VALIDEE);
         return true;
+    }
+    public boolean doitEtrePreparee(Commande commande, Date dateActuel){
+        //date du début de la livraison - date
+        long datePreparationMinimum= commande.getCreneauLivraison().getDebut().getTime();
+        if(dateActuel.getTime()>=datePreparationMinimum )
+            return true;
+        return false;
+    }
+
+    public boolean preparerCommande(Commande commande){
+        if(commande.getStatut()== StatutCommande.VALIDEE){
+            commande.setStatut(StatutCommande.EN_PREPARATION);
+            return true;
+        }
+
+        return false;
     }
 }

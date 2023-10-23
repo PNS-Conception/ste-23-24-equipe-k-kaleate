@@ -1,5 +1,6 @@
 package fr.unice.polytech.kaleate;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +14,8 @@ public class Commande {
 
     private static int nextID = 1;
 
+    private Creneau creneauLivraison;
+
     public Commande(Utilisateur utilisateur, Set<Menu> menus){
         this.menus = menus;
         this.utilisateur = utilisateur;
@@ -25,7 +28,12 @@ public class Commande {
         this.menus.add(menu);
         this.utilisateur = utilisateur;
     }
-
+    public Commande(Utilisateur utilisateur, Menu menu,Creneau creneauLivraison){
+        this.menus = new HashSet<>();
+        this.menus.add(menu);
+        this.utilisateur = utilisateur;
+        this.creneauLivraison = creneauLivraison;
+    }
     public Commande(){
         this.menus = new HashSet<Menu>();
     }
@@ -38,20 +46,37 @@ public class Commande {
         this.menus = menus;
     }
 
-    public void addMenu(Menu menu){
-        this.menus.add(menu);
+    public boolean addMenu(Menu menu){
+        if(modifiable())
+            return this.menus.add(menu);
+        return false;
     }
 
-    public void removeMenu(Menu menu){
-        this.menus.remove(menu);
+    public boolean removeMenu(Menu menu){
+        if(modifiable())
+           return this.menus.remove(menu);
+        return false;
     }
-
+    public boolean modifiable(){
+        if(statut == StatutCommande.EN_CREATION ||statut == StatutCommande.VALIDEE ){
+            return true;
+        }else{
+            return false;
+        }
+    }
     public float getPrice(){
         float price = 0;
         for(Menu menu : this.menus){
             price += menu.getPrice();
         }
         return price;
+    }
+    public float getTempsPreparation(){
+        float tps = 0;
+        for(Menu menu : this.menus){
+            tps += menu.getTempsPreparation();
+        }
+        return tps;
     }
 
     public int getId() {
@@ -72,5 +97,13 @@ public class Commande {
 
     public void setStatut(StatutCommande statut) {
         this.statut = statut;
+    }
+
+    public Creneau getCreneauLivraison() {
+        return creneauLivraison;
+    }
+
+    public void setCreneauLivraison(Creneau creneauLivraison) {
+        this.creneauLivraison = creneauLivraison;
     }
 }
