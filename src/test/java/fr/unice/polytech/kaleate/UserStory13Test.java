@@ -9,10 +9,7 @@ import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;
 import org.junit.platform.suite.api.Suite;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
@@ -28,6 +25,7 @@ public class UserStory13Test {
     static ListCommande commandesPretes;
     static Restaurant restaurant1;
     static Restaurant restaurant2;
+    static Commande commandeChoisie;
 
 
     //Generateur de menus
@@ -128,6 +126,9 @@ public class UserStory13Test {
 
     @Alors("je selectionne la commande numero {int}")
     public void je_selectionne_la_commande_numero(Integer int1) {
-        // Write code here that turns the phrase above into concrete actions
+        System.out.println(commandesPretes.size());
+        commandeChoisie = commandesPretes.get(int1 - 1);
+        List<Menu> com = commandeChoisie.getMenus().stream().toList();
+        Assertions.assertEquals("Burger double cheese", com.get(0).getName());
     }
 }
