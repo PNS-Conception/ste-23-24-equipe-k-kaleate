@@ -126,7 +126,6 @@ public class UserStory13Test {
 
     @Alors("je selectionne la commande numero {int}")
     public void je_selectionne_la_commande_numero(Integer int1) {
-        System.out.println(commandesPretes.size());
         commandeChoisie = commandesPretes.get(int1 - 1);
         List<Menu> com = commandeChoisie.getMenus().stream().toList();
         Assertions.assertEquals("Burger double cheese", com.get(0).getName());
