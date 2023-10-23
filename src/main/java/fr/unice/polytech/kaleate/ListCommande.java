@@ -20,4 +20,11 @@ public class ListCommande extends ArrayList<Commande> {
         //TODO : A tester
         return this.stream().filter(commande -> commande.getMenus().stream().filter(menu -> menu.getCreneau().equals(creneau)).isParallel()).toList();
     }
+
+    @Override
+    public String toString() {
+        return "ListCommande{" +
+                "modCount=" + modCount +
+                '}';
+    }
 }

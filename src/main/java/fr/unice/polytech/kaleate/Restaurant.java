@@ -1,6 +1,8 @@
 package fr.unice.polytech.kaleate;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Restaurant {
     private ListMenus menus;
@@ -79,5 +81,15 @@ public class Restaurant {
         }
 
         return false;
+    }
+
+    public ListCommande getCommandePrete() {
+        ListCommande comPrete = new ListCommande();
+        for (Commande c : listCommande) {
+            if (c.getStatut().equals(StatutCommande.PRETE)) {
+                comPrete.add(c);
+            }
+        }
+        return comPrete;
     }
 }
