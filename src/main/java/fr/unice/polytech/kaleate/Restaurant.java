@@ -80,4 +80,14 @@ public class Restaurant {
 
         return false;
     }
+
+    public ListCommande getCommandePrete() {
+        ListCommande comPrete = new ListCommande();
+        for (Commande c : listCommande) {
+            if (c.getStatut().equals(StatutCommande.PRETE)) {
+                comPrete.add(c);
+            }
+        }
+        return comPrete;
+    }
 }
