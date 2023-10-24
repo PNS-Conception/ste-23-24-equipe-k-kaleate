@@ -8,12 +8,19 @@ import java.util.List;
 public class Menu {
     private float price;
     private String name;
-    public Creneau creneau;
+    private Creneau creneau;
 
+    private int tempsPreparation; // en minutes
     public Menu(float price, String name, Creneau creneau){
         this.price = price;
         this.name = name;
         this.creneau = creneau;
+    }
+    public Menu(float price, String name, Creneau creneau,int tempsPreparation){
+        this.price = price;
+        this.name = name;
+        this.creneau = creneau;
+        this.tempsPreparation = tempsPreparation;
     }
 
     public float getPrice(){
@@ -67,4 +74,11 @@ public class Menu {
         return "Menu : " + this.getName() + " / " + this.getPrice() + "€" + " / " + this.getCreneau().getDebut() + " - " + this.getCreneau().getFin();
     }
 
+    public int getTempsPreparation() {
+        return tempsPreparation;
+    }
+
+    public void setTempsPreparation(int tempsPreparation) {
+        this.tempsPreparation = tempsPreparation;
+    }
 }
