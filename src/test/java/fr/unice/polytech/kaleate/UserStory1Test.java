@@ -124,7 +124,7 @@ public class UserStory1Test {
     @Etantdonnéque("je suis un utilisateur qui souhaite commander dans la liste des menus du restaurant {string}")
     public void je_suis_un_utilisateur_qui_souhaite_commander_dans_la_liste_des_menus_du_restaurant(String string) {
 
-        restau = restaurants.getRestaurantByName(string);
+        restau = restaurants.getParNom(string);
         menus = restaurants.getParNom(string).getMenus();
         assertNotEquals(menus.size(),0);
     }
