@@ -17,8 +17,7 @@ public class ListMenus extends ArrayList<Menu> implements Listeur {
         super(listMenus);
     }
 
-    @Override
-    public Listable getParNom(String s) {
+    public Menu getParNom(String s) {
         return this.stream().filter(menu -> menu.estMenuParNom(s)).findFirst().orElse(null);
     }
 

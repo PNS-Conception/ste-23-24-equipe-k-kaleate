@@ -28,8 +28,7 @@ public class ListRestaurants extends ArrayList<Restaurant> implements Listeur{
         return listMenu;
     }
 
-    @Override
-    public Listable getParNom(String name){
+    public Restaurant getParNom(String name){
         return this.stream().filter(restaurant -> restaurant.getName().equals(name)).findFirst().orElse(null);
     }
 }

@@ -1,6 +1,6 @@
 package fr.unice.polytech.kaleate;
 
-public class Restaurant implements Listable{
+public class Restaurant {
     ListMenus menus;
     String name;
 

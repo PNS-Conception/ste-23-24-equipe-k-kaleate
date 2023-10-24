@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class Menu implements Listable{
+public class Menu {
     private float price;
     private String name;
     public Creneau creneau;
