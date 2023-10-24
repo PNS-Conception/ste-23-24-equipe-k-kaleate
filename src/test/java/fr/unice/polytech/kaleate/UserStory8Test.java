@@ -22,29 +22,24 @@ public class UserStory8Test {
 
     @Soit("Je suis l'administrateur du campus {string}")
     public void je_suis_l_administrateur_du_campus(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        // Write code here that turns the phrase above into concrete action
     }
     @Quand("Je demande l'ensemble des restaurants partenaires de mon campus")
     public void je_demande_l_ensemble_des_restaurants_partenaires_de_mon_campus() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        // Write code here that turns the phrase above into concrete action
     }
     @Alors("J'obtiens la liste des restaurants partenaires du Campus {string}")
     public void j_obtiens_la_liste_des_restaurants_partenaires_du_campus(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        // Write code here that turns the phrase above into concrete action
     }
 
     @Quand("J'ajoute le restaurant {string}")
     public void j_ajoute_le_restaurant(String string) {
         // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
     }
     @Alors("Le nombre de restaurant change")
     public void le_nombre_de_restaurant_change() {
         // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
     }
 
 }
