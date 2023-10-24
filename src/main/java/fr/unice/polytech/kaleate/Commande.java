@@ -2,6 +2,7 @@ package fr.unice.polytech.kaleate;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Commande {
@@ -108,5 +109,13 @@ public class Commande {
 
     public void setCreneauLivraison(Creneau creneauLivraison) {
         this.creneauLivraison = creneauLivraison;
+    }
+
+    public List<Menu> getListMenus() {
+        return this.menus.stream().toList();
+    }
+
+    public boolean contains(Menu menu) {
+        return this.menus.contains(menu);
     }
 }
