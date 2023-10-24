@@ -10,8 +10,10 @@ Fonctionnalité: Selectionner un menu pour commander
 
   Scénario:
     Etant donné que je suis un utilisateur qui souhaite commander dans la liste des menus du restaurant "Burger King"
-    Alors je selectionne le menu "Burger cheese"
+    Quand je selectionne le menu "Burger cheese"
+    Alors je crée une commande avec le menu "Burger cheese"
 
   Scénario: Prendre le menu "Burger cheese"
     Etant donné que je suis un utilisateur qui souhaite commander dans la liste des menus disponibles pour le creneau
-    Alors je selectionne le menu "Burger cheese"
+    Quand je selectionne le menu "Burger cheese"
+    Alors je crée une commande avec le menu "Burger cheese"

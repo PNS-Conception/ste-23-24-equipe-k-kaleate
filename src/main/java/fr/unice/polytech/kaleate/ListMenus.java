@@ -2,8 +2,9 @@ package fr.unice.polytech.kaleate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class ListMenus extends ArrayList<Menu> {
+public class ListMenus extends ArrayList<Menu> implements Listeur {
 
     public ListMenus(){
         super();
@@ -16,14 +17,21 @@ public class ListMenus extends ArrayList<Menu> {
         super(listMenus);
     }
 
-    public ListMenus getMenusDansCreneau(Creneau creneau){
-        ListMenus listMenu = new ListMenus(this);
-        listMenu = new ListMenus(listMenu.stream().filter(menu -> !menu.estComprisDansCreneau(creneau)).toList());
-        return listMenu;
+    public Menu getParNom(String s) {
+        return this.stream().filter(menu -> menu.estMenuParNom(s)).findFirst().orElse(null);
     }
 
-    public Menu getMenuParNom(String string) {
-        return this.stream().filter(menu -> menu.estMenuParNom(string)).findFirst().orElse(null);
+    @Override
+    public List<Menu> getMenusDansCreneau(Creneau creneau){
+
+        return this.stream()
+                .filter(menu -> menu.estComprisDansCreneau(creneau))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Menu> getAllMenus() {
+        return null;
     }
 
     @Override
