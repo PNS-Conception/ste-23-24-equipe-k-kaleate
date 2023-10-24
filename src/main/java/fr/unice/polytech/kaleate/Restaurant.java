@@ -1,6 +1,7 @@
 package fr.unice.polytech.kaleate;
 
 import java.util.Date;
+import java.util.List;
 
 public class Restaurant {
     private ListMenus menus;
@@ -49,8 +50,8 @@ public class Restaurant {
                 "\n" + menus;
     }
 
-    public ListCommande getListCommande() {
-        return listCommande;
+    public List<Commande> getListCommande() {
+        return  listCommande.stream().filter(commande -> commande.getRestaurant().equals(this)).toList();
     }
 
     public void setListCommande(ListCommande listCommande) {

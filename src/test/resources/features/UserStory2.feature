@@ -1,8 +1,10 @@
 #language: fr
 Fonctionnalité: Un restaurateur valide une commande afin de commencer la préparation
 
+  Contexte:
+    Soit Je suis un restaurateur qui travaille à "Burger King"
+
   Scénario: Afficher la liste des commandes
-    Etant donné que Je suis un restaurateur qui travaille à "Burger King"
     Alors Je demande à voir la liste des commandes passées dans mon restaurant
 
   Scénario: Sélectionner une commande

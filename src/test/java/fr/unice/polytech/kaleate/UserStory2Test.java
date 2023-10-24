@@ -28,6 +28,8 @@ public class UserStory2Test {
    static Restaurant restaurant = new Restaurant();
     static Commande commandeSelectionnee;
 
+    static ListCommande listCommande = getCommandes();
+
     public static List<Menu> getMenus(){
         List<Menu> menus = new ArrayList<Menu>();
 
@@ -85,13 +87,17 @@ public class UserStory2Test {
         for(Menu m : getMenus()){
             listCommande.add(new Commande(utilisateur,m,creneau, restaurant));
         }
+        for(Menu m : getMenus()){
+            listCommande.add(new Commande(utilisateur,m,creneau, new Restaurant("c'est bon!!")));
+        }
         return listCommande;
     }
     @Etantdonnéque("Je suis un restaurateur qui travaille à {string}")
     public void je_suis_un_restaurateur_qui_travaille_à(String string) {
-         restaurant = new Restaurant(string);
-         restaurant.setListCommande(getCommandes());
+         restaurant.setName(string);
+         restaurant.setListCommande(listCommande);
         assertNotNull(restaurant);
+        assertEquals(restaurant.getName(),string);
 
     }
 
