@@ -61,6 +61,9 @@ public class UserStory2Test {
         menus.add(new Menu(8, "NOT Hamburger classic", new Creneau(dnb, dnf)));
         return menus;
     }
+
+    // TODO : Changer la façon de construire les commandes dans les restaurants : les commmandes sont crées à partir d'un restaurant et non l'inverse
+
     public static ListCommande getCommandes(){
         Utilisateur utilisateur = new Utilisateur("Nom","Prenom");
 
@@ -77,9 +80,10 @@ public class UserStory2Test {
 
        Creneau creneau = new Creneau(debut, fin);
 
+
         ListCommande listCommande = new ListCommande();
         for(Menu m : getMenus()){
-            listCommande.add(new Commande(utilisateur,m,creneau));
+            listCommande.add(new Commande(utilisateur,m,creneau, restaurant));
         }
         return listCommande;
     }

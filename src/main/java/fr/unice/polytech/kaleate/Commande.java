@@ -16,24 +16,27 @@ public class Commande {
     private static int nextID = 1;
 
     private Creneau creneauLivraison;
+    private Restaurant restaurant;
 
-    public Commande(Utilisateur utilisateur, Set<Menu> menus){
+    public Commande(Utilisateur utilisateur, Set<Menu> menus, Restaurant Restaurant){
         this.menus = menus;
         this.utilisateur = utilisateur;
         id = nextID;
         nextID++;
     }
 
-    public Commande(Utilisateur utilisateur, Menu menu){
+    public Commande(Utilisateur utilisateur, Menu menu, Restaurant Restaurant){
         this.menus = new HashSet<>();
         this.menus.add(menu);
         this.utilisateur = utilisateur;
+        this.restaurant = restaurant;
     }
-    public Commande(Utilisateur utilisateur, Menu menu,Creneau creneauLivraison){
+    public Commande(Utilisateur utilisateur, Menu menu,Creneau creneauLivraison, Restaurant Restaurant){
         this.menus = new HashSet<>();
         this.menus.add(menu);
         this.utilisateur = utilisateur;
         this.creneauLivraison = creneauLivraison;
+        this.restaurant = restaurant;
     }
     public Commande(){
         this.menus = new HashSet<Menu>();

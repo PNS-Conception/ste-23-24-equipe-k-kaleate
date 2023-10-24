@@ -7,6 +7,7 @@ import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;
 import org.junit.platform.suite.api.Suite;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,7 +29,9 @@ public class UserStory1Test {
     static List<Menu> menus;
     static List<Menu> menusDansCreneau;
     static Creneau creneau;
+    static Restaurant restau;
     static Menu menuChoisi;
+
 
     //Generateur de menus
     public static List<Menu> getMenus(){
@@ -120,6 +123,8 @@ public class UserStory1Test {
 
     @Etantdonnéque("je suis un utilisateur qui souhaite commander dans la liste des menus du restaurant {string}")
     public void je_suis_un_utilisateur_qui_souhaite_commander_dans_la_liste_des_menus_du_restaurant(String string) {
+
+        restau = restaurants.getParNom(string);
         menus = restaurants.getParNom(string).getMenus();
         assertNotEquals(menus.size(),0);
     }
@@ -135,7 +140,7 @@ public class UserStory1Test {
     @Alors("je crée une commande avec le menu {string}")
     public void je_crée_une_commande_avec_le_menu(String string) {
         assertEquals(menuChoisi.getName(), string);
-        Commande commande = new Commande(utilisateur, menuChoisi);
+        Commande commande = new Commande(utilisateur, menuChoisi, restau);
         assertTrue(commande.contains(menuChoisi));
     }
 }
