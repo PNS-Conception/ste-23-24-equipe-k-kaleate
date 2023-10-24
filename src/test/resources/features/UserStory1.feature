@@ -2,19 +2,18 @@
 Fonctionnalité: Selectionner un menu pour commander
 
   Contexte:
-    Étant donné que je suis un utilisateur connecté
+    Soit je suis un utilisateur
 
-  Scénario: Afficher la liste des menus
-    Étant donné que je suis un utilisateur "Dorian" "Bouchard" connecté du campus "Sophia_tech"
-    Quand  j'ecris "menus" dans le terminal
-    Alors je devrais voir la liste des menus de l'ensemble des restaurant "Sophia_Tech"
+  Scénario: Choisir le créneau de 12h à 12h15
+    Etant donné que je suis un utilisateur qui souhaite commander
+    Alors je precise le creneau de ma commande pour avoir la liste des menus disponibles
 
-  Scénario: Selectionner un menu
-    Étant donné que j'ai la liste des menus de l'ensemble des restaurants "Sophia_tech"
-    Quand je saisie le menu "Sushi Salsa"
-    Alors Ma commande est crée avec le menu à l'interieur
+  Scénario:
+    Etant donné que je suis un utilisateur qui souhaite commander dans la liste des menus du restaurant "Burger King"
+    Quand je selectionne le menu "Burger cheese"
+    Alors je crée une commande avec le menu "Burger cheese"
 
-  Scénario: Passer une commande
-    Étant donné que j'ai ajouté le menu "Sushi Salsa"
-    Quand je valide ma commande
-    Alors je vais être redirigé vers le paiement de ma commande
+  Scénario: Prendre le menu "Burger cheese"
+    Etant donné que je suis un utilisateur qui souhaite commander dans la liste des menus disponibles pour le creneau
+    Quand je selectionne le menu "Burger cheese"
+    Alors je crée une commande avec le menu "Burger cheese"
