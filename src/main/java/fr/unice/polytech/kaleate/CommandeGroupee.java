@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 public class CommandeGroupee extends Commande{
     ArrayList<Commande> commandes = new ArrayList<>();
+    public CommandeGroupee(){
+        super();
 
+    }
     public CommandeGroupee(Commande commande){
         super(commande.getUtilisateur(),commande.getMenus(),commande.getRestaurant());
         setCreneauLivraison(commande.getCreneauLivraison());
@@ -17,5 +20,14 @@ public class CommandeGroupee extends Commande{
 
     public void setCommandes(ArrayList<Commande> commandes) {
         this.commandes = commandes;
+    }
+
+    public boolean ajouterCommande(Commande commande){
+        if(commande.getRestaurant() != null && //la commande est pas initialisé donc pas besoin de verif
+                !(commande.getRestaurant().equals(commandes.get(0).getRestaurant()))){// la commande ajoutée doit avoir le meme restaurant que la commande mère
+            return false;
+        }
+        return commandes.add(commande);
+
     }
 }
