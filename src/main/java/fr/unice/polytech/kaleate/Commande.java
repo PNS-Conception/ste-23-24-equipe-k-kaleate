@@ -29,14 +29,14 @@ public class Commande {
         this.menus = new HashSet<>();
         this.menus.add(menu);
         this.utilisateur = utilisateur;
-        this.restaurant = restaurant;
+        this.restaurant = Restaurant;
     }
     public Commande(Utilisateur utilisateur, Menu menu,Creneau creneauLivraison, Restaurant Restaurant){
         this.menus = new HashSet<>();
         this.menus.add(menu);
         this.utilisateur = utilisateur;
         this.creneauLivraison = creneauLivraison;
-        this.restaurant = restaurant;
+        this.restaurant = Restaurant;
     }
     public Commande(){
         this.menus = new HashSet<Menu>();
@@ -117,5 +117,13 @@ public class Commande {
 
     public boolean contains(Menu menu) {
         return this.menus.contains(menu);
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 }

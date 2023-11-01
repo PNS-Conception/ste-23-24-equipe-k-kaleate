@@ -52,7 +52,7 @@ public class UserStory3Test {
     @Etantdonné("User A qui accepte que des utilisateur rejoignent sa commande")
     public void user_a_qui_accepte_que_des_utilisateur_rejoignent_sa_commande() {
         // Write code here that turns the phrase above into concrete actions
-
+        commandeUserA = new CommandeGroupee(commandeUserA);
     }
     @Quand("User B rentre l'idendifiant de la commande de User A")
     public void user_b_rentre_l_idendifiant_de_la_commande_de_user_a() {
