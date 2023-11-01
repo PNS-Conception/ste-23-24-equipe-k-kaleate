@@ -50,7 +50,7 @@ public class UserStory3Test {
          Restaurant restaurant2 = new Restaurant("Restau 2",new ListMenus(getMenus()));
          commandeGroupee = new CommandeGroupee();
          commandeUserA = new Commande(userA,restaurant1.getMenus().get(0),restaurant1);
-         commandeUserB = new Commande(userB,restaurant2.getMenus().get(0),restaurant1);
+         commandeUserB = new Commande(userB,restaurant2.getMenus().get(0),restaurant2);
     }
 
 
@@ -81,34 +81,22 @@ public class UserStory3Test {
 
     }
 
-
-
-    @Etantdonné("User A qui rejette que des utilisateurs rejoignent sa commande")
-    public void user_a_qui_rejette_que_des_utilisateurs_rejoignent_sa_commande() {
-        // Write code here that turns the phrase above into concrete actions
-       // commandeMemeRestau();
-
-    }
-
-    @Alors("User B n'a pas rejoint la commande de User A")
-    public void user_b_n_a_pas_rejoint_la_commande_de_user_a() {
-        // Write code here that turns the phrase above into concrete actions
-        //assertEquals(0,commandeGroupee.getCommandes().size());
-
-    }
-
-
-
-
     @Etantdonné("User A qui accepte que des utilisateurs rejoignent sa commande et n'ont pas le meme restaurant")
     public void user_a_qui_accepte_que_des_utilisateurs_rejoignent_sa_commande_et_n_ont_pas_le_meme_restaurant() {
         // Write code here that turns the phrase above into concrete actions
-        
+        commandeDiffRestau();
+        System.out.println(commandeUserA.getUtilisateur());
+        commandeUserA = new CommandeGroupee(commandeUserA);
+        assertEquals(userA,commandeUserA.getUtilisateur());
+        commandeGroupee = (CommandeGroupee) commandeUserA;
+        assertEquals(commandeUserA.getMenus(),commandeGroupee.getMenus());
     }
 
     @Alors("la commande de User A ne contient qu'une seule commande")
     public void la_commande_de_user_a_ne_contient_qu_une_seule_commande() {
         // Write code here that turns the phrase above into concrete actions
+        assertEquals(1,commandeGroupee.getCommandes().size());
+        assertEquals(userA,commandeGroupee.getCommandes().get(0).getUtilisateur());
     }
 
 }

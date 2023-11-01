@@ -10,10 +10,6 @@ Fonctionnalité: Créer une commande groupée
       Quand User B rentre l'idendifiant de la commande de User A
       Alors User B a rejoint la commande de User A
 
-  Scénario: interdire une commande groupée
-    Etant donné User A qui rejette que des utilisateurs rejoignent sa commande
-    Quand User B rentre l'idendifiant de la commande de User A
-    Alors User B n'a pas rejoint la commande de User A
 
   Scénario: impossibilité de rejoindre une commande groupée
     Etant donné User A qui accepte que des utilisateurs rejoignent sa commande et n'ont pas le meme restaurant
