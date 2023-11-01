@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListCommande extends ArrayList<Commande> {
+    private static ListCommande instance;
     public ListCommande(){
         super();
     }
@@ -26,5 +27,12 @@ public class ListCommande extends ArrayList<Commande> {
         return "ListCommande{" +
                 "modCount=" + modCount +
                 '}';
+    }
+
+    public static ListCommande getInstance() {
+        if (instance == null) {
+            instance = new ListCommande();
+        }
+        return instance;
     }
 }

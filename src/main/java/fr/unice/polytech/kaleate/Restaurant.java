@@ -6,20 +6,24 @@ import java.util.List;
 public class Restaurant {
     private ListMenus menus;
     private String name;
-    private ListCommande listCommande;
+
+    private GestionnaireCommande gestionnaireCommande;
 
     public Restaurant(){
         this.menus = new ListMenus();
+        gestionnaireCommande = new GestionnaireCommande();
     }
 
     public Restaurant(String name){
         this.menus = new ListMenus();
         this.name = name;
+        gestionnaireCommande = new GestionnaireCommande();
     }
 
     public Restaurant(String name, ListMenus menus){
         this.name = name;
         this.menus = menus;
+        gestionnaireCommande = new GestionnaireCommande();
     }
 
     public ListMenus getMenus(){
@@ -50,20 +54,16 @@ public class Restaurant {
                 "\n" + menus;
     }
 
-    public List<Commande> getListCommande() {
-        return  listCommande.stream().filter(commande -> commande.getRestaurant().equals(this)).toList();
+    public ListCommande getListCommande() {
+        return  gestionnaireCommande.getListCommande();
     }
 
     public void setListCommande(ListCommande listCommande) {
-        this.listCommande = listCommande;
+        this.gestionnaireCommande.setListCommande(listCommande);
     }
 
     public boolean validerCommande(Commande commande){
-        if(commande.getStatut()!= StatutCommande.EN_CREATION){
-            return false;
-        }
-        commande.setStatut(StatutCommande.VALIDEE);
-        return true;
+       return gestionnaireCommande.validerCommande(commande);
     }
     public boolean doitEtrePreparee(Commande commande, Date dateActuel){
         //date du début de la livraison - date
@@ -74,21 +74,11 @@ public class Restaurant {
     }
 
     public boolean preparerCommande(Commande commande){
-        if(commande.getStatut()== StatutCommande.VALIDEE){
-            commande.setStatut(StatutCommande.EN_PREPARATION);
-            return true;
-        }
-
-        return false;
+        return gestionnaireCommande.preparerCommande(commande);
     }
 
     public ListCommande getCommandePrete() {
-        ListCommande comPrete = new ListCommande();
-        for (Commande c : listCommande) {
-            if (c.getStatut().equals(StatutCommande.PRETE)) {
-                comPrete.add(c);
-            }
-        }
-        return comPrete;
+        return gestionnaireCommande.getCommandePrete(this);
+
     }
 }
