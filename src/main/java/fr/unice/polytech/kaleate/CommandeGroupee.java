@@ -23,8 +23,8 @@ public class CommandeGroupee extends Commande{
     }
 
     public boolean ajouterCommande(Commande commande){
-        if(commande.getRestaurant() != null && //la commande est pas initialisé donc pas besoin de verif
-                !(commande.getRestaurant().equals(commandes.get(0).getRestaurant()))){// la commande ajoutée doit avoir le meme restaurant que la commande mère
+        if(commande.getCreneauLivraison() != null && //la commande est pas initialisé donc pas besoin de verif
+                !(commande.getCreneauLivraison().equals(commandes.get(0).getCreneauLivraison()))){// la commande ajoutée doit avoir le meme restaurant que la commande mère
             return false;
         }
         return commandes.add(commande);

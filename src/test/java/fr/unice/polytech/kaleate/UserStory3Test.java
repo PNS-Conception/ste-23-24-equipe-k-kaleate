@@ -38,27 +38,46 @@ public class UserStory3Test {
         return menus;
     }
 
-    public void commandeMemeRestau(){
+    public void commandeMemeCreneau(){
+        // date qui fonctionnent
+        Date db = new Date();
+        Date df = new Date();
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(df);
+        c.add(Calendar.DATE, 1);
+        df = c.getTime();
+
         Restaurant restaurant1 = new Restaurant("Restau 1",new ListMenus(getMenus()));
         commandeGroupee = new CommandeGroupee();
-        commandeUserA = new Commande(userA,restaurant1.getMenus().get(0),restaurant1);
-        commandeUserB = new Commande(userB,restaurant1.getMenus().get(0),restaurant1);
+        commandeUserA = new Commande(userA,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
+        commandeUserB = new Commande(userB,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
     }
-    public void commandeDiffRestau(){
+    public void commandeDiffCreneau(){
         Restaurant restaurant1 = new Restaurant("Restau 1",new ListMenus(getMenus()));
 
-         Restaurant restaurant2 = new Restaurant("Restau 2",new ListMenus(getMenus()));
+        // date qui fonctionnent
+        Date db = new Date();
+        Date df = new Date();
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(df);
+        c.add(Calendar.DATE, 1);
+        df = c.getTime();
+
          commandeGroupee = new CommandeGroupee();
-         commandeUserA = new Commande(userA,restaurant1.getMenus().get(0),restaurant1);
-         commandeUserB = new Commande(userB,restaurant2.getMenus().get(0),restaurant2);
+         commandeUserA = new Commande(userA,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
+        c.setTime(df);
+        c.add(Calendar.DATE, 3);
+        df = c.getTime();
+         commandeUserB = new Commande(userB,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
     }
 
 
-    @Etantdonné("User A qui accepte que des utilisateurs rejoignent sa commande et ont le meme restaurant")
-    public void user_a_qui_accepte_que_des_utilisateurs_rejoignent_sa_commande_et_ont_le_meme_restaurant() {
+    @Etantdonné("User A qui accepte que des utilisateurs rejoignent sa commande et ont le meme creneau")
+    public void user_a_qui_accepte_que_des_utilisateurs_rejoignent_sa_commande_et_ont_le_meme_creneau() {
         // Write code here that turns the phrase above into concrete actions
-        commandeMemeRestau();
-        System.out.println(commandeUserA.getUtilisateur());
+        commandeMemeCreneau();
         commandeUserA = new CommandeGroupee(commandeUserA);
         assertEquals(userA,commandeUserA.getUtilisateur());
         commandeGroupee = (CommandeGroupee) commandeUserA;
@@ -81,10 +100,10 @@ public class UserStory3Test {
 
     }
 
-    @Etantdonné("User A qui accepte que des utilisateurs rejoignent sa commande et n'ont pas le meme restaurant")
-    public void user_a_qui_accepte_que_des_utilisateurs_rejoignent_sa_commande_et_n_ont_pas_le_meme_restaurant() {
+    @Etantdonné("User A qui accepte que des utilisateurs rejoignent sa commande et n'ont pas le meme creneau")
+    public void user_a_qui_accepte_que_des_utilisateurs_rejoignent_sa_commande_et_n_ont_pas_le_meme_creneau() {
         // Write code here that turns the phrase above into concrete actions
-        commandeDiffRestau();
+        commandeDiffCreneau();
         System.out.println(commandeUserA.getUtilisateur());
         commandeUserA = new CommandeGroupee(commandeUserA);
         assertEquals(userA,commandeUserA.getUtilisateur());
