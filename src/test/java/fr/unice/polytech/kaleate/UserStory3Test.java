@@ -88,7 +88,8 @@ public class UserStory3Test {
     @Quand("User B rentre l'idendifiant de la commande de User A")
     public void user_b_rentre_l_idendifiant_de_la_commande_de_user_a() {
         // Write code here that turns the phrase above into concrete actions
-         commandeGroupee.ajouterCommande(commandeUserB);
+        assertFalse( commandeGroupee.ajouterCommande(commandeGroupee.getCode()+9999, commandeUserB));
+         commandeGroupee.ajouterCommande(commandeGroupee.getCode(), commandeUserB);
     }
 
     @Alors("User B a rejoint la commande de User A")
