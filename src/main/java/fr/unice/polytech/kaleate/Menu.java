@@ -54,6 +54,9 @@ public class Menu {
     public boolean estComprisDansCreneau(Creneau creneau){
         return this.creneau.estComprisDansCreneau(creneau);
     }
+    public boolean chevaucheCreneau(Creneau creneau){
+        return this.creneau.chevaucheCreneau(creneau);
+    }
 
     @Override
     public boolean equals(Object obj) {
