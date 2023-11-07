@@ -3,35 +3,35 @@ package fr.unice.polytech.kaleate;
 import java.util.Date;
 
 public class Restaurant {
-    private ListMenus menus;
+    private ListeMenus menus;
     private String name;
     private ListCommande listCommande;
 
     public Restaurant(){
-        this.menus = new ListMenus();
+        this.menus = new ListeMenus();
     }
 
     public Restaurant(String name){
-        this.menus = new ListMenus();
+        this.menus = new ListeMenus();
         this.name = name;
     }
 
-    public Restaurant(String name, ListMenus menus){
+    public Restaurant(String name, ListeMenus menus){
         this.name = name;
         this.menus = menus;
     }
 
-    public ListMenus getMenus(){
+    public ListeMenus getMenus(){
         return this.menus;
     }
 
-    public void setMenus(ListMenus menus){
+    public void setMenus(ListeMenus menus){
         this.menus = menus;
     }
 
-    public ListMenus getMenusDansCreneau(Creneau creneau){
-        ListMenus listMenu = new ListMenus(this.menus);
-        listMenu = new ListMenus(listMenu.stream().filter(menu -> !menu.estComprisDansCreneau(creneau)).toList());
+    public ListeMenus getMenusDansCreneau(Creneau creneau){
+        ListeMenus listMenu = new ListeMenus(this.menus);
+        listMenu = new ListeMenus(listMenu.stream().filter(menu -> !menu.estComprisDansCreneau(creneau)).toList());
         return listMenu;
     }
 

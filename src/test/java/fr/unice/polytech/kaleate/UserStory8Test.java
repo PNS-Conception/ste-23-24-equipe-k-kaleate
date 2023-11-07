@@ -23,7 +23,7 @@ import static org.junit.Assert.assertNotNull;
 public class UserStory8Test {
 
     static AdministrateurCampus ac;
-    static ListRestaurants l;
+    static ListeRestaurants l;
 
     @Soit("Je suis l'administrateur du campus {string}")
     public void je_suis_l_administrateur_du_campus(String string) {
@@ -36,7 +36,7 @@ public class UserStory8Test {
     }
     @Alors("J'obtiens la liste des restaurants partenaires du Campus {string}")
     public void j_obtiens_la_liste_des_restaurants_partenaires_du_campus(String string) {
-        assertEquals(l,new ListRestaurants());
+        assertEquals(l,new ListeRestaurants());
     }
 
     @Quand("J'ajoute le restaurant {string}")

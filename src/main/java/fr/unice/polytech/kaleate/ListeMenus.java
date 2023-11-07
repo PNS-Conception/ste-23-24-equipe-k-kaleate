@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ListMenus extends ArrayList<Menu> implements Listeur {
+public class ListeMenus extends ArrayList<Menu> implements Listeur {
 
-    public ListMenus(){
+    public ListeMenus(){
         super();
     }
 
-    public ListMenus(ListMenus listMenus){
+    public ListeMenus(ListeMenus listMenus){
         super(listMenus);
     }
-    public ListMenus(List<Menu> listMenus){
+    public ListeMenus(List<Menu> listMenus){
         super(listMenus);
     }
 

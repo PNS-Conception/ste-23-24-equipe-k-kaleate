@@ -49,8 +49,8 @@ public class UserStory13Test {
     }
 
     public static void createRestaurants(){
-        restaurant1 = new Restaurant("Burger King", new ListMenus(getMenus()));
-        restaurant2 = new Restaurant("McDonalds", new ListMenus(getMenus()));
+        restaurant1 = new Restaurant("Burger King", new ListeMenus(getMenus()));
+        restaurant2 = new Restaurant("McDonalds", new ListeMenus(getMenus()));
     }
 
     public static void createCommandes(){

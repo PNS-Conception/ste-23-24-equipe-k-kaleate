@@ -7,7 +7,6 @@ import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;
 import org.junit.platform.suite.api.Suite;
 
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,7 +23,7 @@ import static org.junit.Assert.*;
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "fr.unice.polytech.kaleate")
 public class UserStory1Test {
 
-    static ListRestaurants restaurants;
+    static ListeRestaurants restaurants;
     static Utilisateur utilisateur;
     static List<Menu> menus;
     static List<Menu> menusDansCreneau;
@@ -68,10 +67,10 @@ public class UserStory1Test {
         return menus;
     }
 
-    public static ListRestaurants getRestaurants(){
-        ListRestaurants restaurants = new ListRestaurants();
-        restaurants.add(new Restaurant("Burger King", new ListMenus(getMenus())));
-        restaurants.add(new Restaurant("Not Burger King", new ListMenus(getMenus())));
+    public static ListeRestaurants getRestaurants(){
+        ListeRestaurants restaurants = new ListeRestaurants();
+        restaurants.add(new Restaurant("Burger King", new ListeMenus(getMenus())));
+        restaurants.add(new Restaurant("Not Burger King", new ListeMenus(getMenus())));
         return restaurants;
     }
 
@@ -117,7 +116,7 @@ public class UserStory1Test {
 
     @Etantdonnéque("je suis un utilisateur qui souhaite commander dans la liste des menus disponibles pour le creneau")
     public void je_suis_un_utilisateur_qui_souhaite_commander_dans_la_liste_des_menus_disponibles_pour_le_creneau() {
-        menus = new ListRestaurants(restaurants).getMenusDansCreneau(creneau);
+        menus = new ListeRestaurants(restaurants).getMenusDansCreneau(creneau);
         assertNotEquals(menus.size(),0);
     }
 
@@ -131,9 +130,9 @@ public class UserStory1Test {
 
     @Alors("je selectionne le menu {string}")
     public void je_selectionne_le_menu(String string) {
-        Menu menu = new ListMenus(menus).getParNom(string);
-        menuChoisi = new ListMenus(menus).get(0);
-        assertEquals(menu, new ListMenus(menusDansCreneau).getParNom(string));
+        Menu menu = new ListeMenus(menus).getParNom(string);
+        menuChoisi = new ListeMenus(menus).get(0);
+        assertEquals(menu, new ListeMenus(menusDansCreneau).getParNom(string));
         assertEquals(menuChoisi,menu);
     }
 

@@ -3,13 +3,13 @@ package fr.unice.polytech.kaleate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListRestaurants extends ArrayList<Restaurant> implements Listeur{
+public class ListeRestaurants extends ArrayList<Restaurant> implements Listeur{
 
-    public ListRestaurants(){
+    public ListeRestaurants(){
         super();
     }
 
-    public ListRestaurants(ListRestaurants listRestaurants){
+    public ListeRestaurants(ListeRestaurants listRestaurants){
         super(listRestaurants);
     }
 
