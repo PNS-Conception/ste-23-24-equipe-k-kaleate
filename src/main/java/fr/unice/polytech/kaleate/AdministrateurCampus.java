@@ -9,8 +9,13 @@ public class AdministrateurCampus {
     public AdministrateurCampus(Campus c){
         campus=c;
     }
-    public ListRestaurants listerRestaurants(){
+
+    public ListeRestaurants listerRestaurants(){
         return campus.listerRestaurants();
+    }
+
+    public ListeUtilisateur listeUtilisateur(){
+        return campus.getListeDesUtilisateurs();
     }
 
     public void ajouterRestaurant(String nom){
@@ -18,7 +23,15 @@ public class AdministrateurCampus {
         r.nouveauRestau(nom,campus);
     }
 
+    public void ajouterUtilisateur(String nom, String prenom){
+        Utilisateur newUtilisateur = new Utilisateur(nom, prenom);
+    }
+
     public void ajouterRestaurant(Restaurant nom){
         campus.ajoutRestaurant(nom);
+    }
+
+    public void ajouterUtilisateur(Utilisateur utilisateur){
+        campus.ajoutUtilisateur(utilisateur);
     }
 }
