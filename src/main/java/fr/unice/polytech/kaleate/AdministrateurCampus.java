@@ -25,6 +25,12 @@ public class AdministrateurCampus {
 
     public void ajouterUtilisateur(String nom, String prenom){
         Utilisateur newUtilisateur = new Utilisateur(nom, prenom);
+        campus.ajoutUtilisateur(newUtilisateur);
+    }
+
+    public void supprimerUtilisateur(String nom){
+        Utilisateur utilisateur = listeUtilisateur().getParNom(nom);
+        campus.supprimerUtilisateur(utilisateur);
     }
 
     public void ajouterRestaurant(Restaurant nom){
