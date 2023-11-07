@@ -31,7 +31,7 @@ public class Restaurant {
 
     public ListMenus getMenusDansCreneau(Creneau creneau){
         ListMenus listMenu = new ListMenus(this.menus);
-        listMenu = new ListMenus(listMenu.stream().filter(menu -> !menu.estComprisDansCreneau(creneau)).toList());
+        listMenu = new ListMenus(listMenu.stream().filter(menu -> menu.chevaucheCreneau(creneau)).toList());
         return listMenu;
     }
 
