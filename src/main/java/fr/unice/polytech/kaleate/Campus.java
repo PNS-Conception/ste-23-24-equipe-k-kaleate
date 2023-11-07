@@ -1,5 +1,8 @@
 package fr.unice.polytech.kaleate;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Campus {
     private String nom;
     private ListeRestaurants restaurantsPartenaires;
@@ -33,5 +36,17 @@ public class Campus {
 
     public void supprimerUtilisateurr(Utilisateur u){
         listeDesUtilisateurs.remove(u);
+    }
+
+    public Map<Restaurant, ListeMenus> listerMenus(){
+        Map<Restaurant, ListeMenus> m = new HashMap<>();
+        for (Restaurant r : restaurantsPartenaires){
+            m.put(r,r.getMenus());
+        }
+        return m;
+    }
+
+    public String getNom() {
+        return nom;
     }
 }
