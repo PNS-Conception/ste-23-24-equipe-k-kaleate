@@ -103,8 +103,7 @@ public class UserStory1Test {
 
         creneau = new Creneau(debut, fin);
         menusDansCreneau = restaurants.getMenusDansCreneau(creneau);
-
-        assertTrue(menusDansCreneau.size() == 6);
+        assertEquals(6,menusDansCreneau.size());
         assertTrue(menusDansCreneau.contains(restaurants.getParNom("Burger King").getMenus().get(0)));
         assertTrue(menusDansCreneau.contains(restaurants.getParNom("Burger King").getMenus().get(0)));
         assertTrue(menusDansCreneau.contains(restaurants.getParNom("Burger King").getMenus().get(1)));

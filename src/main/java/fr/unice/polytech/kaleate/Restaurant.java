@@ -5,7 +5,7 @@ import java.util.Date;
 public class Restaurant {
     private ListeMenus menus;
     private String name;
-    private ListCommande listCommande;
+    private ListeCommande listeCommande;
 
     public Restaurant(){
         this.menus = new ListeMenus();
@@ -30,9 +30,9 @@ public class Restaurant {
     }
 
     public ListeMenus getMenusDansCreneau(Creneau creneau){
-        ListeMenus listMenu = new ListeMenus(this.menus);
-        listMenu = new ListeMenus(listMenu.stream().filter(menu -> !menu.estComprisDansCreneau(creneau)).toList());
-        return listMenu;
+        ListeMenus listeMenu = new ListeMenus(this.menus);
+        listeMenu = new ListeMenus(listeMenu.stream().filter(menu -> menu.chevaucheCreneau(creneau)).toList());
+        return listeMenu;
     }
 
     public String getName(){
@@ -49,12 +49,12 @@ public class Restaurant {
                 "\n" + menus;
     }
 
-    public ListCommande getListCommande() {
-        return listCommande;
+    public ListeCommande getListCommande() {
+        return listeCommande;
     }
 
-    public void setListCommande(ListCommande listCommande) {
-        this.listCommande = listCommande;
+    public void setListCommande(ListeCommande listeCommande) {
+        this.listeCommande = listeCommande;
     }
 
     public boolean validerCommande(Commande commande){
@@ -81,9 +81,9 @@ public class Restaurant {
         return false;
     }
 
-    public ListCommande getCommandePrete() {
-        ListCommande comPrete = new ListCommande();
-        for (Commande c : listCommande) {
+    public ListeCommande getCommandePrete() {
+        ListeCommande comPrete = new ListeCommande();
+        for (Commande c : listeCommande) {
             if (c.getStatut().equals(StatutCommande.PRETE)) {
                 comPrete.add(c);
             }

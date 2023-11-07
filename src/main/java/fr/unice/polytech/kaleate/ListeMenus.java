@@ -25,10 +25,9 @@ public class ListeMenus extends ArrayList<Menu> implements Listeur {
     public List<Menu> getMenusDansCreneau(Creneau creneau){
 
         return this.stream()
-                .filter(menu -> menu.estComprisDansCreneau(creneau))
+                .filter(menu -> menu.chevaucheCreneau(creneau))
                 .collect(Collectors.toList());
     }
-
     @Override
     public List<Menu> getAllMenus() {
         return null;

@@ -147,7 +147,7 @@ public class UserStory2Test {
         dateTOT = calendar.getTime();
         //trop tot pour commencer à préparer
         assertFalse(restaurant.doitEtrePreparee(commandeSelectionnee,dateTOT));
-        calendar.set(Calendar.MINUTE, 60);
+        calendar.set(Calendar.MINUTE, 90);
         dateTARD = calendar.getTime();
         //trop tard/à l'heure pour commencer à préparer
         assertTrue(restaurant.doitEtrePreparee(commandeSelectionnee,dateTARD));
