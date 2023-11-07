@@ -31,7 +31,7 @@ public class Campus {
         restaurantsPartenaires.remove(r);
     }
 
-    public void supprimerUtilisateurr(Utilisateur u){
+    public void supprimerUtilisateur(Utilisateur u){
         listeDesUtilisateurs.remove(u);
     }
 }
