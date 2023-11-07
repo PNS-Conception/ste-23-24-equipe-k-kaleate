@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ListMenus extends ArrayList<Menu> implements Listeur {
+public class ListeMenus extends ArrayList<Menu> implements Listeur {
 
-    public ListMenus(){
+    public ListeMenus(){
         super();
     }
 
-    public ListMenus(ListMenus listMenus){
-        super(listMenus);
+    public ListeMenus(ListeMenus listeMenus){
+        super(listeMenus);
     }
-    public ListMenus(List<Menu> listMenus){
-        super(listMenus);
+    public ListeMenus(List<Menu> listeMenus){
+        super(listeMenus);
     }
 
     public Menu getParNom(String s) {
@@ -40,6 +40,6 @@ public class ListMenus extends ArrayList<Menu> implements Listeur {
             stringBuffer.append(menu.toString());
             stringBuffer.append("\n");
         }
-        return "ListMenus \n" + stringBuffer.toString();
+        return "ListeMenus \n" + stringBuffer.toString();
     }
 }

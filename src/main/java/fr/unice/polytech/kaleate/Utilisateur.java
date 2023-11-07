@@ -16,27 +16,35 @@ public class Utilisateur {
             this.prenom = prenom;
         }
 
-    public Commande getCommandeActuel() {
-        return commandeActuel;
-    }
+        public String getNom(){
+            return this.nom;
+        }
 
-    public void setCommandeActuel(Commande commandeActuel) {
-        this.commandeActuel = commandeActuel;
-    }
-    public boolean rejoindreCommandegroupee(CommandeGroupee commandeGroupee,int code){
-            if(commandeActuel == null){
-                commandeActuel = new Commande();
-            }
-            return commandeGroupee.ajouterCommande(code,commandeActuel);
-    }
-    public boolean addMenu(Menu m){
-            return commandeActuel.addMenu(m);
-    }
-    public boolean removeMenu(Menu m){
-        return commandeActuel.removeMenu(m);
-    }
+        public String getPrenom(){
+            return this.prenom;
+        }
 
-    public void setCreneauLivraison(Creneau creneauLivraison) {
-        this.commandeActuel.setCreneauLivraison(creneauLivraison);
-    }
+        public Commande getCommandeActuel() {
+            return commandeActuel;
+        }
+
+        public void setCommandeActuel(Commande commandeActuel) {
+            this.commandeActuel = commandeActuel;
+        }
+        public boolean rejoindreCommandegroupee(CommandeGroupee commandeGroupee,int code){
+                if(commandeActuel == null){
+                    commandeActuel = new Commande();
+                }
+                return commandeGroupee.ajouterCommande(code,commandeActuel);
+        }
+        public boolean addMenu(Menu m){
+                return commandeActuel.addMenu(m);
+        }
+        public boolean removeMenu(Menu m){
+            return commandeActuel.removeMenu(m);
+        }
+
+        public void setCreneauLivraison(Creneau creneauLivraison) {
+            this.commandeActuel.setCreneauLivraison(creneauLivraison);
+        }
 }

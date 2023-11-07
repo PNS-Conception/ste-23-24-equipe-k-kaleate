@@ -1,8 +1,5 @@
 package fr.unice.polytech.kaleate;
 
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Etantdonnéque;
 import io.cucumber.java.fr.Quand;
@@ -64,7 +61,7 @@ public class UserStory2Test {
 
     // TODO : Changer la façon de construire les commandes dans les restaurants : les commmandes sont crées à partir d'un restaurant et non l'inverse
 
-    public static ListCommande getCommandes(){
+    public static ListeCommande getCommandes(){
         Utilisateur utilisateur = new Utilisateur("Nom","Prenom");
 
         Date debut = new Date();
@@ -81,11 +78,11 @@ public class UserStory2Test {
        Creneau creneau = new Creneau(debut, fin);
 
 
-        ListCommande listCommande = new ListCommande();
+        ListeCommande listeCommande = new ListeCommande();
         for(Menu m : getMenus()){
-            listCommande.add(new Commande(utilisateur,m,creneau, restaurant));
+            listeCommande.add(new Commande(utilisateur,m,creneau, restaurant));
         }
-        return listCommande;
+        return listeCommande;
     }
     @Etantdonnéque("Je suis un restaurateur qui travaille à {string}")
     public void je_suis_un_restaurateur_qui_travaille_à(String string) {

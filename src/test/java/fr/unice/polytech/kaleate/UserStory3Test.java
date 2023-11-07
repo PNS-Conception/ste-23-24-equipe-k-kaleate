@@ -73,7 +73,7 @@ public class UserStory3Test {
         c.add(Calendar.HOUR, 1);
         df = c.getTime();
 
-        Restaurant restaurant1 = new Restaurant("Restau 1",new ListMenus(getMenus()));
+        Restaurant restaurant1 = new Restaurant("Restau 1",new ListeMenus(getMenus()));
         commandeGroupee = new CommandeGroupee();
         commandeUserA = new Commande(userA,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
         userA.setCommandeActuel(commandeUserA);
@@ -81,7 +81,7 @@ public class UserStory3Test {
         userB.setCommandeActuel(commandeUserB);
     }
     public void commandeDiffCreneau(){
-        Restaurant restaurant1 = new Restaurant("Restau 1",new ListMenus(getMenus()));
+        Restaurant restaurant1 = new Restaurant("Restau 1",new ListeMenus(getMenus()));
 
         // date qui fonctionnent
         Date db = new Date();
@@ -166,9 +166,9 @@ public class UserStory3Test {
     @Quand("User C affiche la liste des menus")
     public void user_c_affiche_la_liste_des_menus() {
         // Write code here that turns the phrase above into concrete actions
-        ListMenus listMenus = new ListMenus(getMenus());
+        ListeMenus listeMenus = new ListeMenus(getMenus());
         assertEquals(userC.getCommandeActuel().getCreneauLivraison(),commandeGroupee.getCreneauLivraison());
-        menus = listMenus.getMenusDansCreneau(userC.getCommandeActuel().getCreneauLivraison());
+        menus = listeMenus.getMenusDansCreneau(userC.getCommandeActuel().getCreneauLivraison());
 
 
     }
