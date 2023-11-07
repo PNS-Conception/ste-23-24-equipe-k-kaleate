@@ -155,6 +155,7 @@ public class UserStory3Test {
     public void user_c_qui_rejoint_la_commande_groupée() {
         // Write code here that turns the phrase above into concrete actions
         commandeMemeCreneau();
+        userC = new Utilisateur("User","C");
         commandeUserA = new CommandeGroupee(commandeUserA);
         assertEquals(userA,commandeUserA.getUtilisateur());
         commandeGroupee = (CommandeGroupee) commandeUserA;
@@ -181,6 +182,11 @@ public class UserStory3Test {
     @Etantdonné("User C qui est dans la commande groupée")
     public void user_c_qui_est_dans_la_commande_groupée() {
         // Write code here that turns the phrase above into concrete actions
+        userC = new Utilisateur("User","C");
+        commandeUserA = new CommandeGroupee(commandeUserA);
+        assertEquals(userA,commandeUserA.getUtilisateur());
+        commandeGroupee = (CommandeGroupee) commandeUserA;
+        assertTrue(userC.rejoindreCommandegroupee(commandeGroupee,commandeGroupee.getCode()));
         assertTrue(commandeGroupee.getCommandes().contains(userC.getCommandeActuel()));
 
     }

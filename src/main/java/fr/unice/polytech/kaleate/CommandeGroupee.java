@@ -31,6 +31,7 @@ public class CommandeGroupee extends Commande{
         if(code != this.code) return false;
         if(commande.getCreneauLivraison() == null ) //la commande est pas initialisé donc pas besoin de verif)
         {
+
             commande.setCreneauLivraison(this.getCreneauLivraison());
         }
         if(!(commande.getCreneauLivraison().equals(commandes.get(0).getCreneauLivraison()))){// la commande ajoutée doit avoir le meme creneau que la commande mère
