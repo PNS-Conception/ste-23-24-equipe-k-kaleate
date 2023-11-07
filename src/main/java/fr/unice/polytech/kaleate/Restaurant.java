@@ -72,6 +72,13 @@ public class Restaurant {
         return false;
     }
 
+    public boolean preparerMenu(Commande commande, Menu menu){
+        if(commande.getStatut()== StatutCommande.VALIDEE){
+            return commande.preparerMenu(menu);
+        }
+        return false;
+    }
+
     public boolean preparerCommande(Commande commande){
         if(commande.getStatut()== StatutCommande.VALIDEE){
             commande.setStatut(StatutCommande.EN_PREPARATION);
