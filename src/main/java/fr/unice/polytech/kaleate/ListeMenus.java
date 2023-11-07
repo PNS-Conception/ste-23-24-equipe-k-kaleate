@@ -10,11 +10,11 @@ public class ListeMenus extends ArrayList<Menu> implements Listeur {
         super();
     }
 
-    public ListeMenus(ListeMenus listMenus){
-        super(listMenus);
+    public ListeMenus(ListeMenus listeMenus){
+        super(listeMenus);
     }
-    public ListeMenus(List<Menu> listMenus){
-        super(listMenus);
+    public ListeMenus(List<Menu> listeMenus){
+        super(listeMenus);
     }
 
     public Menu getParNom(String s) {
@@ -40,6 +40,6 @@ public class ListeMenus extends ArrayList<Menu> implements Listeur {
             stringBuffer.append(menu.toString());
             stringBuffer.append("\n");
         }
-        return "ListMenus \n" + stringBuffer.toString();
+        return "ListeMenus \n" + stringBuffer.toString();
     }
 }

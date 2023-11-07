@@ -14,18 +14,18 @@ public class ListeRestaurants extends ArrayList<Restaurant> implements Listeur{
     }
 
     public List<Menu> getMenusDansCreneau(Creneau creneau){
-        List listMenu = new ArrayList<Menu>();
+        List listeMenu = new ArrayList<Menu>();
         for (Restaurant restaurant : this){
-            listMenu.addAll(restaurant.getMenusDansCreneau(creneau));
+            listeMenu.addAll(restaurant.getMenusDansCreneau(creneau));
         }
-        return listMenu;
+        return listeMenu;
     }
     public List<Menu> getAllMenus(){
-        List listMenu = new ArrayList();
+        List listeMenu = new ArrayList();
         for (Restaurant restaurant : this){
-            listMenu.addAll(restaurant.getMenus());
+            listeMenu.addAll(restaurant.getMenus());
         }
-        return listMenu;
+        return listeMenu;
     }
 
     public Restaurant getParNom(String name){

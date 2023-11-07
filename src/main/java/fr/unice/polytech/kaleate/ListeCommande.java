@@ -3,13 +3,13 @@ package fr.unice.polytech.kaleate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListCommande extends ArrayList<Commande> {
-    public ListCommande(){
+public class ListeCommande extends ArrayList<Commande> {
+    public ListeCommande(){
         super();
     }
 
-    public ListCommande(ListCommande listCommandes){
-        super(listCommandes);
+    public ListeCommande(ListeCommande listeCommandes){
+        super(listeCommandes);
     }
 
 
