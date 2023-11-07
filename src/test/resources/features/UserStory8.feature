@@ -9,5 +9,6 @@ Fonctionnalité: Ajouter un restaurant partenaire
     Alors J'obtiens la liste des restaurants partenaires du Campus "Sophia_tech"
 
   Scénario: Ajouter un restaurant
+    Etant donné que le nombre de restaurants du campus est de 0
     Quand J'ajoute le restaurant "Pizza Rock"
-    Alors Le nombre de restaurant change
+    Alors le nombre de restaurants augmente de 1
