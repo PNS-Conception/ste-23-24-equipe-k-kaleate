@@ -9,16 +9,19 @@ public class Restaurant {
 
     public Restaurant(){
         this.menus = new ListeMenus();
+        this.listeCommande = new ListeCommande();
     }
 
     public Restaurant(String name){
         this.menus = new ListeMenus();
+        this.listeCommande = new ListeCommande();
         this.name = name;
     }
 
     public Restaurant(String name, ListeMenus menus){
         this.name = name;
         this.menus = menus;
+        this.listeCommande = new ListeCommande();
     }
 
     public ListeMenus getMenus(){
@@ -61,6 +64,7 @@ public class Restaurant {
         if(commande.getStatut()!= StatutCommande.EN_CREATION){
             return false;
         }
+        listeCommande.add(commande);
         commande.setStatut(StatutCommande.VALIDEE);
         return true;
     }

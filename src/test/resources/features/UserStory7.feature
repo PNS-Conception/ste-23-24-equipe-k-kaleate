@@ -7,7 +7,7 @@ Fonctionnalité: Indiquer qu'une commande est prete
     Et je suis manager du restaurant "Pizza_Rock"
 
   Scénario: Consulter l'etat d'une commande tout juste validee
-    Étant donné que 0 menus de la commande 666 sont pret
+    Étant donné que 0 menus de la commande 666 sont prets
     Quand je veux dire que la commande est prete
     Alors la commande n'est pas prete
 

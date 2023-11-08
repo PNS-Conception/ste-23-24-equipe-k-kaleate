@@ -12,6 +12,7 @@ public class ManagerRestaurant {
         for (StatutMenu sm : commande.getStatutsMenus()){
                 if (sm!=StatutMenu.PRET) return false;
             }
+        commande.setStatut(StatutCommande.PRETE);
         return true;
     }
 }
