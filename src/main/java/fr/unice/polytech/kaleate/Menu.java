@@ -3,12 +3,13 @@ package fr.unice.polytech.kaleate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class Menu {
     private float price;
     private String name;
     private Creneau creneau;
+    private ArrayList<ChoixElement> choixElementListe;
+    private ArrayList<SupplementElement> supplementElementListe;
 
     private int tempsPreparation; // en minutes
     public Menu(float price, String name, Creneau creneau){
@@ -23,6 +24,15 @@ public class Menu {
         this.tempsPreparation = tempsPreparation;
     }
 
+    public Menu(float price, String name, Creneau creneau,int tempsPreparation, int nbElement){
+        this.price = price;
+        this.name = name;
+        this.creneau = creneau;
+        this.tempsPreparation = tempsPreparation;
+        choixElementListe = new ArrayList<>(nbElement);
+        supplementElementListe = new ArrayList<>();
+    }
+
     public float getPrice(){
         return this.price;
     }
@@ -33,6 +43,12 @@ public class Menu {
 
     public Creneau getCreneau(){
         return this.creneau;
+    }
+
+    public ArrayList<ChoixElement> getChoixElementListe() {return this.choixElementListe;}
+
+    public ArrayList<SupplementElement> getSupplementElementListe() {
+        return this.supplementElementListe;
     }
 
     public void setPrice(float price){
