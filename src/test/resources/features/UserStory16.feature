@@ -1,0 +1,11 @@
+#language: fr
+  Fonctionnalité: Pouvoir avoir le choix sur les éléments et les composants d'un menu
+
+    Scénario: Creer une commande avec des options
+      Etant donné que je suis un Manager de Restaurant
+      Quand je cree un menu avec 3 elements
+      Et que je donne 2 choix pour le premier element
+      Et que je donne 1 choix pour les deux autres
+      Et que je l'ajoute au menu de mon restaurant
+      Alors il est possible pour l'utilisateur de choisir un des deux elements pour le premier choix
+      Et il n'est pas possible pour l'utilisateur de choisir pour les deux autres elements

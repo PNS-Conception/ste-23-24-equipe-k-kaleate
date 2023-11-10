@@ -33,4 +33,8 @@ public class ChoixElement {
         }
         //Ajouter un else?
     }
+
+    void ajoutElement(Element e){
+        elementListe.add(e);
+    }
 }

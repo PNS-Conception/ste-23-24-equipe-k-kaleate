@@ -16,22 +16,18 @@ public class Menu {
         this.price = price;
         this.name = name;
         this.creneau = creneau;
+        choixElementListe = new ArrayList<>();
+        supplementElementListe = new ArrayList<>();
     }
     public Menu(float price, String name, Creneau creneau,int tempsPreparation){
         this.price = price;
         this.name = name;
         this.creneau = creneau;
         this.tempsPreparation = tempsPreparation;
-    }
-
-    public Menu(float price, String name, Creneau creneau,int tempsPreparation, int nbElement){
-        this.price = price;
-        this.name = name;
-        this.creneau = creneau;
-        this.tempsPreparation = tempsPreparation;
-        choixElementListe = new ArrayList<>(nbElement);
+        choixElementListe = new ArrayList<>();
         supplementElementListe = new ArrayList<>();
     }
+
 
     public float getPrice(){
         return this.price;
@@ -99,5 +95,9 @@ public class Menu {
 
     public void setTempsPreparation(int tempsPreparation) {
         this.tempsPreparation = tempsPreparation;
+    }
+
+    public void ajouterElement(ChoixElement choixElement){
+        choixElementListe.add(choixElement);
     }
 }

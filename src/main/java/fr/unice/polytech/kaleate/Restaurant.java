@@ -101,4 +101,9 @@ public class Restaurant {
         }
         return comPrete;
     }
+
+
+    public void ajouterMenu(Menu m){
+        menus.add(m);
+    }
 }
