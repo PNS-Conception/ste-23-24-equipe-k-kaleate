@@ -1,12 +1,10 @@
 package fr.unice.polytech.kaleate;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Commande {
-    private Set<Menu> menus;
+    private List<Menu> menus;
+    private List<StatutMenu> statutsMenus;
     private Utilisateur utilisateur;
 
     private StatutCommande statut = StatutCommande.EN_CREATION;
@@ -18,7 +16,7 @@ public class Commande {
     private Creneau creneauLivraison;
     private Restaurant restaurant;
 
-    public Commande(Utilisateur utilisateur, Set<Menu> menus, Restaurant Restaurant){
+    public Commande(Utilisateur utilisateur, List<Menu> menus, Restaurant Restaurant){
         this.menus = menus;
         this.utilisateur = utilisateur;
         id = nextID;
@@ -26,27 +24,27 @@ public class Commande {
     }
 
     public Commande(Utilisateur utilisateur, Menu menu, Restaurant Restaurant){
-        this.menus = new HashSet<>();
+        this.menus = new ArrayList<>();
         this.menus.add(menu);
         this.utilisateur = utilisateur;
         this.restaurant = Restaurant;
     }
     public Commande(Utilisateur utilisateur, Menu menu,Creneau creneauLivraison, Restaurant Restaurant){
-        this.menus = new HashSet<>();
+        this.menus = new ArrayList<>();
         this.menus.add(menu);
         this.utilisateur = utilisateur;
         this.creneauLivraison = creneauLivraison;
         this.restaurant = Restaurant;
     }
     public Commande(){
-        this.menus = new HashSet<Menu>();
+        this.menus = new ArrayList<>();
     }
 
-    public Set<Menu> getMenus(){
+    public List<Menu> getMenus(){
         return this.menus;
     }
 
-    public void setMenus(Set<Menu> menus){
+    public void setMenus(List<Menu> menus){
         this.menus = menus;
     }
 
@@ -101,6 +99,12 @@ public class Commande {
 
     public void setStatut(StatutCommande statut) {
         this.statut = statut;
+        if (statut.equals(StatutCommande.VALIDEE)){
+            statutsMenus =new ArrayList<>();
+            for (Menu m : this.menus){
+                statutsMenus.add(StatutMenu.VALIDE);
+            }
+        }
     }
 
     public Creneau getCreneauLivraison() {
@@ -125,5 +129,21 @@ public class Commande {
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+
+    public boolean preparerMenu(Menu mp){
+        if (contains(mp)) {
+            for (int i=0; i<menus.size(); i++){
+                if (mp.equals(menus.get(i))&& statutsMenus.get(i)==StatutMenu.VALIDE){
+                    statutsMenus.set(i,StatutMenu.PRET);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public List<StatutMenu> getStatutsMenus(){
+        return statutsMenus;
     }
 }
