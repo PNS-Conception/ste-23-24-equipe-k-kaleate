@@ -11,8 +11,14 @@
       Et il n'est pas possible pour l'utilisateur de choisir pour les deux autres elements
 
 
-    Scénario: Creer une commande avec des supplements
+    Scénario: Creer une commande avec des elemnts supplements
       Etant donné que je suis un Manager de Restaurant
       Quand je cree un menu avec 2 elements supplements
       Et que je l'ajoute au menu de mon restaurant
       Alors il est possible pour l'utilisateur de rajouter des elements supplements
+
+    Scénario: Creer une commande avec des composants supplements
+      Etant donné que je suis un Manager de Restaurant
+      Quand je cree un menu avec 2 composants supplements pour un element
+      Et que je l'ajoute au menu de mon restaurant
+      Alors il est possible pour l'utilisateur de rajouter des composants supplements dans cet element

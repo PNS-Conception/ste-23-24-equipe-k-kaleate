@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class Element {
     private String nomElement;
     private ArrayList<ChoixComposant> choixComposantListe;
-    private ArrayList<SupplementElement> choixSupplementElement;
+    private ArrayList<SupplementComposant> choixSupplementComposant;
 
     public Element(String nomElement) {
         this.nomElement = nomElement;
         this.choixComposantListe = new ArrayList<>();
-        this.choixSupplementElement = new ArrayList<>();
+        this.choixSupplementComposant = new ArrayList<>();
     }
 
     public String getNomElement() {
@@ -22,11 +22,14 @@ public class Element {
         return choixComposantListe;
     }
 
-    public ArrayList<SupplementElement> getChoixSupplementElement() {
-        return choixSupplementElement;
+    public ArrayList<SupplementComposant> getChoixSupplementComposant() {
+        return choixSupplementComposant;
     }
 
     public void ajoutComposant(ChoixComposant choixComposant){
         choixComposantListe.add(choixComposant);
+    }
+    public void ajoutSupplementComposant(SupplementComposant supplementComposant){
+        choixSupplementComposant.add(supplementComposant);
     }
 }

@@ -20,6 +20,7 @@ public class UserStory16Test {
     static Element e1, e2, e3, e4;
     static ChoixElement choixElement1, choixElement2, choixElement3;
     static SupplementElement supEl1, supEl2;
+    static SupplementComposant supCo1, supCo2;
 
     public static void creerElement(){
         e1 = new Element("Ice Tea");
@@ -56,6 +57,15 @@ public class UserStory16Test {
 
     public static void ajouterUnElementSupplement(Menu m, SupplementElement supplementElement){
         m.ajouterElementSupplement(supplementElement);
+    }
+
+    public static void creer2ComposantsSupplements(){
+        supCo1 = new SupplementComposant("Cheddar", 1);
+        supCo2 = new SupplementComposant("Bacon", 2);
+    }
+
+    public static void ajouterUnComposantSupplement(Element element, SupplementComposant supplementComposant){
+        element.ajoutSupplementComposant(supplementComposant);
     }
 
 
@@ -115,8 +125,37 @@ public class UserStory16Test {
     }
     @Alors("il est possible pour l'utilisateur de rajouter des elements supplements")
     public void il_est_possible_pour_l_utilisateur_de_rajouter_des_supplements() {
-        int nbSupplementPossible = managerRestaurant.getRestaurant().getMenus().get(1).getSupplementElementListe().size();
+        if(restaurant.getMenus().size() != 2) { managerRestaurant.ajouterUnMenu(m);}
+        int nbSupplementPossible = restaurant.getMenus().get(1).getSupplementElementListe().size();
         Assertions.assertEquals(2,nbSupplementPossible);
     }
+    @Quand("je cree un menu avec {int} composants supplements pour un element")
+    public void je_cree_un_menu_avec_composants_supplements_pour_un_element(Integer int1) {
+        creerMenu();
+        creer2ComposantsSupplements();
+        creerElement();
+        ajouterUnComposantSupplement(e4, supCo1);
+        ajouterUnComposantSupplement(e4, supCo2);
+        creer1ChoixElement();
+        creer2ChoixElement();
+        ajouterChoixElement(m, choixElement1);
+        ajouterChoixElement(m, choixElement2);
+        ajouterChoixElement(m, choixElement3);
+        int nbSupplements = m.getChoixElementListe().get(2).getElementListe().get(0).getChoixSupplementComposant().size();
+        Assertions.assertEquals(2, nbSupplements);
+
+    }
+    @Alors("il est possible pour l'utilisateur de rajouter des composants supplements dans cet element")
+    public void il_est_possible_pour_l_utilisateur_de_rajouter_des_composants_supplements_dans_cet_element() {
+        if(restaurant.getMenus().size() != 3) {
+            managerRestaurant.ajouterUnMenu(m);
+        }
+        if(restaurant.getMenus().size() != 3) {
+            managerRestaurant.ajouterUnMenu(m);
+        }
+        int nbSuppBurger = restaurant.getMenus().get(2).getChoixElementListe().get(2).getElementListe().get(0).getChoixSupplementComposant().size();
+        Assertions.assertEquals(2, nbSuppBurger);
+    }
+
 
 }
