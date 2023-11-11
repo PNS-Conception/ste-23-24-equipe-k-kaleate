@@ -26,6 +26,10 @@ public class Element {
         return choixSupplementComposant;
     }
 
+    public boolean estElementParNom(String nomElement){
+        return this.nomElement.equals(nomElement);
+    }
+
     public void ajoutComposant(ChoixComposant choixComposant){
         choixComposantListe.add(choixComposant);
     }

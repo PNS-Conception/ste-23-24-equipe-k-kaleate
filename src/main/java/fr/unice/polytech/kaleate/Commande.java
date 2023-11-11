@@ -16,9 +16,10 @@ public class Commande {
     private Creneau creneauLivraison;
     private Restaurant restaurant;
 
-    public Commande(Utilisateur utilisateur, List<Menu> menus, Restaurant Restaurant){
+    public Commande(Utilisateur utilisateur, List<Menu> menus, Restaurant restaurant){
         this.menus = menus;
         this.utilisateur = utilisateur;
+        this.restaurant = restaurant;
         id = nextID;
         nextID++;
     }

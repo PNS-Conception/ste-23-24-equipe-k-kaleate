@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Assertions;
 
 import java.util.Date;
 
+import static org.junit.Assert.assertNotNull;
+
 public class UserStory16Test {
     static ManagerRestaurant  managerRestaurant;
 
@@ -21,6 +23,12 @@ public class UserStory16Test {
     static ChoixElement choixElement1, choixElement2, choixElement3;
     static SupplementElement supEl1, supEl2;
     static SupplementComposant supCo1, supCo2;
+
+    static Utilisateur utilisateur;
+    static Restaurant restaurant2 = new Restaurant();
+    static Menu m2;
+    static Menu menuChoisi;
+    static Commande commande;
 
     public static void creerElement(){
         e1 = new Element("Ice Tea");
@@ -66,6 +74,24 @@ public class UserStory16Test {
 
     public static void ajouterUnComposantSupplement(Element element, SupplementComposant supplementComposant){
         element.ajoutSupplementComposant(supplementComposant);
+    }
+
+    public static void creerMenu2(){
+        m2 = new Menu(12, "Cheese", creneau);
+    }
+
+    public static void creerMenuDansRestaurant(){
+        creerElement();
+        creer1ChoixElement();
+        creer2ChoixElement();
+        creer2ComposantsSupplements();
+        ajouterUnComposantSupplement(e4, supCo1);
+        ajouterUnComposantSupplement(e4, supCo2);
+        creerMenu2();
+        ajouterChoixElement(m2, choixElement1);
+        ajouterChoixElement(m2, choixElement2);
+        ajouterChoixElement(m2, choixElement3);
+        restaurant2.ajouterMenu(m2);
     }
 
 
@@ -155,6 +181,40 @@ public class UserStory16Test {
         }
         int nbSuppBurger = restaurant.getMenus().get(2).getChoixElementListe().get(2).getElementListe().get(0).getChoixSupplementComposant().size();
         Assertions.assertEquals(2, nbSuppBurger);
+    }
+
+    /** PARTIE UTILISATEUR */
+
+    @Etantdonnéque("je suis utilisateur")
+    public void je_suis_un_utilisateur() {
+        utilisateur = new Utilisateur("nom", "prenom");
+        assertNotNull(utilisateur);
+    }
+
+    @Quand("Je veux commander un menu {string}")
+    public void je_veux_commander_un_menu(String string) {
+        creerMenuDansRestaurant();
+        menuChoisi = restaurant2.getMenus().getParNom(string);
+        Assertions.assertNotNull(menuChoisi);
+    }
+    @Quand("je veux boire du {string}")
+    public void je_veux_boire_du(String string) {
+        Element boisson  = menuChoisi.getChoixElementListe().get(0).getParNom(string);
+        Assertions.assertEquals("Coca", boisson.getNomElement());
+        menuChoisi.getChoixElementListe().get(0).choisirElement(boisson);
+        int valeur = menuChoisi.getChoixElementListe().get(0).getListeChoixElement().get(0);
+        Assertions.assertEquals(1, valeur);
+    }
+    @Alors("ma commande contient du {string}")
+    public void ma_commande_contient_du(String string) {
+        ListeMenus listeMenus = new ListeMenus();
+        commande = new Commande(utilisateur, listeMenus, restaurant2);
+        utilisateur.setCommandeActuelle(commande);
+        utilisateur.addMenu(menuChoisi);
+        int val = utilisateur.getCommandeActuelle().getMenus().get(0).getChoixElementListe().get(0).getListeChoixElement().get(0);
+        String nomBoisson = utilisateur.getCommandeActuelle().getMenus().get(0).getChoixElementListe().get(0).getElementListe().get(val).getNomElement();
+        Assertions.assertEquals("Coca", nomBoisson);
+
     }
 
 

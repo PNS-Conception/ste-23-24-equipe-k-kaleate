@@ -7,7 +7,7 @@ public class Utilisateur {
         private String nom;
         private String prenom;
 
-        private Commande commandeActuel;
+        private Commande commandeActuelle;
 
         private ArrayList<Commande> historique;
 
@@ -24,27 +24,27 @@ public class Utilisateur {
             return this.prenom;
         }
 
-        public Commande getCommandeActuel() {
-            return commandeActuel;
+        public Commande getCommandeActuelle() {
+            return commandeActuelle;
         }
 
-        public void setCommandeActuel(Commande commandeActuel) {
-            this.commandeActuel = commandeActuel;
+        public void setCommandeActuelle(Commande commandeActuelle) {
+            this.commandeActuelle = commandeActuelle;
         }
         public boolean rejoindreCommandegroupee(CommandeGroupee commandeGroupee,int code){
-                if(commandeActuel == null){
-                    commandeActuel = new Commande();
+                if(commandeActuelle == null){
+                    commandeActuelle = new Commande();
                 }
-                return commandeGroupee.ajouterCommande(code,commandeActuel);
+                return commandeGroupee.ajouterCommande(code, commandeActuelle);
         }
         public boolean addMenu(Menu m){
-                return commandeActuel.addMenu(m);
+                return commandeActuelle.addMenu(m);
         }
         public boolean removeMenu(Menu m){
-            return commandeActuel.removeMenu(m);
+            return commandeActuelle.removeMenu(m);
         }
 
         public void setCreneauLivraison(Creneau creneauLivraison) {
-            this.commandeActuel.setCreneauLivraison(creneauLivraison);
+            this.commandeActuelle.setCreneauLivraison(creneauLivraison);
         }
 }
