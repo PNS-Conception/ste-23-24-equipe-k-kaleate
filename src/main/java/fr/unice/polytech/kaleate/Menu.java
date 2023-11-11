@@ -100,4 +100,8 @@ public class Menu {
     public void ajouterElement(ChoixElement choixElement){
         choixElementListe.add(choixElement);
     }
+
+    public void ajouterElementSupplement(SupplementElement supplementElement){
+        supplementElementListe.add(supplementElement);
+    }
 }

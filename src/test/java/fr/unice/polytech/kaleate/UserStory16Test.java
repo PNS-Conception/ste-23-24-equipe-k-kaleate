@@ -1,6 +1,7 @@
 package fr.unice.polytech.kaleate;
 
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.da.Men;
 import io.cucumber.java.fr.*;
 import org.junit.jupiter.api.Assertions;
 
@@ -18,12 +19,13 @@ public class UserStory16Test {
 
     static Element e1, e2, e3, e4;
     static ChoixElement choixElement1, choixElement2, choixElement3;
+    static SupplementElement supEl1, supEl2;
 
     public static void creerElement(){
-        e1 = new Element("Ice Tea", 1);
-        e2 = new Element("Coca", 1);
-        e3 = new Element("Frite", 2);
-        e4 = new Element("Burger Cheese", 4);
+        e1 = new Element("Ice Tea");
+        e2 = new Element("Coca");
+        e3 = new Element("Frite");
+        e4 = new Element("Burger Cheese");
     }
 
     public static void creer2ChoixElement(){
@@ -39,6 +41,23 @@ public class UserStory16Test {
         choixElement3.ajoutElement(e4);
     }
 
+    public static void creerMenu(){
+        m = new Menu(12, "Cheese", creneau);
+    }
+
+    public static void creer2ElementsSupplements(){
+        supEl1 = new SupplementElement("Glace", 2);
+        supEl2 = new SupplementElement("Pomme", 1);
+    }
+
+    public static void ajouterChoixElement(Menu m, ChoixElement choixElement){
+        m.ajouterElement(choixElement);
+    }
+
+    public static void ajouterUnElementSupplement(Menu m, SupplementElement supplementElement){
+        m.ajouterElementSupplement(supplementElement);
+    }
+
 
 
     @Etantdonnéque("je suis un Manager de Restaurant")
@@ -48,22 +67,22 @@ public class UserStory16Test {
     }
     @Quand("je cree un menu avec {int} elements")
     public void je_cree_un_menu_avec_elements(Integer int1) {
-        m = new Menu(12, "Cheese", creneau);
+        creerMenu();
         Assertions.assertNotNull(m);
     }
     @Quand("je donne {int} choix pour le premier element")
     public void je_donne_choix_pour_le_premier_element(Integer int1) {
         creerElement();
         creer2ChoixElement();
-        m.ajouterElement(choixElement1);
+        ajouterChoixElement(m, choixElement1);
         int taille = m.getChoixElementListe().get(0).getElementListe().size();
         Assertions.assertEquals(2, taille);
     }
     @Quand("je donne {int} choix pour les deux autres")
     public void je_donne_choix_pour_les_deux_autres(Integer int1) {
         creer1ChoixElement();
-        m.ajouterElement(choixElement2);
-        m.ajouterElement(choixElement3);
+        ajouterChoixElement(m, choixElement2);
+        ajouterChoixElement(m, choixElement3);
         int taille2 = m.getChoixElementListe().get(1).getElementListe().size();
         Assertions.assertEquals(1, taille2);
         int taille3 = m.getChoixElementListe().get(2).getElementListe().size();
@@ -86,4 +105,18 @@ public class UserStory16Test {
         int nbDeChoix3 = restaurant.getMenus().get(0).getChoixElementListe().get(2).getElementListe().size();
         Assertions.assertEquals(1, nbDeChoix3);
     }
+    @Quand("je cree un menu avec {int} elements supplements")
+    public void je_cree_un_menu_avec_supplements(Integer int1) {
+        creerMenu();
+        creer2ElementsSupplements();
+        ajouterUnElementSupplement(m, supEl1);
+        ajouterUnElementSupplement(m, supEl2);
+        Assertions.assertEquals(2, m.getSupplementElementListe().size());
+    }
+    @Alors("il est possible pour l'utilisateur de rajouter des elements supplements")
+    public void il_est_possible_pour_l_utilisateur_de_rajouter_des_supplements() {
+        int nbSupplementPossible = managerRestaurant.getRestaurant().getMenus().get(1).getSupplementElementListe().size();
+        Assertions.assertEquals(2,nbSupplementPossible);
+    }
+
 }

@@ -4,14 +4,12 @@ import java.util.ArrayList;
 
 public class Element {
     private String nomElement;
-    private int nbComposants;
     private ArrayList<ChoixComposant> choixComposantListe;
     private ArrayList<SupplementElement> choixSupplementElement;
 
-    public Element(String nomElement, int nbComposants) {
+    public Element(String nomElement) {
         this.nomElement = nomElement;
-        this.nbComposants = nbComposants;
-        this.choixComposantListe = new ArrayList<>(nbComposants);
+        this.choixComposantListe = new ArrayList<>();
         this.choixSupplementElement = new ArrayList<>();
     }
 
@@ -19,9 +17,6 @@ public class Element {
         return nomElement;
     }
 
-    public int getNbComposants() {
-        return nbComposants;
-    }
 
     public ArrayList<ChoixComposant> getChoixComposantListe() {
         return choixComposantListe;

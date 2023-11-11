@@ -3,8 +3,8 @@ package fr.unice.polytech.kaleate;
 public class SupplementElement extends Element implements Supplement{
     private int prix;
 
-    public SupplementElement(String nomElement, int nbComposants, int prix) {
-        super(nomElement,nbComposants);
+    public SupplementElement(String nomElement, int prix) {
+        super(nomElement);
         this.prix = prix;
     }
 
