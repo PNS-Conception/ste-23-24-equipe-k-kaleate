@@ -8,7 +8,7 @@ public class ChoixElement {
     private String nomElement;
     private int nbChoixElement;
     private ArrayList<Element> elementListe;
-    private ArrayList<Integer> listeChoixElement;
+    private ArrayList<Element> listeChoixElement;
 
     public ChoixElement(String nomElement, int nbChoixElement){
         this.nomElement = nomElement;
@@ -29,33 +29,37 @@ public class ChoixElement {
         return elementListe;
     }
 
-    public ArrayList<Integer> getListeChoixElement() {
+    public ArrayList<Element> getListeChoixElement() {
         return listeChoixElement;
     }
 
-    void ajoutChoixElement(int i){
-        if (listeChoixElement.size() < nbChoixElement){
-            listeChoixElement.add(i);
-        }
-        //Ajouter un else?
+    public boolean estChoixElementParNom(String nomChoixelement){
+        return this.nomElement.equals(nomChoixelement);
     }
 
     void ajoutElement(Element e){
         elementListe.add(e);
     }
 
-    public Element getParNom(String s){
+    public Element getElementParNom(String s){
         return elementListe.stream().filter(element -> element.estElementParNom(s)).findFirst().orElse(null);
     }
 
-    void choisirElement(Element element){
-        int rang = 0;
-        for (int i = 0; i < elementListe.size(); i++){
-            if (Objects.equals(elementListe.get(i).getNomElement(), element.getNomElement())){
-                rang = i;
-                break;
-            }
+    public Element getElementChoisiParNom(String s){
+        return listeChoixElement.stream().filter(element -> element.estElementParNom(s)).findFirst().orElse(null);
+    }
+
+    public void choisirElement(Element element){
+        if (listeChoixElement.size() < nbChoixElement){
+            listeChoixElement.add(element);
         }
-        listeChoixElement.add(rang);
+    }
+
+    public float getPrixSupplement(){
+        float prixSupp = 0;
+        for (Element e : listeChoixElement){
+            prixSupp += e.getPrixSupplements();
+        }
+        return prixSupp;
     }
 }

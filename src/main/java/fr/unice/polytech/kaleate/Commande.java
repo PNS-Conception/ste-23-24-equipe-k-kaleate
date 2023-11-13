@@ -74,6 +74,15 @@ public class Commande {
         }
         return price;
     }
+
+    public float getPrixAvecSupplement(){
+        float prix = getPrice();
+        for(Menu menu : this.menus){
+            prix += menu.getPrixAvecSupplements();
+        }
+        return prix;
+    }
+
     public float getTempsPreparation(){
         float tps = 0;
         for(Menu menu : this.menus){
@@ -146,5 +155,9 @@ public class Commande {
 
     public List<StatutMenu> getStatutsMenus(){
         return statutsMenus;
+    }
+
+    public Menu getMenuParNom(String nomMenu){
+        return this.menus.stream().filter(menu -> menu.estMenuParNom(nomMenu)).findFirst().orElse(null);
     }
 }

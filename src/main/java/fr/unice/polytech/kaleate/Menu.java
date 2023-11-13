@@ -10,6 +10,7 @@ public class Menu {
     private Creneau creneau;
     private ArrayList<ChoixElement> choixElementListe;
     private ArrayList<SupplementElement> supplementElementListe;
+    private ArrayList<SupplementElement> supplementElementListeSelectionne;
 
     private int tempsPreparation; // en minutes
     public Menu(float price, String name, Creneau creneau){
@@ -18,6 +19,7 @@ public class Menu {
         this.creneau = creneau;
         choixElementListe = new ArrayList<>();
         supplementElementListe = new ArrayList<>();
+        supplementElementListeSelectionne = new ArrayList<>();
     }
     public Menu(float price, String name, Creneau creneau,int tempsPreparation){
         this.price = price;
@@ -26,6 +28,7 @@ public class Menu {
         this.tempsPreparation = tempsPreparation;
         choixElementListe = new ArrayList<>();
         supplementElementListe = new ArrayList<>();
+        supplementElementListeSelectionne = new ArrayList<>();
     }
 
 
@@ -45,6 +48,10 @@ public class Menu {
 
     public ArrayList<SupplementElement> getSupplementElementListe() {
         return this.supplementElementListe;
+    }
+
+    public ArrayList<SupplementElement> getSupplementElementListeSelectionne() {
+        return supplementElementListeSelectionne;
     }
 
     public void setPrice(float price){
@@ -103,5 +110,33 @@ public class Menu {
 
     public void ajouterElementSupplement(SupplementElement supplementElement){
         supplementElementListe.add(supplementElement);
+    }
+
+    public void ajouterElementSupplementSelectionne(SupplementElement supplementElement) {
+        supplementElementListeSelectionne.add(supplementElement);
+    }
+
+    public float getPrixAvecSupplements() {
+        float total = 0;
+        for (ChoixElement e : choixElementListe) {
+            total += e.getPrixSupplement();
+        }
+        for(SupplementElement supplementElement : supplementElementListeSelectionne){
+            total += supplementElement.getPrix();
+            total += supplementElement.getPrixSupplements();
+        }
+        return total;
+    }
+
+    public ChoixElement getChoixElementParNom(String nomChoixElement){
+        return this.getChoixElementListe().stream().filter(choixElement -> choixElement.estChoixElementParNom(nomChoixElement)).findFirst().orElse(null);
+    }
+
+    public SupplementElement getChoixSupplementElementParNom(String nomSupplement){
+        return this.supplementElementListe.stream().filter(supplementElement -> supplementElement.estElementParNom(nomSupplement)).findFirst().orElse(null);
+    }
+
+    public SupplementElement getSupplementElementListeSelectioneParNom(String nomSup){
+        return this.supplementElementListeSelectionne.stream().filter(supplementElement -> supplementElement.estElementParNom(nomSup)).findFirst().orElse(null);
     }
 }

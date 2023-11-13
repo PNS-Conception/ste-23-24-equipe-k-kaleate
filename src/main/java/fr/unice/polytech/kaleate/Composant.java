@@ -10,4 +10,8 @@ public class Composant {
     public String getNomComposant() {
         return nomComposant;
     }
+
+    public boolean estComposantParNom(String nomElement){
+        return this.nomComposant.equals(nomElement);
+    }
 }
