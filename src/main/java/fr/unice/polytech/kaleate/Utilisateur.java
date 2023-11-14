@@ -64,12 +64,10 @@ public class Utilisateur {
             this.solde += solde;
         }
         public boolean payer(){
-            float prix = commandeActuel.getPrice();
-            if(solde >= prix){
-                solde -= prix;
+            if(commandeActuel == null) return false;
+            if(new PayementExterne().payer(commandeActuel.getPrice())) {
                 commandeActuel.setStatut(StatutCommande.PAYEE);
-                commandeActuel = null;
-                return new PayementExterne().payer(solde);
+                return true;
             }
             return false;
         }
