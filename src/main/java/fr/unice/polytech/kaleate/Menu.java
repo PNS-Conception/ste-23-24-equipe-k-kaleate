@@ -46,9 +46,16 @@ public class Menu {
 
     public ArrayList<ChoixElement> getChoixElementListe() {return this.choixElementListe;}
 
+    /**
+     * @return la liste des éléments suppléments proposés par le restaurant
+     */
     public ArrayList<SupplementElement> getSupplementElementListe() {
         return this.supplementElementListe;
     }
+
+    /**
+     * @return la liste des éléments suppléments sélectionnés par l'utilisateur
+     */
 
     public ArrayList<SupplementElement> getSupplementElementListeSelectionne() {
         return supplementElementListeSelectionne;
@@ -104,18 +111,35 @@ public class Menu {
         this.tempsPreparation = tempsPreparation;
     }
 
-    public void ajouterElement(ChoixElement choixElement){
+    /**
+     * Prends en paramètre un ChoixElement
+     * l'ajoute à la liste choixElementliste qui contient les choix possibles pour l'utilisateur ajoutés par le manager de restaurant
+     * @param choixElement le ChoixElement à rajouter
+     */
+    public void ajouterChoixElement(ChoixElement choixElement){
         choixElementListe.add(choixElement);
     }
 
+    /**
+     * Ajoute un élément supplément à la liste des éléments suppléments disponible pour l'utilisateur
+     * @param supplementElement l'élément supplément que le manager de restaurant veut ajouter
+     */
     public void ajouterElementSupplement(SupplementElement supplementElement){
         supplementElementListe.add(supplementElement);
     }
 
+    /**
+     * Ajoute un élément suppplémentaire à la liste des éléments supplémentaires sélectionnés par l'utilisateur
+     * @param supplementElement l'élément supplément choisi par l'utilisateur
+     */
     public void ajouterElementSupplementSelectionne(SupplementElement supplementElement) {
         supplementElementListeSelectionne.add(supplementElement);
     }
 
+    /**
+     * Calcule le prix des suppléments ajoutés par l'utilisateur dans le menu
+     * @return le prix ddes suppléments
+     */
     public float getPrixAvecSupplements() {
         float total = 0;
         for (ChoixElement e : choixElementListe) {
@@ -128,14 +152,29 @@ public class Menu {
         return total;
     }
 
+    /**
+     * Cherche dans la liste des choix d'éléments un Choix grâce à son nom
+     * @param nomChoixElement le nom du ChoixElement que l'on veut
+     * @return le ChoixElement trouvé  à partir du string entrée en paramètre
+     */
     public ChoixElement getChoixElementParNom(String nomChoixElement){
         return this.getChoixElementListe().stream().filter(choixElement -> choixElement.estChoixElementParNom(nomChoixElement)).findFirst().orElse(null);
     }
 
+    /**
+     * Cherche dans la liste des Supplements éléments disponibles un supplément grâce à son nom
+     * @param nomSupplement le nom du supplément élément que l'on veut
+     * @return le supplément élément trouvé à  partir du string entré en paramètre
+     */
     public SupplementElement getChoixSupplementElementParNom(String nomSupplement){
         return this.supplementElementListe.stream().filter(supplementElement -> supplementElement.estElementParNom(nomSupplement)).findFirst().orElse(null);
     }
 
+    /**
+     * Cherche dans la liste des Supplements éléments sélectionés un supplément grâce à son nom
+     * @param nomSup le nom du supplément élément que  l'on veut
+     * @return le supplément élément trouvé à partir du string entré en paramètre
+     */
     public SupplementElement getSupplementElementListeSelectioneParNom(String nomSup){
         return this.supplementElementListeSelectionne.stream().filter(supplementElement -> supplementElement.estElementParNom(nomSup)).findFirst().orElse(null);
     }
