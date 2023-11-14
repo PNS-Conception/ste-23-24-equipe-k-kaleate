@@ -7,7 +7,7 @@ public class Utilisateur {
         private String nom;
         private String prenom;
 
-        private Commande commandeActuel;
+        private Commande commandeActuelle;
 
         private ArrayList<Commande> historique;
 
@@ -26,31 +26,28 @@ public class Utilisateur {
             return this.prenom;
         }
 
-        public Commande getCommandeActuel() {
-            return commandeActuel;
+        public Commande getCommandeActuelle() {
+            return commandeActuelle;
         }
 
-        public void setCommandeActuel(Commande commandeActuel) {
-            this.commandeActuel = commandeActuel;
+        public void setCommandeActuelle(Commande commandeActuelle) {
+            this.commandeActuelle = commandeActuelle;
         }
         public boolean rejoindreCommandegroupee(CommandeGroupee commandeGroupee,int code){
-                if(commandeActuel == null){
-                    commandeActuel = new Commande();
+                if(commandeActuelle == null){
+                    commandeActuelle = new Commande();
                 }
-                return commandeGroupee.ajouterCommande(code,commandeActuel);
+                return commandeGroupee.ajouterCommande(code, commandeActuelle);
         }
         public boolean addMenu(Menu m){
-            if(commandeActuel == null){
-                commandeActuel = new Commande();
-            }
-                return commandeActuel.addMenu(m);
+                return commandeActuelle.addMenu(m);
         }
         public boolean removeMenu(Menu m){
-            return commandeActuel.removeMenu(m);
+            return commandeActuelle.removeMenu(m);
         }
 
         public void setCreneauLivraison(Creneau creneauLivraison) {
-            this.commandeActuel.setCreneauLivraison(creneauLivraison);
+            this.commandeActuelle.setCreneauLivraison(creneauLivraison);
         }
 
         public float getSolde() {
@@ -64,9 +61,9 @@ public class Utilisateur {
             this.solde += solde;
         }
         public boolean payer(){
-            if(commandeActuel == null) return false;
-            if(new PayementExterne().payer(commandeActuel.getPrice())) {
-                commandeActuel.setStatut(StatutCommande.PAYEE);
+            if(commandeActuelle == null) return false;
+            if(new PayementExterne().payer(commandeActuelle.getPrice())) {
+                commandeActuelle.setStatut(StatutCommande.PAYEE);
                 return true;
             }
             return false;

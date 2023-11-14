@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
 public class UserStory7Test {
     static Utilisateur utilisateur= new Utilisateur("Ziad","Bouhlel");
 
-    static Commande commande = utilisateur.getCommandeActuel();
+    static Commande commande = utilisateur.getCommandeActuelle();
 
     static ListeCommande listeCommande = new ListeCommande();
     public static List<Menu> getMenus(){
@@ -46,13 +46,13 @@ public class UserStory7Test {
     public void creerCommande(Utilisateur u1){
         u1.addMenu(getMenus().get(0));
         u1.addMenu(getMenus().get(1));
-        listeCommande.add(u1.getCommandeActuel());
+        listeCommande.add(u1.getCommandeActuelle());
     }
 
     @Soit("Un utilisateur ayant une commande avec deux menus à l'intérieur")
     public void un_utilisateur_ayant_une_commande_avec_deux_menus_à_l_intérieur() {
         creerCommande(utilisateur);
-        assertEquals(2,utilisateur.getCommandeActuel().getMenus().size());
+        assertEquals(2,utilisateur.getCommandeActuelle().getMenus().size());
 
 
     }

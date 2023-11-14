@@ -76,9 +76,9 @@ public class UserStory3Test {
         Restaurant restaurant1 = new Restaurant("Restau 1",new ListeMenus(getMenus()));
         commandeGroupee = new CommandeGroupee();
         commandeUserA = new Commande(userA,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
-        userA.setCommandeActuel(commandeUserA);
+        userA.setCommandeActuelle(commandeUserA);
         commandeUserB = new Commande(userB,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
-        userB.setCommandeActuel(commandeUserB);
+        userB.setCommandeActuelle(commandeUserB);
     }
     public void commandeDiffCreneau(){
         Restaurant restaurant1 = new Restaurant("Restau 1",new ListeMenus(getMenus()));
@@ -94,7 +94,7 @@ public class UserStory3Test {
 
          commandeGroupee = new CommandeGroupee();
          commandeUserA = new Commande(userA,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
-        userA.setCommandeActuel(commandeUserA);
+        userA.setCommandeActuelle(commandeUserA);
         c.setTime(df);
         c.setTime(db);
         c.add(Calendar.HOUR, 2);
@@ -102,7 +102,7 @@ public class UserStory3Test {
         c.add(Calendar.HOUR,1);
         df = c.getTime();
          commandeUserB = new Commande(userB,restaurant1.getMenus().get(3),new Creneau(db, df),restaurant1);
-        userB.setCommandeActuel(commandeUserB);
+        userB.setCommandeActuelle(commandeUserB);
     }
 
 
@@ -167,8 +167,8 @@ public class UserStory3Test {
     public void user_c_affiche_la_liste_des_menus() {
         // Write code here that turns the phrase above into concrete actions
         ListeMenus listeMenus = new ListeMenus(getMenus());
-        assertEquals(userC.getCommandeActuel().getCreneauLivraison(),commandeGroupee.getCreneauLivraison());
-        menus = listeMenus.getMenusDansCreneau(userC.getCommandeActuel().getCreneauLivraison());
+        assertEquals(userC.getCommandeActuelle().getCreneauLivraison(),commandeGroupee.getCreneauLivraison());
+        menus = listeMenus.getMenusDansCreneau(userC.getCommandeActuelle().getCreneauLivraison());
 
 
     }
@@ -187,15 +187,15 @@ public class UserStory3Test {
         assertEquals(userA,commandeUserA.getUtilisateur());
         commandeGroupee = (CommandeGroupee) commandeUserA;
         assertTrue(userC.rejoindreCommandegroupee(commandeGroupee,commandeGroupee.getCode()));
-        assertTrue(commandeGroupee.getCommandes().contains(userC.getCommandeActuel()));
+        assertTrue(commandeGroupee.getCommandes().contains(userC.getCommandeActuelle()));
 
     }
     @Quand("User C ajoute un menu a sa commande")
     public void user_c_ajoute_un_menu_a_sa_commande() {
         // Write code here that turns the phrase above into concrete actions
         userC.addMenu(menus.get(0));
-        assertEquals(1,userC.getCommandeActuel().getMenus().size());
-        assertEquals(10,(int) userC.getCommandeActuel().getPrice());
+        assertEquals(1,userC.getCommandeActuelle().getMenus().size());
+        assertEquals(10,(int) userC.getCommandeActuelle().getPrice());
     }
     @Alors("la commande de User C dans la commande groupée a bien été modifée")
     public void la_commande_de_user_c_dans_la_commande_groupée_a_bien_été_modifée() {
