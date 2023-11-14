@@ -1,8 +1,5 @@
 package fr.unice.polytech.kaleate;
 
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Etantdonnéque;
 import io.cucumber.java.fr.Quand;
@@ -28,7 +25,7 @@ public class UserStory2Test {
    static Restaurant restaurant = new Restaurant();
     static Commande commandeSelectionnee;
 
-    static ListCommande listCommande = getCommandes();
+    static ListeCommande listeCommande = getCommandes();
 
     public static List<Menu> getMenus(){
         List<Menu> menus = new ArrayList<Menu>();
@@ -66,7 +63,7 @@ public class UserStory2Test {
 
     // TODO : Changer la façon de construire les commandes dans les restaurants : les commmandes sont crées à partir d'un restaurant et non l'inverse
 
-    public static ListCommande getCommandes(){
+    public static ListeCommande getCommandes(){
         Utilisateur utilisateur = new Utilisateur("Nom","Prenom");
 
         Date debut = new Date();
@@ -83,19 +80,19 @@ public class UserStory2Test {
        Creneau creneau = new Creneau(debut, fin);
 
 
-        ListCommande listCommande = new ListCommande();
+        ListeCommande listeCommande = new ListeCommande();
         for(Menu m : getMenus()){
-            listCommande.add(new Commande(utilisateur,m,creneau, restaurant));
+            listeCommande.add(new Commande(utilisateur,m,creneau, restaurant));
         }
         for(Menu m : getMenus()){
-            listCommande.add(new Commande(utilisateur,m,creneau, new Restaurant("c'est bon!!")));
+            listeCommande.add(new Commande(utilisateur,m,creneau, new Restaurant("c'est bon!!")));
         }
-        return listCommande;
+        return listeCommande;
     }
     @Etantdonnéque("Je suis un restaurateur qui travaille à {string}")
     public void je_suis_un_restaurateur_qui_travaille_à(String string) {
          restaurant.setName(string);
-         restaurant.setListCommande(listCommande);
+         restaurant.setListCommande(listeCommande);
         assertNotNull(restaurant);
         assertEquals(restaurant.getName(),string);
 
@@ -153,7 +150,7 @@ public class UserStory2Test {
         dateTOT = calendar.getTime();
         //trop tot pour commencer à préparer
         assertFalse(restaurant.doitEtrePreparee(commandeSelectionnee,dateTOT));
-        calendar.set(Calendar.MINUTE, 60);
+        calendar.set(Calendar.MINUTE, 90);
         dateTARD = calendar.getTime();
         //trop tard/à l'heure pour commencer à préparer
         assertTrue(restaurant.doitEtrePreparee(commandeSelectionnee,dateTARD));

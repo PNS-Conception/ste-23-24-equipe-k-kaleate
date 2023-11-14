@@ -4,40 +4,40 @@ import java.util.Date;
 import java.util.List;
 
 public class Restaurant {
-    private ListMenus menus;
+    private ListeMenus menus;
     private String name;
 
     private GestionnaireCommande gestionnaireCommande;
 
     public Restaurant(){
-        this.menus = new ListMenus();
         gestionnaireCommande = new GestionnaireCommande();
+        this.menus = new ListeMenus();
     }
 
     public Restaurant(String name){
-        this.menus = new ListMenus();
+        this.menus = new ListeMenus();
         this.name = name;
         gestionnaireCommande = new GestionnaireCommande();
     }
 
-    public Restaurant(String name, ListMenus menus){
+    public Restaurant(String name, ListeMenus menus){
         this.name = name;
         this.menus = menus;
         gestionnaireCommande = new GestionnaireCommande();
     }
 
-    public ListMenus getMenus(){
+    public ListeMenus getMenus(){
         return this.menus;
     }
 
-    public void setMenus(ListMenus menus){
+    public void setMenus(ListeMenus menus){
         this.menus = menus;
     }
 
-    public ListMenus getMenusDansCreneau(Creneau creneau){
-        ListMenus listMenu = new ListMenus(this.menus);
-        listMenu = new ListMenus(listMenu.stream().filter(menu -> !menu.estComprisDansCreneau(creneau)).toList());
-        return listMenu;
+    public ListeMenus getMenusDansCreneau(Creneau creneau){
+        ListeMenus listeMenu = new ListeMenus(this.menus);
+        listeMenu = new ListeMenus(listeMenu.stream().filter(menu -> menu.chevaucheCreneau(creneau)).toList());
+        return listeMenu;
     }
 
     public String getName(){
@@ -54,11 +54,11 @@ public class Restaurant {
                 "\n" + menus;
     }
 
-    public ListCommande getListCommande() {
+    public ListeCommande getListCommande() {
         return  gestionnaireCommande.getListCommande();
     }
 
-    public void setListCommande(ListCommande listCommande) {
+    public void setListCommande(ListeCommande listCommande) {
         this.gestionnaireCommande.setListCommande(listCommande);
     }
 
@@ -77,7 +77,7 @@ public class Restaurant {
         return gestionnaireCommande.preparerCommande(commande);
     }
 
-    public ListCommande getCommandePrete() {
+    public ListeCommande getCommandePrete() {
         return gestionnaireCommande.getCommandePrete(this);
 
     }

@@ -22,7 +22,7 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 
 public class UserStory13Test {
     static Livreur livreur;
-    static ListCommande commandesPretes;
+    static ListeCommande commandesPretes;
     static Restaurant restaurant1;
     static Restaurant restaurant2;
     static Commande commandeChoisie;
@@ -49,8 +49,8 @@ public class UserStory13Test {
     }
 
     public static void createRestaurants(){
-        restaurant1 = new Restaurant("Burger King", new ListMenus(getMenus()));
-        restaurant2 = new Restaurant("McDonalds", new ListMenus(getMenus()));
+        restaurant1 = new Restaurant("Burger King", new ListeMenus(getMenus()));
+        restaurant2 = new Restaurant("McDonalds", new ListeMenus(getMenus()));
     }
 
     public static void createCommandes(){
@@ -69,12 +69,12 @@ public class UserStory13Test {
         Commande com3 = new Commande(utilisateur3, menu3, restaurant1);
         com3.setStatut(StatutCommande.PRETE);
 
-        ListCommande listCommandeR1 = new ListCommande();
-        listCommandeR1.add(com1);
-        listCommandeR1.add(com2);
-        listCommandeR1.add(com3);
+        ListeCommande listeCommandeR1 = new ListeCommande();
+        listeCommandeR1.add(com1);
+        listeCommandeR1.add(com2);
+        listeCommandeR1.add(com3);
 
-        restaurant1.setListCommande(listCommandeR1);
+        restaurant1.setListCommande(listeCommandeR1);
 
         Utilisateur utilisateur4 = new Utilisateur("nom4", "prenom4");
         Menu menu4 = restaurant2.getMenus().get(0);
@@ -91,20 +91,20 @@ public class UserStory13Test {
         Commande com6 = new Commande(utilisateur6, menu6, restaurant2);
         com6.setStatut(StatutCommande.PRETE);
 
-        ListCommande listCommandeR2 = new ListCommande();
-        listCommandeR2.add(com4);
-        listCommandeR2.add(com5);
-        listCommandeR2.add(com6);
+        ListeCommande listeCommandeR2 = new ListeCommande();
+        listeCommandeR2.add(com4);
+        listeCommandeR2.add(com5);
+        listeCommandeR2.add(com6);
 
-        restaurant2.setListCommande(listCommandeR2);
+        restaurant2.setListCommande(listeCommandeR2);
 
 
     }
 
-    public ListCommande getCommandesPretes(){
+    public ListeCommande getCommandesPretes(){
         createRestaurants();
         createCommandes();
-        ListCommande commande = new ListCommande();
+        ListeCommande commande = new ListeCommande();
         commande.addAll(restaurant1.getCommandePrete());
         commande.addAll(restaurant2.getCommandePrete());
         return commande;

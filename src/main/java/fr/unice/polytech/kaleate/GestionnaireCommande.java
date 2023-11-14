@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class GestionnaireCommande {
 
-    private ListCommande listCommande;
+    private ListeCommande listCommande;
 
     public GestionnaireCommande(){
-        listCommande = ListCommande.getInstance();
+        listCommande = ListeCommande.getInstance();
     }
 
     public boolean validerCommande(Commande commande){
@@ -27,8 +27,8 @@ public class GestionnaireCommande {
         return false;
     }
 
-    public ListCommande getCommandePrete(Restaurant restaurant) {
-        ListCommande comPrete = new ListCommande();
+    public ListeCommande getCommandePrete(Restaurant restaurant) {
+        ListeCommande comPrete = new ListeCommande();
         for (Commande c : listCommande) {
             if (c.getStatut().equals(StatutCommande.PRETE) && c.getRestaurant().equals(restaurant)) {
                 comPrete.add(c);
@@ -37,11 +37,11 @@ public class GestionnaireCommande {
         return comPrete;
     }
 
-    public ListCommande getListCommande() {
+    public ListeCommande getListCommande() {
         return listCommande;
     }
 
-    public void setListCommande(ListCommande listCommande) {
+    public void setListCommande(ListeCommande listCommande) {
         this.listCommande = listCommande;
     }
 }
