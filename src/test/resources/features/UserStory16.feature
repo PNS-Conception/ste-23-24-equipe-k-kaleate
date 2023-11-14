@@ -1,27 +1,31 @@
 #language: fr
   Fonctionnalité: Pouvoir avoir le choix sur les éléments et les composants d'un menu
 
-    Scénario: Creer une commande avec des options composants
+    Scénario: Creer une commande avec des options composants et elements
       Etant donné que je suis un Manager de Restaurant
-      Quand je cree un menu avec 3 elements
-      Et que je donne 2 choix pour le premier element
-      Et que je donne 1 choix pour les deux autres
-      Et que je l'ajoute au menu de mon restaurant
-      Alors il est possible pour l'utilisateur de choisir un des deux elements pour le premier choix
-      Et il n'est pas possible pour l'utilisateur de choisir pour les deux autres elements
+      Quand je cree un menu "Cheese1"
+      Et que je donne le choix entre "Coca" et "Ice Tea" pour la "Boisson"
+      Et que je donne des "Frite" en "Accompagnement" et un "Burger Cheese" en "Burger"
+      Et que je laisse le choix de la "Sauce" pour les "Frite" entre "Ketchup"  "Moutarde" et "Mayonnaise"
+      Et que j'ajoute "Cheese1" au menu de mon restaurant
+      Alors il est possible pour l'utilisateur de choisir entre "Coca" et "Ice Tea" pour la "Boisson"
+      Et il n'est pas possible pour l'utilisateur de choisir pour l'"Accompagnement" et le "Burger"
+      Et l'utilisateur peut choisir 2 "Sauce" entre "Ketchup"  "Moutarde" et "Mayonnaise"
 
 
     Scénario: Creer une commande avec des elements supplements
       Etant donné que je suis un Manager de Restaurant
-      Quand je cree un menu avec 2 elements supplements
-      Et que je l'ajoute au menu de mon restaurant
-      Alors il est possible pour l'utilisateur de rajouter des elements supplements
+      Quand je cree un menu "Cheese2"
+      Et que j'ajoute 2 elements supplements "Glace" et "Pomme"
+      Et que j'ajoute "Cheese2" au menu de mon restaurant
+      Alors il est possible pour l'utilisateur de rajouter une "Glace" et une "Pomme"
 
     Scénario: Creer une commande avec des composants supplements
       Etant donné que je suis un Manager de Restaurant
-      Quand je cree un menu avec 2 composants supplements pour un element
-      Et que je l'ajoute au menu de mon restaurant
-      Alors il est possible pour l'utilisateur de rajouter des composants supplements dans cet element
+      Quand je cree un menu "Cheese3"
+      Et que j'ajoute 2 composants supplements "Cheddar" et "Bacon" pour le "Burger Cheese"
+      Et que j'ajoute "Cheese3" au menu de mon restaurant
+      Alors il est possible pour l'utilisateur de rajouter du "Cheddar" et du "Bacon" dans le "Burger Cheese" du menu "Cheese3"
 
     Scénario: Choisir parmi des options composants et elements
       Etant donné que je suis utilisateur
