@@ -99,4 +99,11 @@ public class Element {
     public SupplementComposant getSupplementComposantSelectionneParNom(String nomSupplement){
         return this.choixSupplementComposantSelectionne.stream().filter(choixSupplement -> choixSupplement.estComposantParNom(nomSupplement)).findFirst().orElse(null);
     }
+
+    public void resetElement(){
+        this.choixSupplementComposantSelectionne = new ArrayList<>();
+        for(ChoixComposant chCo : choixComposantListe){
+            chCo.reset();
+        }
+    }
 }

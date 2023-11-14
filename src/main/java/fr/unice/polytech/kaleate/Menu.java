@@ -178,4 +178,14 @@ public class Menu {
     public SupplementElement getSupplementElementListeSelectioneParNom(String nomSup){
         return this.supplementElementListeSelectionne.stream().filter(supplementElement -> supplementElement.estElementParNom(nomSup)).findFirst().orElse(null);
     }
+
+    public void resetMenu(){
+        this.supplementElementListeSelectionne = new ArrayList<>();
+        for(ChoixElement chEl: choixElementListe){
+            chEl.resetChoixElement();
+        }
+        for(SupplementElement supEl: supplementElementListe){
+            supEl.resetElement();
+        }
+    }
 }

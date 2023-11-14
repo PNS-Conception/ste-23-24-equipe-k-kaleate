@@ -335,6 +335,9 @@ public class UserStory16Test {
         Composant composant2 = utilisateur.getCommandeActuelle().getMenus().get(0).getChoixElementParNom("Burger")
                 .getElementParNom(string).getChoixComposantParNom("Sauce").getComposantSelectionneParNom(string3);
         Assertions.assertEquals("Mayonnaise", composant2.getNomComposant());
+        m2.resetMenu();
+        utilisateur.getCommandeActuelle().getMenus().get(0).resetMenu();
+        restaurant2.getMenus().getParNom("Cheese").resetMenu();
     }
     @Quand("je veux ajouter du {string} dans mon {string} et une {string} avec des {string}")
     public void je_veux_ajouter_du_dans_mon_et_une_avec_des(String string, String string2, String string3, String string4) {
@@ -379,6 +382,9 @@ public class UserStory16Test {
         float prixSupplement = utilisateur.getCommandeActuelle().getPrixAvecSupplement();
         Assertions.assertEquals(12, prixInitial);
         Assertions.assertEquals(15, prixSupplement);
+        m2.resetMenu();
+        utilisateur.getCommandeActuelle().getMenus().get(0).resetMenu();
+        restaurant2.getMenus().getParNom("Cheese").resetMenu();
     }
 
 

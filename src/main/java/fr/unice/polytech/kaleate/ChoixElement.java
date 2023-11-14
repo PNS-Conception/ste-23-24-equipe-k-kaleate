@@ -6,13 +6,13 @@ public class ChoixElement {
     private String nomElement;
     private int nbChoixElement;
     private ArrayList<Element> elementListe;
-    private ArrayList<Element> elementListeSelectione;
+    private ArrayList<Element> elementListeSelectionne;
 
     public ChoixElement(String nomElement, int nbChoixElement){
         this.nomElement = nomElement;
         this.nbChoixElement = nbChoixElement;
         this.elementListe = new ArrayList<>();
-        this.elementListeSelectione = new ArrayList<>(nbChoixElement);
+        this.elementListeSelectionne = new ArrayList<>(nbChoixElement);
     }
 
     public String getNomElement() {
@@ -27,8 +27,8 @@ public class ChoixElement {
         return elementListe;
     }
 
-    public ArrayList<Element> getElementListeSelectione() {
-        return elementListeSelectione;
+    public ArrayList<Element> getElementListeSelectionne() {
+        return elementListeSelectionne;
     }
 
     public boolean estChoixElementParNom(String nomChoixelement){
@@ -58,7 +58,7 @@ public class ChoixElement {
      * @return l'élément trouvé grâce à l'entrée
      */
     public Element getElementSelectioneParNom(String s){
-        return elementListeSelectione.stream().filter(element -> element.estElementParNom(s)).findFirst().orElse(null);
+        return elementListeSelectionne.stream().filter(element -> element.estElementParNom(s)).findFirst().orElse(null);
     }
 
     /**
@@ -66,8 +66,8 @@ public class ChoixElement {
      * @param element l'élément à ajouter
      */
     public void choisirElement(Element element){
-        if (elementListeSelectione.size() < nbChoixElement){
-            elementListeSelectione.add(element);
+        if (elementListeSelectionne.size() < nbChoixElement){
+            elementListeSelectionne.add(element);
         }
     }
 
@@ -77,9 +77,16 @@ public class ChoixElement {
      */
     public float getPrixSupplement(){
         float prixSupp = 0;
-        for (Element e : elementListeSelectione){
+        for (Element e : elementListeSelectionne){
             prixSupp += e.getPrixSupplements();
         }
         return prixSupp;
+    }
+
+    public void resetChoixElement(){
+        this.elementListeSelectionne = new ArrayList<>();
+        for(Element e : elementListe){
+            e.resetElement();
+        }
     }
 }

@@ -70,4 +70,8 @@ public class ChoixComposant {
     public boolean estChoixComposantParNom(String nomComposant){
         return this.nomComposant.equals(nomComposant);
     }
+
+    public void reset(){
+        this.listeComposantSelectionne = new ArrayList<>();
+    }
 }
