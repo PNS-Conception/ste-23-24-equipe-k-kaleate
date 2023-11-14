@@ -23,6 +23,7 @@ public class Commande {
         this.utilisateur = utilisateur;
         id = nextID;
         nextID++;
+        this.restaurant = Restaurant;
     }
 
     public Commande(Utilisateur utilisateur, Menu menu, Restaurant Restaurant){

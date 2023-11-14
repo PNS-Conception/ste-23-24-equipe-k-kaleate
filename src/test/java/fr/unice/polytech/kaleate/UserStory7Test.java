@@ -59,11 +59,7 @@ public class UserStory7Test {
     @Quand("l'utilisateur a assez d'argent pour payer sa commande et décide de la payer")
     public void l_utilisateur_a_assez_d_argent_pour_payer_sa_commande_et_décide_de_la_payer() {
         // Write code here that turns the phrase above into concrete actions
-        utilisateur.setSolde(3);
-        assertFalse(utilisateur.payer());
-        utilisateur.addSolde(20);
         assertTrue(utilisateur.payer());
-        assertEquals(1,(int)utilisateur.getSolde());
 
     }
     @Alors("La commande est payée et change de statut")

@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
 
 public class UserStory2Test {
 
-   static Restaurant restaurant = new Restaurant();
+    static Restaurant restaurant = new Restaurant();
     static Commande commandeSelectionnee;
 
     public static List<Menu> getMenus(){
@@ -75,7 +75,7 @@ public class UserStory2Test {
         calendar.set(Calendar.MINUTE, 15);
         fin = calendar.getTime();
 
-       Creneau creneau = new Creneau(debut, fin);
+        Creneau creneau = new Creneau(debut, fin);
 
 
         ListeCommande listeCommande = new ListeCommande();
@@ -86,8 +86,8 @@ public class UserStory2Test {
     }
     @Etantdonnéque("Je suis un restaurateur qui travaille à {string}")
     public void je_suis_un_restaurateur_qui_travaille_à(String string) {
-         restaurant = new Restaurant(string);
-         restaurant.setListCommande(getCommandes());
+        restaurant = new Restaurant(string);
+        restaurant.setListCommande(getCommandes());
         assertNotNull(restaurant);
 
     }
