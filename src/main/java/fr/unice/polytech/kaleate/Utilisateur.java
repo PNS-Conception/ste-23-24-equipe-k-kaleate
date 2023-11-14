@@ -11,7 +11,7 @@ public class Utilisateur {
 
         private ArrayList<Commande> historique;
 
-        private int solde = 1000;
+        private float solde = 1000;
 
         public Utilisateur(String nom, String prenom){
             this.nom = nom;
@@ -53,14 +53,24 @@ public class Utilisateur {
             this.commandeActuel.setCreneauLivraison(creneauLivraison);
         }
 
-    public int getSolde() {
-        return solde;
-    }
+        public float getSolde() {
+            return solde;
+        }
 
-    public void setSolde(int solde) {
-        this.solde = solde;
-    }
-    public void addSolde(int solde) {
-        this.solde += solde;
-    }
+        public void setSolde(float solde) {
+            this.solde = solde;
+        }
+        public void addSolde(float solde) {
+            this.solde += solde;
+        }
+        public boolean payer(){
+            float prix = commandeActuel.getPrice();
+            if(solde >= prix){
+                solde -= prix;
+                commandeActuel.setStatut(StatutCommande.PAYEE);
+                commandeActuel = null;
+                return new PayementExterne().payer(solde);
+            }
+            return false;
+        }
 }

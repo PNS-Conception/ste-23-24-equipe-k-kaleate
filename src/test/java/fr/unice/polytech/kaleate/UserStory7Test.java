@@ -21,6 +21,10 @@ import static org.junit.Assert.*;
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "fr.unice.polytech.kaleate")
 public class UserStory7Test {
     static Utilisateur utilisateur= new Utilisateur("Ziad","Bouhlel");
+
+    static Commande commande = utilisateur.getCommandeActuel();
+
+    static ListeCommande listeCommande = new ListeCommande();
     public static List<Menu> getMenus(){
         List<Menu> menus = new ArrayList<Menu>();
 
@@ -42,6 +46,7 @@ public class UserStory7Test {
     public void creerCommande(Utilisateur u1){
         u1.addMenu(getMenus().get(0));
         u1.addMenu(getMenus().get(1));
+        listeCommande.add(u1.getCommandeActuel());
     }
 
     @Soit("Un utilisateur ayant une commande avec deux menus à l'intérieur")
@@ -54,11 +59,18 @@ public class UserStory7Test {
     @Quand("l'utilisateur a assez d'argent pour payer sa commande et décide de la payer")
     public void l_utilisateur_a_assez_d_argent_pour_payer_sa_commande_et_décide_de_la_payer() {
         // Write code here that turns the phrase above into concrete actions
+        utilisateur.setSolde(3);
+        assertFalse(utilisateur.payer());
+        utilisateur.addSolde(20);
+        assertTrue(utilisateur.payer());
+        assertEquals(1,(int)utilisateur.getSolde());
 
     }
     @Alors("La commande est payée et change de statut")
     public void la_commande_est_payée_et_change_de_statut() {
         // Write code here that turns the phrase above into concrete actions
+
+        assertEquals(StatutCommande.PAYEE,listeCommande.get(0).getStatut());
 
     }
 }
