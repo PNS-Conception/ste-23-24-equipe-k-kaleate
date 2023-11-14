@@ -11,6 +11,8 @@ public class Utilisateur {
 
         private ArrayList<Commande> historique;
 
+        private int solde = 1000;
+
         public Utilisateur(String nom, String prenom){
             this.nom = nom;
             this.prenom = prenom;
@@ -38,6 +40,9 @@ public class Utilisateur {
                 return commandeGroupee.ajouterCommande(code,commandeActuel);
         }
         public boolean addMenu(Menu m){
+            if(commandeActuel == null){
+                commandeActuel = new Commande();
+            }
                 return commandeActuel.addMenu(m);
         }
         public boolean removeMenu(Menu m){
@@ -47,4 +52,15 @@ public class Utilisateur {
         public void setCreneauLivraison(Creneau creneauLivraison) {
             this.commandeActuel.setCreneauLivraison(creneauLivraison);
         }
+
+    public int getSolde() {
+        return solde;
+    }
+
+    public void setSolde(int solde) {
+        this.solde = solde;
+    }
+    public void addSolde(int solde) {
+        this.solde += solde;
+    }
 }
