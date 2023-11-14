@@ -24,7 +24,7 @@ public class UserStory16Test {
     static Composant composantS1, composantS2, composantS3;
     static ChoixComposant choixComposant1, choixComposant2, choixComposant3, choixComposant4;
     static SupplementElement supEl1, supEl2;
-    static SupplementComposant supCo1, supCo2;
+    static SupplementComposant supCo1, supCo2, supCo3;
 
     static Utilisateur utilisateur;
     static Restaurant restaurant2 = new Restaurant();
@@ -95,6 +95,7 @@ public class UserStory16Test {
         ajouterChoixElement(m2, choixElement2);
         ajouterChoixElement(m2, choixElement3);
         creer2ElementsSupplements();
+        creerCacahuetesDansGlace();
         ajouterUnElementSupplement(m2, supEl1);
         ajouterUnElementSupplement(m2, supEl2);
         restaurant2.ajouterMenu(m2);
@@ -125,6 +126,11 @@ public class UserStory16Test {
         element.ajoutComposant(choixComposant2);
         element.ajoutComposant(choixComposant3);
         element.ajoutComposant(choixComposant4);
+    }
+
+    public static void creerCacahuetesDansGlace(){
+        supCo3 = new SupplementComposant("Cacahuetes", 1);
+        supEl1.ajoutSupplementComposant(supCo3);
     }
 
 
@@ -270,8 +276,8 @@ public class UserStory16Test {
         Composant composant2 = utilisateur.getCommandeActuelle().getMenus().get(0).getChoixElementParNom("Burger").getElementParNom(string).getChoixComposantParNom("Sauce").getComposantChoisiParNom(string3);
         Assertions.assertEquals("Mayonnaise", composant2.getNomComposant());
     }
-    @Quand("je veux ajouter du {string} dans mon {string} et une {string}")
-    public void je_veux_ajouter_du_dans_mon_et_une(String string, String string2, String string3) {
+    @Quand("je veux ajouter du {string} dans mon {string} et une {string} avec des {string}")
+    public void je_veux_ajouter_du_dans_mon_et_une_avec_des(String string, String string2, String string3, String string4) {
         SupplementComposant supplementComposant = menuChoisi.getChoixElementParNom("Burger").getElementParNom(string2).getSupplementComposantParNom(string);
         Assertions.assertEquals("Bacon", supplementComposant.getNomComposant());
         SupplementElement supplementElement = menuChoisi.getChoixSupplementElementParNom(string3);
@@ -282,6 +288,12 @@ public class UserStory16Test {
         menuChoisi.ajouterElementSupplementSelectionne(supplementElement);
         SupplementElement supEl = menuChoisi.getChoixSupplementElementParNom(string3);
         Assertions.assertEquals("Glace", supEl.getNomElement());
+        SupplementComposant supC = menuChoisi.getChoixSupplementElementParNom(string3).getSupplementComposantParNom(string4);
+        Assertions.assertEquals("Cacahuetes", supC.getNomComposant());
+        menuChoisi.getChoixSupplementElementParNom(string3).ajoutChoixSupplementSelectionne(supC);
+        SupplementComposant supC2 = menuChoisi.getChoixSupplementElementParNom(string3).getSupplementComposantParNom(string4);
+        Assertions.assertEquals("Cacahuetes", supC2.getNomComposant());
+
     }
     @Alors("ma commande contient du {string} dans mon {string}")
     public void ma_commande_contient_du_dans_mon(String string, String string2) {
@@ -303,7 +315,7 @@ public class UserStory16Test {
         float prixInitial = utilisateur.getCommandeActuelle().getPrice();
         float prixSupplement = utilisateur.getCommandeActuelle().getPrixAvecSupplement();
         Assertions.assertEquals(12, prixInitial);
-        Assertions.assertEquals(14, prixSupplement);
+        Assertions.assertEquals(15, prixSupplement);
     }
 
 

@@ -34,7 +34,7 @@
     Scénario: Choisir parmi des supplements composants et elements
       Etant donné que je suis utilisateur
       Quand Je veux commander un menu "Cheese"
-      Et que je veux ajouter du "Bacon" dans mon "Burger Cheese" et une "Glace"
+      Et que je veux ajouter du "Bacon" dans mon "Burger Cheese" et une "Glace" avec des "Cacahuetes"
       Alors ma commande contient du "Bacon" dans mon "Burger Cheese"
       Et ma commande contient une "Glace"
       Et le prix de ma commande a augmente
