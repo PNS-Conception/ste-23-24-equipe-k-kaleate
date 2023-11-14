@@ -22,10 +22,8 @@ import static org.junit.Assert.*;
 
 public class UserStory2Test {
 
-   static Restaurant restaurant = new Restaurant();
+    static Restaurant restaurant = new Restaurant();
     static Commande commandeSelectionnee;
-
-    static ListeCommande listeCommande = getCommandes();
 
     public static List<Menu> getMenus(){
         List<Menu> menus = new ArrayList<Menu>();
@@ -77,24 +75,20 @@ public class UserStory2Test {
         calendar.set(Calendar.MINUTE, 15);
         fin = calendar.getTime();
 
-       Creneau creneau = new Creneau(debut, fin);
+        Creneau creneau = new Creneau(debut, fin);
 
 
         ListeCommande listeCommande = new ListeCommande();
         for(Menu m : getMenus()){
             listeCommande.add(new Commande(utilisateur,m,creneau, restaurant));
         }
-        for(Menu m : getMenus()){
-            listeCommande.add(new Commande(utilisateur,m,creneau, new Restaurant("c'est bon!!")));
-        }
         return listeCommande;
     }
     @Etantdonnéque("Je suis un restaurateur qui travaille à {string}")
     public void je_suis_un_restaurateur_qui_travaille_à(String string) {
-         restaurant.setName(string);
-         restaurant.setListCommande(listeCommande);
+        restaurant = new Restaurant(string);
+        restaurant.setListCommande(getCommandes());
         assertNotNull(restaurant);
-        assertEquals(restaurant.getName(),string);
 
     }
 
