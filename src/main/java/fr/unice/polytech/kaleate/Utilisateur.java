@@ -40,7 +40,10 @@ public class Utilisateur {
                 return commandeGroupee.ajouterCommande(code, commandeActuelle);
         }
         public boolean addMenu(Menu m){
-                return commandeActuelle.addMenu(m);
+            if(commandeActuelle == null){
+                commandeActuelle = new Commande();
+            }
+            return commandeActuelle.addMenu(m);
         }
         public boolean removeMenu(Menu m){
             return commandeActuelle.removeMenu(m);

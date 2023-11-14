@@ -5,6 +5,7 @@ import io.cucumber.java.fr.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -49,6 +50,12 @@ public class UserStory10Test {
         assertNotEquals(com.getId(),int1);
         com.setId(int1);
         assertEquals(com.getId(),int1);
+
+        ListeCommande lc = new ListeCommande();
+
+        lc.add(com);
+
+        pizzaroc.setListCommande(lc);
 
         assertTrue(pizzaroc.validerCommande(com));
         assertEquals(com.getListeMenus().size(),int2);
