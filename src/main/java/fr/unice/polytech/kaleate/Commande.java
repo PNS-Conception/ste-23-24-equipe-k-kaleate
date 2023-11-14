@@ -112,7 +112,7 @@ public class Commande {
         this.creneauLivraison = creneauLivraison;
     }
 
-    public List<Menu> getListMenus() {
+    public List<Menu> getListeMenus() {
         return this.menus.stream().toList();
     }
 

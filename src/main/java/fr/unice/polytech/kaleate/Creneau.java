@@ -38,9 +38,17 @@ public class Creneau {
     }
 
     public boolean estComprisDansCreneau(Creneau creneau){
-        return (this.debut.after(creneau.getDebut()) || this.debut.equals(creneau.getDebut())
+        return (this.debut.after(creneau.getDebut()) || this.debut.equals(creneau.getDebut()))
                 &&
-                (this.fin.before(creneau.getFin()) || this.fin.equals(creneau.getFin())));
+                (this.fin.before(creneau.getFin()) || this.fin.equals(creneau.getFin()));
     }
 
+    public boolean chevaucheCreneau(Creneau creneau) {
+        return this.debut.before(creneau.getFin()) && this.fin.after(creneau.getDebut());
+    }
+
+    @Override
+    public String toString() {
+        return this.getDebut() + " - " + this.getFin();
+    }
 }
