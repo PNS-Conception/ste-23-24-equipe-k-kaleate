@@ -12,10 +12,12 @@ public class Restaurant {
     public Restaurant(){
         gestionnaireCommande = new GestionnaireCommande();
         this.menus = new ListeMenus();
+        this.listeCommande = new ListeCommande();
     }
 
     public Restaurant(String name){
         this.menus = new ListeMenus();
+        this.listeCommande = new ListeCommande();
         this.name = name;
         gestionnaireCommande = new GestionnaireCommande();
     }
@@ -23,7 +25,11 @@ public class Restaurant {
     public Restaurant(String name, ListeMenus menus){
         this.name = name;
         this.menus = menus;
+<<<<<<< HEAD
         gestionnaireCommande = new GestionnaireCommande();
+=======
+        this.listeCommande = new ListeCommande();
+>>>>>>> 7c9125d7faeb6c662a23eb2fd510d9428feb7468
     }
 
     public ListeMenus getMenus(){
@@ -63,13 +69,29 @@ public class Restaurant {
     }
 
     public boolean validerCommande(Commande commande){
+<<<<<<< HEAD
        return gestionnaireCommande.validerCommande(commande);
+=======
+        if(commande.getStatut()!= StatutCommande.EN_CREATION){
+            return false;
+        }
+        listeCommande.add(commande);
+        commande.setStatut(StatutCommande.VALIDEE);
+        return true;
+>>>>>>> 7c9125d7faeb6c662a23eb2fd510d9428feb7468
     }
     public boolean doitEtrePreparee(Commande commande, Date dateActuel){
         //date du début de la livraison - date
         long datePreparationMinimum= commande.getCreneauLivraison().getDebut().getTime();
         if(dateActuel.getTime()>=datePreparationMinimum )
             return true;
+        return false;
+    }
+
+    public boolean preparerMenu(Commande commande, Menu menu){
+        if(commande.getStatut()== StatutCommande.VALIDEE){
+            return commande.preparerMenu(menu);
+        }
         return false;
     }
 
@@ -80,5 +102,10 @@ public class Restaurant {
     public ListeCommande getCommandePrete() {
         return gestionnaireCommande.getCommandePrete(this);
 
+    }
+
+
+    public void ajouterMenu(Menu m){
+        menus.add(m);
     }
 }
