@@ -38,4 +38,5 @@ public class ListeCommande extends ArrayList<Commande> {
         }
         return instance;
     }
+
 }
