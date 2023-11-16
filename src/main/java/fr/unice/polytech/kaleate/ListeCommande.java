@@ -32,7 +32,7 @@ public class ListeCommande extends ArrayList<Commande> {
         return s;
     }
 
-    public static ListeCommande getInstance() {
+    public static ListeCommande getInstanc() {
         if (instance == null) {
             instance = new ListeCommande();
         }

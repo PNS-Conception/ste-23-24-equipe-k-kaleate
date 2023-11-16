@@ -7,7 +7,7 @@ public class GestionnaireCommande {
     private ListeCommande listCommande;
 
     public GestionnaireCommande(){
-        listCommande = ListeCommande.getInstance();
+        listCommande = ListeCommande.getInstanc();
     }
 
     public boolean validerCommande(Commande commande){
