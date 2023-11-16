@@ -6,5 +6,7 @@ public enum StatutCommande {
     EN_PREPARATION,
     PRETE,
     PAYEE,
+    EN_ROUTE,
+    A_RECUPERER,
     LIVREE,
 }

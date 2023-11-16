@@ -7,6 +7,7 @@ import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;
 import org.junit.platform.suite.api.Suite;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
 
@@ -30,15 +31,19 @@ public class UserStory4Test {
         Restaurant restaurant = new Restaurant("CHEFFF");
         commande = new Commande(user,menu,restaurant);
         user.setCommandeActuelle(commande);
+        livreur.setCommande(commande);
+        livreur.debuterLaCourse();
+        assertEquals(StatutCommande.EN_ROUTE,commande.getStatut());
 
     }
     @Quand("Le livreur confirme qu'il est arrivé")
     public void le_livreur_confirme_qu_il_est_arrivé() {
-       
+        livreur.arriverADestination();
+        assertEquals(StatutCommande.A_RECUPERER,commande.getStatut());
     }
     @Alors("le client valide qu'il a reçu la commande")
     public void le_client_valide_qu_il_a_reçu_la_commande() {
         // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+       
     }
 }

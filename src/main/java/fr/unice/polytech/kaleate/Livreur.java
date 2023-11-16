@@ -26,4 +26,8 @@ public class Livreur {
     public void setCommande(Commande commande) {
         this.commande = commande;
     }
+
+    public void debuterLaCourse(){commande.setStatut(StatutCommande.EN_ROUTE);}
+
+    public void arriverADestination(){commande.setStatut(StatutCommande.A_RECUPERER);}
 }
