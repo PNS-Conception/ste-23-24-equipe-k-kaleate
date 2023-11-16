@@ -23,7 +23,7 @@ public class Restaurant {
     public Restaurant(String name, ListeMenus menus){
         this.name = name;
         this.menus = menus;
-        gestionnaireCommande = new GestionnaireCommande();
+        this.gestionnaireCommande = new GestionnaireCommande();
     }
 
     public ListeMenus getMenus(){
