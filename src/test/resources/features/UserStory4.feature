@@ -8,3 +8,8 @@ Fonctionnalité: Livraison de la commande au client
     Quand Le livreur confirme qu'il est arrivé
     Alors le client valide qu'il a reçu la commande
 
+  Scénario: retrouver sa commande dans son historique
+
+    Quand la commande a été récupérée
+    Alors le client peut la retrouver dans son historique
+

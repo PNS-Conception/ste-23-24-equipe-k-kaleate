@@ -4,6 +4,7 @@ public class Livreur {
     private Commande commande;
     private String nom;
     private String prenom;
+    
 
     public Livreur(String nom, String prenom){
         this.nom = nom;

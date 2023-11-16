@@ -25,11 +25,15 @@ public class UserStory4Test {
     static Livreur livreur = new Livreur("vroum","Le Tmax");
     static Commande commande;
 
-    @Soit("un livreur et un utilisateur et une commande appartenant à l'utilisateur")
-    public void un_livreur_et_un_utilisateur_et_une_commande_appartenant_à_l_utilisateur() {
+    static void creerCommande(){
         Menu menu = new Menu(10,"Menu du chef",new Creneau(new Date(),new Date()));
         Restaurant restaurant = new Restaurant("CHEFFF");
         commande = new Commande(user,menu,restaurant);
+    }
+
+    @Soit("un livreur et un utilisateur et une commande appartenant à l'utilisateur")
+    public void un_livreur_et_un_utilisateur_et_une_commande_appartenant_à_l_utilisateur() {
+        creerCommande();
         user.setCommandeActuelle(commande);
         livreur.setCommande(commande);
         livreur.debuterLaCourse();
@@ -43,8 +47,27 @@ public class UserStory4Test {
     }
     @Alors("le client valide qu'il a reçu la commande")
     public void le_client_valide_qu_il_a_reçu_la_commande() {
-        // Write code here that turns the phrase above into concrete actions
+
        user.recupererCommande();
         assertEquals(StatutCommande.LIVREE,commande.getStatut());
+    }
+
+    @Quand("la commande a été récupérée")
+    public void la_commande_a_été_récupérée() {
+        user = new Utilisateur("J'aime","Manger");
+        creerCommande();
+        livreur.setCommande(commande);
+        user.setCommandeActuelle(commande);
+        livreur.arriverADestination();
+        assertEquals(0,user.getHistorique().size());
+        user.recupererCommande();
+        assertEquals(StatutCommande.LIVREE,commande.getStatut());
+
+    }
+    @Alors("le client peut la retrouver dans son historique")
+    public void le_client_peut_la_retrouver_dans_son_historique() {
+        assertEquals(1,user.getHistorique().size());
+        assertEquals(commande.getStatut(),user.getHistorique().get(0).getStatut());
+        assertEquals("CHEFFF",user.getHistorique().get(0).getRestaurant().getName());
     }
 }

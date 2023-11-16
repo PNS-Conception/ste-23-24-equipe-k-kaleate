@@ -9,7 +9,7 @@ public class Utilisateur {
 
         private Commande commandeActuelle;
 
-        private ArrayList<Commande> historique;
+        private ArrayList<Commande> historique = new ArrayList<>();
 
         private float solde = 1000;
 
@@ -78,6 +78,11 @@ public class Utilisateur {
             }
         }
         public void resetCommandeActuelle(){
+            historique.add(commandeActuelle);
             commandeActuelle = new Commande();
         }
+
+    public ArrayList<Commande> getHistorique() {
+        return historique;
+    }
 }
