@@ -44,6 +44,7 @@ public class UserStory4Test {
     @Alors("le client valide qu'il a reçu la commande")
     public void le_client_valide_qu_il_a_reçu_la_commande() {
         // Write code here that turns the phrase above into concrete actions
-       
+       user.recupererCommande();
+        assertEquals(StatutCommande.LIVREE,commande.getStatut());
     }
 }

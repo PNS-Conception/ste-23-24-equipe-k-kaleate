@@ -71,4 +71,13 @@ public class Utilisateur {
             }
             return false;
         }
+        public void recupererCommande(){
+            if(commandeActuelle.getStatut()==StatutCommande.A_RECUPERER){
+                commandeActuelle.setStatut(StatutCommande.LIVREE);
+                resetCommandeActuelle();
+            }
+        }
+        public void resetCommandeActuelle(){
+            commandeActuelle = new Commande();
+        }
 }
