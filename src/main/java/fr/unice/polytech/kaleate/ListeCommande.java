@@ -24,9 +24,19 @@ public class ListeCommande extends ArrayList<Commande> {
 
     @Override
     public String toString() {
-        return "ListCommande{" +
-                "modCount=" + modCount +
-                '}';
+        String s = "Liste commande : ";
+
+        for (Commande c : this) {
+            s += c.toString() + "\n";
+        }
+        return s;
+    }
+
+    public static ListeCommande getInstance() {
+        if (instance == null) {
+            instance = new ListeCommande();
+        }
+        return instance;
     }
 
     public static ListeCommande getInstance() {
