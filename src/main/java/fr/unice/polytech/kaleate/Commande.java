@@ -22,20 +22,21 @@ public class Commande {
         this.restaurant = restaurant;
         id = nextID;
         nextID++;
+        this.restaurant = restaurant;
     }
 
-    public Commande(Utilisateur utilisateur, Menu menu, Restaurant Restaurant){
+    public Commande(Utilisateur utilisateur, Menu menu, Restaurant restaurant){
         this.menus = new ArrayList<>();
         this.menus.add(menu);
         this.utilisateur = utilisateur;
-        this.restaurant = Restaurant;
+        this.restaurant = restaurant;
     }
-    public Commande(Utilisateur utilisateur, Menu menu,Creneau creneauLivraison, Restaurant Restaurant){
+    public Commande(Utilisateur utilisateur, Menu menu,Creneau creneauLivraison, Restaurant restaurant){
         this.menus = new ArrayList<>();
         this.menus.add(menu);
         this.utilisateur = utilisateur;
         this.creneauLivraison = creneauLivraison;
-        this.restaurant = Restaurant;
+        this.restaurant = restaurant;
     }
     public Commande(){
         this.menus = new ArrayList<>();

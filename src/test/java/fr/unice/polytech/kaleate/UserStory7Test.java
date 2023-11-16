@@ -1,89 +1,72 @@
 package fr.unice.polytech.kaleate;
 
-import io.cucumber.java.fr.*;
+import io.cucumber.java.fr.Alors;
+import io.cucumber.java.fr.Etantdonnéque;
+import io.cucumber.java.fr.Quand;
+import io.cucumber.java.fr.Soit;
+import org.junit.platform.suite.api.ConfigurationParameter;
+import org.junit.platform.suite.api.IncludeEngines;
+import org.junit.platform.suite.api.SelectClasspathResource;
+import org.junit.platform.suite.api.Suite;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-
+import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
+import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 import static org.junit.Assert.*;
 
+@Suite
+@IncludeEngines("cucumber")
+@SelectClasspathResource("features")
+@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
+@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "fr.unice.polytech.kaleate")
 public class UserStory7Test {
-    static Restaurant pizzaroc;
-    static Commande com;
-    static ManagerRestaurant managerRestaurant;
+    static Utilisateur utilisateur= new Utilisateur("Ziad","Bouhlel");
 
-    public void preparerMenus(int n){
-        for (int i=0; i<com.getMenus().size() & n>0;i++){
-            if (pizzaroc.preparerMenu(com,com.getListeMenus().get(i)))
-                n--;
-        }
-    }
+    static Commande commande = utilisateur.getCommandeActuelle();
 
-    @Soit("le restaurant {string}")
-    public void le_restaurant(String string) {
-        pizzaroc=new Restaurant();
+    static ListeCommande listeCommande = new ListeCommande();
+    public static List<Menu> getMenus(){
+        List<Menu> menus = new ArrayList<Menu>();
 
-    }
-    @Soit("la commande {int} validee avec une liste de {int} menus du Restaurant {string}")
-    public void la_commande_validee_avec_une_liste_de_menus_du_restaurant(int int1, int int2, String string) {
-        ArrayList<Menu> lm = new ArrayList<>();
+        // date qui fonctionnent
         Date db = new Date();
         Date df = new Date();
+
         Calendar c = Calendar.getInstance();
         c.setTime(df);
         c.add(Calendar.DATE, 1);
         df = c.getTime();
-        lm.add(new Menu(15,"pizza-fiesta",new Creneau(db,df)));
-        lm.add(new Menu(9,"pizza-solo",new Creneau(db,df)));
-        ListeMenus menus = new ListeMenus(lm);
-        pizzaroc.setMenus(menus);
 
-        Utilisateur michel = new Utilisateur("Michel","Legoat");
+        menus.add(new Menu(10, "Burger cheese", new Creneau(db, df)));
+        menus.add(new Menu(12, "Burger double cheese", new Creneau(db, df)));
+        menus.add(new Menu(8, "Hamburger classic", new Creneau(db, df)));
 
-        com=new Commande(michel,new ArrayList<>(),pizzaroc);
-        com.addMenu(pizzaroc.getMenus().get(0));
-        com.addMenu(pizzaroc.getMenus().get(0));
-        com.addMenu(pizzaroc.getMenus().get(1));
-
-        assertNotEquals(com.getId(),int1);
-        com.setId(int1);
-        assertEquals(com.getId(),int1);
-
-        assertTrue(pizzaroc.validerCommande(com));
-        assertEquals(com.getListeMenus().size(),int2);
-
+        return menus;
     }
-    @Soit("je suis manager du restaurant {string}")
-    public void je_suis_manager_du_restaurant(String string) {
-        managerRestaurant=new ManagerRestaurant(pizzaroc);
-        assertNotNull(managerRestaurant);
-    }
-    @Quand("je veux dire que la commande est prete")
-    public void je_veux_dire_que_la_commande_est_prete() {
-        managerRestaurant.commandePrete(666);
-    }
-    @Alors("la commande n'est pas prete")
-    public void la_commande_n_est_pas_prete() {
-        je_veux_dire_que_la_commande_est_prete();
-        assertNotEquals(com.getStatut(),StatutCommande.PRETE);
+    public void creerCommande(Utilisateur u1){
+        u1.addMenu(getMenus().get(0));
+        u1.addMenu(getMenus().get(1));
+        listeCommande.add(u1.getCommandeActuelle());
     }
 
-    @Étantdonnéque("{int} menus de la commande {int} sont prets")
-    public void menus_de_la_commande_sont_prets(int int1, int int2) {
-        preparerMenus(int1);
-        int res=0;
-        for (int i=0; i<com.getMenus().size();i++){
-            if (com.getStatutsMenus().get(i)==StatutMenu.PRET)
-                res++;
-        }
-        assertEquals(res,int1);
+    @Soit("Un utilisateur ayant une commande avec deux menus à l'intérieur")
+    public void un_utilisateur_ayant_une_commande_avec_deux_menus_à_l_intérieur() {
+        creerCommande(utilisateur);
+        assertEquals(2,utilisateur.getCommandeActuelle().getMenus().size());
+
 
     }
-    @Alors("la commande est prete")
-    public void la_commande_est_prete() {
-        je_veux_dire_que_la_commande_est_prete();
-        assertEquals(com.getStatut(),StatutCommande.PRETE);
-    }
+    @Quand("l'utilisateur a assez d'argent pour payer sa commande et décide de la payer")
+    public void l_utilisateur_a_assez_d_argent_pour_payer_sa_commande_et_décide_de_la_payer() {
+        // Write code here that turns the phrase above into concrete actions
+        assertTrue(utilisateur.payer());
 
+    }
+    @Alors("La commande est payée et change de statut")
+    public void la_commande_est_payée_et_change_de_statut() {
+        // Write code here that turns the phrase above into concrete actions
+
+        assertEquals(StatutCommande.PAYEE,listeCommande.get(0).getStatut());
+
+    }
 }

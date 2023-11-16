@@ -1,17 +1,9 @@
 #language: fr
-Fonctionnalité: Indiquer qu'une commande est prete
+Fonctionnalité: Un utilisateur paye sa commande
 
   Contexte:
-    Soit le restaurant "Pizza_Rock"
-    Et la commande 666 validee avec une liste de 3 menus du Restaurant "Pizza_Rock"
-    Et je suis manager du restaurant "Pizza_Rock"
+    Soit Un utilisateur ayant une commande avec deux menus à l'intérieur
 
-  Scénario: Consulter l'etat d'une commande tout juste validee
-    Étant donné que 0 menus de la commande 666 sont prets
-    Quand je veux dire que la commande est prete
-    Alors la commande n'est pas prete
-
-  Scénario: Consulter l'etat d'une commande preparee
-    Étant donné que 3 menus de la commande 666 sont prets
-    Quand je veux dire que la commande est prete
-    Alors la commande est prete
+  Scénario: Payer sa commande
+    Quand l'utilisateur a assez d'argent pour payer sa commande et décide de la payer
+    Alors La commande est payée et change de statut
