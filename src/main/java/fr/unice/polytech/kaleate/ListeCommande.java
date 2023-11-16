@@ -39,10 +39,4 @@ public class ListeCommande extends ArrayList<Commande> {
         return instance;
     }
 
-    public static ListeCommande getInstance() {
-        if (instance == null) {
-            instance = new ListeCommande();
-        }
-        return instance;
-    }
 }
