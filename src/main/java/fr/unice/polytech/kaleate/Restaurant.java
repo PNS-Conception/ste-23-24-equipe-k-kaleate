@@ -73,8 +73,14 @@ public class Restaurant {
         return false;
     }
 
+    /**
+     * Permet de preparer le menu specifique d'une commande EN_COURS de preparation
+     * @param commande
+     * @param menu
+     * @return boolean
+     */
     public boolean preparerMenu(Commande commande, Menu menu){
-        if(commande.getStatut()== StatutCommande.VALIDEE){
+        if(commande.getStatut()== StatutCommande.EN_PREPARATION){
             return commande.preparerMenu(menu);
         }
         return false;
