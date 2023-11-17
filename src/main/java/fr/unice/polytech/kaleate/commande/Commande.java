@@ -7,13 +7,13 @@ import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.outils.Creneau;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 //TODO Il faut interfacer ou abstraire les Commandes pour pouvoir faire proprement le traitement des commandes avec
 // TODO observable des menus pour mettre a jour l'avancé de la commande
 
-public class Commande {
+public class Commande implements Observer {
     private List<Menu> menus;
-    private List<StatutMenu> statutsMenus; // TODO les menus ont un status pas besoin dune liste des status
     private Utilisateur utilisateur; // TODO pour pouvoir faire des commandes selon les extensions, avoir l'utilisateur initial de la commande et le recepteur de la commande
     private StatutCommande statut = StatutCommande.EN_CREATION;
 
@@ -116,14 +116,20 @@ public class Commande {
         return statut;
     }
 
+    //todo n'est pas viable dans l'utilisation
     public void setStatut(StatutCommande statut) {
         this.statut = statut;
         if (statut.equals(StatutCommande.VALIDEE)){
-            statutsMenus =new ArrayList<>();
             for (Menu m : this.menus){
-                statutsMenus.add(StatutMenu.VALIDE);
+                m.setStatutValide();
             }
         }
+    }
+
+    public void valideeCommande()
+    {
+        for(Menu m : menus) m.setCommande(this);
+        setStatut(StatutCommande.VALIDEE);
     }
 
     public Creneau getCreneauLivraison() {
@@ -153,8 +159,8 @@ public class Commande {
     public boolean preparerMenu(Menu mp){
         if (contains(mp)) {
             for (int i=0; i<menus.size(); i++){
-                if (mp.equals(menus.get(i))&& statutsMenus.get(i)==StatutMenu.VALIDE){
-                    statutsMenus.set(i,StatutMenu.PRET);
+                if (mp.equals(menus.get(i))&& menus.get(i).getStatut()==StatutMenu.VALIDE){
+                    mp.setStatutPret();
                     return true;
                 }
             }
@@ -163,10 +169,27 @@ public class Commande {
     }
 
     public List<StatutMenu> getStatutsMenus(){
-        return statutsMenus;
+        return menus.stream().map(Menu::getStatut).collect(Collectors.toList());
     }
 
     public Menu getMenuParNom(String nomMenu){
         return this.menus.stream().filter(menu -> menu.estMenuParNom(nomMenu)).findFirst().orElse(null);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if(!(o instanceof Menu)) throw new RuntimeException("Observable not a Menu");
+        boolean isReady = true;
+        for (Menu m : menus) {
+            if(m.getStatut() == StatutMenu.EN_PREPARATION)
+            {
+                statut = StatutCommande.EN_PREPARATION;
+            }
+            if(m.getStatut() != StatutMenu.PRET) {
+                isReady = false;
+            }
+        }
+        if(isReady)
+            statut = StatutCommande.PRETE;
     }
 }

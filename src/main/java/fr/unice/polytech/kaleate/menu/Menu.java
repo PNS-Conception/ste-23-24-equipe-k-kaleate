@@ -1,18 +1,24 @@
 package fr.unice.polytech.kaleate.menu;
 
+import fr.unice.polytech.kaleate.commande.Commande;
 import fr.unice.polytech.kaleate.outils.Creneau;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 //TODO reviser la facon de faire des menus (un restaurant, un creneau, un menu : le renomer en Slot par exemple)
 
-public class Menu {
+public class Menu extends Observable {
     private float price;
     private String name;
     private Creneau creneau;
     private ArrayList<ChoixElement> choixElementListe;
     private ArrayList<SupplementElement> supplementElementListe;
     private ArrayList<SupplementElement> supplementElementListeSelectionne;
+
+    private StatutMenu statut = StatutMenu.COMMANDABLE;
+    private Commande commande;
 
     private int tempsPreparation; // en minutes
     public Menu(float price, String name, Creneau creneau){
@@ -44,6 +50,15 @@ public class Menu {
 
     public Creneau getCreneau(){
         return this.creneau;
+    }
+
+    public void setCommande(Commande c)
+    {
+        this.commande = c;
+    }
+    public Commande getCommande()
+    {
+        return commande;
     }
 
     public ArrayList<ChoixElement> getChoixElementListe() {return this.choixElementListe;}
@@ -189,5 +204,26 @@ public class Menu {
         for(SupplementElement supEl: supplementElementListe){
             supEl.resetElement();
         }
+    }
+
+    public void setStatut(StatutMenu statut) {
+        this.statut = statut;
+        commande.update(this, null);
+    }
+
+    public StatutMenu getStatut() {
+        return statut;
+    }
+
+    public void setStatutValide() {
+        setStatut(StatutMenu.VALIDE);
+    }
+
+    public void setStatutEnPreparation() {
+        setStatut(StatutMenu.EN_PREPARATION);
+    }
+
+    public void setStatutPret() {
+        setStatut(StatutMenu.PRET);
     }
 }
