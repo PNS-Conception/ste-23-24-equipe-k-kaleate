@@ -7,4 +7,5 @@ public enum StatutCommande {
     PRETE,
     PAYEE,
     LIVREE,
+    EN_LIVRAISON
 }
