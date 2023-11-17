@@ -1,11 +1,20 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.commande.ListeCommande;
+import fr.unice.polytech.kaleate.commande.StatutCommande;
+import fr.unice.polytech.kaleate.menu.ListeMenus;
+import fr.unice.polytech.kaleate.menu.Menu;
+import fr.unice.polytech.kaleate.menu.StatutMenu;
+import fr.unice.polytech.kaleate.outils.Creneau;
+import fr.unice.polytech.kaleate.restaurant.ManagerRestaurant;
+import fr.unice.polytech.kaleate.restaurant.Restaurant;
 import io.cucumber.java.fr.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -72,7 +81,7 @@ public class UserStory10Test {
     @Alors("la commande n'est pas prete")
     public void la_commande_n_est_pas_prete() {
         je_veux_dire_que_la_commande_est_prete();
-        assertNotEquals(com.getStatut(),StatutCommande.PRETE);
+        assertNotEquals(com.getStatut(), StatutCommande.PRETE);
     }
 
     @Étantdonnéque("{int} menus de la commande {int} sont prets")
@@ -80,7 +89,7 @@ public class UserStory10Test {
         preparerMenus(int1);
         int res=0;
         for (int i=0; i<com.getMenus().size();i++){
-            if (com.getStatutsMenus().get(i)==StatutMenu.PRET)
+            if (com.getStatutsMenus().get(i)== StatutMenu.PRET)
                 res++;
         }
         assertEquals(res,int1);

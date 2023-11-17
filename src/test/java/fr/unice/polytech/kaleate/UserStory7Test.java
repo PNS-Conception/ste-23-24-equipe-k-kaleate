@@ -1,7 +1,12 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.commande.ListeCommande;
+import fr.unice.polytech.kaleate.commande.StatutCommande;
+import fr.unice.polytech.kaleate.menu.Menu;
+import fr.unice.polytech.kaleate.outils.Creneau;
 import io.cucumber.java.fr.Alors;
-import io.cucumber.java.fr.Etantdonnéque;
 import io.cucumber.java.fr.Quand;
 import io.cucumber.java.fr.Soit;
 import org.junit.platform.suite.api.ConfigurationParameter;

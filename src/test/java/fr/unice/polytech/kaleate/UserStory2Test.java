@@ -1,5 +1,12 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.commande.ListeCommande;
+import fr.unice.polytech.kaleate.commande.StatutCommande;
+import fr.unice.polytech.kaleate.menu.Menu;
+import fr.unice.polytech.kaleate.outils.Creneau;
+import fr.unice.polytech.kaleate.restaurant.Restaurant;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Etantdonnéque;
 import io.cucumber.java.fr.Quand;
@@ -128,7 +135,7 @@ public class UserStory2Test {
     public void le_restaurant_valide_la_prise_en_charge_de_la_commande() {
 
         assertTrue(restaurant.validerCommande(commandeSelectionnee));
-        assertEquals(commandeSelectionnee.getStatut(),StatutCommande.VALIDEE);
+        assertEquals(commandeSelectionnee.getStatut(), StatutCommande.VALIDEE);
     }
 
     @Etantdonnéque("La commande doit être commmencée à être préparée pour être livrée à temps")

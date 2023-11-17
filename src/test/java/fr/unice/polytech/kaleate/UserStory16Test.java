@@ -1,5 +1,11 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.menu.*;
+import fr.unice.polytech.kaleate.outils.Creneau;
+import fr.unice.polytech.kaleate.restaurant.ManagerRestaurant;
+import fr.unice.polytech.kaleate.restaurant.Restaurant;
 import io.cucumber.java.fr.*;
 import org.junit.jupiter.api.Assertions;
 
@@ -9,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class UserStory16Test {
-    static ManagerRestaurant  managerRestaurant;
+    static ManagerRestaurant managerRestaurant;
 
     static Restaurant restaurant = new Restaurant();
     //Mettre vraie Date?

@@ -1,5 +1,7 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.campus.AdministrateurCampus;
+import fr.unice.polytech.kaleate.restaurant.ListeRestaurants;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Etantdonnéque;
 import io.cucumber.java.fr.Quand;
