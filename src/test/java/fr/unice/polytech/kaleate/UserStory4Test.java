@@ -35,7 +35,7 @@ public class UserStory4Test {
     public void un_livreur_et_un_utilisateur_et_une_commande_appartenant_à_l_utilisateur() {
         creerCommande();
         user.setCommandeActuelle(commande);
-        livreur.setCommande(commande);
+        livreur.attribuerCommande(commande);
         livreur.debuterLaCourse();
         assertEquals(StatutCommande.EN_ROUTE,commande.getStatut());
 
@@ -56,7 +56,7 @@ public class UserStory4Test {
     public void la_commande_a_été_récupérée() {
         user = new Utilisateur("J'aime","Manger");
         creerCommande();
-        livreur.setCommande(commande);
+        livreur.attribuerCommande(commande);
         user.setCommandeActuelle(commande);
         livreur.arriverADestination();
         assertEquals(0,user.getHistorique().size());
@@ -66,6 +66,7 @@ public class UserStory4Test {
     }
     @Alors("le client peut la retrouver dans son historique")
     public void le_client_peut_la_retrouver_dans_son_historique() {
+        livreur.terminerLivraison();
         assertEquals(1,user.getHistorique().size());
         assertEquals(commande.getStatut(),user.getHistorique().get(0).getStatut());
         assertEquals("CHEFFF",user.getHistorique().get(0).getRestaurant().getName());

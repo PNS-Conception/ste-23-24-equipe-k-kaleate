@@ -1,20 +1,19 @@
 package fr.unice.polytech.kaleate;
 
 public class Livreur {
-    private Commande commande;
+
     private String nom;
     private String prenom;
-    
+
+    private GestionnaireLivraison gestionnaireLivraison;
 
     public Livreur(String nom, String prenom){
         this.nom = nom;
         this.prenom = prenom;
-        this.commande = null;
+
     }
 
-    public Commande getCommande() {
-        return commande;
-    }
+
 
     public String getNom() {
         return nom;
@@ -24,11 +23,23 @@ public class Livreur {
         return prenom;
     }
 
-    public void setCommande(Commande commande) {
-        this.commande = commande;
+
+
+    public void attribuerCommande(Commande commande){
+        gestionnaireLivraison = new GestionnaireLivraison(commande);
     }
 
-    public void debuterLaCourse(){commande.setStatut(StatutCommande.EN_ROUTE);}
+    public void debuterLaCourse(){
+        gestionnaireLivraison.debuterLaCourse();
+      }
 
-    public void arriverADestination(){commande.setStatut(StatutCommande.A_RECUPERER);}
+    public void arriverADestination(){
+        gestionnaireLivraison.arriverADestination();
+        }
+
+    public void terminerLivraison(){
+        gestionnaireLivraison.ajouterAHistorique();
+        gestionnaireLivraison = null;
+
+    }
 }

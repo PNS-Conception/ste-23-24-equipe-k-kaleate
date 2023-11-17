@@ -78,7 +78,6 @@ public class Utilisateur {
             }
         }
         public void resetCommandeActuelle(){
-            historique.add(commandeActuelle);
             commandeActuelle = new Commande();
         }
 
