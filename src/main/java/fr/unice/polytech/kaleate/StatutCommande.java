@@ -9,4 +9,5 @@ public enum StatutCommande {
     EN_ROUTE,
     A_RECUPERER,
     LIVREE,
+    EN_LIVRAISON
 }

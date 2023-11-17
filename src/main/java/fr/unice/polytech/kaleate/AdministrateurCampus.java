@@ -3,9 +3,18 @@ package fr.unice.polytech.kaleate;
 public class AdministrateurCampus {
     private Campus campus;
 
+    /**
+     * Associe un Administrateur campus à un nouveau campus appelé campusnom
+     * @param campusnom
+     */
     public AdministrateurCampus(String campusnom){
         campus=new Campus(campusnom);
     }
+
+    /**
+     * Associe un Administrateur campus au campus c
+     * @param c
+     */
     public AdministrateurCampus(Campus c){
         campus=c;
     }
@@ -18,6 +27,10 @@ public class AdministrateurCampus {
         return campus.getListeDesUtilisateurs();
     }
 
+    /**
+     * L'administrateur rajoute un nouveau restaurant partenaire
+     * @param nom
+     */
     public void ajouterRestaurant(String nom){
         RestaurantFactory r = new RestauPartFacto();
         r.nouveauRestau(nom,campus);
@@ -32,6 +45,11 @@ public class AdministrateurCampus {
         Utilisateur utilisateur = listeUtilisateur().getParNom(nom);
         campus.supprimerUtilisateur(utilisateur);
     }
+
+    /**
+     * L'administarteur ajoute le restaurant nom au campus
+     * @param nom
+     */
 
     public void ajouterRestaurant(Restaurant nom){
         campus.ajoutRestaurant(nom);

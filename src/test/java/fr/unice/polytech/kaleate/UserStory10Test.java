@@ -57,6 +57,7 @@ public class UserStory10Test {
 
         pizzaroc.setListCommande(lc);
         assertTrue(pizzaroc.validerCommande(com));
+        assertTrue(pizzaroc.preparerCommande(com));
         assertEquals(com.getListeMenus().size(),int2);
 
     }
