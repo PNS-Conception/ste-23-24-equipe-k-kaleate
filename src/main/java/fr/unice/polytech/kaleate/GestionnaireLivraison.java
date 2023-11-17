@@ -9,12 +9,16 @@ public class GestionnaireLivraison {
         utilisateur = commande.getUtilisateur();
     }
     public void debuterLaCourse(){
-        commande.setStatut(StatutCommande.EN_ROUTE);}
+        commande.setStatut(StatutCommande.EN_LIVRAISON);}
 
     public void arriverADestination(){
         commande.setStatut(StatutCommande.A_RECUPERER);}
 
     public void ajouterAHistorique(){
         utilisateur.getHistorique().add(commande);
+    }
+
+    public Commande getCommande() {
+        return commande;
     }
 }

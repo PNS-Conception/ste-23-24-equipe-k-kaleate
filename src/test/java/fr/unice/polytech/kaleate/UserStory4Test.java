@@ -37,7 +37,7 @@ public class UserStory4Test {
         user.setCommandeActuelle(commande);
         livreur.attribuerCommande(commande);
         livreur.debuterLaCourse();
-        assertEquals(StatutCommande.EN_ROUTE,commande.getStatut());
+        assertEquals(StatutCommande.EN_LIVRAISON,commande.getStatut());
 
     }
     @Quand("Le livreur confirme qu'il est arrivé")
