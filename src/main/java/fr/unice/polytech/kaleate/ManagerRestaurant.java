@@ -21,6 +21,10 @@ public class ManagerRestaurant {
         restaurant.ajouterMenu(m);
     }
 
+    public void supprimerUnMenu(Menu m){
+        restaurant.supprimerMenu(m);
+    }
+
     public boolean commandePrete(int c){
         Commande commande = restaurant.getListCommande().getCommandeById(c);
         for (StatutMenu sm : commande.getStatutsMenus()){

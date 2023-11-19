@@ -99,4 +99,8 @@ public class Restaurant {
     public void ajouterMenu(Menu m){
         menus.add(m);
     }
+
+    public void supprimerMenu(Menu m){
+        menus.remove(m);
+    }
 }
