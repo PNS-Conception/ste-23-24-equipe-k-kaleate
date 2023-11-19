@@ -22,8 +22,13 @@ public class ChoixSupplementElement implements ChoixSupplement<SupplementElement
     }
 
     @Override
-    public void addSupplement(SupplementElement supplement) {
+    public void ajoutSupplement(SupplementElement supplement) {
         supplementsListe.add(supplement);
+    }
+
+    @Override
+    public void supprimeSupplement(SupplementElement supplement) {
+        supplementsListe.remove(supplement);
     }
 
     @Override
@@ -42,23 +47,34 @@ public class ChoixSupplementElement implements ChoixSupplement<SupplementElement
     }
 
     @Override
+    public void ajoutSupplementSelectionne(SupplementElement supplement) {
+        supplementsSelectionnes.add(supplement);
+    }
+
+    @Override
+    public void supprimeSupplementSelectionne(SupplementElement supplement) {
+        supplementsSelectionnes.remove(supplement);
+    }
+
+    @Override
     public void reset() {
         //TODO verifier si c'est bien ca
         supplementsSelectionnes = new ArrayList<>();
     }
 
+    //TODO definir les prix
     @Override
-    public float getPrix() {
+    public double getPrix() {
         return 0;
     }
 
     @Override
-    public float getPrixSansReduction() {
+    public double getPrixSansReduction() {
         return 0;
     }
 
     @Override
-    public float getPrixBase() {
+    public double getPrixBase() {
         return 0;
     }
 }

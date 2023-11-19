@@ -16,13 +16,6 @@ import java.util.List;
 public class ChoixComposant implements Choix<Composant> {
     private String nomComposant;
     private int nbChoixComposantMax;
-
-    //TODO Faire un objet pour la liste des composants que l'on ajoute
-    //TODO Faire une methode factory qui créé un composant // liste de composant pour le restaurateur quand il créé le menu
-    // TODO faire une factory / un builder (permet de ajouter des composants, des suppléments... ) de menu pour ne pas avoir acces au menu non terminé
-    // TODO interface monnayable pour les prix (potentiel de imbriquation pour faire State Pattern)
-
-
     private List<Composant> composantListe;
     private List<Composant> composantListeSelectionne;
 
@@ -112,7 +105,7 @@ public class ChoixComposant implements Choix<Composant> {
      */
     @Override
     public Composant getParNom(String s){
-        return composantListe.stream().filter(composant -> composant.estComposantParNom(s)).findFirst().orElse(null);
+        return composantListe.stream().filter(composant -> composant.estParNom(s)).findFirst().orElse(null);
     }
 
     /**
@@ -122,7 +115,7 @@ public class ChoixComposant implements Choix<Composant> {
      */
     @Override
     public Composant getSelectionneParNom(String s){
-        return composantListeSelectionne.stream().filter(composant -> composant.estComposantParNom(s)).findFirst().orElse(null);
+        return composantListeSelectionne.stream().filter(composant -> composant.estParNom(s)).findFirst().orElse(null);
     }
 
     /**

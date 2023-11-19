@@ -7,11 +7,11 @@ public class Composant {
         this.nomComposant = nomComposant;
     }
 
-    public String getNomComposant() {
+    public String getNom() {
         return nomComposant;
     }
 
-    public boolean estComposantParNom(String nomElement){
+    public boolean estParNom(String nomElement){
         return this.nomComposant.equals(nomElement);
     }
 }

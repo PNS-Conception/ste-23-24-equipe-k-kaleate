@@ -88,7 +88,8 @@ public class ContenuMenu implements Monnayable {
 
     public void reset()
     {
-        //TODO
+        for(ChoixElement ce : choixElementListe) ce.reset();
+        choixSupplements.reset();
     }
 
     /**
@@ -96,8 +97,8 @@ public class ContenuMenu implements Monnayable {
      * @return le prix ddes suppléments
      */
     @Override
-    public float getPrix() {
-        float total = 0;
+    public double getPrix() {
+        double total = 0;
         for (ChoixElement e : choixElementListe) {
             total += e.getPrixSupplement();
         }
@@ -109,12 +110,12 @@ public class ContenuMenu implements Monnayable {
     }
 
     @Override
-    public float getPrixSansReduction() {
+    public double getPrixSansReduction() {
         return getPrix();
     }
 
     @Override
-    public float getPrixBase() {
+    public double getPrixBase() {
         return getPrix();
     }
 }

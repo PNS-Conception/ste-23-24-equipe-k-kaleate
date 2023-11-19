@@ -1,6 +1,5 @@
 package fr.unice.polytech.kaleate.menu.composant;
 
-import fr.unice.polytech.kaleate.menu.composant.Composant;
 import fr.unice.polytech.kaleate.menu.supplement.Supplement;
 
 public class SupplementComposant extends Composant implements Supplement {
@@ -13,27 +12,27 @@ public class SupplementComposant extends Composant implements Supplement {
     }
 
     @Override
-    public float getPrix() {
+    public double getPrix() {
         return this.prix;
     }
 
     @Override
-    public float getPrixSansReduction() {
+    public double getPrixSansReduction() {
         return this.prix;
     }
 
     @Override
-    public float getPrixBase() {
+    public double getPrixBase() {
         return this.prix;
     }
 
     @Override
     public String getNom() {
-        return super.getNomComposant();
+        return super.getNom();
     }
 
     @Override
     public boolean estSupplementParNom(String nom) {
-        return super.estComposantParNom(nom);
+        return super.estParNom(nom);
     }
 }

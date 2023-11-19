@@ -12,10 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-//TODO reviser la facon de faire des menus (un restaurant, un creneau, un menu : le renomer en Slot par exemple)
-
 public class Menu extends Observable implements Monnayable {
-    private float price;
+    private double prix;
     private String name;
     private Creneau creneau;
     private ContenuMenu contenuMenu;
@@ -24,17 +22,30 @@ public class Menu extends Observable implements Monnayable {
 
     private Restaurant restaurant;
     private int tempsPreparation; // en minutes
-    public Menu(float price, String name, Creneau creneau){
-        this.price = price;
+
+    public Menu()
+    {
+    }
+    public Menu(float prix, String name, Creneau creneau){
+        this.prix = prix;
         this.name = name;
         this.creneau = creneau;
     }
-    public Menu(float price, String name, Creneau creneau,int tempsPreparation){
-        this.price = price;
+    public Menu(float prix, String name, Creneau creneau, int tempsPreparation){
+        this.prix = prix;
         this.name = name;
         this.creneau = creneau;
         this.tempsPreparation = tempsPreparation;
         this.contenuMenu = new ContenuMenu();
+    }
+
+
+    public ContenuMenu getContenuMenu() {
+        return contenuMenu;
+    }
+
+    public void setContenuMenu(ContenuMenu contenuMenu) {
+        this.contenuMenu = contenuMenu;
     }
 
     public String getName(){
@@ -71,8 +82,8 @@ public class Menu extends Observable implements Monnayable {
         return contenuMenu.getSupplementElementListeSelectionne();
     }
 
-    public void setPrice(float price){
-        this.price = price;
+    public void setPrix(double prix){
+        this.prix = prix;
     }
 
     public void setName(String name){
@@ -122,13 +133,13 @@ public class Menu extends Observable implements Monnayable {
     }
 
 
-    //TODO A revoir avec le
+    //TODO A revoir avec l'interface monnayable
     /**
      * Calcule le prix des suppléments ajoutés par l'utilisateur dans le menu
      * @return le prix ddes suppléments
      */
-    public float getPrixAvecSupplements() {
-        float total = 0;
+    public double getPrixAvecSupplements() {
+        double total = 0;
         for (ChoixElement e : contenuMenu.getChoixElementListe()) {
             total += e.getPrixSupplement();
         }
@@ -183,17 +194,17 @@ public class Menu extends Observable implements Monnayable {
     }
 
     @Override
-    public float getPrix() {
-        return price;
+    public double getPrix() {
+        return prix;
     }
 
     @Override
-    public float getPrixSansReduction() {
-        return price;
+    public double getPrixSansReduction() {
+        return prix;
     }
 
     @Override
-    public float getPrixBase() {
-        return price;
+    public double getPrixBase() {
+        return prix;
     }
 }

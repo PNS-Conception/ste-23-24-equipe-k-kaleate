@@ -4,12 +4,13 @@ import java.util.List;
 
 import fr.unice.polytech.kaleate.builder.BuilderChoix;
 import fr.unice.polytech.kaleate.menu.composant.ChoixComposant;
+import fr.unice.polytech.kaleate.menu.gestion.ChoixGestion;
 
 public class BuilderChoixElement implements BuilderChoix<Element, ChoixElement> {
 
-    ChoixElement choixElement;
+    ChoixGestion<Element> choixElement;
 
-    BuilderChoixElement() {
+    public BuilderChoixElement() {
         reset();
     }
 
@@ -43,13 +44,13 @@ public class BuilderChoixElement implements BuilderChoix<Element, ChoixElement> 
     }
 
     @Override
-    public List getChoix() {
+    public List<Element> getChoix() {
         return choixElement.getListe();
     }
 
     @Override
     public ChoixElement getResult() {
-        return choixElement;
+        return (ChoixElement) choixElement;
     }
 
     @Override

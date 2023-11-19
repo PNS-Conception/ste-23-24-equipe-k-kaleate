@@ -69,16 +69,16 @@ public class CommandeSimple implements Observer {
             return false;
         }
     }
-    public float getPrice(){
-        float price = 0;
+    public double getPrice(){
+        double price = 0;
         for(Menu menu : this.menus){
             price += menu.getPrix();
         }
         return price;
     }
 
-    public float getPrixAvecSupplement(){
-        float prix = getPrice();
+    public double getPrixAvecSupplement(){
+        double prix = getPrice();
         for(Menu menu : this.menus){
             prix += menu.getPrixAvecSupplements();
         }
@@ -109,7 +109,7 @@ public class CommandeSimple implements Observer {
         return statut;
     }
 
-    //todo n'est pas viable dans l'utilisation
+    //TODO n'est pas viable dans l'utilisation
     public void setStatut(StatutCommande statut) {
         this.statut = statut;
         if (statut.equals(StatutCommande.VALIDEE)){
@@ -118,7 +118,6 @@ public class CommandeSimple implements Observer {
             }
         }
     }
-
     public void valideeCommande()
     {
         for(Menu m : menus) m.setCommande(this);

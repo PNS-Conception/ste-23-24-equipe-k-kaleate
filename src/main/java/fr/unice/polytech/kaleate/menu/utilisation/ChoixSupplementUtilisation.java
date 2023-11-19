@@ -10,6 +10,11 @@ public interface ChoixSupplementUtilisation<T> {
 
     public List<T> getSupplementsSelectionnes();
 
+
+    public void ajoutSupplementSelectionne(T supplement);
+
+    public void supprimeSupplementSelectionne(T supplement);
+
     public void reset();
 
 }

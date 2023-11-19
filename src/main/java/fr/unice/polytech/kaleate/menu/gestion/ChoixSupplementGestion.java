@@ -7,10 +7,10 @@ import java.util.List;
 public interface ChoixSupplementGestion<T> extends Monnayable {
 
     public void setSupplementsListe(List<T> supplementsListe);
-    public void addSupplement(T supplement);
+    public void ajoutSupplement(T supplement);
+    public void supprimeSupplement(T supplement);
 
     public List<T> getSupplementsListe();
 
-    public List<T> getSupplementsSelectionnes();
 
 }

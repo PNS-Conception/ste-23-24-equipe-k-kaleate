@@ -101,7 +101,7 @@ public class ChoixElement implements Choix<Element> {
      */
     @Override
     public Element getParNom(String s){
-        return elementListe.stream().filter(element -> element.estElementParNom(s)).findFirst().orElse(null);
+        return elementListe.stream().filter(element -> element.estParNom(s)).findFirst().orElse(null);
     }
 
     /**
@@ -111,7 +111,7 @@ public class ChoixElement implements Choix<Element> {
      */
     @Override
     public Element getSelectionneParNom(String s){
-        return elementListeSelectionne.stream().filter(element -> element.estElementParNom(s)).findFirst().orElse(null);
+        return elementListeSelectionne.stream().filter(element -> element.estParNom(s)).findFirst().orElse(null);
     }
 
     /**
@@ -129,8 +129,8 @@ public class ChoixElement implements Choix<Element> {
      * Calcule le prix des supppléments de cet élément
      * @return le prix des suppléments
      */
-    public float getPrixSupplement(){
-        float prixSupp = 0;
+    public double getPrixSupplement(){
+        double prixSupp = 0;
         for (Element e : elementListeSelectionne){
             prixSupp += e.getPrix();
         }
@@ -141,7 +141,7 @@ public class ChoixElement implements Choix<Element> {
     public void reset(){
         elementListeSelectionne.clear();
         for(Element e : elementListe){
-            e.resetElement();
+            e.reset();
         }
     }
 }

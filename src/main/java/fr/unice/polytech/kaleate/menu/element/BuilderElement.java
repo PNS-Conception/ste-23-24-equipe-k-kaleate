@@ -2,9 +2,7 @@ package fr.unice.polytech.kaleate.menu.element;
 
 import fr.unice.polytech.kaleate.builder.Builder;
 import fr.unice.polytech.kaleate.menu.composant.BuilderChoixComposant;
-import fr.unice.polytech.kaleate.menu.composant.Composant;
 import fr.unice.polytech.kaleate.menu.supplement.BuilderChoixSupplement;
-import fr.unice.polytech.kaleate.menu.composant.ChoixSupplementComposant;
 import fr.unice.polytech.kaleate.menu.supplement.BuilderChoixSupplementComposant;
 
 public class BuilderElement implements Builder<Element> {
@@ -19,7 +17,7 @@ public class BuilderElement implements Builder<Element> {
     }
 
     public void setNomElement(String nomElement) {
-        element.setNomElement(nomElement);
+        element.setNom(nomElement);
     }
 
     public BuilderChoixComposant getBuilderChoixComposant() {
@@ -30,13 +28,26 @@ public class BuilderElement implements Builder<Element> {
         return this.builderChoixSupplement;
     }
 
+    public void resetBuilders() {
+        builderChoixComposant.reset();
+        builderChoixSupplement.reset();
+    }
+
+    public void resetBuilderChoixComposant() {
+        builderChoixComposant.reset();
+    }
+
+    public void resetBuilderChoixSupplement() {
+        builderChoixSupplement.reset();
+    }
+
     public void addChoixComposant() {
-        element.ajoutComposant(builderChoixComposant.getResult());
+        element.ajout(builderChoixComposant.getResult());
         builderChoixComposant.reset();
     }
 
     public void addChoixSupplement() {
-        element.ajoutChoixSupplementComposant(builderChoixSupplement.getResult());
+        element.ajoutChoixSupplement(builderChoixSupplement.getResult());
         builderChoixSupplement.reset();
     }
 

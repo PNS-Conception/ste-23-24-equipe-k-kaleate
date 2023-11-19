@@ -4,6 +4,7 @@ import fr.unice.polytech.kaleate.menu.supplement.ChoixSupplement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ChoixSupplementComposant implements ChoixSupplement<SupplementComposant> {
 
@@ -21,7 +22,7 @@ public class ChoixSupplementComposant implements ChoixSupplement<SupplementCompo
     }
 
     @Override
-    public void addSupplement(SupplementComposant supplement) {
+    public void ajoutSupplement(SupplementComposant supplement) {
         supplementsListe.add(supplement);
     }
 
@@ -41,23 +42,39 @@ public class ChoixSupplementComposant implements ChoixSupplement<SupplementCompo
     }
 
     @Override
+    public void ajoutSupplementSelectionne(SupplementComposant supplement) {
+        supplementsSelectionnes.add(supplement);
+    }
+
+    @Override
+    public void supprimeSupplementSelectionne(SupplementComposant supplement) {
+        supplementsSelectionnes.remove(supplement);
+    }
+
+    @Override
+    public void supprimeSupplement(SupplementComposant supplement) {
+        supplementsListe.remove(supplement);
+    }
+
+    @Override
     public void reset() {
         //TODO verifier si c'est bien ca
         supplementsSelectionnes = new ArrayList<>();
     }
 
+    //TODO definir la monayable
     @Override
-    public float getPrix() {
+    public double getPrix() {
+        return supplementsSelectionnes.stream().mapToDouble(SupplementComposant::getPrix).sum();
+    }
+
+    @Override
+    public double getPrixSansReduction() {
         return 0;
     }
 
     @Override
-    public float getPrixSansReduction() {
-        return 0;
-    }
-
-    @Override
-    public float getPrixBase() {
+    public double getPrixBase() {
         return 0;
     }
 }
