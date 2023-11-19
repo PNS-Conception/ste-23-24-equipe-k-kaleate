@@ -1,4 +1,4 @@
-package fr.unice.polytech.kaleate.menu;
+package fr.unice.polytech.kaleate.menu.composant;
 
 public class Composant {
     private String nomComposant;

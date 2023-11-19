@@ -1,47 +1,40 @@
 package fr.unice.polytech.kaleate.menu;
 
-import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.commande.CommandeSimple;
+import fr.unice.polytech.kaleate.menu.element.ChoixElement;
+import fr.unice.polytech.kaleate.menu.supplement.Supplement;
+import fr.unice.polytech.kaleate.menu.element.SupplementElement;
 import fr.unice.polytech.kaleate.outils.Creneau;
+import fr.unice.polytech.kaleate.outils.Monnayable;
+import fr.unice.polytech.kaleate.restaurant.Restaurant;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
-import java.util.Observer;
 
 //TODO reviser la facon de faire des menus (un restaurant, un creneau, un menu : le renomer en Slot par exemple)
 
-public class Menu extends Observable {
+public class Menu extends Observable implements Monnayable {
     private float price;
     private String name;
     private Creneau creneau;
-    private ArrayList<ChoixElement> choixElementListe;
-    private ArrayList<SupplementElement> supplementElementListe;
-    private ArrayList<SupplementElement> supplementElementListeSelectionne;
-
+    private ContenuMenu contenuMenu;
     private StatutMenu statut = StatutMenu.COMMANDABLE;
-    private Commande commande;
+    private CommandeSimple commande;
 
+    private Restaurant restaurant;
     private int tempsPreparation; // en minutes
     public Menu(float price, String name, Creneau creneau){
         this.price = price;
         this.name = name;
         this.creneau = creneau;
-        choixElementListe = new ArrayList<>();
-        supplementElementListe = new ArrayList<>();
-        supplementElementListeSelectionne = new ArrayList<>();
     }
     public Menu(float price, String name, Creneau creneau,int tempsPreparation){
         this.price = price;
         this.name = name;
         this.creneau = creneau;
         this.tempsPreparation = tempsPreparation;
-        choixElementListe = new ArrayList<>();
-        supplementElementListe = new ArrayList<>();
-        supplementElementListeSelectionne = new ArrayList<>();
-    }
-
-
-    public float getPrice(){
-        return this.price;
+        this.contenuMenu = new ContenuMenu();
     }
 
     public String getName(){
@@ -52,22 +45,22 @@ public class Menu extends Observable {
         return this.creneau;
     }
 
-    public void setCommande(Commande c)
+    public void setCommande(CommandeSimple c)
     {
         this.commande = c;
     }
-    public Commande getCommande()
+    public CommandeSimple getCommande()
     {
         return commande;
     }
 
-    public ArrayList<ChoixElement> getChoixElementListe() {return this.choixElementListe;}
+    public List<ChoixElement> getChoixElementListe() {return contenuMenu.getChoixElementListe();}
 
     /**
      * @return la liste des éléments suppléments proposés par le restaurant
      */
-    public ArrayList<SupplementElement> getSupplementElementListe() {
-        return this.supplementElementListe;
+    public List<SupplementElement> getSupplementElementListe() {
+        return contenuMenu.getSupplementElementListe();
     }
 
     /**
@@ -75,7 +68,7 @@ public class Menu extends Observable {
      */
 
     public ArrayList<SupplementElement> getSupplementElementListeSelectionne() {
-        return supplementElementListeSelectionne;
+        return contenuMenu.getSupplementElementListeSelectionne();
     }
 
     public void setPrice(float price){
@@ -108,16 +101,16 @@ public class Menu extends Observable {
             return false;
         if (obj == this)
             return true;
-        return this.getName().equals(((Menu) obj).getName()) && this.getPrice() == ((Menu) obj).getPrice() && this.getCreneau().equals(((Menu) obj).getCreneau());
+        return this.getName().equals(((Menu) obj).getName()) && this.getPrix() == ((Menu) obj).getPrix() && this.getCreneau().equals(((Menu) obj).getCreneau());
     }
 
     public boolean isStackable(Menu menu){
-        return this.getName().equals(menu.getName()) && this.getPrice() == menu.getPrice();
+        return this.getName().equals(menu.getName()) && this.getPrix() == menu.getPrix();
     }
 
     @Override
     public String toString() {
-        return "Menu : " + this.getName() + " / " + this.getPrice() + "€" + " / " + this.getCreneau().getDebut() + " - " + this.getCreneau().getFin();
+        return "Menu : " + this.getName() + " / " + this.getPrix() + "€" + " / " + this.getCreneau().getDebut() + " - " + this.getCreneau().getFin();
     }
 
     public int getTempsPreparation() {
@@ -128,43 +121,20 @@ public class Menu extends Observable {
         this.tempsPreparation = tempsPreparation;
     }
 
-    /**
-     * Prends en paramètre un ChoixElement
-     * l'ajoute à la liste choixElementliste qui contient les choix possibles pour l'utilisateur ajoutés par le manager de restaurant
-     * @param choixElement le ChoixElement à rajouter
-     */
-    public void ajouterChoixElement(ChoixElement choixElement){
-        choixElementListe.add(choixElement);
-    }
 
-    /**
-     * Ajoute un élément supplément à la liste des éléments suppléments disponible pour l'utilisateur
-     * @param supplementElement l'élément supplément que le manager de restaurant veut ajouter
-     */
-    public void ajouterElementSupplement(SupplementElement supplementElement){
-        supplementElementListe.add(supplementElement);
-    }
-
-    /**
-     * Ajoute un élément suppplémentaire à la liste des éléments supplémentaires sélectionnés par l'utilisateur
-     * @param supplementElement l'élément supplément choisi par l'utilisateur
-     */
-    public void ajouterElementSupplementSelectionne(SupplementElement supplementElement) {
-        supplementElementListeSelectionne.add(supplementElement);
-    }
-
+    //TODO A revoir avec le
     /**
      * Calcule le prix des suppléments ajoutés par l'utilisateur dans le menu
      * @return le prix ddes suppléments
      */
     public float getPrixAvecSupplements() {
         float total = 0;
-        for (ChoixElement e : choixElementListe) {
+        for (ChoixElement e : contenuMenu.getChoixElementListe()) {
             total += e.getPrixSupplement();
         }
-        for(SupplementElement supplementElement : supplementElementListeSelectionne){
+        for(Supplement supplementElement : contenuMenu.getSupplementElementListeSelectionne()){
             total += supplementElement.getPrix();
-            total += supplementElement.getPrixSupplements();
+            total += supplementElement.getPrix();
         }
         return total;
     }
@@ -175,35 +145,12 @@ public class Menu extends Observable {
      * @return le ChoixElement trouvé  à partir du string entrée en paramètre
      */
     public ChoixElement getChoixElementParNom(String nomChoixElement){
-        return this.getChoixElementListe().stream().filter(choixElement -> choixElement.estChoixElementParNom(nomChoixElement)).findFirst().orElse(null);
+        return this.getChoixElementListe().stream().filter(choixElement -> choixElement.estChoixParNom(nomChoixElement)).findFirst().orElse(null);
     }
 
-    /**
-     * Cherche dans la liste des Supplements éléments disponibles un supplément grâce à son nom
-     * @param nomSupplement le nom du supplément élément que l'on veut
-     * @return le supplément élément trouvé à  partir du string entré en paramètre
-     */
-    public SupplementElement getChoixSupplementElementParNom(String nomSupplement){
-        return this.supplementElementListe.stream().filter(supplementElement -> supplementElement.estElementParNom(nomSupplement)).findFirst().orElse(null);
-    }
-
-    /**
-     * Cherche dans la liste des Supplements éléments sélectionés un supplément grâce à son nom
-     * @param nomSup le nom du supplément élément que  l'on veut
-     * @return le supplément élément trouvé à partir du string entré en paramètre
-     */
-    public SupplementElement getSupplementElementListeSelectioneParNom(String nomSup){
-        return this.supplementElementListeSelectionne.stream().filter(supplementElement -> supplementElement.estElementParNom(nomSup)).findFirst().orElse(null);
-    }
 
     public void resetMenu(){
-        this.supplementElementListeSelectionne = new ArrayList<>();
-        for(ChoixElement chEl: choixElementListe){
-            chEl.resetChoixElement();
-        }
-        for(SupplementElement supEl: supplementElementListe){
-            supEl.resetElement();
-        }
+        contenuMenu.reset();
     }
 
     public void setStatut(StatutMenu statut) {
@@ -225,5 +172,28 @@ public class Menu extends Observable {
 
     public void setStatutPret() {
         setStatut(StatutMenu.PRET);
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    @Override
+    public float getPrix() {
+        return price;
+    }
+
+    @Override
+    public float getPrixSansReduction() {
+        return price;
+    }
+
+    @Override
+    public float getPrixBase() {
+        return price;
     }
 }

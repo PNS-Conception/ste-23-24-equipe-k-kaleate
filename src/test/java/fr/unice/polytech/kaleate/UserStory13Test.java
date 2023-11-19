@@ -1,7 +1,7 @@
 package fr.unice.polytech.kaleate;
 
 import fr.unice.polytech.kaleate.campus.Utilisateur;
-import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.commande.ListeCommande;
 import fr.unice.polytech.kaleate.commande.StatutCommande;
 import fr.unice.polytech.kaleate.livrable.Livreur;
@@ -34,7 +34,7 @@ public class UserStory13Test {
     static ListeCommande commandesPretes;
     static Restaurant restaurant1;
     static Restaurant restaurant2;
-    static Commande commandeChoisie;
+    static CommandeSimple commandeChoisie;
 
 
     //Generateur de menus
@@ -65,17 +65,17 @@ public class UserStory13Test {
     public static void createCommandes(){
         Utilisateur utilisateur1 = new Utilisateur("nom1", "prenom1");
         Menu menu1 = restaurant1.getMenus().get(0);
-        Commande com1 = new Commande(utilisateur1, menu1, restaurant1);
+        CommandeSimple com1 = new CommandeSimple(utilisateur1, menu1, restaurant1);
         com1.setStatut(StatutCommande.VALIDEE);
 
         Utilisateur utilisateur2 = new Utilisateur("nom2", "prenom2");
         Menu menu2 = restaurant1.getMenus().get(1);
-        Commande com2 = new Commande(utilisateur2, menu2, restaurant1);
+        CommandeSimple com2 = new CommandeSimple(utilisateur2, menu2, restaurant1);
         com2.setStatut(StatutCommande.EN_PREPARATION);
 
         Utilisateur utilisateur3 = new Utilisateur("nom3", "prenom3");
         Menu menu3 = restaurant1.getMenus().get(2);
-        Commande com3 = new Commande(utilisateur3, menu3, restaurant1);
+        CommandeSimple com3 = new CommandeSimple(utilisateur3, menu3, restaurant1);
         com3.setStatut(StatutCommande.PRETE);
 
         ListeCommande listeCommandeR1 = new ListeCommande();
@@ -87,17 +87,17 @@ public class UserStory13Test {
 
         Utilisateur utilisateur4 = new Utilisateur("nom4", "prenom4");
         Menu menu4 = restaurant2.getMenus().get(0);
-        Commande com4 = new Commande(utilisateur4, menu4, restaurant2);
+        CommandeSimple com4 = new CommandeSimple(utilisateur4, menu4, restaurant2);
         com4.setStatut(StatutCommande.EN_CREATION);
 
         Utilisateur utilisateur5 = new Utilisateur("nom5", "prenom5");
         Menu menu5 = restaurant2.getMenus().get(1);
-        Commande com5 = new Commande(utilisateur5, menu5, restaurant2);
+        CommandeSimple com5 = new CommandeSimple(utilisateur5, menu5, restaurant2);
         com5.setStatut(StatutCommande.PRETE);
 
         Utilisateur utilisateur6 = new Utilisateur("nom3", "prenom3");
         Menu menu6 = restaurant2.getMenus().get(2);
-        Commande com6 = new Commande(utilisateur6, menu6, restaurant2);
+        CommandeSimple com6 = new CommandeSimple(utilisateur6, menu6, restaurant2);
         com6.setStatut(StatutCommande.PRETE);
 
         ListeCommande listeCommandeR2 = new ListeCommande();

@@ -1,7 +1,7 @@
 package fr.unice.polytech.kaleate.campus;
 
 import fr.unice.polytech.kaleate.outils.PayementExterne;
-import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.commande.CommandeGroupee;
 import fr.unice.polytech.kaleate.commande.StatutCommande;
 import fr.unice.polytech.kaleate.menu.Menu;
@@ -14,9 +14,9 @@ public class Utilisateur {
         private String nom;
         private String prenom;
 
-        private Commande commandeActuelle;
+        private CommandeSimple commandeActuelle;
 
-        private ArrayList<Commande> historique;
+        private ArrayList<CommandeSimple> historique;
 
         private float solde = 1000;
 
@@ -33,22 +33,22 @@ public class Utilisateur {
             return this.prenom;
         }
 
-        public Commande getCommandeActuelle() {
+        public CommandeSimple getCommandeActuelle() {
             return commandeActuelle;
         }
 
-        public void setCommandeActuelle(Commande commandeActuelle) {
+        public void setCommandeActuelle(CommandeSimple commandeActuelle) {
             this.commandeActuelle = commandeActuelle;
         }
         public boolean rejoindreCommandegroupee(CommandeGroupee commandeGroupee, int code){
                 if(commandeActuelle == null){
-                    commandeActuelle = new Commande();
+                    commandeActuelle = new CommandeSimple();
                 }
                 return commandeGroupee.ajouterCommande(code, commandeActuelle);
         }
         public boolean addMenu(Menu m){
             if(commandeActuelle == null){
-                commandeActuelle = new Commande();
+                commandeActuelle = new CommandeSimple();
             }
             return commandeActuelle.addMenu(m);
         }

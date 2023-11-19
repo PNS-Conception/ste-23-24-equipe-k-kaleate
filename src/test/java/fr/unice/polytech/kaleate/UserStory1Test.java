@@ -1,7 +1,7 @@
 package fr.unice.polytech.kaleate;
 
 import fr.unice.polytech.kaleate.campus.Utilisateur;
-import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.menu.ListeMenus;
 import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.outils.Creneau;
@@ -145,7 +145,7 @@ public class UserStory1Test {
     @Alors("je crée une commande avec le menu {string}")
     public void je_crée_une_commande_avec_le_menu(String string) {
         assertEquals(menuChoisi.getName(), string);
-        Commande commande = new Commande(utilisateur, menuChoisi, restau);
+        CommandeSimple commande = new CommandeSimple(utilisateur, menuChoisi, restau);
         assertTrue(commande.contains(menuChoisi));
     }
 }

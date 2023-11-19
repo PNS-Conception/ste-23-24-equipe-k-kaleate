@@ -1,15 +1,6 @@
 package fr.unice.polytech.kaleate;
 
-import fr.unice.polytech.kaleate.campus.Utilisateur;
-import fr.unice.polytech.kaleate.commande.Commande;
-import fr.unice.polytech.kaleate.commande.StatutCommande;
-import fr.unice.polytech.kaleate.menu.Menu;
-import fr.unice.polytech.kaleate.outils.Creneau;
-import fr.unice.polytech.kaleate.restaurant.Restaurant;
-
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {

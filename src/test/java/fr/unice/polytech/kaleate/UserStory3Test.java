@@ -1,7 +1,7 @@
 package fr.unice.polytech.kaleate;
 
 import fr.unice.polytech.kaleate.campus.Utilisateur;
-import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.commande.CommandeGroupee;
 import fr.unice.polytech.kaleate.menu.ListeMenus;
 import fr.unice.polytech.kaleate.menu.Menu;
@@ -34,8 +34,8 @@ public class UserStory3Test {
     static Utilisateur userC = new Utilisateur("User","C");
 
     static List<Menu> menus;
-    static Commande commandeUserA;
-    static Commande commandeUserB;
+    static CommandeSimple commandeUserA;
+    static CommandeSimple commandeUserB;
 
     static CommandeGroupee commandeGroupee;
 
@@ -82,9 +82,9 @@ public class UserStory3Test {
 
         Restaurant restaurant1 = new Restaurant("Restau 1",new ListeMenus(getMenus()));
         commandeGroupee = new CommandeGroupee();
-        commandeUserA = new Commande(userA,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
+        commandeUserA = new CommandeSimple(userA,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
         userA.setCommandeActuelle(commandeUserA);
-        commandeUserB = new Commande(userB,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
+        commandeUserB = new CommandeSimple(userB,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
         userB.setCommandeActuelle(commandeUserB);
     }
     public void commandeDiffCreneau(){
@@ -100,7 +100,7 @@ public class UserStory3Test {
         df = c.getTime();
 
          commandeGroupee = new CommandeGroupee();
-         commandeUserA = new Commande(userA,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
+         commandeUserA = new CommandeSimple(userA,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
         userA.setCommandeActuelle(commandeUserA);
         c.setTime(df);
         c.setTime(db);
@@ -108,7 +108,7 @@ public class UserStory3Test {
         db = c.getTime();
         c.add(Calendar.HOUR,1);
         df = c.getTime();
-         commandeUserB = new Commande(userB,restaurant1.getMenus().get(3),new Creneau(db, df),restaurant1);
+         commandeUserB = new CommandeSimple(userB,restaurant1.getMenus().get(3),new Creneau(db, df),restaurant1);
         userB.setCommandeActuelle(commandeUserB);
     }
 

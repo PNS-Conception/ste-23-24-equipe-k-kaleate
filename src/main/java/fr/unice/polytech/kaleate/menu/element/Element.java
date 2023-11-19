@@ -1,22 +1,35 @@
-package fr.unice.polytech.kaleate.menu;
+package fr.unice.polytech.kaleate.menu.element;
+
+import fr.unice.polytech.kaleate.menu.composant.ChoixComposant;
+import fr.unice.polytech.kaleate.menu.composant.ChoixSupplementComposant;
+import fr.unice.polytech.kaleate.menu.composant.SupplementComposant;
+import fr.unice.polytech.kaleate.outils.Monnayable;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Element {
+public class Element implements Monnayable {
     private String nomElement;
     private ArrayList<ChoixComposant> choixComposantListe;
-    private ArrayList<SupplementComposant> choixSupplementComposant;
-    private ArrayList<SupplementComposant> choixSupplementComposantSelectionne;
+    private ChoixSupplementComposant choixSupplement;
+
+    public Element() {
+        this.nomElement = "";
+        this.choixComposantListe = new ArrayList<>();
+    }
 
     public Element(String nomElement) {
         this.nomElement = nomElement;
         this.choixComposantListe = new ArrayList<>();
-        this.choixSupplementComposant = new ArrayList<>();
-        this.choixSupplementComposantSelectionne = new ArrayList<>();
+        this.choixSupplement = new ChoixSupplementComposant();
     }
 
     public String getNomElement() {
         return nomElement;
+    }
+
+    public void setNomElement(String nomElement) {
+        this.nomElement = nomElement;
     }
 
 
@@ -24,12 +37,12 @@ public class Element {
         return choixComposantListe;
     }
 
-    public ArrayList<SupplementComposant> getChoixSupplementComposant() {
-        return choixSupplementComposant;
+    public List<SupplementComposant> getChoixSupplement() {
+        return choixSupplement.getSupplementsListe();
     }
 
-    public ArrayList<SupplementComposant> getChoixSupplementComposantSelectionne() {
-        return choixSupplementComposantSelectionne;
+    public List<SupplementComposant> getChoixSupplementComposantSelectionne() {
+        return choixSupplement.getSupplementsSelectionnes();
     }
 
     public boolean estElementParNom(String nomElement){
@@ -49,7 +62,11 @@ public class Element {
      * @param supplementComposant le supplement Composant à ajouter
      */
     public void ajoutSupplementComposant(SupplementComposant supplementComposant){
-        choixSupplementComposant.add(supplementComposant);
+        choixSupplement.addSupplement(supplementComposant);
+    }
+
+    public void ajoutChoixSupplementComposant(ChoixSupplementComposant choixComposant){
+        choixSupplement = choixComposant;
     }
 
     /**
@@ -57,21 +74,9 @@ public class Element {
      * @param supplementComposant le supplément composant selectionné par l'utilisateur
      */
     public void ajoutChoixSupplementSelectionne(SupplementComposant supplementComposant){
-        choixSupplementComposantSelectionne.add(supplementComposant);
+        choixSupplement.selectionnerSupplement(supplementComposant);
     }
 
-    /**
-     * Calcule le prix des suppléments compris dans l'élément
-     * @return le prix des suppléments
-     */
-    public float getPrixSupplements(){
-        float totSup = 0;
-        for (SupplementComposant supplementComposant : choixSupplementComposantSelectionne){
-            totSup += supplementComposant.getPrix();
-        }
-
-        return totSup;
-    }
 
     /**
      * Cherche le choix composant dans la liste des composants disponibles pour l'utilisateur proposés par le manager de restaurant
@@ -79,7 +84,7 @@ public class Element {
      * @return le choix composant trouvé à partir du string entré en paramètres
      */
     public ChoixComposant getChoixComposantParNom(String nomChoixComposant){
-        return choixComposantListe.stream().filter(choixComposant1 -> choixComposant1.estChoixComposantParNom(nomChoixComposant)).findFirst().orElse(null);
+        return choixComposantListe.stream().filter(choixComposant1 -> choixComposant1.estChoixParNom(nomChoixComposant)).findFirst().orElse(null);
     }
 
     /**
@@ -88,7 +93,7 @@ public class Element {
      * @return le supplément composant trouvé avec le string entré en paramètres
      */
     public SupplementComposant getSupplementComposantParNom(String nomSupplement){
-        return this.choixSupplementComposant.stream().filter(choixSupplement -> choixSupplement.estComposantParNom(nomSupplement)).findFirst().orElse(null);
+        return this.choixSupplement.getSupplementsListe().stream().filter(choixSupplement -> choixSupplement.estComposantParNom(nomSupplement)).findFirst().orElse(null);
     }
 
     /**
@@ -97,13 +102,38 @@ public class Element {
      * @return le supplément composant trouvé avec le string entré en paramètres
      */
     public SupplementComposant getSupplementComposantSelectionneParNom(String nomSupplement){
-        return this.choixSupplementComposantSelectionne.stream().filter(choixSupplement -> choixSupplement.estComposantParNom(nomSupplement)).findFirst().orElse(null);
+        return this.choixSupplement.getSupplementsListe().stream().filter(choixSupplement -> choixSupplement.estComposantParNom(nomSupplement)).findFirst().orElse(null);
     }
 
     public void resetElement(){
-        this.choixSupplementComposantSelectionne = new ArrayList<>();
+        this.choixSupplement.reset();
         for(ChoixComposant chCo : choixComposantListe){
             chCo.reset();
         }
+    }
+
+
+    /**
+     * Calcule le prix des suppléments compris dans l'élément
+     * @return le prix des suppléments
+     */
+    @Override
+    public float getPrix(){
+        float totSup = 0;
+        for (SupplementComposant supplementComposant : choixSupplement.getSupplementsSelectionnes()){
+            totSup += supplementComposant.getPrix();
+        }
+
+        return totSup;
+    }
+
+    @Override
+    public float getPrixSansReduction() {
+        return getPrix();
+    }
+
+    @Override
+    public float getPrixBase() {
+        return getPrix();
     }
 }

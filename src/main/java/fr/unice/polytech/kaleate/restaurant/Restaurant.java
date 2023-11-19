@@ -1,6 +1,6 @@
 package fr.unice.polytech.kaleate.restaurant;
 
-import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.commande.GestionnaireCommande;
 import fr.unice.polytech.kaleate.commande.ListeCommande;
 import fr.unice.polytech.kaleate.commande.StatutCommande;
@@ -69,10 +69,10 @@ public class Restaurant {
         this.gestionnaireCommande.setListCommande(listCommande);
     }
 
-    public boolean validerCommande(Commande commande){
+    public boolean validerCommande(CommandeSimple commande){
        return gestionnaireCommande.validerCommande(commande);
     }
-    public boolean doitEtrePreparee(Commande commande, Date dateActuel){
+    public boolean doitEtrePreparee(CommandeSimple commande, Date dateActuel){
         //date du début de la livraison - date
         long datePreparationMinimum= commande.getCreneauLivraison().getDebut().getTime();
         if(dateActuel.getTime()>=datePreparationMinimum )
@@ -80,14 +80,14 @@ public class Restaurant {
         return false;
     }
 
-    public boolean preparerMenu(Commande commande, Menu menu){
+    public boolean preparerMenu(CommandeSimple commande, Menu menu){
         if(commande.getStatut()== StatutCommande.VALIDEE){
             return commande.preparerMenu(menu);
         }
         return false;
     }
 
-    public boolean preparerCommande(Commande commande){
+    public boolean preparerCommande(CommandeSimple commande){
         return gestionnaireCommande.preparerCommande(commande);
     }
 

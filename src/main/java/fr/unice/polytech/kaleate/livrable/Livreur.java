@@ -1,9 +1,9 @@
 package fr.unice.polytech.kaleate.livrable;
 
-import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.commande.CommandeSimple;
 
 public class Livreur {
-    private Commande commande;
+    private CommandeSimple commande;
     private String nom;
     private String prenom;
 
@@ -13,7 +13,7 @@ public class Livreur {
         this.commande = null;
     }
 
-    public Commande getCommande() {
+    public CommandeSimple getCommande() {
         return commande;
     }
 
@@ -25,7 +25,7 @@ public class Livreur {
         return prenom;
     }
 
-    public void setCommande(Commande commande) {
+    public void setCommande(CommandeSimple commande) {
         this.commande = commande;
     }
 }

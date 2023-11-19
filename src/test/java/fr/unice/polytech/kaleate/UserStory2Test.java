@@ -1,7 +1,7 @@
 package fr.unice.polytech.kaleate;
 
 import fr.unice.polytech.kaleate.campus.Utilisateur;
-import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.commande.ListeCommande;
 import fr.unice.polytech.kaleate.commande.StatutCommande;
 import fr.unice.polytech.kaleate.menu.Menu;
@@ -30,7 +30,7 @@ import static org.junit.Assert.*;
 public class UserStory2Test {
 
     static Restaurant restaurant = new Restaurant();
-    static Commande commandeSelectionnee;
+    static CommandeSimple commandeSelectionnee;
 
     public static List<Menu> getMenus(){
         List<Menu> menus = new ArrayList<Menu>();
@@ -87,7 +87,7 @@ public class UserStory2Test {
 
         ListeCommande listeCommande = new ListeCommande();
         for(Menu m : getMenus()){
-            listeCommande.add(new Commande(utilisateur,m,creneau, restaurant));
+            listeCommande.add(new CommandeSimple(utilisateur,m,creneau, restaurant));
         }
         return listeCommande;
     }

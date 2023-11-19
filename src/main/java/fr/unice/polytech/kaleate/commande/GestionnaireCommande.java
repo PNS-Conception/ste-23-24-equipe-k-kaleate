@@ -10,7 +10,7 @@ public class GestionnaireCommande {
         listCommande = ListeCommande.getInstanc();
     }
 
-    public boolean validerCommande(Commande commande){
+    public boolean validerCommande(CommandeSimple commande){
         if(commande.getStatut()!= StatutCommande.EN_CREATION){
             return false;
         }
@@ -18,7 +18,7 @@ public class GestionnaireCommande {
         return true;
     }
 
-    public boolean preparerCommande(Commande commande){
+    public boolean preparerCommande(CommandeSimple commande){
         if(commande.getStatut()== StatutCommande.VALIDEE){
             commande.setStatut(StatutCommande.EN_PREPARATION);
             return true;
@@ -29,8 +29,8 @@ public class GestionnaireCommande {
 
     public ListeCommande getCommandePrete(Restaurant restaurant) {
         ListeCommande comPrete = new ListeCommande();
-        for (Commande c : listCommande) {
-            if (c.getStatut().equals(StatutCommande.PRETE) && c.getRestaurant().equals(restaurant)) {
+        for (CommandeSimple c : listCommande) {
+            if (c.getStatut().equals(StatutCommande.PRETE) && c.getRestaurants().contains(restaurant)) {
                 comPrete.add(c);
             }
         }
