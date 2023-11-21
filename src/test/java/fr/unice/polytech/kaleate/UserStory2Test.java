@@ -102,7 +102,7 @@ public class UserStory2Test {
     @Alors("Je demande à voir la liste des commandes passées dans mon restaurant")
     public void je_demande_à_voir_la_liste_des_commandes_passées_dans_mon_restaurant() {
         assertNotEquals(restaurant.getListCommande().size(),0);
-        assertNotNull(restaurant.getListCommande().get(0).getPrice());
+        assertNotNull(restaurant.getListCommande().get(0).getPrix());
         assertNotNull(restaurant.getListCommande().get(0).getMenus());
     }
 
@@ -120,7 +120,7 @@ public class UserStory2Test {
     }
     @Alors("je vois toutes les informations de la commande")
     public void je_vois_toutes_les_informations_de_la_commande() {
-        assertNotNull(commandeSelectionnee.getPrice());
+        assertNotNull(commandeSelectionnee.getPrix());
         assertNotNull(commandeSelectionnee.getMenus());
         assertNotNull(commandeSelectionnee.getUtilisateur());
         assertNotNull(commandeSelectionnee.getId());

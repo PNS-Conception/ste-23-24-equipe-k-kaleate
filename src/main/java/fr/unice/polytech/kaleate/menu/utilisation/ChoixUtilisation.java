@@ -7,9 +7,9 @@ public interface ChoixUtilisation<T> {
     public int getNbChoix();
 
 
-    public List<T> getListe();
+    public List<T> getListeUtilisation();
 
-    public List<T> getListeSelectionne();
+    public List<T> getListeSelectionneUtilisation();
     public boolean estChoixParNom(String nom);
 
     public T getParNom(String nom);

@@ -6,9 +6,7 @@ import fr.unice.polytech.kaleate.outils.Monnayable;
 
 /**
  *
- * @param <CT> Classe choix de l'élément
- * @param <ST> Classe en supplément de l'élément
  */
-public interface ElementInterface<CT, ST> extends ElementGestion<CT, ST>, ElementUtilisation<CT, ST>, Monnayable {
+public interface ElementInterface extends Monnayable {
     public void reset();
 }

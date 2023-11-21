@@ -3,12 +3,13 @@ package fr.unice.polytech.kaleate.menu.element;
 import java.util.List;
 
 import fr.unice.polytech.kaleate.builder.BuilderChoix;
-import fr.unice.polytech.kaleate.menu.composant.ChoixComposant;
+import fr.unice.polytech.kaleate.menu.gestion.ChoixElementGestion;
 import fr.unice.polytech.kaleate.menu.gestion.ChoixGestion;
+import fr.unice.polytech.kaleate.menu.gestion.ElementGestion;
 
 public class BuilderChoixElement implements BuilderChoix<Element, ChoixElement> {
 
-    ChoixGestion<Element> choixElement;
+    ChoixElement choixElement;
 
     public BuilderChoixElement() {
         reset();
@@ -19,7 +20,7 @@ public class BuilderChoixElement implements BuilderChoix<Element, ChoixElement> 
         reset();
         choixElement.setNom(nomChoix);
         choixElement.setNbChoix(nbChoix);
-        choixElement.setListe(listeChoix);
+        choixElement.setListe(listeChoix.stream().map(e -> (ElementGestion) e).toList());
         return getResult();
     }
 
@@ -35,7 +36,7 @@ public class BuilderChoixElement implements BuilderChoix<Element, ChoixElement> 
 
     @Override
     public void listeChoix(List<Element> listeChoix) {
-        choixElement.setListe(listeChoix);
+        choixElement.setListe(listeChoix.stream().map(e -> (ElementGestion) e).toList());
     }
 
     @Override
@@ -45,12 +46,12 @@ public class BuilderChoixElement implements BuilderChoix<Element, ChoixElement> 
 
     @Override
     public List<Element> getChoix() {
-        return choixElement.getListe();
+        return choixElement.getListeGestion().stream().map(e -> (Element) e).toList();
     }
 
     @Override
     public ChoixElement getResult() {
-        return (ChoixElement) choixElement;
+        return choixElement;
     }
 
     @Override

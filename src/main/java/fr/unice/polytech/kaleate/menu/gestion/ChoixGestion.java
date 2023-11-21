@@ -1,6 +1,5 @@
 package fr.unice.polytech.kaleate.menu.gestion;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface ChoixGestion<T> {
@@ -11,7 +10,9 @@ public interface ChoixGestion<T> {
     public int getNbChoix();
 
     public void setListe(List<T> liste);
-    public List<T> getListe();
+    public List<T> getListeGestion();
+
+    public List<T> getListeSelectionneGestion();
 
     public void ajout(T t);
 

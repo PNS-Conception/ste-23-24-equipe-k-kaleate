@@ -202,13 +202,13 @@ public class UserStory3Test {
         // Write code here that turns the phrase above into concrete actions
         userC.addMenu(menus.get(0));
         assertEquals(1,userC.getCommandeActuelle().getMenus().size());
-        assertEquals(10,(int) userC.getCommandeActuelle().getPrice());
+        assertEquals(10,(int) userC.getCommandeActuelle().getPrix());
     }
     @Alors("la commande de User C dans la commande groupée a bien été modifée")
     public void la_commande_de_user_c_dans_la_commande_groupée_a_bien_été_modifée() {
         // Write code here that turns the phrase above into concrete actions
         assertEquals(1,commandeGroupee.getCommandes().get(1).getMenus().size());
-        assertEquals(10,(int)commandeGroupee.getCommandes().get(1).getPrice());
+        assertEquals(10,(int)commandeGroupee.getCommandes().get(1).getPrix());
     }
 
 }

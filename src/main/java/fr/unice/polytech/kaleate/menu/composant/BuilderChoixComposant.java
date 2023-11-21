@@ -46,7 +46,7 @@ public class BuilderChoixComposant implements BuilderChoix<Composant, ChoixCompo
 
     @Override
     public List<Composant> getChoix() {
-        return choixComposant.getListe();
+        return choixComposant.getListeGestion();
     }
 
     @Override

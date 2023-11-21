@@ -72,7 +72,7 @@ public class Utilisateur {
         }
         public boolean payer(){
             if(commandeActuelle == null) return false;
-            if(new PayementExterne().payer(commandeActuelle.getPrice())) {
+            if(new PayementExterne().payer(commandeActuelle.getPrix())) {
                 commandeActuelle.setStatut(StatutCommande.PAYEE);
                 return true;
             }

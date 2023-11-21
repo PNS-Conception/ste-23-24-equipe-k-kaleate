@@ -1,6 +1,9 @@
 package fr.unice.polytech.kaleate.menu.element;
 
-import fr.unice.polytech.kaleate.menu.Choix;
+import fr.unice.polytech.kaleate.menu.gestion.ChoixElementGestion;
+import fr.unice.polytech.kaleate.menu.gestion.ElementGestion;
+import fr.unice.polytech.kaleate.menu.utilisation.ChoixElementUtilisation;
+import fr.unice.polytech.kaleate.menu.utilisation.ElementUtilisation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +15,7 @@ import java.util.List;
  * nbChoixElement : nombre d'éléments que l'utilisateur peut choisir
  *
  */
-public class ChoixElement implements Choix<Element> {
+public class ChoixElement implements ChoixElementUtilisation, ChoixElementGestion {
     private String nomElement;
     private int nbChoixElement;
 
@@ -52,6 +55,31 @@ public class ChoixElement implements Choix<Element> {
     }
 
     @Override
+    public List<ElementUtilisation> getListeUtilisation() {
+        return elementListe.stream().map(a -> (ElementUtilisation) a).toList();
+    }
+
+    @Override
+    public List<ElementUtilisation> getListeSelectionneUtilisation() {
+        return elementListeSelectionne.stream().map(a -> (ElementUtilisation) a).toList();
+    }
+
+    @Override
+    public List<ElementGestion> getListeGestion() {
+        return elementListe.stream().map(a -> (ElementGestion) a).toList();
+    }
+
+    @Override
+    public List<ElementGestion> getListeSelectionneGestion() {
+        return elementListeSelectionne.stream().map(a -> (ElementGestion) a).toList();
+    }
+
+    @Override
+    public void setListe(List<ElementGestion> liste) {
+        this.elementListe = liste.stream().map(Element::new).toList();
+    }
+
+    @Override
     public void setNom(String nomElement) {
         this.nomElement = nomElement;
     }
@@ -62,18 +90,13 @@ public class ChoixElement implements Choix<Element> {
     }
 
     @Override
-    public void setListe(List<Element> elementListe) {
-        this.elementListe = elementListe;
+    public void ajout(ElementGestion elementGestion) {
+
     }
 
     @Override
-    public List<Element> getListe() {
-        return elementListe;
-    }
+    public void supprimer(ElementGestion elementGestion) {
 
-    @Override
-    public List<Element> getListeSelectionne() {
-        return elementListeSelectionne;
     }
 
     @Override
@@ -89,7 +112,6 @@ public class ChoixElement implements Choix<Element> {
         elementListe.add(e);
     }
 
-    @Override
     public void supprimer(Element element) {
         elementListe.remove(element);
     }
@@ -114,11 +136,15 @@ public class ChoixElement implements Choix<Element> {
         return elementListeSelectionne.stream().filter(element -> element.estParNom(s)).findFirst().orElse(null);
     }
 
+    @Override
+    public void choisir(ElementUtilisation elementUtilisation) {
+        choisir((Element) elementUtilisation);
+    }
+
     /**
      * Ajoute un élément sélectionné par l'utilisateur à la liste des éléments selectionnés
      * @param element l'élément à ajouter
      */
-    @Override
     public void choisir(Element element){
         if (elementListeSelectionne.size() < nbChoixElement){
             elementListeSelectionne.add(element);
@@ -137,7 +163,6 @@ public class ChoixElement implements Choix<Element> {
         return prixSupp;
     }
 
-    @Override
     public void reset(){
         elementListeSelectionne.clear();
         for(Element e : elementListe){

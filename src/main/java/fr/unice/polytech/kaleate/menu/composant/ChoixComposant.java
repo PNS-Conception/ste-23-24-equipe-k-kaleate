@@ -1,6 +1,7 @@
 package fr.unice.polytech.kaleate.menu.composant;
 
-import fr.unice.polytech.kaleate.menu.Choix;
+import fr.unice.polytech.kaleate.menu.gestion.ChoixComposantGestion;
+import fr.unice.polytech.kaleate.menu.utilisation.ChoixComposantUtilisation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 
 
-public class ChoixComposant implements Choix<Composant> {
+public class ChoixComposant implements ChoixComposantUtilisation, ChoixComposantGestion {
     private String nomComposant;
     private int nbChoixComposantMax;
     private List<Composant> composantListe;
@@ -33,7 +34,23 @@ public class ChoixComposant implements Choix<Composant> {
         this.composantListeSelectionne = new ArrayList<>();
     }
 
-    protected ChoixComposant(String nomComposant, int nbChoixComposantMax, List<Composant> composantListe) {
+    public ChoixComposant(ChoixComposantGestion cg)
+    {
+        this.nomComposant = cg.getNom();
+        this.nbChoixComposantMax = cg.getNbChoix();
+        this.composantListe = cg.getListeGestion();
+        this.composantListeSelectionne = new ArrayList<>();
+    }
+
+    public ChoixComposant(ChoixComposantUtilisation cu)
+    {
+        this.nomComposant = cu.getNom();
+        this.nbChoixComposantMax = cu.getNbChoix();
+        this.composantListe = cu.getListeGestion();
+        this.composantListeSelectionne = cu.getListeSelectionneGestion();
+    }
+
+    public ChoixComposant(String nomComposant, int nbChoixComposantMax, List<Composant> composantListe) {
         this.nomComposant = nomComposant;
         this.nbChoixComposantMax = nbChoixComposantMax;
         this.composantListe = composantListe;
@@ -70,12 +87,12 @@ public class ChoixComposant implements Choix<Composant> {
     }
 
     @Override
-    public List<Composant> getListe() {
+    public List<Composant> getListeGestion() {
         return composantListe;
     }
 
     @Override
-    public List<Composant> getListeSelectionne() {
+    public List<Composant> getListeSelectionneGestion() {
         return composantListeSelectionne;
     }
 

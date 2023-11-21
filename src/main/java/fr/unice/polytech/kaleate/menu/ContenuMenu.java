@@ -2,14 +2,16 @@ package fr.unice.polytech.kaleate.menu;
 
 import fr.unice.polytech.kaleate.menu.element.ChoixElement;
 import fr.unice.polytech.kaleate.menu.element.ChoixSupplementElement;
+import fr.unice.polytech.kaleate.menu.gestion.ContenuMenuGestion;
 import fr.unice.polytech.kaleate.menu.supplement.Supplement;
 import fr.unice.polytech.kaleate.menu.element.SupplementElement;
-import fr.unice.polytech.kaleate.outils.Monnayable;
+import fr.unice.polytech.kaleate.menu.utilisation.ChoixElementUtilisation;
+import fr.unice.polytech.kaleate.menu.utilisation.ContenuMenuUtilisation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContenuMenu implements Monnayable {
+public class ContenuMenu implements ContenuMenuUtilisation, ContenuMenuGestion {
 
     private List<ChoixElement> choixElementListe;
     private ChoixSupplementElement choixSupplements;
@@ -29,11 +31,21 @@ public class ContenuMenu implements Monnayable {
         return choixElementListe;
     }
 
+    @Override
+    public ContenuMenuUtilisation getContenuMenu() {
+        return null;
+    }
+
+    @Override
+    public List<ChoixElementUtilisation> getChoixElementListeUtilisation() {
+        return choixElementListe.stream().map(e -> (ChoixElementUtilisation) e).toList();
+    }
+
     public void setChoixElementListe(ArrayList<ChoixElement> choixElementListe) {
         this.choixElementListe = choixElementListe;
     }
 
-    public ArrayList<SupplementElement> getSupplementElementListe() {
+    public List<SupplementElement> getSupplementElementListe() {
         return (ArrayList<SupplementElement>) choixSupplements.getSupplementsListe();
     }
 

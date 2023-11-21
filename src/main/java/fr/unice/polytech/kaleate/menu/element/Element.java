@@ -3,12 +3,16 @@ package fr.unice.polytech.kaleate.menu.element;
 import fr.unice.polytech.kaleate.menu.composant.ChoixComposant;
 import fr.unice.polytech.kaleate.menu.composant.ChoixSupplementComposant;
 import fr.unice.polytech.kaleate.menu.composant.SupplementComposant;
+import fr.unice.polytech.kaleate.menu.gestion.ChoixComposantGestion;
+import fr.unice.polytech.kaleate.menu.gestion.ElementGestion;
 import fr.unice.polytech.kaleate.menu.supplement.ChoixSupplement;
+import fr.unice.polytech.kaleate.menu.utilisation.ChoixComposantUtilisation;
+import fr.unice.polytech.kaleate.menu.utilisation.ElementUtilisation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Element implements ElementInterface<ChoixComposant, SupplementComposant> {
+public class Element implements ElementGestion, ElementUtilisation {
     private String nomElement;
     private List<ChoixComposant> choixComposantListe;
     private ChoixSupplement<SupplementComposant> choixSupplement;
@@ -24,6 +28,12 @@ public class Element implements ElementInterface<ChoixComposant, SupplementCompo
         this.choixSupplement = new ChoixSupplementComposant();
     }
 
+    protected Element(ElementGestion elementGestion) {
+        this.nomElement = elementGestion.getNom();
+        this.choixComposantListe = elementGestion.getChoixComposantListeGestion().stream().map(ChoixComposant::new).toList();
+        this.choixSupplement = new ChoixSupplementComposant();
+    }
+
     @Override
     public String getNom() {
         return nomElement;
@@ -32,11 +42,6 @@ public class Element implements ElementInterface<ChoixComposant, SupplementCompo
     @Override
     public void setNom(String nomElement) {
         this.nomElement = nomElement;
-    }
-
-    @Override
-    public List<ChoixComposant> getChoixComposantListe() {
-        return choixComposantListe;
     }
 
     /**
@@ -56,17 +61,27 @@ public class Element implements ElementInterface<ChoixComposant, SupplementCompo
     }
 
     @Override
+    public void ajout(ChoixComposantGestion choix) {
+        choixComposantListe.add((ChoixComposant) choix);
+    }
+
+    @Override
     public boolean estParNom(String nomElement){
         return this.nomElement.equals(nomElement);
     }
 
-    /**
-     * Ajoute un Choix Composant à la liste des Choix Composants disponibles pour l'utilisateur proposé par le manager de restaurant
-     * @param choixComposant le choix composant à ajouter
-     */
     @Override
-    public void ajout(ChoixComposant choixComposant){
-        choixComposantListe.add(choixComposant);
+    public List<ChoixComposantUtilisation> getChoixComposantListeUtilisation() {
+        List<ChoixComposantUtilisation> ccg = new ArrayList<>();
+        ccg.addAll(choixComposantListe);
+        return ccg;
+    }
+
+    @Override
+    public List<ChoixComposantGestion> getChoixComposantListeGestion() {
+        List<ChoixComposantGestion> ccg = new ArrayList<>();
+        ccg.addAll(choixComposantListe);
+        return ccg;
     }
 
     @Override
@@ -83,13 +98,9 @@ public class Element implements ElementInterface<ChoixComposant, SupplementCompo
         choixSupplement.ajoutSupplement(supplementComposant);
     }
 
-    /**
-     * défini le choix composant disponible pour l'utilisateur
-     * @param choixComposant
-     */
     @Override
-    public void ajoutChoixSupplement(ChoixSupplement<SupplementComposant> choixComposant){
-        choixSupplement = choixComposant;
+    public void ajoutChoixSupplement(ChoixSupplement<SupplementComposant> choix) {
+        choixSupplement = choix;
     }
 
     /**
@@ -127,10 +138,6 @@ public class Element implements ElementInterface<ChoixComposant, SupplementCompo
         return this.choixSupplement.getSupplementsListe().stream().filter(choixSupplement -> choixSupplement.estParNom(nomSupplement)).findFirst().orElse(null);
     }
 
-    @Override
-    public ChoixComposant getChoixComposantParNom(String nomChoixComposant) {
-        return this.choixComposantListe.stream().filter(choixComposant -> choixComposant.estChoixParNom(nomChoixComposant)).findFirst().orElse(null);
-    }
 
     /**
      * Cherche le supplément composant sélectionné dans la liste des suppléments composants sélectionné disponibles par l'utilisateur

@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 //TODO Il faut interfacer ou abstraire les Commandes pour pouvoir faire proprement le traitement des commandes avec
 
-public class CommandeSimple implements Observer {
+public class CommandeSimple implements Observer, Commande {
     private List<Menu> menus;
     private Utilisateur utilisateur; // TODO pour pouvoir faire des commandes selon les extensions, avoir l'utilisateur initial de la commande et le recepteur de la commande
     private StatutCommande statut = StatutCommande.EN_CREATION;
@@ -43,10 +43,12 @@ public class CommandeSimple implements Observer {
         this.menus = new ArrayList<>();
     }
 
+    @Override
     public List<Menu> getMenus(){
         return this.menus;
     }
 
+    @Override
     public void setMenus(List<Menu> menus){
         this.menus = menus;
     }
@@ -57,11 +59,13 @@ public class CommandeSimple implements Observer {
         return false;
     }
 
+    @Override
     public boolean removeMenu(Menu menu){
         if(modifiable())
            return this.menus.remove(menu);
         return false;
     }
+    @Override
     public boolean modifiable(){
         if(statut == StatutCommande.EN_CREATION ||statut == StatutCommande.VALIDEE ){
             return true;
@@ -69,7 +73,8 @@ public class CommandeSimple implements Observer {
             return false;
         }
     }
-    public double getPrice(){
+    @Override
+    public double getPrix(){
         double price = 0;
         for(Menu menu : this.menus){
             price += menu.getPrix();
@@ -78,13 +83,23 @@ public class CommandeSimple implements Observer {
     }
 
     public double getPrixAvecSupplement(){
-        double prix = getPrice();
+        double prix = getPrix();
         for(Menu menu : this.menus){
             prix += menu.getPrixAvecSupplements();
         }
         return prix;
     }
 
+    //TODO remplir methode
+    @Override
+    public double getPrixSansReduction() {
+        return 0;
+    }
+    @Override
+    public double getPrixBase() {
+        return 0;
+    }
+    @Override
     public float getTempsPreparation(){
         float tps = 0;
         for(Menu menu : this.menus){
@@ -93,18 +108,27 @@ public class CommandeSimple implements Observer {
         return tps;
     }
 
+    @Override
     public int getId() {
         return id;
     }
-
+    @Override
     public void setId(int id) {
         this.id = id;
     }
 
-    public Utilisateur getUtilisateur() {
+    @Override
+    public Utilisateur getUtilisateurRecepteur() {
         return utilisateur;
     }
+    @Override
+    public Utilisateur getUtilisateurEmetteur() { return utilisateur;}
+    @Override
+    public void setUtilisateurRecepteur(Utilisateur utilisateur) { this.utilisateur = utilisateur;}
+    @Override
+    public void setUtilisateurEmetteur(Utilisateur utilisateur) { this.utilisateur = utilisateur;}
 
+    @Override
     public StatutCommande getStatut() {
         return statut;
     }
@@ -118,11 +142,13 @@ public class CommandeSimple implements Observer {
             }
         }
     }
+    @Override
     public void valideeCommande()
     {
         for(Menu m : menus) m.setCommande(this);
         setStatut(StatutCommande.VALIDEE);
     }
+
 
     public Creneau getCreneauLivraison() {
         return creneauLivraison;
