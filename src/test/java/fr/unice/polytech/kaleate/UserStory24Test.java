@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "fr.unice.polytech.kaleate")
 
 public class UserStory24Test {
-    static Utilisateur user = new Utilisateur("nom","prenom");
+    static Utilisateur user;
     static Commande commande;
     static Restaurant restaurant = new Restaurant();
     public Menu creerMenu(){
@@ -31,7 +31,7 @@ public class UserStory24Test {
     }
     @Etantdonnéque("un utilisateur avec une commande")
     public void un_utilisateur_avec_une_commande() {
-
+        user = new Utilisateur("nom","prenom");
         user.addMenu(creerMenu());
         assertNotNull(user.getCommandeActuelle());
         commande = user.getCommandeActuelle();
