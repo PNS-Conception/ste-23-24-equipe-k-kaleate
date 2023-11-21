@@ -46,16 +46,28 @@ public class AdministrateurCampus {
         campus.supprimerUtilisateur(utilisateur);
     }
 
-    /**
+  /**
      * L'administarteur ajoute le restaurant nom au campus
      * @param nom
+     * @return boolean
      */
-
-    public void ajouterRestaurant(Restaurant nom){
-        campus.ajoutRestaurant(nom);
+    public boolean ajouterRestaurant(Restaurant nom){
+        if (campus.getCentre().estDansLeRayonDe(nom.getLocalisation(), campus.getRayon())) {
+            campus.ajoutRestaurant(nom);
+            return true;
+        }
+        return false;
     }
 
     public void ajouterUtilisateur(Utilisateur utilisateur){
         campus.ajoutUtilisateur(utilisateur);
+    }
+
+    public void changerRayon(float r){
+        campus.setRayon(r);
+    }
+
+    public Campus getCampus() {
+        return campus;
     }
 }
