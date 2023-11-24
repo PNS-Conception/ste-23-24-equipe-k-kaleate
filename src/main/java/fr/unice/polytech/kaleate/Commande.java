@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Commande {
     private List<Menu> menus;
-    private List<StatutMenu> statutsMenus;
+    private List<StatutMenu>  statutsMenus =new ArrayList<>();
     private Utilisateur utilisateur;
 
     private StatutCommande statut = StatutCommande.EN_CREATION;
@@ -19,7 +19,6 @@ public class Commande {
     public Commande(Utilisateur utilisateur, List<Menu> menus, Restaurant restaurant){
         this.menus = menus;
         this.utilisateur = utilisateur;
-        this.restaurant = restaurant;
         id = nextID;
         nextID++;
         this.restaurant = restaurant;
@@ -27,13 +26,13 @@ public class Commande {
 
     public Commande(Utilisateur utilisateur, Menu menu, Restaurant restaurant){
         this.menus = new ArrayList<>();
-        this.menus.add(menu);
+        addMenu(menu);
         this.utilisateur = utilisateur;
         this.restaurant = restaurant;
     }
     public Commande(Utilisateur utilisateur, Menu menu,Creneau creneauLivraison, Restaurant restaurant){
         this.menus = new ArrayList<>();
-        this.menus.add(menu);
+        addMenu(menu);
         this.utilisateur = utilisateur;
         this.creneauLivraison = creneauLivraison;
         this.restaurant = restaurant;
@@ -41,7 +40,10 @@ public class Commande {
     public Commande(){
         this.menus = new ArrayList<>();
     }
-
+    public Commande(Utilisateur u){
+        this.menus = new ArrayList<>();
+        utilisateur = u;
+    }
     public List<Menu> getMenus(){
         return this.menus;
     }
@@ -51,8 +53,10 @@ public class Commande {
     }
 
     public boolean addMenu(Menu menu){
-        if(modifiable())
+        if(modifiable()) {
+            statutsMenus.add(StatutMenu.SELECTIONNE);
             return this.menus.add(menu);
+        }
         return false;
     }
 
@@ -70,16 +74,18 @@ public class Commande {
     }
     public float getPrice(){
         float price = 0;
-        for(Menu menu : this.menus){
-            price += menu.getPrice();
+        for(int i =0;i<menus.size();i++){
+            if(statutsMenus.get(i).compareTo(StatutMenu.ANNULE) != 0)
+                price += menus.get(i).getPrice();
         }
         return price;
     }
 
     public float getPrixAvecSupplement(){
         float prix = getPrice();
-        for(Menu menu : this.menus){
-            prix += menu.getPrixAvecSupplements();
+        for(int i =0;i<menus.size();i++){
+            if(statutsMenus.get(i).compareTo(StatutMenu.ANNULE) != 0)
+                prix += menus.get(i).getPrixAvecSupplements();
         }
         return prix;
     }
@@ -111,9 +117,9 @@ public class Commande {
     public void setStatut(StatutCommande statut) {
         this.statut = statut;
         if (statut.equals(StatutCommande.VALIDEE)){
-            statutsMenus =new ArrayList<>();
-            for (Menu m : this.menus){
-                statutsMenus.add(StatutMenu.VALIDE);
+
+            for (int i=0;i<menus.size();i++){
+                statutsMenus.set(i,StatutMenu.VALIDE);
             }
         }
     }
@@ -154,6 +160,31 @@ public class Commande {
         return false;
     }
 
+
+    public boolean annulerMenu(Menu mp){
+        if (contains(mp)) {
+            for (int i=0; i<menus.size(); i++){
+                if (mp.equals(menus.get(i))&& statutsMenus.get(i)!=StatutMenu.PRET){
+                    statutsMenus.set(i,StatutMenu.ANNULE);
+                    checkAnnulationCommande();
+                    utilisateur.rembourser(menus.get(i));
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean checkAnnulationCommande(){
+        for(StatutMenu s : statutsMenus){
+            if(s.compareTo(StatutMenu.ANNULE) != 0){
+                return false;
+            }
+        }
+        setStatut(StatutCommande.ANNULEE);
+
+        return true;
+    }
     public List<StatutMenu> getStatutsMenus(){
         return statutsMenus;
     }

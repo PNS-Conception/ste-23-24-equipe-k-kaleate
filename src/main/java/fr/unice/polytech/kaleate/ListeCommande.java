@@ -13,7 +13,9 @@ public class ListeCommande extends ArrayList<Commande> {
         super(listeCommandes);
     }
 
-
+    public List<Commande> getCommandeByRestaurant(Restaurant restaurant){
+        return this.stream().filter(commande ->restaurant.equals(commande.getRestaurant())).toList();
+    }
     public Commande getCommandeById(int id){
         return this.stream().filter(commande -> commande.getId()==id).findFirst().orElse(null);
     }
@@ -32,11 +34,14 @@ public class ListeCommande extends ArrayList<Commande> {
         return s;
     }
 
-    public static ListeCommande getInstanc() {
+    public static ListeCommande getInstance() {
         if (instance == null) {
             instance = new ListeCommande();
         }
         return instance;
     }
 
+    public static void reset(){
+        instance = new ListeCommande();
+    }
 }

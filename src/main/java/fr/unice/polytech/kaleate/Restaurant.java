@@ -64,7 +64,7 @@ public class Restaurant {
     }
 
     public ListeCommande getListCommande() {
-        return  gestionnaireCommande.getListCommande();
+        return  gestionnaireCommande.getListCommande(this);
     }
 
     public void setListCommande(ListeCommande listCommande) {
@@ -103,8 +103,9 @@ public class Restaurant {
         return gestionnaireCommande.getCommandePrete(this);
 
     }
-
-
+    public void annulerPreparationMenu(Commande c,Menu m){
+        gestionnaireCommande.annulerPreparationMenu(c,m);
+    }
     public void ajouterMenu(Menu m){
         menus.add(m);
     }
@@ -112,4 +113,6 @@ public class Restaurant {
     public Localisation getLocalisation() {
         return localisation;
     }
+
+
 }

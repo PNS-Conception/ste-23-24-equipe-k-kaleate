@@ -36,12 +36,14 @@ public class Utilisateur {
         public boolean rejoindreCommandegroupee(CommandeGroupee commandeGroupee,int code){
                 if(commandeActuelle == null){
                     commandeActuelle = new Commande();
+                    ListeCommande.getInstance().add(commandeActuelle);
                 }
                 return commandeGroupee.ajouterCommande(code, commandeActuelle);
         }
         public boolean addMenu(Menu m){
             if(commandeActuelle == null){
-                commandeActuelle = new Commande();
+                commandeActuelle = new Commande(this);
+                ListeCommande.getInstance().add(commandeActuelle);
             }
             return commandeActuelle.addMenu(m);
         }
@@ -63,13 +65,17 @@ public class Utilisateur {
         public void addSolde(float solde) {
             this.solde += solde;
         }
+        public void removeSolde(float solde){this.solde -=solde;}
         public boolean payer(){
             if(commandeActuelle == null) return false;
-            if(new PayementExterne().payer(commandeActuelle.getPrice())) {
+            if(new PayementExterne().payer(this,commandeActuelle.getPrice())) {
                 commandeActuelle.setStatut(StatutCommande.PAYEE);
                 return true;
             }
             return false;
+        }
+        public void rembourser(Menu m){
+            new PayementExterne().rembourser(this,m.getPrice());
         }
         public void recupererCommande(){
             if(commandeActuelle.getStatut()==StatutCommande.A_RECUPERER){

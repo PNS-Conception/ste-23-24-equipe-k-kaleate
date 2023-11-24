@@ -151,7 +151,9 @@ public class UserStory2Test {
     }
     @Quand("Je sélectionne la commande pour la mettre en préparation")
     public void je_sélectionne_la_commande_pour_la_mettre_en_préparation() {
+        commandeSelectionnee.setStatut(StatutCommande.PAYEE);
         assertTrue(restaurant.preparerCommande(commandeSelectionnee));
+
         assertFalse(restaurant.preparerCommande(getCommandes().get(2)));
     }
     @Alors("La commande ne peut plus être modifié par le client")
