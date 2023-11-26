@@ -1,5 +1,6 @@
 package fr.unice.polytech.kaleate.menu.supplement;
 
+
 import fr.unice.polytech.kaleate.menu.element.SupplementElement;
 
 public class BuilderChoixSupplementElement extends BuilderChoixSupplement<SupplementElement> {
@@ -7,6 +8,7 @@ public class BuilderChoixSupplementElement extends BuilderChoixSupplement<Supple
         @Override
         public void reset() {
             this.choixSupplement = new ChoixSupplementElement();
+
         }
 
         @Override

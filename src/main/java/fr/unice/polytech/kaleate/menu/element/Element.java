@@ -1,7 +1,7 @@
 package fr.unice.polytech.kaleate.menu.element;
 
 import fr.unice.polytech.kaleate.menu.composant.ChoixComposant;
-import fr.unice.polytech.kaleate.menu.composant.ChoixSupplementComposant;
+import fr.unice.polytech.kaleate.menu.supplement.ChoixSupplementComposant;
 import fr.unice.polytech.kaleate.menu.composant.SupplementComposant;
 import fr.unice.polytech.kaleate.menu.supplement.ChoixSupplement;
 import fr.unice.polytech.kaleate.outils.Monnayable;
@@ -47,10 +47,6 @@ public class Element implements Monnayable {
         return choixSupplement.getSupplementsSelectionnes();
     }
 
-    public void ajout(ChoixComposant choix) {
-        choixComposantListe.add(choix);
-    }
-
     public boolean estParNom(String nomElement){
         return this.nomElement.equals(nomElement);
     }
@@ -70,7 +66,6 @@ public class Element implements Monnayable {
     public void ajoutSupplement(SupplementComposant supplementComposant){
         choixSupplement.ajoutSupplement(supplementComposant);
     }
-
     public void ajoutChoixSupplement(ChoixSupplement<SupplementComposant> choix) {
         choixSupplement = choix;
     }
@@ -144,5 +139,9 @@ public class Element implements Monnayable {
     @Override
     public double getPrixBase() {
         return getPrix();
+    }
+
+    public void ajoutChoixComposant(ChoixComposant cc) {
+        choixComposantListe.add(cc);
     }
 }

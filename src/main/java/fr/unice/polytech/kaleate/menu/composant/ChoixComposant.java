@@ -33,6 +33,7 @@ public class ChoixComposant implements Choix<Composant> {
         this.composantListeSelectionne = new ArrayList<>();
     }
 
+
     public ChoixComposant(String nomComposant, int nbChoixComposantMax, List<Composant> composantListe) {
         this.nomComposant = nomComposant;
         this.nbChoixComposantMax = nbChoixComposantMax;
@@ -43,6 +44,7 @@ public class ChoixComposant implements Choix<Composant> {
     public String getNomComposant() {
         return nomComposant;
     }
+
 
     public void setNom(String nomComposant) {
         this.nomComposant = nomComposant;
@@ -68,11 +70,13 @@ public class ChoixComposant implements Choix<Composant> {
     }
 
     @Override
+
     public List<Composant> getListe() {
         return composantListe;
     }
 
     @Override
+
     public List<Composant> getListeSelectionne() {
         return composantListeSelectionne;
     }

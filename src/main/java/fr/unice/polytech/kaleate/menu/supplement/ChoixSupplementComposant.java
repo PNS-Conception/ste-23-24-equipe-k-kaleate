@@ -1,6 +1,7 @@
-package fr.unice.polytech.kaleate.menu.composant;
+package fr.unice.polytech.kaleate.menu.supplement;
 
 import fr.unice.polytech.kaleate.menu.Choix;
+import fr.unice.polytech.kaleate.menu.composant.SupplementComposant;
 import fr.unice.polytech.kaleate.menu.supplement.ChoixSupplement;
 
 import java.util.ArrayList;

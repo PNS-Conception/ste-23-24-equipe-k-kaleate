@@ -42,7 +42,7 @@ public class BuilderElement implements Builder<Element> {
     }
 
     public void addChoixComposant() {
-        element.ajout(builderChoixComposant.getResult());
+        element.ajoutChoixComposant(builderChoixComposant.getResult());
         builderChoixComposant.reset();
     }
 

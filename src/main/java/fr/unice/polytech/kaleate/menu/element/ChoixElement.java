@@ -64,6 +64,7 @@ public class ChoixElement implements Choix<Element> {
     @Override
     public void setListe(List<Element> liste) {
         this.elementListe = liste;
+
     }
 
     @Override
@@ -77,6 +78,7 @@ public class ChoixElement implements Choix<Element> {
     }
 
     @Override
+
     public boolean estChoixParNom(String nomChoixelement){
         return this.nomElement.equals(nomChoixelement);
     }
@@ -135,6 +137,7 @@ public class ChoixElement implements Choix<Element> {
         return prixSupp;
     }
 
+    @Override
     public void reset(){
         elementListeSelectionne.clear();
         for(Element e : elementListe){

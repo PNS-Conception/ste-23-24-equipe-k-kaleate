@@ -1,7 +1,6 @@
 package fr.unice.polytech.kaleate.menu.supplement;
 
 import fr.unice.polytech.kaleate.builder.Builder;
-
 import java.util.List;
 
 public abstract class BuilderChoixSupplement<T> implements Builder<ChoixSupplement<T>> {
@@ -11,6 +10,7 @@ public abstract class BuilderChoixSupplement<T> implements Builder<ChoixSuppleme
 
     public void setChoixSupplement(List<T> choixSupplement) {
         this.choixSupplement.setSupplementsListe(choixSupplement);
+
 
     }
     @Override
