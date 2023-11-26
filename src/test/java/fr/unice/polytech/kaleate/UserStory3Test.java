@@ -1,5 +1,12 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.CommandeSimple;
+import fr.unice.polytech.kaleate.commande.CommandeGroupee;
+import fr.unice.polytech.kaleate.menu.ListeMenus;
+import fr.unice.polytech.kaleate.menu.Menu;
+import fr.unice.polytech.kaleate.outils.Creneau;
+import fr.unice.polytech.kaleate.restaurant.Restaurant;
 import io.cucumber.java.fr.*;
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
@@ -27,8 +34,8 @@ public class UserStory3Test {
     static Utilisateur userC = new Utilisateur("User","C");
 
     static List<Menu> menus;
-    static Commande commandeUserA;
-    static Commande commandeUserB;
+    static CommandeSimple commandeUserA;
+    static CommandeSimple commandeUserB;
 
     static CommandeGroupee commandeGroupee;
 
@@ -75,9 +82,9 @@ public class UserStory3Test {
 
         Restaurant restaurant1 = new Restaurant("Restau 1",new ListeMenus(getMenus()));
         commandeGroupee = new CommandeGroupee();
-        commandeUserA = new Commande(userA,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
+        commandeUserA = new CommandeSimple(userA,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
         userA.setCommandeActuelle(commandeUserA);
-        commandeUserB = new Commande(userB,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
+        commandeUserB = new CommandeSimple(userB,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
         userB.setCommandeActuelle(commandeUserB);
     }
     public void commandeDiffCreneau(){
@@ -93,7 +100,7 @@ public class UserStory3Test {
         df = c.getTime();
 
          commandeGroupee = new CommandeGroupee();
-         commandeUserA = new Commande(userA,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
+         commandeUserA = new CommandeSimple(userA,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
         userA.setCommandeActuelle(commandeUserA);
         c.setTime(df);
         c.setTime(db);
@@ -101,7 +108,7 @@ public class UserStory3Test {
         db = c.getTime();
         c.add(Calendar.HOUR,1);
         df = c.getTime();
-         commandeUserB = new Commande(userB,restaurant1.getMenus().get(3),new Creneau(db, df),restaurant1);
+         commandeUserB = new CommandeSimple(userB,restaurant1.getMenus().get(3),new Creneau(db, df),restaurant1);
         userB.setCommandeActuelle(commandeUserB);
     }
 
@@ -195,13 +202,13 @@ public class UserStory3Test {
         // Write code here that turns the phrase above into concrete actions
         userC.addMenu(menus.get(0));
         assertEquals(1,userC.getCommandeActuelle().getMenus().size());
-        assertEquals(10,(int) userC.getCommandeActuelle().getPrice());
+        assertEquals(10,(int) userC.getCommandeActuelle().getPrix());
     }
     @Alors("la commande de User C dans la commande groupée a bien été modifée")
     public void la_commande_de_user_c_dans_la_commande_groupée_a_bien_été_modifée() {
         // Write code here that turns the phrase above into concrete actions
         assertEquals(1,commandeGroupee.getCommandes().get(1).getMenus().size());
-        assertEquals(10,(int)commandeGroupee.getCommandes().get(1).getPrice());
+        assertEquals(10,(int)commandeGroupee.getCommandes().get(1).getPrix());
     }
 
 }

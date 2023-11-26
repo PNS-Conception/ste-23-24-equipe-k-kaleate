@@ -1,5 +1,12 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.CommandeSimple;
+import fr.unice.polytech.kaleate.commande.ListeCommande;
+import fr.unice.polytech.kaleate.commande.StatutCommande;
+import fr.unice.polytech.kaleate.menu.Menu;
+import fr.unice.polytech.kaleate.outils.Creneau;
+import fr.unice.polytech.kaleate.restaurant.Restaurant;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Etantdonnéque;
 import io.cucumber.java.fr.Quand;
@@ -22,8 +29,8 @@ import static org.junit.Assert.*;
 
 public class UserStory2Test {
 
-   static Restaurant restaurant = new Restaurant();
-    static Commande commandeSelectionnee;
+    static Restaurant restaurant = new Restaurant();
+    static CommandeSimple commandeSelectionnee;
 
     public static List<Menu> getMenus(){
         List<Menu> menus = new ArrayList<Menu>();
@@ -75,19 +82,19 @@ public class UserStory2Test {
         calendar.set(Calendar.MINUTE, 15);
         fin = calendar.getTime();
 
-       Creneau creneau = new Creneau(debut, fin);
+        Creneau creneau = new Creneau(debut, fin);
 
 
         ListeCommande listeCommande = new ListeCommande();
         for(Menu m : getMenus()){
-            listeCommande.add(new Commande(utilisateur,m,creneau, restaurant));
+            listeCommande.add(new CommandeSimple(utilisateur,m,creneau, restaurant));
         }
         return listeCommande;
     }
     @Etantdonnéque("Je suis un restaurateur qui travaille à {string}")
     public void je_suis_un_restaurateur_qui_travaille_à(String string) {
-         restaurant = new Restaurant(string);
-         restaurant.setListCommande(getCommandes());
+        restaurant = new Restaurant(string);
+        restaurant.setListCommande(getCommandes());
         assertNotNull(restaurant);
 
     }
@@ -95,7 +102,7 @@ public class UserStory2Test {
     @Alors("Je demande à voir la liste des commandes passées dans mon restaurant")
     public void je_demande_à_voir_la_liste_des_commandes_passées_dans_mon_restaurant() {
         assertNotEquals(restaurant.getListCommande().size(),0);
-        assertNotNull(restaurant.getListCommande().get(0).getPrice());
+        assertNotNull(restaurant.getListCommande().get(0).getPrix());
         assertNotNull(restaurant.getListCommande().get(0).getMenus());
     }
 
@@ -113,7 +120,7 @@ public class UserStory2Test {
     }
     @Alors("je vois toutes les informations de la commande")
     public void je_vois_toutes_les_informations_de_la_commande() {
-        assertNotNull(commandeSelectionnee.getPrice());
+        assertNotNull(commandeSelectionnee.getPrix());
         assertNotNull(commandeSelectionnee.getMenus());
         assertNotNull(commandeSelectionnee.getUtilisateur());
         assertNotNull(commandeSelectionnee.getId());
@@ -128,7 +135,7 @@ public class UserStory2Test {
     public void le_restaurant_valide_la_prise_en_charge_de_la_commande() {
 
         assertTrue(restaurant.validerCommande(commandeSelectionnee));
-        assertEquals(commandeSelectionnee.getStatut(),StatutCommande.VALIDEE);
+        assertEquals(commandeSelectionnee.getStatut(), StatutCommande.VALIDEE);
     }
 
     @Etantdonnéque("La commande doit être commmencée à être préparée pour être livrée à temps")
