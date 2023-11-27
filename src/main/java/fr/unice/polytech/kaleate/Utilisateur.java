@@ -84,4 +84,20 @@ public class Utilisateur {
     public ArrayList<Commande> getHistorique() {
         return historique;
     }
+
+    public int getIdCommande() throws CommandeException {;
+            if(commandeActuelle.getStatut().compareTo(StatutCommande.PAYEE)>=0)
+                return commandeActuelle.getId();
+            throw new CommandeException("La commande n'est pas encore payée.");
+    }
+    public Creneau getDateCommande() throws CommandeException {
+        if(commandeActuelle.getStatut().compareTo(StatutCommande.PAYEE)>=0)
+            return commandeActuelle.getCreneauLivraison();
+        throw new CommandeException("La commande n'est pas encore payée.");
+    }
+   /*public Creneau getPointLivraison() throws CommandeException {
+        if(commandeActuelle.getStatut().compareTo(StatutCommande.PAYEE)>=0)
+            return commandeActuelle.get();
+        throw new CommandeException("La commande n'est pas encore payée.");
+    }*/
 }

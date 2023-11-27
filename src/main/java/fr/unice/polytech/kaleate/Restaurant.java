@@ -8,6 +8,8 @@ public class Restaurant {
     private ListeMenus menus;
     private String name;
 
+    private Localisation localisation;
+
     private GestionnaireCommande gestionnaireCommande;
 
     public Restaurant(){
@@ -25,6 +27,13 @@ public class Restaurant {
         this.name = name;
         this.menus = menus;
         this.gestionnaireCommande = new GestionnaireCommande();
+    }
+
+    public Restaurant(String name, ListeMenus menus,Localisation l){
+        this.name = name;
+        this.menus = menus;
+        this.gestionnaireCommande = new GestionnaireCommande();
+        this.localisation=l;
     }
 
     public ListeMenus getMenus(){
@@ -107,5 +116,9 @@ public class Restaurant {
 
     public void resetMenu(){
         this.menus = new ListeMenus();
+    }
+
+    public Localisation getLocalisation() {
+        return localisation;
     }
 }
