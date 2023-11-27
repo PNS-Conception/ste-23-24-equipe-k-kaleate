@@ -53,6 +53,7 @@ public class UserStory5Test {
 
     @Quand("il supprimer le menu {string} de la carte")
     public void il_supprimer_le_menu_de_la_carte(String string) {
+        il_ajoute_un_nouveau_menu_pour_euros_a_la_carte(string, 10);
         Menu menu = restaurant.getMenus().getParNom(string);
         manager.supprimerUnMenu(menu);
     }
