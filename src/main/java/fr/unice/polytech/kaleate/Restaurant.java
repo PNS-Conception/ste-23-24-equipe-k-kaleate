@@ -118,7 +118,7 @@ public class Restaurant {
         this.menus = new ListeMenus();
     }
 
-    public Localisation getLocalisation() {
+     public Localisation getLocalisation() {
         return localisation;
     }
 }
