@@ -47,7 +47,8 @@ public class UserStory5Test {
 
     @Alors("la liste des menus augmente de {int}")
     public void la_liste_des_menus_augmente_de(Integer int1) {
-        assertEquals(restaurant.getMenus().size(), 1);
+        assertEquals(1, restaurant.getMenus().size());
+        restaurant.resetMenu();
     }
 
     @Quand("il supprimer le menu {string} de la carte")
@@ -63,7 +64,8 @@ public class UserStory5Test {
 
     @Alors("la liste des menus diminue de {int}")
     public void la_liste_des_menus_diminue_de(Integer int1) {
-        assertEquals(0, restaurant.getMenus().size()-int1);
+        assertEquals(0, restaurant.getMenus().size());
+        restaurant.resetMenu();
     }
 
     @Quand("il modifie un élément du menu {string} de la carte")

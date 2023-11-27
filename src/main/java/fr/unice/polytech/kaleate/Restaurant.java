@@ -1,5 +1,6 @@
 package fr.unice.polytech.kaleate;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -102,5 +103,9 @@ public class Restaurant {
 
     public void supprimerMenu(Menu m){
         menus.remove(m);
+    }
+
+    public void resetMenu(){
+        this.menus = new ListeMenus();
     }
 }
