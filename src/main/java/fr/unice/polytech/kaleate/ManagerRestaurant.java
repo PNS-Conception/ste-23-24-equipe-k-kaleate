@@ -63,7 +63,12 @@ public class ManagerRestaurant {
         return restaurant;
     }
 
-    public void resetRestaurant(){
-        this.restaurant = new Restaurant();
+    public void modifierCreneauMenu(Menu menu, Creneau creneau){
+        if (menu != null) {
+            menu.setCreneau(creneau);
+        }
+        else {
+            System.out.println("le menu n'existe pas veillez le créer");
+        }
     }
 }
