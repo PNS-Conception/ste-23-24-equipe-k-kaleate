@@ -130,7 +130,7 @@ public class UserStory2Test {
         assertNotEquals(0.0, commandeSelectionnee.getPrix());
         assertNotNull(commandeSelectionnee.getMenus());
         assertNotNull(commandeSelectionnee.getUtilisateurEmetteur());
-        assertNotEquals(0.0, commandeSelectionnee.getId());
+        assertNotEquals(0, commandeSelectionnee.getId());
     }
 
     @Etantdonnéque("Le restaurant peut préparer la commande")
