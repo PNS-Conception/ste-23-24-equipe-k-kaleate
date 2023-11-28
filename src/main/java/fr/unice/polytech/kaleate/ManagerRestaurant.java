@@ -62,4 +62,8 @@ public class ManagerRestaurant {
     public Restaurant getRestaurant() {
         return restaurant;
     }
+
+    public void resetRestaurant(){
+        this.restaurant = new Restaurant();
+    }
 }

@@ -30,6 +30,7 @@ public class UserStory5Test {
 
     @Quand("il ajoute un nouveau menu {string} pour {int} euros à la carte")
     public void il_ajoute_un_nouveau_menu_pour_euros_a_la_carte(String arg0, int arg1) {
+        restaurant.resetMenu();
         Calendar c = Calendar.getInstance();
         c.setTime(df);
         c.add(Calendar.DATE, 1);
@@ -48,6 +49,7 @@ public class UserStory5Test {
     @Alors("la liste des menus augmente de {int}")
     public void la_liste_des_menus_augmente_de(Integer int1) {
         assertEquals(1, restaurant.getMenus().size());
+        restaurant.getMenus().getAllMenus().forEach(Menu::getName);
         restaurant.resetMenu();
     }
 
@@ -60,13 +62,12 @@ public class UserStory5Test {
 
     @Alors("le restaurant {string} met à jour son catalogue de menus")
     public void le_restaurant_met_a_jour_son_catalogue_de_menus(String string) {
-        System.out.println(restaurant.getMenus());
+        restaurant.getMenus().getAllMenus().forEach(Menu::getName);
     }
 
     @Alors("la liste des menus diminue de {int}")
     public void la_liste_des_menus_diminue_de(Integer int1) {
         assertEquals(0, restaurant.getMenus().size());
-        restaurant.resetMenu();
     }
 
     @Quand("il modifie un élément du menu {string} de la carte")
