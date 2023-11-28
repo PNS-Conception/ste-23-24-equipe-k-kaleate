@@ -83,7 +83,7 @@ public class Utilisateur extends Evaluable implements Evalueur {
         public boolean payer(){
             if(commandeActuelle == null) return false;
             if(new PayementExterne().payer(this,commandeActuelle.getPrix())) {
-                commandeActuelle.setStatut(StatutCommande.VALIDEE);
+                commandeActuelle.setStatut(StatutCommande.PAYEE);
                 commandeActuelle.enregistrerCommande();
                 return true;
             }
@@ -107,12 +107,12 @@ public class Utilisateur extends Evaluable implements Evalueur {
     }
 
     public int getIdCommande() throws CommandeException {;
-            if(commandeActuelle.getStatut().compareTo(StatutCommande.VALIDEE)>=0)
+            if(commandeActuelle.getStatut().compareTo(StatutCommande.PAYEE)>=0)
                 return commandeActuelle.getId();
             throw new CommandeException("La commande n'est pas encore payée.");
     }
     public Creneau getDateCommande() throws CommandeException {
-        if(commandeActuelle.getStatut().compareTo(StatutCommande.VALIDEE)>=0)
+        if(commandeActuelle.getStatut().compareTo(StatutCommande.PAYEE)>=0)
             return commandeActuelle.getCreneauLivraison();
         throw new CommandeException("La commande n'est pas encore payée.");
     }
@@ -123,9 +123,5 @@ public class Utilisateur extends Evaluable implements Evalueur {
                 evaluable.nouvelAvis(this,note);
             }
     }
-   /*public Creneau getPointLivraison() throws CommandeException {
-        if(commandeActuelle.getStatut().compareTo(StatutCommande.PAYEE)>=0)
-            return commandeActuelle.get();
-        throw new CommandeException("La commande n'est pas encore payée.");
-    }*/
+
 }

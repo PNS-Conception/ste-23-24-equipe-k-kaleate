@@ -97,7 +97,7 @@ public class Restaurant extends Evaluable {
      * @return boolean
      */
     public boolean finirPreparationMenu(Commande commande, Menu menu){
-        if(commande.getStatut() == StatutCommande.EN_PREPARATION || commande.getStatut() == StatutCommande.VALIDEE){
+        if(commande.getStatut() == StatutCommande.EN_PREPARATION || commande.getStatut() == StatutCommande.PAYEE){
             return commande.finirPreparationMenu(menu);
         }
         return false;
@@ -105,7 +105,7 @@ public class Restaurant extends Evaluable {
 
 
     public boolean preparerMenu(Commande commande, Menu menu){
-        if(commande.getStatut() == StatutCommande.EN_PREPARATION || commande.getStatut() == StatutCommande.VALIDEE){
+        if(commande.getStatut() == StatutCommande.EN_PREPARATION || commande.getStatut() == StatutCommande.PAYEE){
             return commande.preparerMenu(menu);
         }
         return false;

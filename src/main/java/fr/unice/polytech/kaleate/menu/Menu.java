@@ -196,6 +196,9 @@ public class Menu extends Observable implements Monnayable {
     public void setStatutPret() {
         setStatut(StatutMenu.PRET);
     }
+    public void setStatutPaye() {
+        setStatut(StatutMenu.PAYEE);
+    }
 
     public Restaurant getRestaurant() {
         return restaurant;

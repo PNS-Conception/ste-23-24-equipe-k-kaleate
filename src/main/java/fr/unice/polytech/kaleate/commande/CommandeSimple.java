@@ -144,6 +144,11 @@ public class CommandeSimple extends Observable implements Observer, Commande  {
                 m.setStatutValide();
             }
         }
+        else  if (statut.equals(StatutCommande.PAYEE)){
+            for (Menu m : this.menus){
+                m.setStatutPaye();
+            }
+        }
         else if(statut.equals(StatutCommande.PRETE)){
             for (Menu m : this.menus){
                 m.setStatutPret();
@@ -200,7 +205,7 @@ public class CommandeSimple extends Observable implements Observer, Commande  {
         if (contains(mp)) {
             for (int i=0; i<menus.size(); i++){
                 if (mp.equals(menus.get(i)))
-                    if(menus.get(i).getStatut()==StatutMenu.VALIDE || menus.get(i).getStatut()==StatutMenu.EN_PREPARATION){
+                    if(menus.get(i).getStatut()==StatutMenu.PAYEE || menus.get(i).getStatut()==StatutMenu.EN_PREPARATION){
                         mp.setStatutPret();
                         return true;
                     }
@@ -213,7 +218,7 @@ public class CommandeSimple extends Observable implements Observer, Commande  {
         if (contains(mp)) {
             for (int i=0; i<menus.size(); i++){
                 if (mp.equals(menus.get(i)))
-                    if(menus.get(i).getStatut()==StatutMenu.VALIDE || menus.get(i).getStatut()==StatutMenu.EN_PREPARATION){
+                    if(menus.get(i).getStatut()==StatutMenu.PAYEE || menus.get(i).getStatut()==StatutMenu.EN_PREPARATION){
                         mp.setStatut(StatutMenu.EN_PREPARATION);
                         return true;
                     }

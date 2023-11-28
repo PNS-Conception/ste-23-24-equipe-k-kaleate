@@ -41,6 +41,7 @@ public class UserStory6Test {
     static Menu m2 =new Menu(11,"menu simple2",new Creneau(new Date(),new Date()));
     static Menu m3 =new Menu(11,"menu simple3",new Creneau(new Date(),new Date()));
     public static void setUpRestaurant(){
+        ListeCommande.reset();
         m.setRestaurant(restaurant);
         m2.setRestaurant(restaurant);
         m3.setRestaurant(new Restaurant("aaaa"));
@@ -54,6 +55,7 @@ public class UserStory6Test {
         for(Commande c : listeCommande){
             c.setStatut(StatutCommande.VALIDEE);
         }
+        restaurant.setListCommande(listeCommande);
 
     }
     @Soit("Je suis un restaurant qui a eu un problème")
