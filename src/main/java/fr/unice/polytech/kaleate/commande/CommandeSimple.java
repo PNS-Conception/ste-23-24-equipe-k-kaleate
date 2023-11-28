@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class CommandeSimple implements Observer, Commande {
+public class CommandeSimple implements Observer, Commande  {
     private ListeMenus menus;
     private Utilisateur utilisateur;
     private StatutCommande statut = StatutCommande.EN_CREATION;
@@ -35,6 +35,13 @@ public class CommandeSimple implements Observer, Commande {
         this.creneauLivraison = creneauLivraison;
         this.id = nextID++;
     }
+    public CommandeSimple(Utilisateur utilisateur, Menu m ){
+        this.menus = new ListeMenus();
+        addMenu(m);
+        this.utilisateur = utilisateur;
+        this.id = nextID++;
+    }
+
 
     public CommandeSimple(){
         this.menus = new ListeMenus();
@@ -74,7 +81,9 @@ public class CommandeSimple implements Observer, Commande {
     public double getPrixBase(){
         double price = 0;
         for(Menu menu : this.menus){
-            price += menu.getPrix();
+            if(menu.getStatut().compareTo(StatutMenu.ANNULE) != 0)
+                price += menu.getPrix();
+
         }
         return price;
     }
@@ -211,6 +220,19 @@ public class CommandeSimple implements Observer, Commande {
         return false;
     }
 
+    public boolean annulerMenu(Menu mp){
+        if (contains(mp)) {
+            for (int i=0; i<menus.size(); i++){
+                if (mp.equals(menus.get(i))&& menus.get(i).getStatut()!=StatutMenu.PRET){
+                    menus.get(i).setStatut(StatutMenu.ANNULE);
+                    utilisateur.rembourser(menus.get(i));
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public List<StatutMenu> getStatutsMenus(){
         return menus.stream().map(Menu::getStatut).toList();
     }
@@ -223,6 +245,7 @@ public class CommandeSimple implements Observer, Commande {
     public void update(Observable o, Object arg) {
         if(!(o instanceof Menu)) throw new RuntimeException("Observable not a Menu");
         boolean isReady = true;
+        boolean isCancel = true;
         for (Menu m : menus) {
             if(m.getStatut() == StatutMenu.EN_PREPARATION || m.getStatut() == StatutMenu.PRET)
             {
@@ -231,9 +254,14 @@ public class CommandeSimple implements Observer, Commande {
             if(m.getStatut() != StatutMenu.PRET) {
                 isReady = false;
             }
+            if(m.getStatut() != StatutMenu.ANNULE) {
+                isCancel = false;
+            }
         }
         if(isReady)
             statut = StatutCommande.PRETE;
+        if(isCancel)
+            statut = StatutCommande.ANNULEE;
     }
 
     @Override

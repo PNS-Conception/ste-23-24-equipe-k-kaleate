@@ -45,9 +45,9 @@ public class UserStory2Test {
         c.add(Calendar.DATE, 1);
         df = c.getTime();
 
-        menus.add(new Menu(10, "Burger cheese", new Creneau(db, df)));
-        menus.add(new Menu(12, "Burger double cheese", new Creneau(db, df)));
-        menus.add(new Menu(8, "Hamburger classic", new Creneau(db, df)));
+        menus.add(new Menu(10, "Burger cheese", new Creneau(db, df),restaurant));
+        menus.add(new Menu(12, "Burger double cheese", new Creneau(db, df),restaurant));
+        menus.add(new Menu(8, "Hamburger classic", new Creneau(db, df),restaurant));
 
 
         // date qui ne fonctionnent pas
@@ -61,9 +61,9 @@ public class UserStory2Test {
         c2.add(Calendar.DATE, 1);
         dnf = c2.getTime();
 
-        menus.add(new Menu(10, "NOT Burger cheese", new Creneau(dnb, dnf)));
-        menus.add(new Menu(12, "NOT Burger double cheese", new Creneau(dnb, dnf)));
-        menus.add(new Menu(8, "NOT Hamburger classic", new Creneau(dnb, dnf)));
+        menus.add(new Menu(10, "NOT Burger cheese", new Creneau(dnb, dnf),restaurant));
+        menus.add(new Menu(12, "NOT Burger double cheese", new Creneau(dnb, dnf),restaurant));
+        menus.add(new Menu(8, "NOT Hamburger classic", new Creneau(dnb, dnf),restaurant));
         return menus;
     }
 

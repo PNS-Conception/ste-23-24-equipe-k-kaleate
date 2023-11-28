@@ -5,6 +5,7 @@ public enum StatutCommande {
     // VALIDEE : la commande est validée par un des restaurants de la commande
     VALIDEE,
     EN_PREPARATION,
+    ANNULEE,
     PRETE,
     EN_LIVRAISON,
     A_RECUPERER,

@@ -72,7 +72,7 @@ public class Restaurant extends Evaluable {
     }
 
     public ListeCommande getListCommande() {
-        return  gestionnaireCommande.getListCommande();
+        return  gestionnaireCommande.getListCommande(this);
     }
 
     public void setListCommande(ListeCommande listCommande) {
@@ -119,7 +119,9 @@ public class Restaurant extends Evaluable {
         return gestionnaireCommande.getCommandePrete(this);
 
     }
-
+    public void annulerPreparationMenu(Commande c,Menu m){
+        gestionnaireCommande.annulerPreparationMenu(c,m);
+    }
 
     public void ajouterMenu(Menu m){
         m.setRestaurant(this);
