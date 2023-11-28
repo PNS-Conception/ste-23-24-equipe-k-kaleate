@@ -1,5 +1,7 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.campus.AdministrateurCampus;
+import fr.unice.polytech.kaleate.restaurant.ListeRestaurants;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Etantdonnéque;
 import io.cucumber.java.fr.Quand;
@@ -36,7 +38,7 @@ public class UserStory8Test {
     }
     @Alors("J'obtiens la liste des restaurants partenaires du Campus {string}")
     public void j_obtiens_la_liste_des_restaurants_partenaires_du_campus(String string) {
-        assertEquals(l,new ListeRestaurants());
+        assertEquals(l, new ListeRestaurants());
     }
 
     @Quand("J'ajoute le restaurant {string}")
@@ -50,7 +52,7 @@ public class UserStory8Test {
     }
     @Alors("le nombre de restaurants augmente de {int}")
     public void le_nombre_de_restaurant_change(int i) {
-        assertEquals(l.size()+i,ac.listerRestaurants().size());
+        assertEquals(l.size()+i, ac.listerRestaurants().size());
     }
 
 }

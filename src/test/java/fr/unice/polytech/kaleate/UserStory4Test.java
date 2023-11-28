@@ -1,5 +1,13 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.commande.CommandeSimple;
+import fr.unice.polytech.kaleate.commande.StatutCommande;
+import fr.unice.polytech.kaleate.livrable.Livreur;
+import fr.unice.polytech.kaleate.menu.Menu;
+import fr.unice.polytech.kaleate.outils.Creneau;
+import fr.unice.polytech.kaleate.restaurant.Restaurant;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Quand;
 import io.cucumber.java.fr.Soit;
@@ -26,9 +34,12 @@ public class UserStory4Test {
     static Commande commande;
 
     static void creerCommande(){
-        Menu menu = new Menu(10,"Menu du chef",new Creneau(new Date(),new Date()));
+
         Restaurant restaurant = new Restaurant("CHEFFF");
-        commande = new Commande(user,menu,restaurant);
+        Menu menu = new Menu(10,"Menu du chef",new Creneau(new Date(),new Date()));
+        menu.setRestaurant(restaurant);
+        commande = new CommandeSimple(user);
+        commande.addMenu(menu);
     }
 
     @Soit("un livreur et un utilisateur et une commande appartenant à l'utilisateur")
@@ -37,19 +48,19 @@ public class UserStory4Test {
         user.setCommandeActuelle(commande);
         livreur.attribuerCommande(commande);
         livreur.debuterLaCourse();
-        assertEquals(StatutCommande.EN_LIVRAISON,commande.getStatut());
+        assertEquals(StatutCommande.EN_LIVRAISON, commande.getStatut());
 
     }
     @Quand("Le livreur confirme qu'il est arrivé")
     public void le_livreur_confirme_qu_il_est_arrivé() {
         livreur.arriverADestination();
-        assertEquals(StatutCommande.A_RECUPERER,commande.getStatut());
+        assertEquals(StatutCommande.A_RECUPERER, commande.getStatut());
     }
     @Alors("le client valide qu'il a reçu la commande")
     public void le_client_valide_qu_il_a_reçu_la_commande() {
 
        user.recupererCommande();
-        assertEquals(StatutCommande.LIVREE,commande.getStatut());
+        assertEquals(StatutCommande.LIVREE, commande.getStatut());
     }
 
     @Quand("la commande a été récupérée")
@@ -59,16 +70,16 @@ public class UserStory4Test {
         livreur.attribuerCommande(commande);
         user.setCommandeActuelle(commande);
         livreur.arriverADestination();
-        assertEquals(0,user.getHistorique().size());
+        assertEquals(0, user.getHistorique().size());
         user.recupererCommande();
-        assertEquals(StatutCommande.LIVREE,commande.getStatut());
+        assertEquals(StatutCommande.LIVREE, commande.getStatut());
 
     }
     @Alors("le client peut la retrouver dans son historique")
     public void le_client_peut_la_retrouver_dans_son_historique() {
         livreur.terminerLivraison();
-        assertEquals(1,user.getHistorique().size());
-        assertEquals(commande.getStatut(),user.getHistorique().get(0).getStatut());
-        assertEquals("CHEFFF",user.getHistorique().get(0).getRestaurant().getName());
+        assertEquals(1, user.getHistorique().size());
+        assertEquals(commande.getStatut(), user.getHistorique().get(0).getStatut());
+        assertEquals("CHEFFF", user.getHistorique().get(0).getRestaurants().get(0).getName());
     }
 }

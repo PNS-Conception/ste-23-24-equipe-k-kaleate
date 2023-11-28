@@ -1,23 +1,33 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.CommandeSimple;
+import fr.unice.polytech.kaleate.commande.ListeCommande;
+import fr.unice.polytech.kaleate.commande.StatutCommande;
+import fr.unice.polytech.kaleate.menu.ListeMenus;
+import fr.unice.polytech.kaleate.menu.Menu;
+import fr.unice.polytech.kaleate.menu.StatutMenu;
+import fr.unice.polytech.kaleate.outils.Creneau;
+import fr.unice.polytech.kaleate.restaurant.ManagerRestaurant;
+import fr.unice.polytech.kaleate.restaurant.Restaurant;
 import io.cucumber.java.fr.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class UserStory10Test {
     static Restaurant pizzaroc;
-    static Commande com;
+    static CommandeSimple com;
     static ManagerRestaurant managerRestaurant;
 
     public void preparerMenus(int n){
         for (int i=0; i<com.getMenus().size() & n>0;i++){
-            if (pizzaroc.preparerMenu(com,com.getListeMenus().get(i)))
+            if (pizzaroc.finirPreparationMenu(com,com.getListeMenus().get(i))) {
                 n--;
+            }
         }
     }
 
@@ -42,7 +52,7 @@ public class UserStory10Test {
 
         Utilisateur michel = new Utilisateur("Michel","Legoat");
 
-        com=new Commande(michel,new ArrayList<>(),pizzaroc);
+        com=new CommandeSimple(michel);
         com.addMenu(pizzaroc.getMenus().get(0));
         com.addMenu(pizzaroc.getMenus().get(0));
         com.addMenu(pizzaroc.getMenus().get(1));
@@ -58,7 +68,7 @@ public class UserStory10Test {
         pizzaroc.setListCommande(lc);
         assertTrue(pizzaroc.validerCommande(com));
         assertTrue(pizzaroc.preparerCommande(com));
-        assertEquals(com.getListeMenus().size(),int2);
+        assertEquals(int2, com.getListeMenus().size());
 
     }
     @Soit("je suis manager du restaurant {string}")
@@ -73,7 +83,7 @@ public class UserStory10Test {
     @Alors("la commande n'est pas prete")
     public void la_commande_n_est_pas_prete() {
         je_veux_dire_que_la_commande_est_prete();
-        assertNotEquals(com.getStatut(),StatutCommande.PRETE);
+        assertNotEquals(StatutCommande.PRETE, com.getStatut());
     }
 
     @Étantdonnéque("{int} menus de la commande {int} sont prets")
@@ -81,7 +91,7 @@ public class UserStory10Test {
         preparerMenus(int1);
         int res=0;
         for (int i=0; i<com.getMenus().size();i++){
-            if (com.getStatutsMenus().get(i)==StatutMenu.PRET)
+            if (com.getStatutsMenus().get(i)== StatutMenu.PRET)
                 res++;
         }
         assertEquals(res,int1);
@@ -90,7 +100,7 @@ public class UserStory10Test {
     @Alors("la commande est prete")
     public void la_commande_est_prete() {
         je_veux_dire_que_la_commande_est_prete();
-        assertEquals(com.getStatut(),StatutCommande.PRETE);
+        assertEquals(StatutCommande.PRETE, com.getStatut());
     }
 
 }

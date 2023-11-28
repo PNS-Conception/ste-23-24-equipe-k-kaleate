@@ -1,5 +1,12 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.CommandeSimple;
+import fr.unice.polytech.kaleate.commande.CommandeGroupee;
+import fr.unice.polytech.kaleate.menu.ListeMenus;
+import fr.unice.polytech.kaleate.menu.Menu;
+import fr.unice.polytech.kaleate.outils.Creneau;
+import fr.unice.polytech.kaleate.restaurant.Restaurant;
 import io.cucumber.java.fr.*;
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
@@ -27,8 +34,8 @@ public class UserStory3Test {
     static Utilisateur userC = new Utilisateur("User","C");
 
     static List<Menu> menus;
-    static Commande commandeUserA;
-    static Commande commandeUserB;
+    static CommandeSimple commandeUserA;
+    static CommandeSimple commandeUserB;
 
     static CommandeGroupee commandeGroupee;
 
@@ -75,9 +82,11 @@ public class UserStory3Test {
 
         Restaurant restaurant1 = new Restaurant("Restau 1",new ListeMenus(getMenus()));
         commandeGroupee = new CommandeGroupee();
-        commandeUserA = new Commande(userA,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
+        commandeUserA = new CommandeSimple(userA,new Creneau(db, df));
+        commandeUserA.addMenu(restaurant1.getMenus().get(0));
         userA.setCommandeActuelle(commandeUserA);
-        commandeUserB = new Commande(userB,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
+        commandeUserB = new CommandeSimple(userB,new Creneau(db, df));
+        commandeUserB.addMenu(restaurant1.getMenus().get(0));
         userB.setCommandeActuelle(commandeUserB);
     }
     public void commandeDiffCreneau(){
@@ -93,7 +102,8 @@ public class UserStory3Test {
         df = c.getTime();
 
          commandeGroupee = new CommandeGroupee();
-         commandeUserA = new Commande(userA,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
+         commandeUserA = new CommandeSimple(userA,new Creneau(db, df));
+        commandeUserA.addMenu(restaurant1.getMenus().get(0));
         userA.setCommandeActuelle(commandeUserA);
         c.setTime(df);
         c.setTime(db);
@@ -101,7 +111,8 @@ public class UserStory3Test {
         db = c.getTime();
         c.add(Calendar.HOUR,1);
         df = c.getTime();
-         commandeUserB = new Commande(userB,restaurant1.getMenus().get(3),new Creneau(db, df),restaurant1);
+         commandeUserB = new CommandeSimple(userB,new Creneau(db, df));
+        commandeUserB.addMenu(restaurant1.getMenus().get(3));
         userB.setCommandeActuelle(commandeUserB);
     }
 
@@ -112,7 +123,7 @@ public class UserStory3Test {
         // Write code here that turns the phrase above into concrete actions
         commandeMemeCreneau();
         commandeUserA = new CommandeGroupee(commandeUserA);
-        assertEquals(userA,commandeUserA.getUtilisateur());
+        assertEquals(userA,commandeUserA.getUtilisateurEmetteur());
         commandeGroupee = (CommandeGroupee) commandeUserA;
         assertEquals(commandeUserA.getMenus(),commandeGroupee.getMenus());
     }
@@ -129,8 +140,8 @@ public class UserStory3Test {
     public void user_b_a_rejoint_la_commande_de_user() {
         // Write code here that turns the phrase above into concrete actions
         assertEquals(2,commandeGroupee.getCommandes().size());
-        assertEquals(userA,commandeGroupee.getCommandes().get(0).getUtilisateur());
-        assertEquals(userB,commandeGroupee.getCommandes().get(1).getUtilisateur());
+        assertEquals(userA,commandeGroupee.getCommandes().get(0).getUtilisateurEmetteur());
+        assertEquals(userB,commandeGroupee.getCommandes().get(1).getUtilisateurEmetteur());
 
     }
 
@@ -139,7 +150,7 @@ public class UserStory3Test {
         // Write code here that turns the phrase above into concrete actions
         commandeDiffCreneau();
         commandeUserA = new CommandeGroupee(commandeUserA);
-        assertEquals(userA,commandeUserA.getUtilisateur());
+        assertEquals(userA,commandeUserA.getUtilisateurEmetteur());
         commandeGroupee = (CommandeGroupee) commandeUserA;
         assertEquals(commandeUserA.getMenus(),commandeGroupee.getMenus());
     }
@@ -148,7 +159,7 @@ public class UserStory3Test {
     public void la_commande_de_user_a_ne_contient_qu_une_seule_commande() {
         // Write code here that turns the phrase above into concrete actions
         assertEquals(1,commandeGroupee.getCommandes().size());
-        assertEquals(userA,commandeGroupee.getCommandes().get(0).getUtilisateur());
+        assertEquals(userA,commandeGroupee.getCommandes().get(0).getUtilisateurEmetteur());
     }
 
     @Etantdonné("User C qui rejoint la commande groupée")
@@ -157,7 +168,7 @@ public class UserStory3Test {
         commandeMemeCreneau();
         userC = new Utilisateur("User","C");
         commandeUserA = new CommandeGroupee(commandeUserA);
-        assertEquals(userA,commandeUserA.getUtilisateur());
+        assertEquals(userA,commandeUserA.getUtilisateurEmetteur());
         commandeGroupee = (CommandeGroupee) commandeUserA;
         int size = commandeGroupee.getCommandes().size();
         assertTrue(userC.rejoindreCommandegroupee(commandeGroupee,commandeGroupee.getCode()));
@@ -184,7 +195,7 @@ public class UserStory3Test {
         // Write code here that turns the phrase above into concrete actions
         userC = new Utilisateur("User","C");
         commandeUserA = new CommandeGroupee(commandeUserA);
-        assertEquals(userA,commandeUserA.getUtilisateur());
+        assertEquals(userA,commandeUserA.getUtilisateurEmetteur());
         commandeGroupee = (CommandeGroupee) commandeUserA;
         assertTrue(userC.rejoindreCommandegroupee(commandeGroupee,commandeGroupee.getCode()));
         assertTrue(commandeGroupee.getCommandes().contains(userC.getCommandeActuelle()));
@@ -195,13 +206,13 @@ public class UserStory3Test {
         // Write code here that turns the phrase above into concrete actions
         userC.addMenu(menus.get(0));
         assertEquals(1,userC.getCommandeActuelle().getMenus().size());
-        assertEquals(10,(int) userC.getCommandeActuelle().getPrice());
+        assertEquals(10,(int) userC.getCommandeActuelle().getPrix());
     }
     @Alors("la commande de User C dans la commande groupée a bien été modifée")
     public void la_commande_de_user_c_dans_la_commande_groupée_a_bien_été_modifée() {
         // Write code here that turns the phrase above into concrete actions
         assertEquals(1,commandeGroupee.getCommandes().get(1).getMenus().size());
-        assertEquals(10,(int)commandeGroupee.getCommandes().get(1).getPrice());
+        assertEquals(10,(int)commandeGroupee.getCommandes().get(1).getPrix());
     }
 
 }

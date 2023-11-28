@@ -1,5 +1,18 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.campus.AdministrateurCampus;
+import fr.unice.polytech.kaleate.campus.Campus;
+import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.commande.CommandeSimple;
+import fr.unice.polytech.kaleate.commande.ListeCommande;
+import fr.unice.polytech.kaleate.commande.StatutCommande;
+import fr.unice.polytech.kaleate.livrable.Livreur;
+import fr.unice.polytech.kaleate.menu.ListeMenus;
+import fr.unice.polytech.kaleate.menu.Menu;
+import fr.unice.polytech.kaleate.outils.Creneau;
+import fr.unice.polytech.kaleate.restaurant.ManagerRestaurant;
+import fr.unice.polytech.kaleate.restaurant.Restaurant;
 import io.cucumber.java.Before;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Etantdonnéque;
@@ -30,6 +43,7 @@ public class UserStory17Test {
     void setUp(){
         restaurant=new Restaurant("r");
         Menu m = new Menu(4,"tacos",new Creneau(new Date(),new Date()));
+        m.setRestaurant(restaurant);
         List<Menu> lm = new ArrayList<>();
         lm.add(m);
         restaurant.setMenus(new ListeMenus(lm));
@@ -38,16 +52,14 @@ public class UserStory17Test {
         administrateurCampus = new AdministrateurCampus(campus);
         administrateurCampus.ajouterUtilisateur(utilisateur);
 
-        commande = new Commande(utilisateur,m,restaurant);
+        commande = new CommandeSimple(utilisateur);
+        commande.addMenu(m);
         utilisateur.setCommandeActuelle(commande);
 
-        restaurant.validerCommande(commande);
-
-        utilisateur.setCommandeActuelle(commande);
-
-        restaurant.preparerCommande(commande);
+        utilisateur.payer();
 
         restaurant.preparerMenu(commande,m);
+        restaurant.finirPreparationMenu(commande,m);
 
         ManagerRestaurant r = new ManagerRestaurant(restaurant);
         ListeCommande lc = new ListeCommande();
@@ -76,7 +88,7 @@ public class UserStory17Test {
     public void je_peux_attribuer_une_note_au_restaurant() {
         setUp();
         assertEquals(0,utilisateur.getAvis().size());
-        utilisateur.evaluer(avis5etoile,commande.getRestaurant());
+        utilisateur.evaluer(avis5etoile,commande.getRestaurants().get(0));
         assertEquals(1,restaurant.getAvis().size());
         assertEquals(0,utilisateur.getAvis().size());
     }
@@ -117,7 +129,6 @@ public class UserStory17Test {
     public void je_peux_attribuer_une_note_à_l_usager() {
         assertEquals(0,utilisateur.getAvis().size());
         livreur.evaluer(avis5etoile,utilisateur);
-        System.out.println(utilisateur.getAvis());
         assertEquals(1,utilisateur.getAvis().size());
     }
     @Alors("ma note est visible pour les autres utilisateurs et l'administrateur")
