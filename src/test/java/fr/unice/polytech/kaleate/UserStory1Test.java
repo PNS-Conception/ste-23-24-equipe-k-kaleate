@@ -1,5 +1,12 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.CommandeSimple;
+import fr.unice.polytech.kaleate.menu.ListeMenus;
+import fr.unice.polytech.kaleate.menu.Menu;
+import fr.unice.polytech.kaleate.outils.Creneau;
+import fr.unice.polytech.kaleate.restaurant.ListeRestaurants;
+import fr.unice.polytech.kaleate.restaurant.Restaurant;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Etantdonnéque;
 import org.junit.platform.suite.api.ConfigurationParameter;
@@ -85,7 +92,7 @@ public class UserStory1Test {
     @Etantdonnéque("je suis un utilisateur qui souhaite commander")
     public void je_suis_un_utilisateur_qui_souhaite_commander() {
         restaurants = getRestaurants();
-        assertNotEquals(restaurants.size(),0);
+        assertNotEquals(0, restaurants.size());
     }
 
     @Alors("je precise le creneau de ma commande pour avoir la liste des menus disponibles")
@@ -116,7 +123,7 @@ public class UserStory1Test {
     @Etantdonnéque("je suis un utilisateur qui souhaite commander dans la liste des menus disponibles pour le creneau")
     public void je_suis_un_utilisateur_qui_souhaite_commander_dans_la_liste_des_menus_disponibles_pour_le_creneau() {
         menus = new ListeRestaurants(restaurants).getMenusDansCreneau(creneau);
-        assertNotEquals(menus.size(),0);
+        assertNotEquals(0, menus.size());
     }
 
     @Etantdonnéque("je suis un utilisateur qui souhaite commander dans la liste des menus du restaurant {string}")
@@ -138,7 +145,8 @@ public class UserStory1Test {
     @Alors("je crée une commande avec le menu {string}")
     public void je_crée_une_commande_avec_le_menu(String string) {
         assertEquals(menuChoisi.getName(), string);
-        Commande commande = new Commande(utilisateur, menuChoisi, restau);
+        CommandeSimple commande = new CommandeSimple(utilisateur);
+        commande.addMenu(menuChoisi);
         assertTrue(commande.contains(menuChoisi));
     }
 }

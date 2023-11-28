@@ -1,5 +1,10 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.menu.Menu;
+import fr.unice.polytech.kaleate.menu.element.ChoixElement;
+import fr.unice.polytech.kaleate.outils.Creneau;
+import fr.unice.polytech.kaleate.restaurant.ManagerRestaurant;
+import fr.unice.polytech.kaleate.restaurant.Restaurant;
 import io.cucumber.java.da.Men;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Quand;

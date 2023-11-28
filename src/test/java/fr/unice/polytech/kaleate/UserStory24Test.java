@@ -1,5 +1,10 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.menu.Menu;
+import fr.unice.polytech.kaleate.outils.Creneau;
+import fr.unice.polytech.kaleate.restaurant.Restaurant;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Etantdonnéque;
 import io.cucumber.java.fr.Quand;
@@ -46,7 +51,7 @@ public class UserStory24Test {
     }
     @Alors("il les récupère seulement s'il a payé sa commande")
     public void il_les_récupère_seulement_s_il_a_payé_sa_commande() throws CommandeException {
-            user.payer();
+            assertTrue(user.payer());
             assertEquals(2,user.getIdCommande());
     }
 

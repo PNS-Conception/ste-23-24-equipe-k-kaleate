@@ -1,5 +1,15 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.commande.CommandeSimple;
+import fr.unice.polytech.kaleate.commande.ListeCommande;
+import fr.unice.polytech.kaleate.commande.StatutCommande;
+import fr.unice.polytech.kaleate.livrable.Livreur;
+import fr.unice.polytech.kaleate.menu.ListeMenus;
+import fr.unice.polytech.kaleate.menu.Menu;
+import fr.unice.polytech.kaleate.outils.Creneau;
+import fr.unice.polytech.kaleate.restaurant.Restaurant;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Etantdonnéque;
 import io.cucumber.java.fr.Quand;
@@ -29,8 +39,8 @@ public class UserStory13Test {
 
 
     //Generateur de menus
-    public static List<Menu> getMenus(){
-        List<Menu> menus = new ArrayList<Menu>();
+    public static ListeMenus getMenus(Restaurant restaurant){
+        ListeMenus menus = new ListeMenus();
 
         // date qui fonctionnent
         Date db = new Date();
@@ -41,32 +51,45 @@ public class UserStory13Test {
         c.add(Calendar.DATE, 1);
         df = c.getTime();
 
-        menus.add(new Menu(10, "Burger cheese", new Creneau(db, df)));
-        menus.add(new Menu(12, "Burger double cheese", new Creneau(db, df)));
-        menus.add(new Menu(8, "Hamburger classic", new Creneau(db, df)));
+        Menu menu1 = new Menu(10, "Burger cheese", new Creneau(db, df));
+        menu1.setRestaurant(restaurant);
+        Menu menu2 = new Menu(12, "Burger double cheese", new Creneau(db, df));
+        menu2.setRestaurant(restaurant);
+        Menu menu3 = new Menu(8, "Hamburger classic", new Creneau(db, df));
+        menu3.setRestaurant(restaurant);
+
+
+        menus.add(menu1);
+        menus.add(menu2);
+        menus.add(menu3);
 
         return menus;
     }
 
     public static void createRestaurants(){
-        restaurant1 = new Restaurant("Burger King", new ListeMenus(getMenus()));
-        restaurant2 = new Restaurant("McDonalds", new ListeMenus(getMenus()));
+        restaurant1 = new Restaurant("Burger King");
+        restaurant1.setMenus(getMenus(restaurant1));
+        restaurant2 = new Restaurant("McDonalds");
+        restaurant2.setMenus(getMenus(restaurant2));
     }
 
     public static void createCommandes(){
         Utilisateur utilisateur1 = new Utilisateur("nom1", "prenom1");
         Menu menu1 = restaurant1.getMenus().get(0);
-        Commande com1 = new Commande(utilisateur1, menu1, restaurant1);
+        CommandeSimple com1 = new CommandeSimple(utilisateur1);
+        com1.addMenu(menu1);
         com1.setStatut(StatutCommande.VALIDEE);
 
         Utilisateur utilisateur2 = new Utilisateur("nom2", "prenom2");
         Menu menu2 = restaurant1.getMenus().get(1);
-        Commande com2 = new Commande(utilisateur2, menu2, restaurant1);
+        CommandeSimple com2 = new CommandeSimple(utilisateur2);
+        com2.addMenu(menu2);
         com2.setStatut(StatutCommande.EN_PREPARATION);
 
         Utilisateur utilisateur3 = new Utilisateur("nom3", "prenom3");
         Menu menu3 = restaurant1.getMenus().get(2);
-        Commande com3 = new Commande(utilisateur3, menu3, restaurant1);
+        CommandeSimple com3 = new CommandeSimple(utilisateur3);
+        com3.addMenu(menu3);
         com3.setStatut(StatutCommande.PRETE);
 
         ListeCommande listeCommandeR1 = new ListeCommande();
@@ -78,17 +101,20 @@ public class UserStory13Test {
 
         Utilisateur utilisateur4 = new Utilisateur("nom4", "prenom4");
         Menu menu4 = restaurant2.getMenus().get(0);
-        Commande com4 = new Commande(utilisateur4, menu4, restaurant2);
+        CommandeSimple com4 = new CommandeSimple(utilisateur4);
+        com4.addMenu(menu4);
         com4.setStatut(StatutCommande.EN_CREATION);
 
         Utilisateur utilisateur5 = new Utilisateur("nom5", "prenom5");
         Menu menu5 = restaurant2.getMenus().get(1);
-        Commande com5 = new Commande(utilisateur5, menu5, restaurant2);
+        CommandeSimple com5 = new CommandeSimple(utilisateur5);
+        com5.addMenu(menu5);
         com5.setStatut(StatutCommande.PRETE);
 
         Utilisateur utilisateur6 = new Utilisateur("nom3", "prenom3");
         Menu menu6 = restaurant2.getMenus().get(2);
-        Commande com6 = new Commande(utilisateur6, menu6, restaurant2);
+        CommandeSimple com6 = new CommandeSimple(utilisateur6);
+        com6.addMenu(menu6);
         com6.setStatut(StatutCommande.PRETE);
 
         ListeCommande listeCommandeR2 = new ListeCommande();

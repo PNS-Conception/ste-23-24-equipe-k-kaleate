@@ -1,5 +1,13 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.commande.CommandeSimple;
+import fr.unice.polytech.kaleate.commande.ListeCommande;
+import fr.unice.polytech.kaleate.commande.StatutCommande;
+import fr.unice.polytech.kaleate.menu.Menu;
+import fr.unice.polytech.kaleate.outils.Creneau;
+import fr.unice.polytech.kaleate.restaurant.Restaurant;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Etantdonnéque;
 import io.cucumber.java.fr.Quand;
@@ -80,7 +88,9 @@ public class UserStory2Test {
 
         ListeCommande listeCommande = new ListeCommande();
         for(Menu m : getMenus()){
-            listeCommande.add(new Commande(utilisateur,m,creneau, restaurant));
+            Commande commande = new CommandeSimple(utilisateur, creneau);
+            commande.addMenu(m);
+            listeCommande.add(commande);
         }
         return listeCommande;
     }
@@ -95,7 +105,10 @@ public class UserStory2Test {
     @Alors("Je demande à voir la liste des commandes passées dans mon restaurant")
     public void je_demande_à_voir_la_liste_des_commandes_passées_dans_mon_restaurant() {
         assertNotEquals(restaurant.getListCommande().size(),0);
-        assertNotNull(restaurant.getListCommande().get(0).getPrice());
+        assertNotNull(restaurant);
+        assertNotNull(restaurant.getListCommande());
+        assertNotNull(restaurant.getListCommande().get(0));
+        assertNotEquals(0.0, restaurant.getListCommande().get(0).getPrix());
         assertNotNull(restaurant.getListCommande().get(0).getMenus());
     }
 
@@ -113,10 +126,11 @@ public class UserStory2Test {
     }
     @Alors("je vois toutes les informations de la commande")
     public void je_vois_toutes_les_informations_de_la_commande() {
-        assertNotNull(commandeSelectionnee.getPrice());
+        assertNotNull(commandeSelectionnee);
+        assertNotEquals(0.0, commandeSelectionnee.getPrix());
         assertNotNull(commandeSelectionnee.getMenus());
-        assertNotNull(commandeSelectionnee.getUtilisateur());
-        assertNotNull(commandeSelectionnee.getId());
+        assertNotNull(commandeSelectionnee.getUtilisateurEmetteur());
+        assertNotEquals(0, commandeSelectionnee.getId());
     }
 
     @Etantdonnéque("Le restaurant peut préparer la commande")
@@ -128,7 +142,7 @@ public class UserStory2Test {
     public void le_restaurant_valide_la_prise_en_charge_de_la_commande() {
 
         assertTrue(restaurant.validerCommande(commandeSelectionnee));
-        assertEquals(commandeSelectionnee.getStatut(),StatutCommande.VALIDEE);
+        assertEquals(StatutCommande.VALIDEE, commandeSelectionnee.getStatut());
     }
 
     @Etantdonnéque("La commande doit être commmencée à être préparée pour être livrée à temps")

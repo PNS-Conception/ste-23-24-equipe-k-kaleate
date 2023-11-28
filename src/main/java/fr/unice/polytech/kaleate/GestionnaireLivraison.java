@@ -1,12 +1,16 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.commande.StatutCommande;
+
 public class GestionnaireLivraison {
     private Commande commande;
-    private  Utilisateur utilisateur;
+    private Utilisateur utilisateur;
 
     public GestionnaireLivraison(Commande commande){
         this.commande = commande;
-        utilisateur = commande.getUtilisateur();
+        utilisateur = commande.getUtilisateurRecepteur();
     }
     public void debuterLaCourse(){
         commande.setStatut(StatutCommande.EN_LIVRAISON);}
