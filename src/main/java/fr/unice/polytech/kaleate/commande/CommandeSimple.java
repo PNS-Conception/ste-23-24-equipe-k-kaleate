@@ -143,6 +143,10 @@ public class CommandeSimple implements Observer, Commande {
             for (Menu m : this.menus){
                 m.setStatutPret();
             }
+        }else if(statut.equals(StatutCommande.PAYEE)){
+            for (Menu m : this.menus){
+                m.setStatut(StatutMenu.PAYEE);
+            }
         }
         else
         {
