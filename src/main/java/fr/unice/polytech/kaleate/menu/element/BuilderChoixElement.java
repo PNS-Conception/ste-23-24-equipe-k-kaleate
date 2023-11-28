@@ -38,7 +38,7 @@ public class BuilderChoixElement implements BuilderChoix<Element, ChoixElement> 
 
     @Override
     public void addChoix(Element choix) {
-        addChoix(choix);
+        choixElement.ajout(choix);
     }
 
     @Override
