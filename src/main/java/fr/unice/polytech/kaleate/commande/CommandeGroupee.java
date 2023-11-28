@@ -3,10 +3,11 @@ package fr.unice.polytech.kaleate.commande;
 import fr.unice.polytech.kaleate.menu.Menu;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class CommandeGroupee extends CommandeSimple {
-    private ArrayList<Commande> commandes = new ArrayList<>();
+    private List<Commande> commandes = new ArrayList<>();
     private int code;
 
     public CommandeGroupee(){
@@ -24,11 +25,11 @@ public class CommandeGroupee extends CommandeSimple {
         Random r = new Random();
         code = r.nextInt(10000,99999);
     }
-    public ArrayList<Commande> getCommandes() {
+    public List<Commande> getCommandes() {
         return commandes;
     }
 
-    public void setCommandes(ArrayList<Commande> commandes) {
+    public void setCommandes(List<Commande> commandes) {
         this.commandes = commandes;
     }
 
