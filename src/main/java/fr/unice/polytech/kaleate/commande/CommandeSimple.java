@@ -10,11 +10,10 @@ import fr.unice.polytech.kaleate.outils.Creneau;
 import java.util.*;
 import java.util.stream.Collectors;
 
-//TODO Il faut interfacer ou abstraire les Commandes pour pouvoir faire proprement le traitement des commandes avec
 
 public class CommandeSimple implements Observer, Commande {
     private ListeMenus menus;
-    private Utilisateur utilisateur; // TODO pour pouvoir faire des commandes selon les extensions, avoir l'utilisateur initial de la commande et le recepteur de la commande
+    private Utilisateur utilisateur;
     private StatutCommande statut = StatutCommande.EN_CREATION;
 
     private int id;
@@ -23,15 +22,18 @@ public class CommandeSimple implements Observer, Commande {
 
     private Creneau creneauLivraison;
 
+
     public CommandeSimple(Utilisateur utilisateur){
         this.menus = new ListeMenus();
         this.utilisateur = utilisateur;
+        this.id = nextID++;
     }
 
     public CommandeSimple(Utilisateur utilisateur, Creneau creneauLivraison){
         this.menus = new ListeMenus();
         this.utilisateur = utilisateur;
         this.creneauLivraison = creneauLivraison;
+        this.id = nextID++;
     }
 
     public CommandeSimple(){
@@ -66,11 +68,7 @@ public class CommandeSimple implements Observer, Commande {
     }
     @Override
     public boolean modifiable(){
-        if(statut == StatutCommande.EN_CREATION ||statut == StatutCommande.VALIDEE ){
-            return true;
-        }else{
-            return false;
-        }
+        return statut == StatutCommande.EN_CREATION ||statut == StatutCommande.VALIDEE;
     }
     @Override
     public double getPrixBase(){
@@ -90,7 +88,6 @@ public class CommandeSimple implements Observer, Commande {
         return prix;
     }
 
-    //TODO remplir methode
     @Override
     public double getPrixSansReduction() {
         return 0;
@@ -119,7 +116,7 @@ public class CommandeSimple implements Observer, Commande {
         return utilisateur;
     }
     @Override
-    public Utilisateur getUtilisateurEmetteur() { return utilisateur;}
+    public Utilisateur getUtilisateurEmetteur() { return getUtilisateurRecepteur();}
     @Override
     public void setUtilisateurRecepteur(Utilisateur utilisateur) { this.utilisateur = utilisateur;}
     @Override
@@ -130,7 +127,6 @@ public class CommandeSimple implements Observer, Commande {
         return statut;
     }
 
-    //TODO n'est pas viable dans l'utilisation
     public void setStatut(StatutCommande statut) {
         this.statut = statut;
         if (statut.equals(StatutCommande.VALIDEE)){
@@ -143,8 +139,7 @@ public class CommandeSimple implements Observer, Commande {
                 m.setStatutPret();
             }
         }
-        else
-        {
+        else if(statut.equals(StatutCommande.EN_PREPARATION)){
             for (Menu m : this.menus){
                 m.setStatutEnPreparation();
             }
@@ -217,7 +212,7 @@ public class CommandeSimple implements Observer, Commande {
     }
 
     public List<StatutMenu> getStatutsMenus(){
-        return menus.stream().map(Menu::getStatut).collect(Collectors.toList());
+        return menus.stream().map(Menu::getStatut).toList();
     }
 
     public Menu getMenuParNom(String nomMenu){
@@ -239,6 +234,14 @@ public class CommandeSimple implements Observer, Commande {
         }
         if(isReady)
             statut = StatutCommande.PRETE;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CommandeSimple)) return false;
+        CommandeSimple cs = (CommandeSimple) o;
+        return id == cs.id;
     }
 
     @Override

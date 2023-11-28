@@ -57,7 +57,7 @@ public class Element implements Monnayable {
     }
 
     public void supprimeSupplement(SupplementComposant supplementComposant) {
-        choixComposantListe.remove(supplementComposant);
+        choixSupplement.supprimeSupplement(supplementComposant);
     }
 
     /**
@@ -89,7 +89,7 @@ public class Element implements Monnayable {
      * @return le choix composant trouvé à partir du string entré en paramètres
      */
     public ChoixComposant getChoixParNom(String nomChoixComposant){
-        return choixComposantListe.stream().filter(choixComposant1 -> choixComposant1.estChoixParNom(nomChoixComposant)).findFirst().orElse(null);
+        return choixComposantListe.stream().filter(cs -> cs.estChoixParNom(nomChoixComposant)).findFirst().orElse(null);
     }
 
     /**
@@ -98,7 +98,7 @@ public class Element implements Monnayable {
      * @return le supplément composant trouvé avec le string entré en paramètres
      */
     public SupplementComposant getSupplementParNom(String nomSupplement){
-        return this.choixSupplement.getSupplementsListe().stream().filter(choixSupplement -> choixSupplement.estParNom(nomSupplement)).findFirst().orElse(null);
+        return this.choixSupplement.getSupplementsListe().stream().filter(cs -> cs.estParNom(nomSupplement)).findFirst().orElse(null);
     }
 
 
@@ -108,7 +108,7 @@ public class Element implements Monnayable {
      * @return le supplément composant trouvé avec le string entré en paramètres
      */
     public SupplementComposant getSupplementSelectionneParNom(String nomSupplement){
-        return this.choixSupplement.getSupplementsListe().stream().filter(choixSupplement -> choixSupplement.estParNom(nomSupplement)).findFirst().orElse(null);
+        return this.choixSupplement.getSupplementsListe().stream().filter(cs -> cs.estParNom(nomSupplement)).findFirst().orElse(null);
     }
 
     public void reset(){

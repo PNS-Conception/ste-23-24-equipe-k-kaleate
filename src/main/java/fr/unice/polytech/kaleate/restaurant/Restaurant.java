@@ -7,6 +7,7 @@ import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.outils.Creneau;
 
 import java.util.Date;
+import java.util.stream.Collectors;
 
 public class Restaurant {
     private ListeMenus menus;
@@ -113,13 +114,13 @@ public class Restaurant {
     }
 
     public ListeCommande getCommandePrete() {
-        System.out.println(gestionnaireCommande);
         return gestionnaireCommande.getCommandePrete(this);
 
     }
 
 
     public void ajouterMenu(Menu m){
+        m.setRestaurant(this);
         menus.add(m);
     }
 

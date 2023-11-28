@@ -41,7 +41,7 @@ public class BuilderChoixComposant implements BuilderChoix<Composant, ChoixCompo
 
     @Override
     public void addChoix(Composant choix) {
-            addChoix(choix);
+            choixComposant.ajout(choix);
     }
 
     @Override

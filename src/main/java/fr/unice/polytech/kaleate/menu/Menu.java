@@ -1,7 +1,6 @@
 package fr.unice.polytech.kaleate.menu;
 
 import fr.unice.polytech.kaleate.commande.Commande;
-import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.menu.element.ChoixElement;
 import fr.unice.polytech.kaleate.menu.supplement.Supplement;
 import fr.unice.polytech.kaleate.menu.element.SupplementElement;
@@ -80,7 +79,7 @@ public class Menu extends Observable implements Monnayable {
      * @return la liste des éléments suppléments sélectionnés par l'utilisateur
      */
 
-    public ArrayList<SupplementElement> getSupplementElementListeSelectionne() {
+    public List<SupplementElement> getSupplementElementListeSelectionne() {
         return contenuMenu.getSupplementElementListeSelectionne();
     }
 
@@ -115,6 +114,11 @@ public class Menu extends Observable implements Monnayable {
         if (obj == this)
             return true;
         return this.getName().equals(((Menu) obj).getName()) && this.getPrix() == ((Menu) obj).getPrix() && this.getCreneau().equals(((Menu) obj).getCreneau());
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
     public boolean isStackable(Menu menu){
