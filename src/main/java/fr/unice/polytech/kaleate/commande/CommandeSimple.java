@@ -26,12 +26,14 @@ public class CommandeSimple implements Observer, Commande {
     public CommandeSimple(Utilisateur utilisateur){
         this.menus = new ListeMenus();
         this.utilisateur = utilisateur;
+        this.id = nextID++;
     }
 
     public CommandeSimple(Utilisateur utilisateur, Creneau creneauLivraison){
         this.menus = new ListeMenus();
         this.utilisateur = utilisateur;
         this.creneauLivraison = creneauLivraison;
+        this.id = nextID++;
     }
     public CommandeSimple(){
         this.menus = new ListeMenus();
