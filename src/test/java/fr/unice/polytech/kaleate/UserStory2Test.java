@@ -108,7 +108,7 @@ public class UserStory2Test {
         assertNotNull(restaurant);
         assertNotNull(restaurant.getListCommande());
         assertNotNull(restaurant.getListCommande().get(0));
-        assertNotNull(restaurant.getListCommande().get(0).getPrix());
+        assertNotEquals(0.0, restaurant.getListCommande().get(0).getPrix());
         assertNotNull(restaurant.getListCommande().get(0).getMenus());
     }
 
@@ -127,10 +127,10 @@ public class UserStory2Test {
     @Alors("je vois toutes les informations de la commande")
     public void je_vois_toutes_les_informations_de_la_commande() {
         assertNotNull(commandeSelectionnee);
-        assertNotNull(commandeSelectionnee.getPrix());
+        assertNotEquals(0.0, commandeSelectionnee.getPrix());
         assertNotNull(commandeSelectionnee.getMenus());
         assertNotNull(commandeSelectionnee.getUtilisateurEmetteur());
-        assertNotNull(commandeSelectionnee.getId());
+        assertNotEquals(0.0, commandeSelectionnee.getId());
     }
 
     @Etantdonnéque("Le restaurant peut préparer la commande")
@@ -142,7 +142,7 @@ public class UserStory2Test {
     public void le_restaurant_valide_la_prise_en_charge_de_la_commande() {
 
         assertTrue(restaurant.validerCommande(commandeSelectionnee));
-        assertEquals(commandeSelectionnee.getStatut(), StatutCommande.VALIDEE);
+        assertEquals(StatutCommande.VALIDEE, commandeSelectionnee.getStatut());
     }
 
     @Etantdonnéque("La commande doit être commmencée à être préparée pour être livrée à temps")

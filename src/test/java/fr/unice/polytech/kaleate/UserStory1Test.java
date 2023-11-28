@@ -92,7 +92,7 @@ public class UserStory1Test {
     @Etantdonnéque("je suis un utilisateur qui souhaite commander")
     public void je_suis_un_utilisateur_qui_souhaite_commander() {
         restaurants = getRestaurants();
-        assertNotEquals(restaurants.size(),0);
+        assertNotEquals(0, restaurants.size());
     }
 
     @Alors("je precise le creneau de ma commande pour avoir la liste des menus disponibles")
@@ -123,7 +123,7 @@ public class UserStory1Test {
     @Etantdonnéque("je suis un utilisateur qui souhaite commander dans la liste des menus disponibles pour le creneau")
     public void je_suis_un_utilisateur_qui_souhaite_commander_dans_la_liste_des_menus_disponibles_pour_le_creneau() {
         menus = new ListeRestaurants(restaurants).getMenusDansCreneau(creneau);
-        assertNotEquals(menus.size(),0);
+        assertNotEquals(0, menus.size());
     }
 
     @Etantdonnéque("je suis un utilisateur qui souhaite commander dans la liste des menus du restaurant {string}")

@@ -68,7 +68,7 @@ public class UserStory10Test {
         pizzaroc.setListCommande(lc);
         assertTrue(pizzaroc.validerCommande(com));
         assertTrue(pizzaroc.preparerCommande(com));
-        assertEquals(com.getListeMenus().size(),int2);
+        assertEquals(int2, com.getListeMenus().size());
 
     }
     @Soit("je suis manager du restaurant {string}")
@@ -83,7 +83,7 @@ public class UserStory10Test {
     @Alors("la commande n'est pas prete")
     public void la_commande_n_est_pas_prete() {
         je_veux_dire_que_la_commande_est_prete();
-        assertNotEquals(com.getStatut(), StatutCommande.PRETE);
+        assertNotEquals(StatutCommande.PRETE, com.getStatut());
     }
 
     @Étantdonnéque("{int} menus de la commande {int} sont prets")
@@ -100,7 +100,7 @@ public class UserStory10Test {
     @Alors("la commande est prete")
     public void la_commande_est_prete() {
         je_veux_dire_que_la_commande_est_prete();
-        assertEquals(com.getStatut(),StatutCommande.PRETE);
+        assertEquals(StatutCommande.PRETE, com.getStatut());
     }
 
 }
