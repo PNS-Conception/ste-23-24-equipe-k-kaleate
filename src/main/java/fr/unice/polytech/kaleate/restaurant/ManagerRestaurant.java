@@ -7,6 +7,7 @@ import fr.unice.polytech.kaleate.menu.ContenuMenu;
 import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.menu.StatutMenu;
 import fr.unice.polytech.kaleate.menu.element.ChoixElement;
+import fr.unice.polytech.kaleate.outils.Creneau;
 
 import java.util.Optional;
 
