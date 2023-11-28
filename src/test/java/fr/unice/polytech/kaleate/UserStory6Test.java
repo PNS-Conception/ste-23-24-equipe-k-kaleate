@@ -58,7 +58,9 @@ public class UserStory6Test {
 
     @Quand("j'annule le menu")
     public void j_annule_le_menu() {
-
+        float solde = user.getSolde();
+        restaurant.annulerPreparationMenu(user.getCommandeActuelle(),m);
+        assertEquals((int)( solde +m.getPrice()),(int)user.getSolde() );
     }
 
     @Alors("la commande disparait de liste a faire")
