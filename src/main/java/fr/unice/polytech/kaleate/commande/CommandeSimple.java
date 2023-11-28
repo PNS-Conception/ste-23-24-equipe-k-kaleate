@@ -11,7 +11,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class CommandeSimple implements Observer, Commande  {
+public class CommandeSimple extends Observable implements Observer, Commande  {
+    private ListeCommande listeCommande = ListeCommande.getInstance();
     private ListeMenus menus;
     private Utilisateur utilisateur;
     private StatutCommande statut = StatutCommande.EN_CREATION;
@@ -153,6 +154,7 @@ public class CommandeSimple implements Observer, Commande  {
                 m.setStatutEnPreparation();
             }
         }
+        listeCommande.update(this,this);
     }
     @Override
     public void valideeCommande()
@@ -262,6 +264,7 @@ public class CommandeSimple implements Observer, Commande  {
             statut = StatutCommande.PRETE;
         if(isCancel)
             statut = StatutCommande.ANNULEE;
+        listeCommande.update(this,this);
     }
 
     @Override

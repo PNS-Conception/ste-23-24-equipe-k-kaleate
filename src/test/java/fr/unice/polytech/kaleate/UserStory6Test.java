@@ -59,7 +59,7 @@ public class UserStory6Test {
     @Soit("Je suis un restaurant qui a eu un problème")
     public void je_suis_un_restaurant_qui_a_eu_un_problème() {
         setUpRestaurant();
-     //   assertEquals(3,restaurant.getListCommande().size());
+        assertEquals(3,restaurant.getListCommande().size());
 
     }
     @Etantdonnée("une commande avec un menu")
@@ -71,6 +71,7 @@ public class UserStory6Test {
 
     @Quand("j'annule le menu")
     public void j_annule_le_menu() {
+        assertEquals(4,restaurant.getListCommande().size());
         float solde = user.getSolde();
         restaurant.annulerPreparationMenu(user.getCommandeActuelle(),m);
         assertEquals((int)( solde +m.getPrix()),(int)user.getSolde() );
@@ -79,7 +80,7 @@ public class UserStory6Test {
     @Alors("la commande disparait de liste a faire")
     public void la_commande_disparait_de_liste_a_faire() {
 
-
+        assertEquals(3,restaurant.getListCommande().size());
     }
     @Etantdonnée("une commande avec plusieurs menus")
     public void une_commande_avec_plusieurs_menus() {

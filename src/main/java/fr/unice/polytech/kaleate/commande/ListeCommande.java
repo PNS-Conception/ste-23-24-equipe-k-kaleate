@@ -1,5 +1,6 @@
 package fr.unice.polytech.kaleate.commande;
 
+import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.outils.Creneau;
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
 
@@ -52,6 +53,13 @@ public class ListeCommande extends ArrayList<Commande> implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-
+        if(!(o instanceof Commande)) throw new RuntimeException("Observable not a Commande");
+        for(int i =0; i<this.size();i++){
+            Commande c = this.get(i);
+            if(c.getStatut() == StatutCommande.ANNULEE ||c.getStatut() == StatutCommande.LIVREE ){
+                this.remove(c);
+                i=0;
+            }
+        }
     }
 }
