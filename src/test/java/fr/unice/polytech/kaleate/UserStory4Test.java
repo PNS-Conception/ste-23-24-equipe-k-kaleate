@@ -34,8 +34,10 @@ public class UserStory4Test {
     static Commande commande;
 
     static void creerCommande(){
-        Menu menu = new Menu(10,"Menu du chef",new Creneau(new Date(),new Date()));
+
         Restaurant restaurant = new Restaurant("CHEFFF");
+        Menu menu = new Menu(10,"Menu du chef",new Creneau(new Date(),new Date()));
+        menu.setRestaurant(restaurant);
         commande = new CommandeSimple(user);
         commande.addMenu(menu);
     }
