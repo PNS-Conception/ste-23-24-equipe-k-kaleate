@@ -82,9 +82,11 @@ public class UserStory3Test {
 
         Restaurant restaurant1 = new Restaurant("Restau 1",new ListeMenus(getMenus()));
         commandeGroupee = new CommandeGroupee();
-        commandeUserA = new CommandeSimple(userA,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
+        commandeUserA = new CommandeSimple(userA,new Creneau(db, df));
+        commandeUserA.addMenu(restaurant1.getMenus().get(0));
         userA.setCommandeActuelle(commandeUserA);
-        commandeUserB = new CommandeSimple(userB,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
+        commandeUserB = new CommandeSimple(userB,new Creneau(db, df));
+        commandeUserB.addMenu(restaurant1.getMenus().get(0));
         userB.setCommandeActuelle(commandeUserB);
     }
     public void commandeDiffCreneau(){
@@ -100,7 +102,8 @@ public class UserStory3Test {
         df = c.getTime();
 
          commandeGroupee = new CommandeGroupee();
-         commandeUserA = new CommandeSimple(userA,restaurant1.getMenus().get(0),new Creneau(db, df),restaurant1);
+         commandeUserA = new CommandeSimple(userA,new Creneau(db, df));
+        commandeUserA.addMenu(restaurant1.getMenus().get(0));
         userA.setCommandeActuelle(commandeUserA);
         c.setTime(df);
         c.setTime(db);
@@ -108,7 +111,8 @@ public class UserStory3Test {
         db = c.getTime();
         c.add(Calendar.HOUR,1);
         df = c.getTime();
-         commandeUserB = new CommandeSimple(userB,restaurant1.getMenus().get(3),new Creneau(db, df),restaurant1);
+         commandeUserB = new CommandeSimple(userB,new Creneau(db, df));
+        commandeUserB.addMenu(restaurant1.getMenus().get(3));
         userB.setCommandeActuelle(commandeUserB);
     }
 
@@ -119,7 +123,7 @@ public class UserStory3Test {
         // Write code here that turns the phrase above into concrete actions
         commandeMemeCreneau();
         commandeUserA = new CommandeGroupee(commandeUserA);
-        assertEquals(userA,commandeUserA.getUtilisateur());
+        assertEquals(userA,commandeUserA.getUtilisateurEmetteur());
         commandeGroupee = (CommandeGroupee) commandeUserA;
         assertEquals(commandeUserA.getMenus(),commandeGroupee.getMenus());
     }
@@ -136,8 +140,8 @@ public class UserStory3Test {
     public void user_b_a_rejoint_la_commande_de_user() {
         // Write code here that turns the phrase above into concrete actions
         assertEquals(2,commandeGroupee.getCommandes().size());
-        assertEquals(userA,commandeGroupee.getCommandes().get(0).getUtilisateur());
-        assertEquals(userB,commandeGroupee.getCommandes().get(1).getUtilisateur());
+        assertEquals(userA,commandeGroupee.getCommandes().get(0).getUtilisateurEmetteur());
+        assertEquals(userB,commandeGroupee.getCommandes().get(1).getUtilisateurEmetteur());
 
     }
 
@@ -146,7 +150,7 @@ public class UserStory3Test {
         // Write code here that turns the phrase above into concrete actions
         commandeDiffCreneau();
         commandeUserA = new CommandeGroupee(commandeUserA);
-        assertEquals(userA,commandeUserA.getUtilisateur());
+        assertEquals(userA,commandeUserA.getUtilisateurEmetteur());
         commandeGroupee = (CommandeGroupee) commandeUserA;
         assertEquals(commandeUserA.getMenus(),commandeGroupee.getMenus());
     }
@@ -155,7 +159,7 @@ public class UserStory3Test {
     public void la_commande_de_user_a_ne_contient_qu_une_seule_commande() {
         // Write code here that turns the phrase above into concrete actions
         assertEquals(1,commandeGroupee.getCommandes().size());
-        assertEquals(userA,commandeGroupee.getCommandes().get(0).getUtilisateur());
+        assertEquals(userA,commandeGroupee.getCommandes().get(0).getUtilisateurEmetteur());
     }
 
     @Etantdonné("User C qui rejoint la commande groupée")
@@ -164,7 +168,7 @@ public class UserStory3Test {
         commandeMemeCreneau();
         userC = new Utilisateur("User","C");
         commandeUserA = new CommandeGroupee(commandeUserA);
-        assertEquals(userA,commandeUserA.getUtilisateur());
+        assertEquals(userA,commandeUserA.getUtilisateurEmetteur());
         commandeGroupee = (CommandeGroupee) commandeUserA;
         int size = commandeGroupee.getCommandes().size();
         assertTrue(userC.rejoindreCommandegroupee(commandeGroupee,commandeGroupee.getCode()));
@@ -191,7 +195,7 @@ public class UserStory3Test {
         // Write code here that turns the phrase above into concrete actions
         userC = new Utilisateur("User","C");
         commandeUserA = new CommandeGroupee(commandeUserA);
-        assertEquals(userA,commandeUserA.getUtilisateur());
+        assertEquals(userA,commandeUserA.getUtilisateurEmetteur());
         commandeGroupee = (CommandeGroupee) commandeUserA;
         assertTrue(userC.rejoindreCommandegroupee(commandeGroupee,commandeGroupee.getCode()));
         assertTrue(commandeGroupee.getCommandes().contains(userC.getCommandeActuelle()));

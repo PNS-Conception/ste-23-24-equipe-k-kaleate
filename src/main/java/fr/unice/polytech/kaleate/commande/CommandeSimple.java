@@ -1,5 +1,6 @@
 package fr.unice.polytech.kaleate.commande;
 
+import fr.unice.polytech.kaleate.menu.ListeMenus;
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
 import fr.unice.polytech.kaleate.menu.StatutMenu;
 import fr.unice.polytech.kaleate.campus.Utilisateur;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 //TODO Il faut interfacer ou abstraire les Commandes pour pouvoir faire proprement le traitement des commandes avec
 
 public class CommandeSimple implements Observer, Commande {
-    private List<Menu> menus;
+    private ListeMenus menus;
     private Utilisateur utilisateur; // TODO pour pouvoir faire des commandes selon les extensions, avoir l'utilisateur initial de la commande et le recepteur de la commande
     private StatutCommande statut = StatutCommande.EN_CREATION;
 
@@ -21,48 +22,45 @@ public class CommandeSimple implements Observer, Commande {
     private static int nextID = 1;
 
     private Creneau creneauLivraison;
-    public CommandeSimple(Utilisateur utilisateur, List<Menu> menus){
-        this.menus = menus;
+
+    public CommandeSimple(Utilisateur utilisateur){
+        this.menus = new ListeMenus();
         this.utilisateur = utilisateur;
-        id = nextID;
-        nextID++;
     }
 
-    public CommandeSimple(Utilisateur utilisateur, Menu menu){
-        this.menus = new ArrayList<>();
-        this.menus.add(menu);
-        this.utilisateur = utilisateur;
-    }
-    public CommandeSimple(Utilisateur utilisateur, Menu menu, Creneau creneauLivraison, Restaurant restaurant){
-        this.menus = new ArrayList<>();
-        this.menus.add(menu);
+    public CommandeSimple(Utilisateur utilisateur, Creneau creneauLivraison){
+        this.menus = new ListeMenus();
         this.utilisateur = utilisateur;
         this.creneauLivraison = creneauLivraison;
     }
     public CommandeSimple(){
-        this.menus = new ArrayList<>();
+        this.menus = new ListeMenus();
     }
 
     @Override
-    public List<Menu> getMenus(){
+    public ListeMenus getMenus(){
         return this.menus;
     }
 
     @Override
-    public void setMenus(List<Menu> menus){
+    public void setMenus(ListeMenus menus){
         this.menus = menus;
     }
 
     public boolean addMenu(Menu menu){
-        if(modifiable())
+        if(modifiable()) {
+            menu.setCommande(this);
             return this.menus.add(menu);
+        }
         return false;
     }
 
     @Override
     public boolean removeMenu(Menu menu){
-        if(modifiable())
-           return this.menus.remove(menu);
+        if(modifiable()) {
+            menu.setCommande(null);
+            return this.menus.remove(menu);
+        }
         return false;
     }
     @Override
@@ -141,6 +139,17 @@ public class CommandeSimple implements Observer, Commande {
                 m.setStatutValide();
             }
         }
+        else if(statut.equals(StatutCommande.PRETE)){
+            for (Menu m : this.menus){
+                m.setStatutPret();
+            }
+        }
+        else
+        {
+            for (Menu m : this.menus){
+                m.setStatutEnPreparation();
+            }
+        }
     }
     @Override
     public void valideeCommande()
@@ -174,17 +183,35 @@ public class CommandeSimple implements Observer, Commande {
      * @return une liste de Restaurants
      */
     public List<Restaurant> getRestaurants() {
+        Set<Restaurant> res = new HashSet<>();
+        for (Menu m : menus)
+        {
+            res.add(m.getRestaurant());
+        }
+        return res.stream().toList();
+    }
 
-        return menus.stream().map(Menu::getRestaurant).collect(Collectors.toSet()).stream().toList();
+    public boolean finirPreparationMenu(Menu mp){
+        if (contains(mp)) {
+            for (int i=0; i<menus.size(); i++){
+                if (mp.equals(menus.get(i)))
+                    if(menus.get(i).getStatut()==StatutMenu.VALIDE || menus.get(i).getStatut()==StatutMenu.EN_PREPARATION){
+                        mp.setStatutPret();
+                        return true;
+                    }
+            }
+        }
+        return false;
     }
 
     public boolean preparerMenu(Menu mp){
         if (contains(mp)) {
             for (int i=0; i<menus.size(); i++){
-                if (mp.equals(menus.get(i))&& menus.get(i).getStatut()==StatutMenu.VALIDE){
-                    mp.setStatutPret();
-                    return true;
-                }
+                if (mp.equals(menus.get(i)))
+                    if(menus.get(i).getStatut()==StatutMenu.VALIDE || menus.get(i).getStatut()==StatutMenu.EN_PREPARATION){
+                        mp.setStatut(StatutMenu.EN_PREPARATION);
+                        return true;
+                    }
             }
         }
         return false;
@@ -203,7 +230,7 @@ public class CommandeSimple implements Observer, Commande {
         if(!(o instanceof Menu)) throw new RuntimeException("Observable not a Menu");
         boolean isReady = true;
         for (Menu m : menus) {
-            if(m.getStatut() == StatutMenu.EN_PREPARATION)
+            if(m.getStatut() == StatutMenu.EN_PREPARATION || m.getStatut() == StatutMenu.PRET)
             {
                 statut = StatutCommande.EN_PREPARATION;
             }
@@ -213,5 +240,10 @@ public class CommandeSimple implements Observer, Commande {
         }
         if(isReady)
             statut = StatutCommande.PRETE;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }

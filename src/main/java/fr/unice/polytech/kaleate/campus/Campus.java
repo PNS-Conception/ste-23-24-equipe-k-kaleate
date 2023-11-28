@@ -1,5 +1,6 @@
 package fr.unice.polytech.kaleate.campus;
 
+import fr.unice.polytech.kaleate.Localisation;
 import fr.unice.polytech.kaleate.menu.ListeMenus;
 import fr.unice.polytech.kaleate.restaurant.ListeRestaurants;
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
@@ -12,12 +13,22 @@ public class Campus {
     private ListeRestaurants restaurantsPartenaires;
     private ListeUtilisateur listeDesUtilisateurs;
 
+    private Localisation centre;
+    private float rayon;
+
     public Campus(String n){
         nom=n;
         restaurantsPartenaires=new ListeRestaurants();
         listeDesUtilisateurs = new ListeUtilisateur();
     }
 
+    public Campus(String n, Localisation l){
+        nom=n;
+        restaurantsPartenaires=new ListeRestaurants();
+        listeDesUtilisateurs = new ListeUtilisateur();
+        centre=l;
+        rayon=0;
+    }
     public ListeRestaurants listerRestaurants(){
         return restaurantsPartenaires;
     }
@@ -52,5 +63,21 @@ public class Campus {
 
     public String getNom() {
         return nom;
+    }
+
+    public void setRayon(float rayon) {
+        this.rayon = rayon;
+    }
+
+    public Localisation getCentre() {
+        return centre;
+    }
+
+    public void setCentre(Localisation centre) {
+        this.centre = centre;
+    }
+
+    public float getRayon() {
+        return rayon;
     }
 }

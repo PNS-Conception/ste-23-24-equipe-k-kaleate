@@ -8,9 +8,18 @@ import fr.unice.polytech.kaleate.restaurant.RestaurantFactory;
 public class AdministrateurCampus {
     private Campus campus;
 
+    /**
+     * Associe un Administrateur campus à un nouveau campus appelé campusnom
+     * @param campusnom
+     */
     public AdministrateurCampus(String campusnom){
         campus=new Campus(campusnom);
     }
+
+    /**
+     * Associe un Administrateur campus au campus c
+     * @param c
+     */
     public AdministrateurCampus(Campus c){
         campus=c;
     }
@@ -23,6 +32,10 @@ public class AdministrateurCampus {
         return campus.getListeDesUtilisateurs();
     }
 
+    /**
+     * L'administrateur rajoute un nouveau restaurant partenaire
+     * @param nom
+     */
     public void ajouterRestaurant(String nom){
         RestaurantFactory r = new RestauPartFacto();
         r.nouveauRestau(nom,campus);
@@ -38,11 +51,28 @@ public class AdministrateurCampus {
         campus.supprimerUtilisateur(utilisateur);
     }
 
-    public void ajouterRestaurant(Restaurant nom){
-        campus.ajoutRestaurant(nom);
+  /**
+     * L'administarteur ajoute le restaurant nom au campus
+     * @param nom
+     * @return boolean
+     */
+    public boolean ajouterRestaurant(Restaurant nom){
+        if (campus.getCentre().estDansLeRayonDe(nom.getLocalisation(), campus.getRayon())) {
+            campus.ajoutRestaurant(nom);
+            return true;
+        }
+        return false;
     }
 
     public void ajouterUtilisateur(Utilisateur utilisateur){
         campus.ajoutUtilisateur(utilisateur);
+    }
+
+    public void changerRayon(float r){
+        campus.setRayon(r);
+    }
+
+    public Campus getCampus() {
+        return campus;
     }
 }

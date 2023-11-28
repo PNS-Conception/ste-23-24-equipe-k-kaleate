@@ -1,5 +1,6 @@
 package fr.unice.polytech.kaleate.menu;
 
+import fr.unice.polytech.kaleate.commande.Commande;
 import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.menu.element.ChoixElement;
 import fr.unice.polytech.kaleate.menu.supplement.Supplement;
@@ -18,7 +19,7 @@ public class Menu extends Observable implements Monnayable {
     private Creneau creneau;
     private ContenuMenu contenuMenu;
     private StatutMenu statut = StatutMenu.COMMANDABLE;
-    private CommandeSimple commande;
+    private Commande commande;
 
     private Restaurant restaurant;
     private int tempsPreparation; // en minutes
@@ -56,11 +57,11 @@ public class Menu extends Observable implements Monnayable {
         return this.creneau;
     }
 
-    public void setCommande(CommandeSimple c)
+    public void setCommande(Commande c)
     {
         this.commande = c;
     }
-    public CommandeSimple getCommande()
+    public Commande getCommande()
     {
         return commande;
     }
@@ -166,7 +167,7 @@ public class Menu extends Observable implements Monnayable {
 
     public void setStatut(StatutMenu statut) {
         this.statut = statut;
-        commande.update(this, null);
+        commande.update(this, this);
     }
 
     public StatutMenu getStatut() {

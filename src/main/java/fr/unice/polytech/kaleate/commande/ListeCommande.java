@@ -5,7 +5,7 @@ import fr.unice.polytech.kaleate.outils.Creneau;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListeCommande extends ArrayList<CommandeSimple> {
+public class ListeCommande extends ArrayList<Commande> {
     private static ListeCommande instance;
     public ListeCommande(){
         super();
@@ -16,10 +16,10 @@ public class ListeCommande extends ArrayList<CommandeSimple> {
     }
 
 
-    public CommandeSimple getCommandeById(int id){
+    public Commande getCommandeById(int id){
         return this.stream().filter(commande -> commande.getId()==id).findFirst().orElse(null);
     }
-    public List<CommandeSimple> getCommandeByCreneau(Creneau creneau){
+    public List<Commande> getCommandeByCreneau(Creneau creneau){
         //TODO : A tester
         return this.stream().filter(commande -> commande.getMenus().stream().filter(menu -> menu.getCreneau().equals(creneau)).isParallel()).toList();
     }
@@ -28,7 +28,7 @@ public class ListeCommande extends ArrayList<CommandeSimple> {
     public String toString() {
         String s = "Liste commande : ";
 
-        for (CommandeSimple c : this) {
+        for (Commande c : this) {
             s += c.toString() + "\n";
         }
         return s;

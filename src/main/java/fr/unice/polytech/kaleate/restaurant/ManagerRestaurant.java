@@ -1,5 +1,6 @@
 package fr.unice.polytech.kaleate.restaurant;
 
+import fr.unice.polytech.kaleate.commande.Commande;
 import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.commande.StatutCommande;
 import fr.unice.polytech.kaleate.menu.Menu;
@@ -27,12 +28,11 @@ public class ManagerRestaurant {
     }
 
     public boolean commandePrete(int c){
-        CommandeSimple commande = restaurant.getListCommande().getCommandeById(c);
-        for (StatutMenu sm : commande.getStatutsMenus()){
-                if (sm!=StatutMenu.PRET) return false;
-            }
-        commande.setStatut(StatutCommande.PRETE);
-        return true;
+        Commande commande = restaurant.getListCommande().getCommandeById(c);
+        if(commande == null){
+            return false;
+        }
+        return commande.getStatut() == StatutCommande.PRETE;
     }
 
     public String getNom() {

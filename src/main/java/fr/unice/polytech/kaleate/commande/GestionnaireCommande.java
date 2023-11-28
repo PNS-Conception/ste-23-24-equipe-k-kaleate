@@ -2,6 +2,8 @@ package fr.unice.polytech.kaleate.commande;
 
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
 
+import java.util.stream.Collectors;
+
 public class GestionnaireCommande {
 
     private ListeCommande listCommande;
@@ -10,7 +12,7 @@ public class GestionnaireCommande {
         listCommande = ListeCommande.getInstanc();
     }
 
-    public boolean validerCommande(CommandeSimple commande){
+    public boolean validerCommande(Commande commande){
         if(commande.getStatut()!= StatutCommande.EN_CREATION){
             return false;
         }
@@ -18,7 +20,7 @@ public class GestionnaireCommande {
         return true;
     }
 
-    public boolean preparerCommande(CommandeSimple commande){
+    public boolean preparerCommande(Commande commande){
         if(commande.getStatut()== StatutCommande.VALIDEE){
             commande.setStatut(StatutCommande.EN_PREPARATION);
             return true;
@@ -29,10 +31,10 @@ public class GestionnaireCommande {
 
     public ListeCommande getCommandePrete(Restaurant restaurant) {
         ListeCommande comPrete = new ListeCommande();
-        for (CommandeSimple c : listCommande) {
-            if (c.getStatut().equals(StatutCommande.PRETE) && c.getRestaurants().contains(restaurant)) {
-                comPrete.add(c);
-            }
+        for (Commande c: listCommande) {
+            if(c.getRestaurants().contains(restaurant))
+                if(c.getStatut().equals(StatutCommande.PRETE))
+                    comPrete.add(c);
         }
         return comPrete;
     }

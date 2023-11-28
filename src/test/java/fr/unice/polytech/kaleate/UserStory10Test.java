@@ -25,8 +25,9 @@ public class UserStory10Test {
 
     public void preparerMenus(int n){
         for (int i=0; i<com.getMenus().size() & n>0;i++){
-            if (pizzaroc.preparerMenu(com,com.getListeMenus().get(i)))
+            if (pizzaroc.finirPreparationMenu(com,com.getListeMenus().get(i))) {
                 n--;
+            }
         }
     }
 
@@ -51,7 +52,7 @@ public class UserStory10Test {
 
         Utilisateur michel = new Utilisateur("Michel","Legoat");
 
-        com=new CommandeSimple(michel,new ArrayList<>(),pizzaroc);
+        com=new CommandeSimple(michel);
         com.addMenu(pizzaroc.getMenus().get(0));
         com.addMenu(pizzaroc.getMenus().get(0));
         com.addMenu(pizzaroc.getMenus().get(1));
@@ -66,6 +67,7 @@ public class UserStory10Test {
 
         pizzaroc.setListCommande(lc);
         assertTrue(pizzaroc.validerCommande(com));
+        assertTrue(pizzaroc.preparerCommande(com));
         assertEquals(com.getListeMenus().size(),int2);
 
     }

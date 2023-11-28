@@ -1,9 +1,7 @@
 package fr.unice.polytech.kaleate.restaurant;
 
-import fr.unice.polytech.kaleate.commande.CommandeSimple;
-import fr.unice.polytech.kaleate.commande.GestionnaireCommande;
-import fr.unice.polytech.kaleate.commande.ListeCommande;
-import fr.unice.polytech.kaleate.commande.StatutCommande;
+import fr.unice.polytech.kaleate.Localisation;
+import fr.unice.polytech.kaleate.commande.*;
 import fr.unice.polytech.kaleate.menu.ListeMenus;
 import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.outils.Creneau;
@@ -13,6 +11,8 @@ import java.util.Date;
 public class Restaurant {
     private ListeMenus menus;
     private String name;
+
+    private Localisation localisation;
 
     private GestionnaireCommande gestionnaireCommande;
 
@@ -31,6 +31,13 @@ public class Restaurant {
         this.name = name;
         this.menus = menus;
         this.gestionnaireCommande = new GestionnaireCommande();
+    }
+
+    public Restaurant(String name, ListeMenus menus,Localisation l){
+        this.name = name;
+        this.menus = menus;
+        this.gestionnaireCommande = new GestionnaireCommande();
+        this.localisation=l;
     }
 
     public ListeMenus getMenus(){
@@ -69,29 +76,44 @@ public class Restaurant {
         this.gestionnaireCommande.setListCommande(listCommande);
     }
 
-    public boolean validerCommande(CommandeSimple commande){
+    public boolean validerCommande(Commande commande){
        return gestionnaireCommande.validerCommande(commande);
     }
-    public boolean doitEtrePreparee(CommandeSimple commande, Date dateActuel){
+    public boolean doitEtrePreparee(Commande commande, Date dateActuel){
         //date du début de la livraison - date
-        long datePreparationMinimum= commande.getCreneauLivraison().getDebut().getTime();
+        long datePreparationMinimum = commande.getCreneauLivraison().getDebut().getTime();
         if(dateActuel.getTime()>=datePreparationMinimum )
             return true;
         return false;
     }
 
-    public boolean preparerMenu(CommandeSimple commande, Menu menu){
-        if(commande.getStatut()== StatutCommande.VALIDEE){
+    /**
+     * Permet de preparer le menu specifique d'une commande EN_COURS de preparation
+     * @param commande
+     * @param menu
+     * @return boolean
+     */
+    public boolean finirPreparationMenu(Commande commande, Menu menu){
+        if(commande.getStatut() == StatutCommande.EN_PREPARATION || commande.getStatut() == StatutCommande.VALIDEE){
+            return commande.finirPreparationMenu(menu);
+        }
+        return false;
+    }
+
+
+    public boolean preparerMenu(Commande commande, Menu menu){
+        if(commande.getStatut() == StatutCommande.EN_PREPARATION || commande.getStatut() == StatutCommande.VALIDEE){
             return commande.preparerMenu(menu);
         }
         return false;
     }
 
-    public boolean preparerCommande(CommandeSimple commande){
+    public boolean preparerCommande(Commande commande){
         return gestionnaireCommande.preparerCommande(commande);
     }
 
     public ListeCommande getCommandePrete() {
+        System.out.println(gestionnaireCommande);
         return gestionnaireCommande.getCommandePrete(this);
 
     }
@@ -99,5 +121,9 @@ public class Restaurant {
 
     public void ajouterMenu(Menu m){
         menus.add(m);
+    }
+
+    public Localisation getLocalisation() {
+        return localisation;
     }
 }

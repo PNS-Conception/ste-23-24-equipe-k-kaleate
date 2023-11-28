@@ -1,6 +1,7 @@
 package fr.unice.polytech.kaleate;
 
 import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.Commande;
 import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.commande.ListeCommande;
 import fr.unice.polytech.kaleate.commande.StatutCommande;
@@ -27,7 +28,7 @@ import static org.junit.Assert.*;
 public class UserStory7Test {
     static Utilisateur utilisateur= new Utilisateur("Ziad","Bouhlel");
 
-    static CommandeSimple commande = utilisateur.getCommandeActuelle();
+    static Commande commande = utilisateur.getCommandeActuelle();
 
     static ListeCommande listeCommande = new ListeCommande();
     public static List<Menu> getMenus(){

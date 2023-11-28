@@ -1,5 +1,7 @@
 package fr.unice.polytech.kaleate.campus;
 
+import fr.unice.polytech.kaleate.CommandeException;
+import fr.unice.polytech.kaleate.commande.Commande;
 import fr.unice.polytech.kaleate.outils.PayementExterne;
 import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.commande.CommandeGroupee;
@@ -14,15 +16,16 @@ public class Utilisateur {
         private String nom;
         private String prenom;
 
-        private CommandeSimple commandeActuelle;
+        private Commande commandeActuelle;
 
-        private ArrayList<CommandeSimple> historique;
+        private ArrayList<Commande> historique;
 
         private float solde = 1000;
 
         public Utilisateur(String nom, String prenom){
             this.nom = nom;
             this.prenom = prenom;
+            this.historique = new ArrayList<>();
         }
 
         public String getNom(){
@@ -33,11 +36,11 @@ public class Utilisateur {
             return this.prenom;
         }
 
-        public CommandeSimple getCommandeActuelle() {
+        public Commande getCommandeActuelle() {
             return commandeActuelle;
         }
 
-        public void setCommandeActuelle(CommandeSimple commandeActuelle) {
+        public void setCommandeActuelle(Commande commandeActuelle) {
             this.commandeActuelle = commandeActuelle;
         }
         public boolean rejoindreCommandegroupee(CommandeGroupee commandeGroupee, int code){
@@ -74,8 +77,38 @@ public class Utilisateur {
             if(commandeActuelle == null) return false;
             if(new PayementExterne().payer(commandeActuelle.getPrix())) {
                 commandeActuelle.setStatut(StatutCommande.PAYEE);
+                commandeActuelle.enregistrerCommande();
                 return true;
             }
             return false;
         }
+        public void recupererCommande(){
+            if(commandeActuelle.getStatut()==StatutCommande.A_RECUPERER){
+                commandeActuelle.setStatut(StatutCommande.LIVREE);
+                resetCommandeActuelle();
+            }
+        }
+        public void resetCommandeActuelle(){
+            commandeActuelle = new CommandeSimple();
+        }
+
+    public ArrayList<Commande> getHistorique() {
+        return historique;
+    }
+
+    public int getIdCommande() throws CommandeException {;
+            if(commandeActuelle.getStatut().compareTo(StatutCommande.PAYEE)>=0)
+                return commandeActuelle.getId();
+            throw new CommandeException("La commande n'est pas encore payée.");
+    }
+    public Creneau getDateCommande() throws CommandeException {
+        if(commandeActuelle.getStatut().compareTo(StatutCommande.PAYEE)>=0)
+            return commandeActuelle.getCreneauLivraison();
+        throw new CommandeException("La commande n'est pas encore payée.");
+    }
+   /*public Creneau getPointLivraison() throws CommandeException {
+        if(commandeActuelle.getStatut().compareTo(StatutCommande.PAYEE)>=0)
+            return commandeActuelle.get();
+        throw new CommandeException("La commande n'est pas encore payée.");
+    }*/
 }

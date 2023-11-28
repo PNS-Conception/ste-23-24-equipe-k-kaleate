@@ -145,7 +145,8 @@ public class UserStory1Test {
     @Alors("je crée une commande avec le menu {string}")
     public void je_crée_une_commande_avec_le_menu(String string) {
         assertEquals(menuChoisi.getName(), string);
-        CommandeSimple commande = new CommandeSimple(utilisateur, menuChoisi, restau);
+        CommandeSimple commande = new CommandeSimple(utilisateur);
+        commande.addMenu(menuChoisi);
         assertTrue(commande.contains(menuChoisi));
     }
 }
