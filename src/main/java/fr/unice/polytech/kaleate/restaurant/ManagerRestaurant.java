@@ -7,6 +7,7 @@ import fr.unice.polytech.kaleate.menu.ContenuMenu;
 import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.menu.StatutMenu;
 import fr.unice.polytech.kaleate.menu.element.ChoixElement;
+import fr.unice.polytech.kaleate.outils.Creneau;
 
 import java.util.Optional;
 
@@ -73,7 +74,12 @@ public class ManagerRestaurant {
         return restaurant;
     }
 
-    public void resetRestaurant(){
-        this.restaurant = new Restaurant();
+    public void modifierCreneauMenu(Menu menu, Creneau creneau){
+        if (menu != null) {
+            menu.setCreneau(creneau);
+        }
+        else {
+            System.out.println("le menu n'existe pas veillez le créer");
+        }
     }
 }
