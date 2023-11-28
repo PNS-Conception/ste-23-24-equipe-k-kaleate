@@ -14,6 +14,7 @@ public class ChoixSupplementElement implements ChoixSupplement<SupplementElement
     public ChoixSupplementElement() {
         super();
         supplementsListe = new ArrayList<>();
+        supplementsSelectionnes = new ArrayList<>();
     }
 
     @Override

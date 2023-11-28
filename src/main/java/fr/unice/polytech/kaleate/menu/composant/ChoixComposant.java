@@ -142,4 +142,11 @@ public class ChoixComposant implements Choix<Composant> {
     }
     //TODO vérifier si le composant permet de choisir (+ de 1 composant, sinon pas choisissable)
     //TODO
+
+    public void verifComposant(){
+        if(composantListeSelectionne.size() == 0){
+            composantListeSelectionne.add(composantListe.get(0));
+        }
+
+    }
 }

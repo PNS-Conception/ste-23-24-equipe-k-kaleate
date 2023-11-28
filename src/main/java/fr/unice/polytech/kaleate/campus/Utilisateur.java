@@ -59,6 +59,7 @@ public class Utilisateur extends Evaluable implements Evalueur {
             if(commandeActuelle == null){
                 commandeActuelle = new CommandeSimple();
             }
+            m.verifContenuMenu();
             return commandeActuelle.addMenu(m);
         }
         public boolean removeMenu(Menu m){

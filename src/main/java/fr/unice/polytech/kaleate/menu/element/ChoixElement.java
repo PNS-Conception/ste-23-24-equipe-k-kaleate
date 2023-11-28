@@ -144,4 +144,13 @@ public class ChoixElement implements Choix<Element> {
             e.reset();
         }
     }
+
+    public void verifElement(){
+        if(elementListeSelectionne.size() == 0){
+            elementListeSelectionne.add(elementListe.get(0));
+        }
+        for(Element e : elementListeSelectionne){
+            e.verifChoixComposant();
+        }
+    }
 }
