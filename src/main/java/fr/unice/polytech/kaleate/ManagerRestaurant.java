@@ -1,5 +1,7 @@
 package fr.unice.polytech.kaleate;
 
+import java.util.Optional;
+
 public class ManagerRestaurant {
     private String nom;
     private String prenom;
@@ -21,6 +23,25 @@ public class ManagerRestaurant {
         restaurant.ajouterMenu(m);
     }
 
+    public void supprimerUnMenu(Menu m){
+        restaurant.supprimerMenu(m);
+    }
+
+    public void modifierUnMenu(Menu m, ChoixElement choixElement){
+        Optional<Menu> optionalMenu = restaurant.getMenus()
+                .stream()
+                .filter(me -> me.estMenuParNom(m.getName()))
+                .findFirst();
+
+        if (optionalMenu.isPresent()) {
+            Menu menu = optionalMenu.get();
+            menu.ajouterChoixElement(choixElement);
+        }
+        else {
+            System.out.println("le menu n'existe pas veillez le créer");
+        }
+    }
+
     public boolean commandePrete(int c){
         Commande commande = restaurant.getListCommande().getCommandeById(c);
         for (StatutMenu sm : commande.getStatutsMenus()){
@@ -40,5 +61,9 @@ public class ManagerRestaurant {
 
     public Restaurant getRestaurant() {
         return restaurant;
+    }
+
+    public void resetRestaurant(){
+        this.restaurant = new Restaurant();
     }
 }
