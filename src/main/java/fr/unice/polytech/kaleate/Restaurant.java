@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Restaurant {
+public class Restaurant extends Evaluable{
     private ListeMenus menus;
     private String name;
 

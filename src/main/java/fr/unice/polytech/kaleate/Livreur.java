@@ -1,6 +1,6 @@
 package fr.unice.polytech.kaleate;
 
-public class Livreur {
+public class Livreur extends Evaluable implements Evalueur{
 
     private String nom;
     private String prenom;
@@ -59,5 +59,12 @@ public class Livreur {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void evaluer(Avis note, Evaluable e) {
+        if (e instanceof Utilisateur) {
+            e.nouvelAvis(this, note);
+        }
     }
 }

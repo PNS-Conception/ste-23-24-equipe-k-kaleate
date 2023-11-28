@@ -1,8 +1,9 @@
 package fr.unice.polytech.kaleate;
 
 import java.util.ArrayList;
+import java.util.Map;
 
-public class Utilisateur {
+public class Utilisateur extends Evaluable implements Evalueur {
 
         private String nom;
         private String prenom;
@@ -94,6 +95,13 @@ public class Utilisateur {
         if(commandeActuelle.getStatut().compareTo(StatutCommande.PAYEE)>=0)
             return commandeActuelle.getCreneauLivraison();
         throw new CommandeException("La commande n'est pas encore payée.");
+    }
+
+    @Override
+    public void evaluer(Avis note, Evaluable evaluable) {
+            if (evaluable instanceof Livreur || evaluable instanceof Restaurant){
+                evaluable.nouvelAvis(this,note);
+            }
     }
    /*public Creneau getPointLivraison() throws CommandeException {
         if(commandeActuelle.getStatut().compareTo(StatutCommande.PAYEE)>=0)
