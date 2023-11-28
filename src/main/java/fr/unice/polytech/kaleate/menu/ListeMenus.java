@@ -33,7 +33,7 @@ public class ListeMenus extends ArrayList<Menu> implements Listeur {
     }
     @Override
     public List<Menu> getAllMenus() {
-        return null;
+        return this;
     }
 
     @Override
@@ -44,5 +44,9 @@ public class ListeMenus extends ArrayList<Menu> implements Listeur {
             stringBuffer.append("\n");
         }
         return "ListeMenus \n" + stringBuffer.toString();
+    }
+
+    public void resetListeMenu(){
+        this.forEach(Menu::resetMenu);
     }
 }

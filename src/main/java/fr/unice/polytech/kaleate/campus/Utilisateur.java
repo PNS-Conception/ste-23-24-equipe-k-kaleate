@@ -1,17 +1,23 @@
 package fr.unice.polytech.kaleate.campus;
 
+import fr.unice.polytech.kaleate.Avis;
 import fr.unice.polytech.kaleate.CommandeException;
+import fr.unice.polytech.kaleate.Evaluable;
+import fr.unice.polytech.kaleate.Evalueur;
 import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.livrable.Livreur;
 import fr.unice.polytech.kaleate.outils.PayementExterne;
 import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.commande.CommandeGroupee;
 import fr.unice.polytech.kaleate.commande.StatutCommande;
 import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.outils.Creneau;
+import fr.unice.polytech.kaleate.restaurant.Restaurant;
 
 import java.util.ArrayList;
+import java.util.Map;
 
-public class Utilisateur {
+public class Utilisateur extends Evaluable implements Evalueur {
 
         private String nom;
         private String prenom;
@@ -76,7 +82,7 @@ public class Utilisateur {
         public boolean payer(){
             if(commandeActuelle == null) return false;
             if(new PayementExterne().payer(commandeActuelle.getPrix())) {
-                commandeActuelle.setStatut(StatutCommande.PAYEE);
+                commandeActuelle.setStatut(StatutCommande.VALIDEE);
                 commandeActuelle.enregistrerCommande();
                 return true;
             }
@@ -97,14 +103,21 @@ public class Utilisateur {
     }
 
     public int getIdCommande() throws CommandeException {;
-            if(commandeActuelle.getStatut().compareTo(StatutCommande.PAYEE)>=0)
+            if(commandeActuelle.getStatut().compareTo(StatutCommande.VALIDEE)>=0)
                 return commandeActuelle.getId();
             throw new CommandeException("La commande n'est pas encore payée.");
     }
     public Creneau getDateCommande() throws CommandeException {
-        if(commandeActuelle.getStatut().compareTo(StatutCommande.PAYEE)>=0)
+        if(commandeActuelle.getStatut().compareTo(StatutCommande.VALIDEE)>=0)
             return commandeActuelle.getCreneauLivraison();
         throw new CommandeException("La commande n'est pas encore payée.");
+    }
+
+    @Override
+    public void evaluer(Avis note, Evaluable evaluable) {
+            if (evaluable instanceof Livreur || evaluable instanceof Restaurant){
+                evaluable.nouvelAvis(this,note);
+            }
     }
    /*public Creneau getPointLivraison() throws CommandeException {
         if(commandeActuelle.getStatut().compareTo(StatutCommande.PAYEE)>=0)

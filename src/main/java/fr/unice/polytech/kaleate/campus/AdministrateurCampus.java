@@ -75,4 +75,12 @@ public class AdministrateurCampus {
     public Campus getCampus() {
         return campus;
     }
+
+    public double getNoteUtilisateur(Utilisateur utilisateur) {
+        for (Utilisateur u : getCampus().getListeDesUtilisateurs()){
+            if (utilisateur.equals(u))
+                return utilisateur.getNote();
+        }
+        throw new RuntimeException(utilisateur.toString()+" n\' est pas inscrit dans la liste des utilisateurs");
+    }
 }

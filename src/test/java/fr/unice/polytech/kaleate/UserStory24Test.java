@@ -51,7 +51,7 @@ public class UserStory24Test {
     }
     @Alors("il les récupère seulement s'il a payé sa commande")
     public void il_les_récupère_seulement_s_il_a_payé_sa_commande() throws CommandeException {
-            user.payer();
+            assertTrue(user.payer());
             assertEquals(2,user.getIdCommande());
     }
 

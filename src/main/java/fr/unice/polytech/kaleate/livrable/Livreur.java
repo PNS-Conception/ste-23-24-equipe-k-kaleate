@@ -1,13 +1,16 @@
 package fr.unice.polytech.kaleate.livrable;
 
+import fr.unice.polytech.kaleate.Avis;
+import fr.unice.polytech.kaleate.Evaluable;
+import fr.unice.polytech.kaleate.Evalueur;
 import fr.unice.polytech.kaleate.GestionnaireLivraison;
+import fr.unice.polytech.kaleate.campus.Utilisateur;
 import fr.unice.polytech.kaleate.commande.Commande;
 import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.commande.StatutCommande;
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
 
-public class Livreur {
-    private Commande commande;
+public class Livreur extends Evaluable implements Evalueur {
     private String nom;
     private String prenom;
 
@@ -16,11 +19,10 @@ public class Livreur {
     public Livreur(String nom, String prenom){
         this.nom = nom;
         this.prenom = prenom;
-
     }
 
     public Commande getCommande() {
-        return commande;
+        return gestionnaireLivraison.getCommande();
     }
 
     public String getNom() {
@@ -32,7 +34,7 @@ public class Livreur {
     }
 
     public void setCommande(Commande commande) {
-        this.commande = commande;
+        this.gestionnaireLivraison = new GestionnaireLivraison(commande);
     }
 
     public Commande getCommmande() {
@@ -67,10 +69,16 @@ public class Livreur {
         Commande c = r.getCommandePrete().getCommandeById(i);
         if (c!=null & (this.gestionnaireLivraison==null||this.getCommmande().getStatut() == StatutCommande.LIVREE)){
             attribuerCommande(c);
-            System.out.println(c.getStatut());
             debuterLaCourse();
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void evaluer(Avis note, Evaluable e) {
+        if (e instanceof Utilisateur) {
+            e.nouvelAvis(this, note);
+        }
     }
 }

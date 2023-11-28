@@ -1,15 +1,17 @@
 package fr.unice.polytech.kaleate.restaurant;
 
+import fr.unice.polytech.kaleate.Evaluable;
 import fr.unice.polytech.kaleate.Localisation;
 import fr.unice.polytech.kaleate.commande.*;
 import fr.unice.polytech.kaleate.menu.ListeMenus;
 import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.outils.Creneau;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.stream.Collectors;
 
-public class Restaurant {
+public class Restaurant extends Evaluable {
     private ListeMenus menus;
     private String name;
 
@@ -124,7 +126,15 @@ public class Restaurant {
         menus.add(m);
     }
 
-    public Localisation getLocalisation() {
+    public void supprimerMenu(Menu m){
+        menus.remove(m);
+    }
+
+    public void resetMenu(){
+        this.menus = new ListeMenus();
+    }
+
+     public Localisation getLocalisation() {
         return localisation;
     }
 }
