@@ -23,6 +23,7 @@ public class CommandeSimple implements Observer, Commande {
 
     private Creneau creneauLivraison;
 
+
     public CommandeSimple(Utilisateur utilisateur){
         this.menus = new ListeMenus();
         this.utilisateur = utilisateur;
@@ -144,8 +145,7 @@ public class CommandeSimple implements Observer, Commande {
                 m.setStatutPret();
             }
         }
-        else
-        {
+        else if(statut.equals(StatutCommande.EN_PREPARATION)){
             for (Menu m : this.menus){
                 m.setStatutEnPreparation();
             }

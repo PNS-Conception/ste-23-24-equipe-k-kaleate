@@ -1,5 +1,6 @@
 package fr.unice.polytech.kaleate.commande;
 
+import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
 
 import java.util.stream.Collectors;

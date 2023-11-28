@@ -39,6 +39,7 @@ public class Livreur {
         return gestionnaireLivraison.getCommande();
     }
     public void attribuerCommande(Commande commande){
+        commande.setStatut(StatutCommande.EN_LIVRAISON);
         gestionnaireLivraison = new GestionnaireLivraison(commande);
     }
 
@@ -64,9 +65,9 @@ public class Livreur {
      */
     public boolean recupere_commande(Restaurant r, int i){
         Commande c = r.getCommandePrete().getCommandeById(i);
-        System.out.println(c);
-        if (c!=null & (this.gestionnaireLivraison==null||this.getCommmande().getStatut()== StatutCommande.LIVREE)){
+        if (c!=null & (this.gestionnaireLivraison==null||this.getCommmande().getStatut() == StatutCommande.LIVREE)){
             attribuerCommande(c);
+            System.out.println(c.getStatut());
             debuterLaCourse();
             return true;
         }

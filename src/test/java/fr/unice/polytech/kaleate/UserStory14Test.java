@@ -16,6 +16,7 @@ import io.cucumber.java.fr.Soit;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -64,7 +65,9 @@ public class UserStory14Test {
     @Quand("Un livreur recupere la commande prete")
     public void un_livreur_recupere_la_commande_prete() {
         assertEquals(commande.getStatut(),StatutCommande.PRETE);
+        System.out.println(commande.getStatut());
         assertTrue(livreur.recupere_commande(restaurant,666));
+        System.out.println(commande.getStatut());
     }
 
     @Alors("La commande peut être livree")
