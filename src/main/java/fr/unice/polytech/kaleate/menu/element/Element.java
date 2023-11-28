@@ -17,6 +17,7 @@ public class Element implements Monnayable {
     public Element() {
         this.nomElement = "";
         this.choixComposantListe = new ArrayList<>();
+        this.choixSupplement = new ChoixSupplementComposant();
     }
 
     public Element(String nomElement) {
@@ -143,5 +144,11 @@ public class Element implements Monnayable {
 
     public void ajoutChoixComposant(ChoixComposant cc) {
         choixComposantListe.add(cc);
+    }
+
+    public void verifChoixComposant() {
+        for (ChoixComposant cc : choixComposantListe) {
+            cc.verifComposant();
+        }
     }
 }

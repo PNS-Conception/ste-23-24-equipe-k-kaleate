@@ -2,6 +2,7 @@ package fr.unice.polytech.kaleate.campus;
 
 import fr.unice.polytech.kaleate.CommandeException;
 import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.menu.element.ChoixElement;
 import fr.unice.polytech.kaleate.outils.PayementExterne;
 import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.commande.CommandeGroupee;
@@ -53,6 +54,7 @@ public class Utilisateur {
             if(commandeActuelle == null){
                 commandeActuelle = new CommandeSimple();
             }
+            m.verifContenuMenu();
             return commandeActuelle.addMenu(m);
         }
         public boolean removeMenu(Menu m){

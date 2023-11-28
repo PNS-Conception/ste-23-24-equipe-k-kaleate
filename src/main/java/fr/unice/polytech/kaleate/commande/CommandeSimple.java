@@ -33,6 +33,7 @@ public class CommandeSimple implements Observer, Commande {
         this.utilisateur = utilisateur;
         this.creneauLivraison = creneauLivraison;
     }
+
     public CommandeSimple(){
         this.menus = new ListeMenus();
     }
@@ -72,7 +73,7 @@ public class CommandeSimple implements Observer, Commande {
         }
     }
     @Override
-    public double getPrix(){
+    public double getPrixBase(){
         double price = 0;
         for(Menu menu : this.menus){
             price += menu.getPrix();
@@ -80,8 +81,9 @@ public class CommandeSimple implements Observer, Commande {
         return price;
     }
 
-    public double getPrixAvecSupplement(){
-        double prix = getPrix();
+    @Override
+    public double getPrix(){
+        double prix = getPrixBase();
         for(Menu menu : this.menus){
             prix += menu.getPrixAvecSupplements();
         }
@@ -93,10 +95,7 @@ public class CommandeSimple implements Observer, Commande {
     public double getPrixSansReduction() {
         return 0;
     }
-    @Override
-    public double getPrixBase() {
-        return 0;
-    }
+
     @Override
     public float getTempsPreparation(){
         float tps = 0;

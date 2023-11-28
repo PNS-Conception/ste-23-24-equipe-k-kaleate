@@ -31,6 +31,7 @@ public class Menu extends Observable implements Monnayable {
         this.prix = prix;
         this.name = name;
         this.creneau = creneau;
+        this.contenuMenu = new ContenuMenu();
     }
     public Menu(float prix, String name, Creneau creneau, int tempsPreparation){
         this.prix = prix;
@@ -146,7 +147,6 @@ public class Menu extends Observable implements Monnayable {
         }
         for(Supplement supplementElement : contenuMenu.getSupplementElementListeSelectionne()){
             total += supplementElement.getPrix();
-            total += supplementElement.getPrix();
         }
         return total;
     }
@@ -207,5 +207,9 @@ public class Menu extends Observable implements Monnayable {
     @Override
     public double getPrixBase() {
         return prix;
+    }
+
+    public void verifContenuMenu(){
+        this.contenuMenu.verifSiElementChoisi();
     }
 }

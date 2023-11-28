@@ -1,6 +1,7 @@
 package fr.unice.polytech.kaleate.menu;
 
 import fr.unice.polytech.kaleate.menu.element.ChoixElement;
+import fr.unice.polytech.kaleate.menu.element.Element;
 import fr.unice.polytech.kaleate.menu.supplement.ChoixSupplementElement;
 import fr.unice.polytech.kaleate.menu.supplement.Supplement;
 import fr.unice.polytech.kaleate.menu.element.SupplementElement;
@@ -116,7 +117,7 @@ public class ContenuMenu implements Monnayable {
         }
         for(Supplement supplementElement : choixSupplements.getSupplementsSelectionnes()){
             total += supplementElement.getPrix();
-            total += supplementElement.getPrix();
+
         }
         return total;
     }
@@ -129,5 +130,13 @@ public class ContenuMenu implements Monnayable {
     @Override
     public double getPrixBase() {
         return getPrix();
+    }
+
+
+    public void verifSiElementChoisi(){
+        for(ChoixElement choixElement : choixElementListe){
+            choixElement.verifElement();
+        }
+
     }
 }
