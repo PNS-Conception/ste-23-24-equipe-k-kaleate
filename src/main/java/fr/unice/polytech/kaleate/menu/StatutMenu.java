@@ -5,5 +5,6 @@ public enum StatutMenu {
     VALIDE,
     EN_PREPARATION,
     PAYEE,
+    ANNULE,
     PRET
 }

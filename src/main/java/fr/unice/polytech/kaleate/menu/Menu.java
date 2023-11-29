@@ -32,6 +32,13 @@ public class Menu extends Observable implements Monnayable {
         this.creneau = creneau;
         this.contenuMenu = new ContenuMenu();
     }
+    public Menu(float prix, String name, Creneau creneau,Restaurant restaurant){
+        this.prix = prix;
+        this.name = name;
+        this.creneau = creneau;
+        this.contenuMenu = new ContenuMenu();
+        this.restaurant = restaurant;
+    }
     public Menu(float prix, String name, Creneau creneau, int tempsPreparation){
         this.prix = prix;
         this.name = name;
@@ -188,6 +195,9 @@ public class Menu extends Observable implements Monnayable {
 
     public void setStatutPret() {
         setStatut(StatutMenu.PRET);
+    }
+    public void setStatutPaye() {
+        setStatut(StatutMenu.PAYEE);
     }
 
     public Restaurant getRestaurant() {
