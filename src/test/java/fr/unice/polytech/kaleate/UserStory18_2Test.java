@@ -173,4 +173,15 @@ public class UserStory18_2Test {
         Assertions.assertEquals(int1, nouveauNombre);
     }
 
+    @Quand("je veux modifier le nombre de choix de mon choix composant {string} en {int} dans mon element {string} de mon choix element {string} de mon menu {string}")
+    public void je_veux_modifier_le_nombre_de_choix_de_mon_choix_composant_en_dans_mon_element_de_mon_choix_element_de_mon_menu(String string, Integer int1, String string2, String string3, String string4) {
+        managerRestaurant.getRestaurant().getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixParNom(string).setNbChoix(int1);
+        Integer nouveauNombre = managerRestaurant.getRestaurant().getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixParNom(string).getNbChoix();
+        Assertions.assertEquals(int1, nouveauNombre);
+    }
+    @Alors("le nombre de choix de mon choix composant {string} est {int} dans mon element {string} de mon choix element {string} de mon menu {string}")
+    public void le_nombre_de_choix_de_mon_choix_composant_est_dans_mon_element_de_mon_choix_element_de_mon_menu(String string, Integer int1, String string2, String string3, String string4) {
+        Integer nouveauNombre = restaurant.getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixParNom(string).getNbChoix();
+        Assertions.assertEquals(int1, nouveauNombre);
+    }
 }
