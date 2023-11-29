@@ -141,13 +141,20 @@ public class UserStory18_2Test {
         restaurant.ajouterMenu(menu);
     }
 
-
+    /**
+     * Initialisation
+     */
     @Etantdonnéque("je suis un manager de magasin")
     public void je_suis_un_manager_de_magasin() {
         creationRestaurant();
         managerRestaurant = new ManagerRestaurant(restaurant);
         Assertions.assertNotNull(managerRestaurant);
     }
+
+    /**
+     * Scénario : Modifier le nom d'un element
+     */
+
     @Quand("je veux modifier le nom de mon element {string} en {string} dans le choix element {string} de mon menu {string}")
     public void je_veux_modifier_le_nom_de_mon_element_en_dans_le_choix_element_de_mon_menu(String string, String string2, String string3, String string4) {
         managerRestaurant.getRestaurant().getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string).setNom(string2);
@@ -159,6 +166,10 @@ public class UserStory18_2Test {
         String nouveauNom = restaurant.getMenus().getParNom(string3).getContenuMenu().getChoixElementParNom(string2).getParNom(string).getNom();
         Assertions.assertEquals(string, nouveauNom);
     }
+
+    /**
+     * Scénario : Modifier le nom d'un composant
+     */
 
     @Quand("je veux modifier le nom de mon composant {string} en {string} dans le choix composant {string} de mon element {string} dans le choix element {string} de mon menu {string}")
     public void je_veux_modifier_le_nom_de_mon_composant_en_dans_le_choix_composant_de_mon_element_dans_le_choix_element_de_mon_menu(String string, String string2, String string3, String string4, String string5, String string6) {
@@ -172,6 +183,10 @@ public class UserStory18_2Test {
         Assertions.assertEquals(string, nouveauNom);
     }
 
+    /**
+     * Scénario : Modifier le nom d'un choix element
+     */
+
     @Quand("je veux modifier le nom de mon choix element {string} en {string} dans mon menu {string}")
     public void je_veux_modifier_le_nom_de_mon_choix_element_en_dans_mon_menu(String string, String string2, String string3) {
         managerRestaurant.getRestaurant().getMenus().getParNom(string3).getContenuMenu().getChoixElementParNom(string).setNom(string2);
@@ -184,6 +199,9 @@ public class UserStory18_2Test {
         Assertions.assertEquals(string, nouveauNom);
     }
 
+    /**
+     * Scénario : Modifier le nom d'un choix composant
+     */
 
     @Quand("je veux modifier le nom de mon choix composant {string} en {string} dans mon element {string} de mon choix element {string} de mon menu {string}")
     public void je_veux_modifier_le_nom_de_mon_choix_composant_en_dans_mon_element_de_mon_choix_element_de_mon_menu(String string, String string2, String string3, String string4, String string5) {
@@ -197,6 +215,10 @@ public class UserStory18_2Test {
         Assertions.assertEquals(string, nouveauNom);
     }
 
+    /**
+     * Scénario : Modifier le nombre de choix d'un choix element
+     */
+
     @Quand("je veux modifier le nombre de choix de mon choix element {string} en {int} dans mon menu {string}")
     public void je_veux_modifier_le_nombre_de_choix_de_mon_choix_element_en_dans_mon_menu(String string, Integer int1, String string2) {
         managerRestaurant.getRestaurant().getMenus().getParNom(string2).getContenuMenu().getChoixElementParNom(string).setNbChoixPossiblePourUtilisateur(int1);
@@ -208,6 +230,10 @@ public class UserStory18_2Test {
         Integer nouveauNombre = restaurant.getMenus().getParNom(string2).getContenuMenu().getChoixElementParNom(string).getNbChoixPossiblePourUtilisateur();
         Assertions.assertEquals(int1, nouveauNombre);
     }
+
+    /**
+     * Scénario : Modifier le nombre de choix d'un choix composant
+     */
 
     @Quand("je veux modifier le nombre de choix de mon choix composant {string} en {int} dans mon element {string} de mon choix element {string} de mon menu {string}")
     public void je_veux_modifier_le_nombre_de_choix_de_mon_choix_composant_en_dans_mon_element_de_mon_choix_element_de_mon_menu(String string, Integer int1, String string2, String string3, String string4) {
@@ -221,6 +247,10 @@ public class UserStory18_2Test {
         Assertions.assertEquals(int1, nouveauNombre);
     }
 
+    /**
+     * Scénario : Modifier le nom d'un supplemennt composant
+     */
+
     @Quand("je veux modifier le nom de mon supplement composant {string} en {string} dans mon choix supplement composant de mon element {string} de mon choix element {string} de mon menu {string}")
     public void je_veux_modifier_le_nom_de_mon_supplement_composant_en_dans_mon_choix_supplement_composant_de_mon_element_de_mon_choix_element_de_mon_menu(String string, String string2, String string3, String string4, String string5) {
         managerRestaurant.getRestaurant().getMenus().getParNom(string5).getContenuMenu().getChoixElementParNom(string4).getParNom(string3).getSupplementParNom(string).setNom(string2);
@@ -232,6 +262,10 @@ public class UserStory18_2Test {
         String nouveauNom = restaurant.getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getSupplementParNom(string).getNom();
         Assertions.assertEquals(string, nouveauNom);
     }
+
+    /**
+     * Scénario : Modifier le nom d'un supplement element
+     */
 
     @Quand("je veux modifier le nom de mon supplement element {string} en {string} dans mon choix supplement element de mon menu {string}")
     public void je_veux_modifier_le_nom_de_mon_supplement_element_en_dans_mon_choix_supplement_element_de_mon_menu(String string, String string2, String string3) {
