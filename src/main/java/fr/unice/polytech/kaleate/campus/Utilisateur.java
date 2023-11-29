@@ -91,7 +91,6 @@ public class Utilisateur extends Evaluable implements Evalueur {
             return false;
         }
         public void rembourser(Menu m){
-                this.removeMenu(m);
             new PayementExterne().rembourser(this,m.getPrix());
         }
         public void recupererCommande(){
