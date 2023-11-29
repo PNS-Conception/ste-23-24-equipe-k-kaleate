@@ -50,8 +50,9 @@ public class UserStory14Test {
         assertEquals(commande.getStatut(), StatutCommande.EN_CREATION);
         restaurant.validerCommande(commande);
         assertEquals(commande.getStatut(),StatutCommande.VALIDEE);
-
+        commande.setStatut(StatutCommande.PAYEE);
         restaurant.preparerMenu(commande,commande.getMenuParNom("Burger cheese"));
+
         assertEquals(commande.getStatut(),StatutCommande.EN_PREPARATION);
         restaurant.preparerMenu(commande,commande.getMenuParNom("Burger double cheese"));
         assertEquals(commande.getStatut(),StatutCommande.EN_PREPARATION);
