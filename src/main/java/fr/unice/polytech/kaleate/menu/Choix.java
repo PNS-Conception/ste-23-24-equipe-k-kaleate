@@ -5,7 +5,7 @@ import java.util.List;
 public interface Choix<T> {
     public void setNom(String nom);
 
-    public void setNbChoix(int n);
+    public void setNbChoixPossiblePourUtilisateur(int n);
 
     public void setListe(List<T> liste);
 
@@ -15,7 +15,7 @@ public interface Choix<T> {
 
     public String getNom();
 
-    public int getNbChoix();
+    public int getNbChoixPossiblePourUtilisateur();
 
     public List<T> getListe();
 

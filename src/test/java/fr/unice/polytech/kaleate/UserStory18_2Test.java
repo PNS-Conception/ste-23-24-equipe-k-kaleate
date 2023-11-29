@@ -6,10 +6,13 @@ import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.menu.composant.BuilderChoixComposant;
 import fr.unice.polytech.kaleate.menu.composant.ChoixComposant;
 import fr.unice.polytech.kaleate.menu.composant.Composant;
+import fr.unice.polytech.kaleate.menu.composant.SupplementComposant;
 import fr.unice.polytech.kaleate.menu.element.BuilderChoixElement;
 import fr.unice.polytech.kaleate.menu.element.BuilderElement;
 import fr.unice.polytech.kaleate.menu.element.ChoixElement;
 import fr.unice.polytech.kaleate.menu.element.Element;
+import fr.unice.polytech.kaleate.menu.supplement.BuilderChoixSupplementComposant;
+import fr.unice.polytech.kaleate.menu.supplement.ChoixSupplementComposant;
 import fr.unice.polytech.kaleate.outils.Creneau;
 import fr.unice.polytech.kaleate.restaurant.ManagerRestaurant;
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
@@ -33,6 +36,9 @@ public class UserStory18_2Test {
     static ChoixComposant pain, viande, fromage;
     static ChoixComposant compositionSalade;
     static ChoixComposant parfum;
+
+    static SupplementComposant supplementBacon, supplementMayonnaise;
+    static ChoixSupplementComposant supplementBurger;
 
     static Element burger, salade, glace;
 
@@ -62,11 +68,23 @@ public class UserStory18_2Test {
         parfum = new BuilderChoixComposant().newChoix("Parfum", 3, List.of(chocolat, vanille, fraise));
     }
 
+    public static void creationDesSupplementComposant(){
+        supplementBacon = new SupplementComposant("Bacon", 2);
+        supplementMayonnaise = new SupplementComposant("Mayonnaise", 1);
+    }
+
+    public static void creationDesChoixSupplementComposant(){
+        BuilderChoixSupplementComposant builderChoixSupplementComposant = new BuilderChoixSupplementComposant();
+        builderChoixSupplementComposant.setChoixSupplement(List.of(supplementBacon, supplementMayonnaise));
+        supplementBurger = (ChoixSupplementComposant) builderChoixSupplementComposant.getResult();
+    }
+
     public static void creationDesElement(){
         BuilderElement builderElementBurger = new BuilderElement("Burger Cheese");
         builderElementBurger.addChoixComposant(pain);
         builderElementBurger.addChoixComposant(viande);
         builderElementBurger.addChoixComposant(fromage);
+        builderElementBurger.addChoixSupplement(supplementBurger);
         burger = builderElementBurger.getResult();
         BuilderElement builderElementSalade = new BuilderElement("Salade");
         builderElementSalade.addChoixComposant(compositionSalade);
@@ -97,6 +115,8 @@ public class UserStory18_2Test {
     public static void creationRestaurant(){
         creationDesComposant();
         creationDesChoixComposant();
+        creationDesSupplementComposant();
+        creationDesChoixSupplementComposant();
         creationDesElement();
         creationChoixElement();
         creationContenuMenu();
@@ -163,25 +183,25 @@ public class UserStory18_2Test {
 
     @Quand("je veux modifier le nombre de choix de mon choix element {string} en {int} dans mon menu {string}")
     public void je_veux_modifier_le_nombre_de_choix_de_mon_choix_element_en_dans_mon_menu(String string, Integer int1, String string2) {
-        managerRestaurant.getRestaurant().getMenus().getParNom(string2).getContenuMenu().getChoixElementParNom(string).setNbChoix(int1);
-        Integer nouveauNombre = managerRestaurant.getRestaurant().getMenus().getParNom(string2).getContenuMenu().getChoixElementParNom(string).getNbChoix();
+        managerRestaurant.getRestaurant().getMenus().getParNom(string2).getContenuMenu().getChoixElementParNom(string).setNbChoixPossiblePourUtilisateur(int1);
+        Integer nouveauNombre = managerRestaurant.getRestaurant().getMenus().getParNom(string2).getContenuMenu().getChoixElementParNom(string).getNbChoixPossiblePourUtilisateur();
         Assertions.assertEquals(int1, nouveauNombre);
     }
     @Alors("le nombre de choix de mon choix element {string} est {int} dans mon menu {string}")
     public void le_nombre_de_choix_de_mon_choix_element_est_dans_mon_menu(String string, Integer int1, String string2) {
-        Integer nouveauNombre = restaurant.getMenus().getParNom(string2).getContenuMenu().getChoixElementParNom(string).getNbChoix();
+        Integer nouveauNombre = restaurant.getMenus().getParNom(string2).getContenuMenu().getChoixElementParNom(string).getNbChoixPossiblePourUtilisateur();
         Assertions.assertEquals(int1, nouveauNombre);
     }
 
     @Quand("je veux modifier le nombre de choix de mon choix composant {string} en {int} dans mon element {string} de mon choix element {string} de mon menu {string}")
     public void je_veux_modifier_le_nombre_de_choix_de_mon_choix_composant_en_dans_mon_element_de_mon_choix_element_de_mon_menu(String string, Integer int1, String string2, String string3, String string4) {
-        managerRestaurant.getRestaurant().getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixParNom(string).setNbChoix(int1);
-        Integer nouveauNombre = managerRestaurant.getRestaurant().getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixParNom(string).getNbChoix();
+        managerRestaurant.getRestaurant().getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixParNom(string).setNbChoixPossiblePourUtilisateur(int1);
+        Integer nouveauNombre = managerRestaurant.getRestaurant().getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixParNom(string).getNbChoixPossiblePourUtilisateur();
         Assertions.assertEquals(int1, nouveauNombre);
     }
     @Alors("le nombre de choix de mon choix composant {string} est {int} dans mon element {string} de mon choix element {string} de mon menu {string}")
     public void le_nombre_de_choix_de_mon_choix_composant_est_dans_mon_element_de_mon_choix_element_de_mon_menu(String string, Integer int1, String string2, String string3, String string4) {
-        Integer nouveauNombre = restaurant.getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixParNom(string).getNbChoix();
+        Integer nouveauNombre = restaurant.getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixParNom(string).getNbChoixPossiblePourUtilisateur();
         Assertions.assertEquals(int1, nouveauNombre);
     }
 }

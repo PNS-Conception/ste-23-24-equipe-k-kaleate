@@ -3,8 +3,10 @@ package fr.unice.polytech.kaleate.menu.element;
 import fr.unice.polytech.kaleate.builder.Builder;
 import fr.unice.polytech.kaleate.menu.composant.BuilderChoixComposant;
 import fr.unice.polytech.kaleate.menu.composant.ChoixComposant;
+import fr.unice.polytech.kaleate.menu.composant.SupplementComposant;
 import fr.unice.polytech.kaleate.menu.supplement.BuilderChoixSupplement;
 import fr.unice.polytech.kaleate.menu.supplement.BuilderChoixSupplementComposant;
+import fr.unice.polytech.kaleate.menu.supplement.ChoixSupplement;
 
 public class BuilderElement implements Builder<Element> {
 
@@ -52,9 +54,11 @@ public class BuilderElement implements Builder<Element> {
         //builderChoixComposant.reset();
     }
 
-    public void addChoixSupplement() {
-        element.ajoutChoixSupplement(builderChoixSupplement.getResult());
-        builderChoixSupplement.reset();
+    public void addChoixSupplement(ChoixSupplement<SupplementComposant> supplementComposant) {
+        element.ajoutChoixSupplement(supplementComposant);
+
+        //element.ajoutChoixSupplement(builderChoixSupplement.getResult());
+        //builderChoixSupplement.reset();
     }
 
     @Override

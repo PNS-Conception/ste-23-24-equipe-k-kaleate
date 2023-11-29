@@ -31,7 +31,7 @@ public class BuilderChoixComposant implements BuilderChoix<Composant, ChoixCompo
 
     @Override
     public void nbChoix(int nbChoix) {
-        choixComposant.setNbChoix(nbChoix);
+        choixComposant.setNbChoixPossiblePourUtilisateur(nbChoix);
     }
 
     @Override

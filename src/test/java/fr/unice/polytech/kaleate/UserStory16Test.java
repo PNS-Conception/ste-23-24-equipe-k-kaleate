@@ -240,7 +240,7 @@ public class UserStory16Test {
     @Alors("l'utilisateur peut choisir {int} {string} entre {string}  {string} et {string}")
     public void l_utilisateur_peut_choisir_entre_et(Integer int1, String string, String string2, String string3, String string4) {
         int nbChoixMax = restaurant.getMenus().getParNom("Cheese1").getChoixElementParNom("Accompagnement")
-                .getParNom("Frite").getChoixParNom(string).getNbChoix();
+                .getParNom("Frite").getChoixParNom(string).getNbChoixPossiblePourUtilisateur();
         Assertions.assertEquals(2, nbChoixMax);
         int nbChoixSauce = restaurant.getMenus().getParNom("Cheese1").getChoixElementParNom("Accompagnement")
                 .getParNom("Frite").getChoixParNom(string).getListe().size();
@@ -276,14 +276,14 @@ public class UserStory16Test {
         ajouterChoixElement(m, choixElement1);
         ajouterChoixElement(m, choixElement2);
         ajouterChoixElement(m, choixElement3);
-        int nbSupplements = m.getChoixElementListe().get(2).getListe().get(0).getChoixSupplement().size();
+        int nbSupplements = m.getChoixElementListe().get(2).getListe().get(0).getChoixSupplementComposant().size();
         Assertions.assertEquals(2, nbSupplements);
 
     }
     @Alors("il est possible pour l'utilisateur de rajouter du {string} et du {string} dans le {string} du menu {string}")
     public void il_est_possible_pour_l_utilisateur_de_rajouter_du_et_du_dans_le_menu(String string, String string2, String string3, String string4) {
         int nbSuppBurger = restaurant.getMenus().getParNom(string4).getChoixElementParNom("Burger")
-                .getParNom(string3).getChoixSupplement().size();
+                .getParNom(string3).getChoixSupplementComposant().size();
         Assertions.assertEquals(2, nbSuppBurger);
     }
 

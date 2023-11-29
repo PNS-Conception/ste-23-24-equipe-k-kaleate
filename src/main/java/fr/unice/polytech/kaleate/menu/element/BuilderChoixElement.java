@@ -16,7 +16,7 @@ public class BuilderChoixElement implements BuilderChoix<Element, ChoixElement> 
     public ChoixElement newChoix(String nomChoix, int nbChoix, List<Element> listeChoix) {
         reset();
         choixElement.setNom(nomChoix);
-        choixElement.setNbChoix(nbChoix);
+        choixElement.setNbChoixPossiblePourUtilisateur(nbChoix);
         choixElement.setListe(listeChoix);
         return getResult();
     }
@@ -28,7 +28,7 @@ public class BuilderChoixElement implements BuilderChoix<Element, ChoixElement> 
 
     @Override
     public void nbChoix(int nbChoix) {
-        choixElement.setNbChoix(nbChoix);
+        choixElement.setNbChoixPossiblePourUtilisateur(nbChoix);
     }
 
     @Override
