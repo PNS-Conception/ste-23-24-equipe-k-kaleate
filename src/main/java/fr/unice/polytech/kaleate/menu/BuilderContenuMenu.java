@@ -44,9 +44,11 @@ public class BuilderContenuMenu implements Builder<ContenuMenu> {
             this.builderChoixElement = builderChoixElement;
         }
 
-        public void addChoixElement() {
-            this.contenuMenu.ajouterChoixElement(builderChoixElement.getResult());
-            builderChoixElement.reset();
+        public void addChoixElement(ChoixElement choixElement) {
+            contenuMenu.ajouterChoixElement(choixElement);
+
+            //this.contenuMenu.ajouterChoixElement(builderChoixElement.getResult());
+            //builderChoixElement.reset();
         }
 
         @Override

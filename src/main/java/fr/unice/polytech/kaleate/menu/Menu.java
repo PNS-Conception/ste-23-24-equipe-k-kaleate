@@ -26,6 +26,8 @@ public class Menu extends Observable implements Monnayable {
     public Menu()
     {
     }
+
+
     public Menu(float prix, String name, Creneau creneau){
         this.prix = prix;
         this.name = name;

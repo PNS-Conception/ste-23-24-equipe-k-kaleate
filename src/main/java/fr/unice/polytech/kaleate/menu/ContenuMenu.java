@@ -99,6 +99,10 @@ public class ContenuMenu implements Monnayable {
         return choixSupplements.getSupplementsSelectionnes().stream().filter(supplementElement -> supplementElement.estSupplementParNom(nomSup)).findFirst().orElse(null);
     }
 
+    public ChoixElement getChoixElementParNom(String nomChoixElement){
+        return choixElementListe.stream().filter(choixElement -> choixElement.estChoixParNom(nomChoixElement)).findFirst().orElse(null);
+    }
+
     public void reset()
     {
         for(ChoixElement ce : choixElementListe) ce.reset();
