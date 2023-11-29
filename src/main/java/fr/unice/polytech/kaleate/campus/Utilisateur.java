@@ -84,6 +84,7 @@ public class Utilisateur extends Evaluable implements Evalueur {
             if(commandeActuelle == null) return false;
             if(new PayementExterne().payer(this,commandeActuelle.getPrix())) {
                 commandeActuelle.setStatut(StatutCommande.PAYEE);
+                commandeActuelle.elligibleReduction();
                 commandeActuelle.enregistrerCommande();
                 return true;
             }
