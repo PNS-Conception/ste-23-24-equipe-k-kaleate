@@ -40,9 +40,9 @@ public class UserStory16Test {
     static SupplementComposant supCo1, supCo2, supCo3;
 
     static Utilisateur utilisateur;
-    static Restaurant restaurant2 = new Restaurant();
+    static Restaurant restaurant2 ;
     static Menu m2;
-    static Menu menuChoisi;
+    static Menu menuChoisi = new Menu();
     static CommandeSimple commande;
 
     public static void creerElement(){
@@ -112,6 +112,7 @@ public class UserStory16Test {
         creerCacahuetesDansGlace();
         ajouterUnElementSupplement(m2, supEl1);
         ajouterUnElementSupplement(m2, supEl2);
+        restaurant2 = new Restaurant();
         restaurant2.ajouterMenu(m2);
     }
 
