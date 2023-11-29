@@ -41,8 +41,12 @@ public class ContenuMenu implements Monnayable {
         this.choixElementListe = choixElementListe;
     }
 
+    public void setChoixSupplementElement(ChoixSupplementElement choixSupplementElement) {
+        this.choixSupplementElement = choixSupplementElement;
+    }
+
     public List<SupplementElement> getSupplementElementListe() {
-        return (ArrayList<SupplementElement>) choixSupplementElement.getSupplementsListe();
+        return choixSupplementElement.getSupplementsListe();
     }
 
     public ArrayList<SupplementElement> getSupplementElementListeSelectionne() {

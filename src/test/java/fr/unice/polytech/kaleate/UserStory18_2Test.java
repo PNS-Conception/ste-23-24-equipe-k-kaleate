@@ -117,6 +117,7 @@ public class UserStory18_2Test {
         BuilderContenuMenu builderContenuMenu = new BuilderContenuMenu();
         builderContenuMenu.addChoixElement(plat);
         builderContenuMenu.addChoixElement(dessert);
+        builderContenuMenu.setChoixSupplementElement(supplementMenu1);
         contenuMenu = builderContenuMenu.getResult();
     }
 
@@ -229,6 +230,18 @@ public class UserStory18_2Test {
     @Alors("le nom de mon supplement composant est {string} dans mon choix supplement composant de mon element {string} de mon choix element {string} de mon menu {string}")
     public void le_nom_de_mon_supplement_composant_est_dans_mon_choix_supplement_composant_de_mon_element_de_mon_choix_element_de_mon_menu(String string, String string2, String string3, String string4) {
         String nouveauNom = restaurant.getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getSupplementParNom(string).getNom();
+        Assertions.assertEquals(string, nouveauNom);
+    }
+
+    @Quand("je veux modifier le nom de mon supplement element {string} en {string} dans mon choix supplement element de mon menu {string}")
+    public void je_veux_modifier_le_nom_de_mon_supplement_element_en_dans_mon_choix_supplement_element_de_mon_menu(String string, String string2, String string3) {
+        managerRestaurant.getRestaurant().getMenus().getParNom(string3).getContenuMenu().getChoixSupplementElementParNom(string).setNom(string2);
+        String nouveauNom = managerRestaurant.getRestaurant().getMenus().getParNom(string3).getContenuMenu().getChoixSupplementElementParNom(string2).getNom();
+        Assertions.assertEquals(string2, nouveauNom);
+    }
+    @Alors("le nom de mon supplement element est {string} dans mon choix supplement element de mon menu {string}")
+    public void le_nom_de_mon_supplement_element_est_dans_mon_choix_supplement_element_de_mon_menu(String string, String string2) {
+        String nouveauNom = restaurant.getMenus().getParNom(string2).getContenuMenu().getChoixSupplementElementParNom(string).getNom();
         Assertions.assertEquals(string, nouveauNom);
     }
 }

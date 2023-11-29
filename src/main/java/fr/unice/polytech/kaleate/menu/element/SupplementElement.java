@@ -55,4 +55,8 @@ public class SupplementElement implements Supplement {
         element.ajoutSupplement(supplementComposant);
     }
 
+    public void setNom(String nom) {
+        element.setNom(nom);
+    }
+
 }

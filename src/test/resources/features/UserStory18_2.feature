@@ -36,3 +36,10 @@ Fonctionnalité: Modification d'un menu par le manager de magasin
     Etant donné que je suis un manager de magasin
     Quand je veux modifier le nom de mon supplement composant "Mayonnaise" en "Mayo" dans mon choix supplement composant de mon element "Burger Cheese" de mon choix element "Plat" de mon menu "menu1"
     Alors le nom de mon supplement composant est "Mayo" dans mon choix supplement composant de mon element "Burger Cheese" de mon choix element "Plat" de mon menu "menu1"
+
+
+  Scénario: Modifier un supplément élément
+    Etant donné que je suis un manager de magasin
+    Quand je veux modifier le nom de mon supplement element "Frite" en "Frites maison" dans mon choix supplement element de mon menu "menu1"
+    Alors le nom de mon supplement element est "Frites maison" dans mon choix supplement element de mon menu "menu1"
+
