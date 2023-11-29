@@ -101,7 +101,7 @@ public class UserStory6Test {
     @Alors("la commande est toujours la mais avec un menu en moins")
     public void la_commande_est_toujours_la_mais_avec_un_menu_en_moins() {
         assertTrue(ListeCommande.getInstance().contains(user.getCommandeActuelle()));
-        assertEquals(2,user.getCommandeActuelle().getMenus().size());
+        assertEquals(1,user.getCommandeActuelle().getMenus().size());
         assertEquals(11,(int)user.getCommandeActuelle().getPrix());
     }
 
