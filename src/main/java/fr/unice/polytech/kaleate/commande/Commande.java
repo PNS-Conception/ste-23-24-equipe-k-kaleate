@@ -41,6 +41,7 @@ public interface Commande extends Monnayable, Observer {
 
     public List<Restaurant> getRestaurants();
 
+    public boolean elligibleReduction();
     public Creneau getCreneauLivraison();
     public void setCreneauLivraison(Creneau creneauLivraison);
     public boolean annulerMenu(Menu mp);
