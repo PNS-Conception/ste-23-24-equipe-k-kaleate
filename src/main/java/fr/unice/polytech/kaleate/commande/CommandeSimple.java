@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 public class CommandeSimple implements Observer, Commande {
     private ListeMenus menus;
+
     private Utilisateur utilisateur;
     private StatutCommande statut = StatutCommande.EN_CREATION;
 
@@ -85,9 +86,27 @@ public class CommandeSimple implements Observer, Commande {
         for(Menu menu : this.menus){
             prix += menu.getPrixAvecSupplements();
         }
+
         return prix;
     }
+    public boolean elligibleReduction(){
 
+        if(nombreMenuPourReduc()>=10){
+            utilisateur.addSolde((float) (getPrix()*0.1));
+            return true;
+        }
+        return false;
+    }
+    protected int nombreMenuPourReduc(){
+        int i =0;
+        for(Menu m : menus){
+            if(m.getStatut()!=StatutMenu.ANNULE){
+                i++;
+            }
+        }
+
+        return i;
+    }
     @Override
     public double getPrixSansReduction() {
         return 0;

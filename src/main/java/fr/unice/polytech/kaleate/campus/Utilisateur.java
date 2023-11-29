@@ -51,13 +51,13 @@ public class Utilisateur extends Evaluable implements Evalueur {
         }
         public boolean rejoindreCommandegroupee(CommandeGroupee commandeGroupee, int code){
                 if(commandeActuelle == null){
-                    commandeActuelle = new CommandeSimple();
+                    commandeActuelle = new CommandeSimple(this);
                 }
                 return commandeGroupee.ajouterCommande(code, commandeActuelle);
         }
         public boolean addMenu(Menu m){
             if(commandeActuelle == null){
-                commandeActuelle = new CommandeSimple();
+                commandeActuelle = new CommandeSimple(this);
             }
             m.verifContenuMenu();
             return commandeActuelle.addMenu(m);
@@ -84,6 +84,7 @@ public class Utilisateur extends Evaluable implements Evalueur {
             if(commandeActuelle == null) return false;
             if(new PayementExterne().payer(commandeActuelle.getPrix())) {
                 commandeActuelle.setStatut(StatutCommande.VALIDEE);
+                commandeActuelle.elligibleReduction();
                 commandeActuelle.enregistrerCommande();
                 return true;
             }
