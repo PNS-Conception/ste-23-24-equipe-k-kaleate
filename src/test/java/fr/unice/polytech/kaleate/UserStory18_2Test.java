@@ -136,6 +136,18 @@ public class UserStory18_2Test {
         Assertions.assertEquals(string, nouveauNom);
     }
 
+    @Quand("je veux modifier le nom de mon choix element {string} en {string} dans mon menu {string}")
+    public void je_veux_modifier_le_nom_de_mon_choix_element_en_dans_mon_menu(String string, String string2, String string3) {
+        managerRestaurant.getRestaurant().getMenus().getParNom(string3).getContenuMenu().getChoixElementParNom(string).setNom(string2);
+        String nouveauNom = managerRestaurant.getRestaurant().getMenus().getParNom(string3).getContenuMenu().getChoixElementParNom(string2).getNom();
+        Assertions.assertEquals(string2, nouveauNom);
+    }
+    @Alors("le nom de mon choix element est {string} dans mon menu {string}")
+    public void le_nom_de_mon_choix_element_est_dans_mon_menu(String string, String string2) {
+        String nouveauNom = restaurant.getMenus().getParNom(string2).getContenuMenu().getChoixElementParNom(string).getNom();
+        Assertions.assertEquals(string, nouveauNom);
+    }
+
 
 
 
