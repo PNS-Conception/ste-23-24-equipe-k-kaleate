@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class CommandeSimple extends Observable implements Observer, Commande  {
     private ListeCommande listeCommande = ListeCommande.getInstance();
     private ListeMenus menus;
-
+    private boolean reduction =false;
     private Utilisateur utilisateur;
     private StatutCommande statut = StatutCommande.EN_CREATION;
 
@@ -101,7 +101,7 @@ public class CommandeSimple extends Observable implements Observer, Commande  {
     }
     public boolean elligibleReduction(){
 
-        if(nombreMenuPourReduc()>=10){
+        if(reduction ||nombreMenuPourReduc()>=10){
             utilisateur.addSolde((float) (getPrix()*0.1));
             return true;
         }
@@ -302,5 +302,12 @@ public class CommandeSimple extends Observable implements Observer, Commande  {
     @Override
     public int hashCode() {
         return id;
+    }
+
+    public void setReduction(boolean reduction) {
+        this.reduction = reduction;
+    }
+    public boolean getReduction() {
+        return this.reduction;
     }
 }

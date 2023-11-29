@@ -51,4 +51,7 @@ public interface Commande extends Monnayable, Observer {
         }
     }
 
+    public void setReduction(boolean reduction);
+    public boolean getReduction() ;
+
 }
