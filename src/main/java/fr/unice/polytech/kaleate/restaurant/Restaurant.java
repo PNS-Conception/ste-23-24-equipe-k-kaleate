@@ -72,7 +72,7 @@ public class Restaurant extends Evaluable {
     }
 
     public ListeCommande getListCommande() {
-        return  gestionnaireCommande.getListCommande();
+        return  gestionnaireCommande.getListCommande(this);
     }
 
     public void setListCommande(ListeCommande listCommande) {
@@ -97,7 +97,7 @@ public class Restaurant extends Evaluable {
      * @return boolean
      */
     public boolean finirPreparationMenu(Commande commande, Menu menu){
-        if(commande.getStatut() == StatutCommande.EN_PREPARATION || commande.getStatut() == StatutCommande.VALIDEE){
+        if(commande.getStatut() == StatutCommande.EN_PREPARATION || commande.getStatut() == StatutCommande.PAYEE){
             return commande.finirPreparationMenu(menu);
         }
         return false;
@@ -105,7 +105,7 @@ public class Restaurant extends Evaluable {
 
 
     public boolean preparerMenu(Commande commande, Menu menu){
-        if(commande.getStatut() == StatutCommande.EN_PREPARATION || commande.getStatut() == StatutCommande.VALIDEE){
+        if(commande.getStatut() == StatutCommande.EN_PREPARATION || commande.getStatut() == StatutCommande.PAYEE){
             return commande.preparerMenu(menu);
         }
         return false;
@@ -119,7 +119,9 @@ public class Restaurant extends Evaluable {
         return gestionnaireCommande.getCommandePrete(this);
 
     }
-
+    public void annulerPreparationMenu(Commande c,Menu m){
+        gestionnaireCommande.annulerPreparationMenu(c,m);
+    }
 
     public void ajouterMenu(Menu m){
         m.setRestaurant(this);

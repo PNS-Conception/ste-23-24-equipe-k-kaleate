@@ -4,12 +4,9 @@ import fr.unice.polytech.kaleate.Avis;
 import fr.unice.polytech.kaleate.CommandeException;
 import fr.unice.polytech.kaleate.Evaluable;
 import fr.unice.polytech.kaleate.Evalueur;
-import fr.unice.polytech.kaleate.commande.Commande;
+import fr.unice.polytech.kaleate.commande.*;
 import fr.unice.polytech.kaleate.livrable.Livreur;
 import fr.unice.polytech.kaleate.outils.PayementExterne;
-import fr.unice.polytech.kaleate.commande.CommandeSimple;
-import fr.unice.polytech.kaleate.commande.CommandeGroupee;
-import fr.unice.polytech.kaleate.commande.StatutCommande;
 import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.outils.Creneau;
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
@@ -51,13 +48,15 @@ public class Utilisateur extends Evaluable implements Evalueur {
         }
         public boolean rejoindreCommandegroupee(CommandeGroupee commandeGroupee, int code){
                 if(commandeActuelle == null){
-                    commandeActuelle = new CommandeSimple();
+                    commandeActuelle = new CommandeSimple(this);
+                    ListeCommande.getInstance().add(commandeActuelle);
                 }
                 return commandeGroupee.ajouterCommande(code, commandeActuelle);
         }
         public boolean addMenu(Menu m){
             if(commandeActuelle == null){
-                commandeActuelle = new CommandeSimple();
+                commandeActuelle = new CommandeSimple(this);
+                ListeCommande.getInstance().add(commandeActuelle);
             }
             m.verifContenuMenu();
             return commandeActuelle.addMenu(m);
@@ -80,15 +79,20 @@ public class Utilisateur extends Evaluable implements Evalueur {
         public void addSolde(float solde) {
             this.solde += solde;
         }
+        public void removeSolde(float solde){this.solde -=solde;}
         public boolean payer(){
             if(commandeActuelle == null) return false;
-            if(new PayementExterne().payer(commandeActuelle.getPrix())) {
-                commandeActuelle.setStatut(StatutCommande.VALIDEE);
+            if(new PayementExterne().payer(this,commandeActuelle.getPrix())) {
+                commandeActuelle.setStatut(StatutCommande.PAYEE);
+                commandeActuelle.elligibleReduction();
                 commandeActuelle.enregistrerCommande();
                 return true;
             }
             return false;
         }
+    public void rembourser(Menu m){
+        new PayementExterne().rembourser(this,m.getPrix());
+    }
         public void recupererCommande(){
             if(commandeActuelle.getStatut()==StatutCommande.A_RECUPERER){
                 commandeActuelle.setStatut(StatutCommande.LIVREE);
@@ -103,13 +107,14 @@ public class Utilisateur extends Evaluable implements Evalueur {
         return historique;
     }
 
+
     public int getIdCommande() throws CommandeException {
             if(commandeActuelle.getStatut().compareTo(StatutCommande.VALIDEE)>=0)
                 return commandeActuelle.getId();
             throw new CommandeException("La commande n'est pas encore payée.");
     }
     public Creneau getDateCommande() throws CommandeException {
-        if(commandeActuelle.getStatut().compareTo(StatutCommande.VALIDEE)>=0)
+        if(commandeActuelle.getStatut().compareTo(StatutCommande.PAYEE)>=0)
             return commandeActuelle.getCreneauLivraison();
         throw new CommandeException("La commande n'est pas encore payée.");
     }
@@ -120,6 +125,7 @@ public class Utilisateur extends Evaluable implements Evalueur {
                 evaluable.nouvelAvis(this,note);
             }
     }
+
 
     public void resetCommande(){
         commandeActuelle = null;

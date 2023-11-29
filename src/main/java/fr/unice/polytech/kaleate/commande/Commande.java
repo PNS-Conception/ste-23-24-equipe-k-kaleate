@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Observer;
 
 public interface Commande extends Monnayable, Observer {
+
     public ListeMenus getMenus();
 
     public void setMenus(ListeMenus menus);
@@ -40,13 +41,17 @@ public interface Commande extends Monnayable, Observer {
 
     public List<Restaurant> getRestaurants();
 
+    public boolean elligibleReduction();
     public Creneau getCreneauLivraison();
     public void setCreneauLivraison(Creneau creneauLivraison);
-
+    public boolean annulerMenu(Menu mp);
     default public void enregistrerCommande(){
         for(Menu m : getMenus()) {
             m.setCommande(this);
         }
     }
+
+    public void setReduction(boolean reduction);
+    public boolean getReduction() ;
 
 }
