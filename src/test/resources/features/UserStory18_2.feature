@@ -31,3 +31,8 @@ Fonctionnalité: Modification d'un menu par le manager de magasin
     Etant donné que je suis un manager de magasin
     Quand je veux modifier le nombre de choix de mon choix composant "Parfum" en 2 dans mon element "Glace" de mon choix element "Dessert" de mon menu "menu1"
     Alors le nombre de choix de mon choix composant "Parfum" est 2 dans mon element "Glace" de mon choix element "Dessert" de mon menu "menu1"
+
+  Scénario: Modifier un supplément composant
+    Etant donné que je suis un manager de magasin
+    Quand je veux modifier le nom de mon supplement composant "Mayonnaise" en "Mayo" dans mon choix supplement composant de mon element "Burger Cheese" de mon choix element "Plat" de mon menu "menu1"
+    Alors le nom de mon supplement composant est "Mayo" dans mon choix supplement composant de mon element "Burger Cheese" de mon choix element "Plat" de mon menu "menu1"

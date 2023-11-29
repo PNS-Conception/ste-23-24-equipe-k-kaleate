@@ -204,4 +204,16 @@ public class UserStory18_2Test {
         Integer nouveauNombre = restaurant.getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixParNom(string).getNbChoixPossiblePourUtilisateur();
         Assertions.assertEquals(int1, nouveauNombre);
     }
+
+    @Quand("je veux modifier le nom de mon supplement composant {string} en {string} dans mon choix supplement composant de mon element {string} de mon choix element {string} de mon menu {string}")
+    public void je_veux_modifier_le_nom_de_mon_supplement_composant_en_dans_mon_choix_supplement_composant_de_mon_element_de_mon_choix_element_de_mon_menu(String string, String string2, String string3, String string4, String string5) {
+        managerRestaurant.getRestaurant().getMenus().getParNom(string5).getContenuMenu().getChoixElementParNom(string4).getParNom(string3).getSupplementParNom(string).setNom(string2);
+        String nouveauNom = managerRestaurant.getRestaurant().getMenus().getParNom(string5).getContenuMenu().getChoixElementParNom(string4).getParNom(string3).getSupplementParNom(string2).getNom();
+        Assertions.assertEquals(string2, nouveauNom);
+    }
+    @Alors("le nom de mon supplement composant est {string} dans mon choix supplement composant de mon element {string} de mon choix element {string} de mon menu {string}")
+    public void le_nom_de_mon_supplement_composant_est_dans_mon_choix_supplement_composant_de_mon_element_de_mon_choix_element_de_mon_menu(String string, String string2, String string3, String string4) {
+        String nouveauNom = restaurant.getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getSupplementParNom(string).getNom();
+        Assertions.assertEquals(string, nouveauNom);
+    }
 }
