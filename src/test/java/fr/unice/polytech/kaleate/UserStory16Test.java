@@ -357,6 +357,10 @@ public class UserStory16Test {
     }
     @Quand("je veux ajouter du {string} dans mon {string} et une {string} avec des {string}")
     public void je_veux_ajouter_du_dans_mon_et_une_avec_des(String string, String string2, String string3, String string4) {
+        double prixInitial = menuChoisi.getPrix();
+        double prixSupplement = menuChoisi.getPrixAvecSupplements();
+        Assertions.assertEquals(12, prixInitial);
+        Assertions.assertEquals(12, prixSupplement);
         SupplementComposant supplementComposant = menuChoisi.getChoixElementParNom("Burger").getParNom(string2)
                 .getSupplementParNom(string);
         Assertions.assertEquals("Bacon", supplementComposant.getNom());

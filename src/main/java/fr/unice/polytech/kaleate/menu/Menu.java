@@ -154,7 +154,7 @@ public class Menu extends Observable implements Monnayable {
         for(Supplement supplementElement : contenuMenu.getSupplementElementListeSelectionne()){
             total += supplementElement.getPrix();
         }
-        return total;
+        return this.getPrix() + total;
     }
 
     /**
