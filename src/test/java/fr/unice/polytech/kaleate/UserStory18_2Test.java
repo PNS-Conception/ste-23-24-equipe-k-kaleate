@@ -106,6 +106,25 @@ public class UserStory18_2Test {
     }
 
 
+    @Etantdonnéque("je suis un manager de magasin")
+    public void je_suis_un_manager_de_magasin() {
+        creationRestaurant();
+        managerRestaurant = new ManagerRestaurant(restaurant);
+        Assertions.assertNotNull(managerRestaurant);
+    }
+    @Quand("je veux modifier le nom de mon element {string} en {string} dans le choix element {string} de mon menu {string}")
+    public void je_veux_modifier_le_nom_de_mon_element_en_dans_le_choix_element_de_mon_menu(String string, String string2, String string3, String string4) {
+        managerRestaurant.getRestaurant().getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string).setNom(string2);
+        String nouveauNom = managerRestaurant.getRestaurant().getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getNom();
+        Assertions.assertEquals(string2, nouveauNom);
+    }
+    @Alors("le nom de mon element est {string} dans le choix element {string} de mon menu {string}")
+    public void le_nom_de_mon_element_est_dans_le_choix_element_de_mon_menu(String string, String string2, String string3) {
+        String nouveauNom = restaurant.getMenus().getParNom(string3).getContenuMenu().getChoixElementParNom(string2).getParNom(string).getNom();
+        Assertions.assertEquals(string, nouveauNom);
+    }
+
+
 
 
 
