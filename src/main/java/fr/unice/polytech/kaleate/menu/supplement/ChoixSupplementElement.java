@@ -59,7 +59,7 @@ public class ChoixSupplementElement implements ChoixSupplement<SupplementElement
 
     @Override
     public void reset() {
-        //TODO verifier si c'est bien ca
+
         supplementsSelectionnes = new ArrayList<>();
     }
 

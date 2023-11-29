@@ -103,7 +103,7 @@ public class Utilisateur extends Evaluable implements Evalueur {
         return historique;
     }
 
-    public int getIdCommande() throws CommandeException {;
+    public int getIdCommande() throws CommandeException {
             if(commandeActuelle.getStatut().compareTo(StatutCommande.VALIDEE)>=0)
                 return commandeActuelle.getId();
             throw new CommandeException("La commande n'est pas encore payée.");
@@ -119,6 +119,10 @@ public class Utilisateur extends Evaluable implements Evalueur {
             if (evaluable instanceof Livreur || evaluable instanceof Restaurant){
                 evaluable.nouvelAvis(this,note);
             }
+    }
+
+    public void resetCommande(){
+        commandeActuelle = null;
     }
    /*public Creneau getPointLivraison() throws CommandeException {
         if(commandeActuelle.getStatut().compareTo(StatutCommande.PAYEE)>=0)

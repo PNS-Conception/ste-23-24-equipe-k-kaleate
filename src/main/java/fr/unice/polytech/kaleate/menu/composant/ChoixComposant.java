@@ -139,6 +139,7 @@ public class ChoixComposant implements Choix<Composant> {
     @Override
     public void reset(){
         composantListeSelectionne.clear();
+        composantListeSelectionne = new ArrayList<>();
     }
     //TODO vérifier si le composant permet de choisir (+ de 1 composant, sinon pas choisissable)
     //TODO

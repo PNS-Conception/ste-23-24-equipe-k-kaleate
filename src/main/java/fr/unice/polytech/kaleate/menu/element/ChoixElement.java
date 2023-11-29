@@ -139,7 +139,7 @@ public class ChoixElement implements Choix<Element> {
 
     @Override
     public void reset(){
-        elementListeSelectionne.clear();
+        elementListeSelectionne = new ArrayList<>();
         for(Element e : elementListeDisponible){
             e.reset();
         }

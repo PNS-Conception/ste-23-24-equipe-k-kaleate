@@ -61,7 +61,7 @@ public class ChoixSupplementComposant implements ChoixSupplement<SupplementCompo
 
     @Override
     public void reset() {
-        //TODO verifier si c'est bien ca
+
         supplementsSelectionnes = new ArrayList<>();
     }
 

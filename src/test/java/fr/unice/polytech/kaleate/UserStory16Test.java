@@ -407,6 +407,12 @@ public class UserStory16Test {
         m2.resetMenu();
         utilisateur.getCommandeActuelle().getMenus().get(0).resetMenu();
         restaurant2.getMenus().getParNom("Cheese").resetMenu();
+        int nbSupplementElement = utilisateur.getCommandeActuelle().getMenus().get(0).getContenuMenu().getSupplementElementListeSelectionne().size();
+        Assertions.assertEquals(0, nbSupplementElement);
+        double prixApresReset = utilisateur.getCommandeActuelle().getPrix();
+        Assertions.assertEquals(12, prixApresReset);
+        utilisateur.resetCommande();
+        Assertions.assertNull(utilisateur.getCommandeActuelle());
     }
 
 
