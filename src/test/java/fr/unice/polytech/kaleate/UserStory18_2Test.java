@@ -7,12 +7,11 @@ import fr.unice.polytech.kaleate.menu.composant.BuilderChoixComposant;
 import fr.unice.polytech.kaleate.menu.composant.ChoixComposant;
 import fr.unice.polytech.kaleate.menu.composant.Composant;
 import fr.unice.polytech.kaleate.menu.composant.SupplementComposant;
-import fr.unice.polytech.kaleate.menu.element.BuilderChoixElement;
-import fr.unice.polytech.kaleate.menu.element.BuilderElement;
-import fr.unice.polytech.kaleate.menu.element.ChoixElement;
-import fr.unice.polytech.kaleate.menu.element.Element;
+import fr.unice.polytech.kaleate.menu.element.*;
 import fr.unice.polytech.kaleate.menu.supplement.BuilderChoixSupplementComposant;
+import fr.unice.polytech.kaleate.menu.supplement.BuilderChoixSupplementElement;
 import fr.unice.polytech.kaleate.menu.supplement.ChoixSupplementComposant;
+import fr.unice.polytech.kaleate.menu.supplement.ChoixSupplementElement;
 import fr.unice.polytech.kaleate.outils.Creneau;
 import fr.unice.polytech.kaleate.restaurant.ManagerRestaurant;
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
@@ -43,6 +42,9 @@ public class UserStory18_2Test {
     static Element burger, salade, glace;
 
     static ChoixElement plat, dessert;
+
+    static SupplementElement supplementFrites;
+    static ChoixSupplementElement supplementMenu1;
 
     static ContenuMenu contenuMenu;
 
@@ -99,6 +101,17 @@ public class UserStory18_2Test {
         dessert = new BuilderChoixElement().newChoix("Dessert", 1, List.of(glace));
     }
 
+    public static void creationSupplementElement(){
+        BuilderElement builderElementFrite = new BuilderElement("Frite");
+        Element elementFrite = builderElementFrite.getResult();
+        supplementFrites = new SupplementElement(elementFrite, 2);
+    }
+
+    public static void creationChoixSupplementElement(){
+        BuilderChoixSupplementElement builderChoixSupplementElement = new BuilderChoixSupplementElement();
+        builderChoixSupplementElement.setChoixSupplement(List.of(supplementFrites));
+        supplementMenu1 = (ChoixSupplementElement) builderChoixSupplementElement.getResult();
+    }
 
     public static void creationContenuMenu(){
         BuilderContenuMenu builderContenuMenu = new BuilderContenuMenu();
@@ -119,6 +132,8 @@ public class UserStory18_2Test {
         creationDesChoixSupplementComposant();
         creationDesElement();
         creationChoixElement();
+        creationSupplementElement();
+        creationChoixSupplementElement();
         creationContenuMenu();
         creerMenu();
         restaurant = new Restaurant("restaurant");
