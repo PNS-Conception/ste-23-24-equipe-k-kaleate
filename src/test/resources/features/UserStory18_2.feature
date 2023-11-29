@@ -16,3 +16,8 @@ Fonctionnalité: Modification d'un menu par le manager de magasin
     Etant donné que je suis un manager de magasin
     Quand je veux modifier le nom de mon choix element "Plat" en "Plat principal" dans mon menu "menu1"
     Alors le nom de mon choix element est "Plat principal" dans mon menu "menu1"
+
+  Scénario: Modifier un choix composant d'un élément d'un menu
+    Etant donné que je suis un manager de magasin
+    Quand je veux modifier le nom de mon choix composant "Pain" en "Choix Pain" dans mon element "Burger Cheese" de mon choix element "Plat" de mon menu "menu1"
+    Alors le nom de mon choix composant est "Choix Pain" dans mon element "Burger Cheese" de mon choix element "Plat" de mon menu "menu1"
