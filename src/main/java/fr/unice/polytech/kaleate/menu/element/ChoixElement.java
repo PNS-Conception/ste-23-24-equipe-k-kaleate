@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Classe représentant un choix d'éléments sélectionnés dans le menu
  *
- * elementsListe : liste des éléments disponibles pour l'utilisateur
+ * elementsListeDisponible : liste des éléments disponibles pour l'utilisateur
  * nbChoixElement : nombre d'éléments que l'utilisateur peut choisir
  *
  */
@@ -152,5 +152,9 @@ public class ChoixElement implements Choix<Element> {
         for(Element e : elementListeSelectionne){
             e.verifChoixComposant();
         }
+    }
+
+    public void supprimerElementDisponibleParNom(String nom){
+        elementListeDisponible.removeIf(element -> element.estParNom(nom));
     }
 }

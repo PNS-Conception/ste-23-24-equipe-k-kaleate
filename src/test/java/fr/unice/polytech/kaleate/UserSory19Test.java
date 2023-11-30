@@ -166,5 +166,22 @@ public class UserSory19Test {
         restaurant.ajouterMenu(menu);
     }
 
+    @Etantdonnéque("je suis un manager de restaurant")
+    public void je_suis_un_manager_de_restaurant() {
+        creationRestaurant();
+        managerRestaurant = new ManagerRestaurant(restaurant);
+        Assertions.assertNotNull(managerRestaurant);
+    }
+    @Quand("je supprime l'element {string} de mon choix element {string} de mon menu {string}")
+    public void je_supprime_l_element_de_mon_choix_element_de_mon_menu(String string, String string2, String string3) {
+        managerRestaurant.getRestaurant().getMenus().getParNom(string3).getContenuMenu().getChoixElementParNom(string2).supprimerElementDisponibleParNom(string);
+        Assertions.assertNull(managerRestaurant.getRestaurant().getMenus().getParNom(string3).getContenuMenu().getChoixElementParNom(string2).getParNom(string));
+    }
+    @Alors("l'element {string} n'est plus disponible dans mon choix element {string} de mon menu {string}")
+    public void l_element_n_est_plus_disponible_dans_mon_choix_element_de_mon_menu(String string, String string2, String string3) {
+        Element element = managerRestaurant.getRestaurant().getMenus().getParNom(string3).getContenuMenu().getChoixElementParNom(string2).getParNom(string);
+        Assertions.assertNull(element);
+    }
+
 
 }
