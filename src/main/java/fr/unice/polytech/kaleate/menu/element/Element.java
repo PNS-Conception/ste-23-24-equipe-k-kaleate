@@ -151,4 +151,8 @@ public class Element implements Monnayable {
             cc.verifComposant();
         }
     }
+
+    public void supprimerChoixComposantParNom(String nomChoixComposant) {
+        choixComposantListe.removeIf(cc -> cc.estChoixParNom(nomChoixComposant));
+    }
 }

@@ -16,3 +16,8 @@
       Etant donné que je suis un manager de restaurant
       Quand je supprime le choix element "Plat" de mon menu "menu1"
       Alors le choix element "Plat" n'est plus disponible dans mon menu "menu1"
+
+    Scénario: Supprimer un choix composant d'un menu
+      Etant donné que je suis un manager de restaurant
+      Quand je supprime le choix composant "Parfum" de mon element "Glace" de mon choix element "Dessert" de mon menu "menu1"
+      Alors le choix composant "Parfum" n'est plus disponible dans mon element "Glace" de mon choix element "Dessert" de mon menu "menu1"
