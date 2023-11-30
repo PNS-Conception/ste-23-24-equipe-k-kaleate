@@ -179,8 +179,19 @@ public class UserSory19Test {
     }
     @Alors("l'element {string} n'est plus disponible dans mon choix element {string} de mon menu {string}")
     public void l_element_n_est_plus_disponible_dans_mon_choix_element_de_mon_menu(String string, String string2, String string3) {
-        Element element = managerRestaurant.getRestaurant().getMenus().getParNom(string3).getContenuMenu().getChoixElementParNom(string2).getParNom(string);
+        Element element = restaurant.getMenus().getParNom(string3).getContenuMenu().getChoixElementParNom(string2).getParNom(string);
         Assertions.assertNull(element);
+    }
+
+    @Quand("je supprime le composant {string} de mon choix composant {string} de mon element {string} de mon choix element {string} de mon menu {string}")
+    public void je_supprime_le_composant_de_mon_choix_composant_de_mon_element_de_mon_choix_element_de_mon_menu(String string, String string2, String string3, String string4, String string5) {
+        managerRestaurant.getRestaurant().getMenus().getParNom(string5).getContenuMenu().getChoixElementParNom(string4).getParNom(string3).getChoixParNom(string2).supprimerComposantParNom(string);
+        Assertions.assertNull(managerRestaurant.getRestaurant().getMenus().getParNom(string5).getContenuMenu().getChoixElementParNom(string4).getParNom(string3).getChoixParNom(string2).getParNom(string));
+    }
+    @Alors("le composant {string} n'est plus disponible dans mon choix composant {string} de mon element {string} de mon choix element {string} de mon menu {string}")
+    public void le_composant_n_est_plus_disponible_dans_mon_choix_composant_de_mon_element_de_mon_choix_element_de_mon_menu(String string, String string2, String string3, String string4, String string5) {
+        Composant composant = restaurant.getMenus().getParNom(string5).getContenuMenu().getChoixElementParNom(string4).getParNom(string3).getChoixParNom(string2).getParNom(string);
+        Assertions.assertNull(composant);
     }
 
 

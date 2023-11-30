@@ -150,4 +150,8 @@ public class ChoixComposant implements Choix<Composant> {
         }
 
     }
+
+    public void supprimerComposantParNom(String nomComposant){
+        composantListeDisponible.remove(getParNom(nomComposant));
+    }
 }
