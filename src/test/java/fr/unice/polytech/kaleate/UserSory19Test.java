@@ -216,4 +216,15 @@ public class UserSory19Test {
         Assertions.assertNull(choixComposant);
     }
 
+    @Quand("je supprime le supplement element {string} de mon menu {string}")
+    public void je_supprime_le_supplement_element_de_mon_menu(String string, String string2) {
+        managerRestaurant.getRestaurant().getMenus().getParNom(string2).getContenuMenu().getChoixSupplementElement().supprimerSupplementParNom(string);
+        Assertions.assertNull(managerRestaurant.getRestaurant().getMenus().getParNom(string2).getContenuMenu().getChoixSupplementElement().getSupplementParNom(string));
+    }
+    @Alors("le supplement element {string} n'est plus disponible dans mon menu {string}")
+    public void le_supplement_element_n_est_plus_disponible_dans_mon_menu(String string, String string2) {
+        SupplementElement supplement = restaurant.getMenus().getParNom(string2).getContenuMenu().getChoixSupplementElement().getSupplementParNom(string);
+        Assertions.assertNull(supplement);
+    }
+
 }

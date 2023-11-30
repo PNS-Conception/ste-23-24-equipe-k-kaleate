@@ -21,3 +21,8 @@
       Etant donné que je suis un manager de restaurant
       Quand je supprime le choix composant "Parfum" de mon element "Glace" de mon choix element "Dessert" de mon menu "menu1"
       Alors le choix composant "Parfum" n'est plus disponible dans mon element "Glace" de mon choix element "Dessert" de mon menu "menu1"
+
+    Scénario: Supprimer un supplement element d'un menu
+      Etant donné que je suis un manager de restaurant
+      Quand je supprime le supplement element "Frite" de mon menu "menu1"
+      Alors le supplement element "Frite" n'est plus disponible dans mon menu "menu1"

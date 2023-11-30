@@ -78,4 +78,22 @@ public class ChoixSupplementElement implements ChoixSupplement<SupplementElement
     public double getPrixBase() {
         return 0;
     }
+
+    public void supprimerSupplementParNom(String nom) {
+        for (SupplementElement supplement : supplementsListe) {
+            if (supplement.getNom().equals(nom)) {
+                supplementsListe.remove(supplement);
+                break;
+            }
+        }
+    }
+
+    public SupplementElement getSupplementParNom(String nom) {
+        for (SupplementElement supplement : supplementsListe) {
+            if (supplement.getNom().equals(nom)) {
+                return supplement;
+            }
+        }
+        return null;
+    }
 }
