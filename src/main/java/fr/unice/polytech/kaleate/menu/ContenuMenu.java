@@ -146,4 +146,8 @@ public class ContenuMenu implements Monnayable {
         }
 
     }
+
+    public void supprimerChoixElementParNom(String nomChoixElement){
+        choixElementListe.remove(getChoixElementParNom(nomChoixElement));
+    }
 }
