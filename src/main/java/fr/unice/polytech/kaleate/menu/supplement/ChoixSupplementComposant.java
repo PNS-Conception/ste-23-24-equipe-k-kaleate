@@ -80,4 +80,19 @@ public class ChoixSupplementComposant implements ChoixSupplement<SupplementCompo
     public double getPrixBase() {
         return 0;
     }
+
+    public void supprimerSupplementParNom(String nom) {
+        List<SupplementComposant> supplements = supplementsListe.stream().filter(supplement -> supplement.getNom().equals(nom)).collect(Collectors.toList());
+        if (supplements.size() > 0) {
+            supplementsListe.remove(supplements.get(0));
+        }
+    }
+
+    public SupplementComposant getSupplementParNom(String nom) {
+        List<SupplementComposant> supplements = supplementsListe.stream().filter(supplement -> supplement.getNom().equals(nom)).collect(Collectors.toList());
+        if (supplements.size() > 0) {
+            return supplements.get(0);
+        }
+        return null;
+    }
 }

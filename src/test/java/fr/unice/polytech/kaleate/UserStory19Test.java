@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class UserSory19Test {
+public class UserStory19Test {
     static Creneau creneau = new Creneau(new Date(), new Date());
 
     static Restaurant restaurant;
@@ -224,6 +224,17 @@ public class UserSory19Test {
     @Alors("le supplement element {string} n'est plus disponible dans mon menu {string}")
     public void le_supplement_element_n_est_plus_disponible_dans_mon_menu(String string, String string2) {
         SupplementElement supplement = restaurant.getMenus().getParNom(string2).getContenuMenu().getChoixSupplementElement().getSupplementParNom(string);
+        Assertions.assertNull(supplement);
+    }
+
+    @Quand("je supprime le supplement composant {string} de mon element {string} de mon choix element {string} de mon menu {string}")
+    public void je_supprime_le_supplement_composant_de_mon_element_de_mon_choix_element_de_mon_menu(String string, String string2, String string3, String string4) {
+        managerRestaurant.getRestaurant().getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixSupplementComposantDispo().supprimerSupplementParNom(string);
+        Assertions.assertNull(managerRestaurant.getRestaurant().getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixSupplementComposantDispo().getSupplementParNom(string));
+    }
+    @Alors("le supplement composant {string} n'est plus disponible dans mon element {string} de mon choix element {string} de mon menu {string}")
+    public void le_supplement_composant_n_est_plus_disponible_dans_mon_element_de_mon_choix_element_de_mon_menu(String string, String string2, String string3, String string4) {
+        SupplementComposant supplement = restaurant.getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixSupplementComposantDispo().getSupplementParNom(string);
         Assertions.assertNull(supplement);
     }
 

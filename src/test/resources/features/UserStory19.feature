@@ -26,3 +26,8 @@
       Etant donné que je suis un manager de restaurant
       Quand je supprime le supplement element "Frite" de mon menu "menu1"
       Alors le supplement element "Frite" n'est plus disponible dans mon menu "menu1"
+
+    Scénario: Supprimer un supplement composant d'un menu
+        Etant donné que je suis un manager de restaurant
+        Quand je supprime le supplement composant "Bacon" de mon element "Burger Cheese" de mon choix element "Plat" de mon menu "menu1"
+
