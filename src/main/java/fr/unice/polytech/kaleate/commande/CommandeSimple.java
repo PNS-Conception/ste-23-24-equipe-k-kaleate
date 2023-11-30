@@ -92,9 +92,12 @@ public class CommandeSimple extends Observable implements Observer, Commande  {
 
     @Override
     public double getPrix(){
-        double prix = getPrixBase();
+        double prix = 0;
         for(Menu menu : this.menus){
-            prix += menu.getPrixAvecSupplements();
+            if(menu.getStatut().compareTo(StatutMenu.ANNULE) != 0){
+                prix += menu.getPrixAvecSupplements();
+            }
+
         }
 
         return prix;

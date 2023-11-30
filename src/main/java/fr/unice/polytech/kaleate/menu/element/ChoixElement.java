@@ -17,11 +17,11 @@ public class ChoixElement implements Choix<Element> {
     private int nbChoixElement;
 
     private List<Element> elementListeSelectionne;
-    private List<Element> elementListe;
+    private List<Element> elementListeDisponible;
 
     public ChoixElement(){
         super();
-        this.elementListe = new ArrayList<>();
+        this.elementListeDisponible = new ArrayList<>();
         this.elementListeSelectionne = new ArrayList<>();
         this.nbChoixElement = 0;
         this.nomElement = "";
@@ -30,14 +30,14 @@ public class ChoixElement implements Choix<Element> {
     public ChoixElement(String nomElement, int nbChoixElement){
         this.nomElement = nomElement;
         this.nbChoixElement = nbChoixElement;
-        this.elementListe = new ArrayList<>();
+        this.elementListeDisponible = new ArrayList<>();
         this.elementListeSelectionne = new ArrayList<>();
     }
 
-    protected ChoixElement(String nomElement, int nbChoixElement, ArrayList<Element> elementListe){
+    protected ChoixElement(String nomElement, int nbChoixElement, ArrayList<Element> elementListeDisponible){
         this.nomElement = nomElement;
         this.nbChoixElement = nbChoixElement;
-        this.elementListe = elementListe;
+        this.elementListeDisponible = elementListeDisponible;
         this.elementListeSelectionne = new ArrayList<>();
     }
 
@@ -47,13 +47,13 @@ public class ChoixElement implements Choix<Element> {
     }
 
     @Override
-    public int getNbChoix() {
+    public int getNbChoixPossiblePourUtilisateur() {
         return nbChoixElement;
     }
 
     @Override
     public List<Element> getListe() {
-        return elementListe;
+        return elementListeDisponible;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ChoixElement implements Choix<Element> {
 
     @Override
     public void setListe(List<Element> liste) {
-        this.elementListe = liste;
+        this.elementListeDisponible = liste;
 
     }
 
@@ -73,7 +73,7 @@ public class ChoixElement implements Choix<Element> {
     }
 
     @Override
-    public void setNbChoix(int nbChoixElement) {
+    public void setNbChoixPossiblePourUtilisateur(int nbChoixElement) {
         this.nbChoixElement = nbChoixElement;
     }
 
@@ -88,11 +88,11 @@ public class ChoixElement implements Choix<Element> {
      * @param e l'élément à ajouter
      */
     public void ajout(Element e){
-        elementListe.add(e);
+        elementListeDisponible.add(e);
     }
 
     public void supprimer(Element element) {
-        elementListe.remove(element);
+        elementListeDisponible.remove(element);
     }
 
     /**
@@ -102,7 +102,7 @@ public class ChoixElement implements Choix<Element> {
      */
     @Override
     public Element getParNom(String s){
-        return elementListe.stream().filter(element -> element.estParNom(s)).findFirst().orElse(null);
+        return elementListeDisponible.stream().filter(element -> element.estParNom(s)).findFirst().orElse(null);
     }
 
     /**
@@ -139,15 +139,15 @@ public class ChoixElement implements Choix<Element> {
 
     @Override
     public void reset(){
-        elementListeSelectionne.clear();
-        for(Element e : elementListe){
+        elementListeSelectionne = new ArrayList<>();
+        for(Element e : elementListeDisponible){
             e.reset();
         }
     }
 
     public void verifElement(){
         if(elementListeSelectionne.size() == 0){
-            elementListeSelectionne.add(elementListe.get(0));
+            elementListeSelectionne.add(elementListeDisponible.get(0));
         }
         for(Element e : elementListeSelectionne){
             e.verifChoixComposant();

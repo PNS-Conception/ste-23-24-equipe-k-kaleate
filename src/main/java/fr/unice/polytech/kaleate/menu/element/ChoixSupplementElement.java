@@ -58,14 +58,18 @@ public class ChoixSupplementElement implements ChoixSupplement<SupplementElement
 
     @Override
     public void reset() {
-        //TODO verifier si c'est bien ca
+
         supplementsSelectionnes = new ArrayList<>();
     }
 
     //TODO definir les prix
     @Override
     public double getPrix() {
-        return 0;
+        double prix = 0;
+        for (SupplementElement supplement : supplementsSelectionnes) {
+            prix += supplement.getPrix();
+        }
+        return prix;
     }
 
     @Override

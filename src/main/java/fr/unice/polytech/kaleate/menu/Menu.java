@@ -26,6 +26,8 @@ public class Menu extends Observable implements Monnayable {
     public Menu()
     {
     }
+
+
     public Menu(float prix, String name, Creneau creneau){
         this.prix = prix;
         this.name = name;
@@ -159,7 +161,7 @@ public class Menu extends Observable implements Monnayable {
         for(Supplement supplementElement : contenuMenu.getSupplementElementListeSelectionne()){
             total += supplementElement.getPrix();
         }
-        return total;
+        return this.getPrix() + total;
     }
 
     /**

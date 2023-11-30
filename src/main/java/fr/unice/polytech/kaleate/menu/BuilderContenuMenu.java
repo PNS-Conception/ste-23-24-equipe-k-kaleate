@@ -5,6 +5,7 @@ import fr.unice.polytech.kaleate.menu.composant.BuilderChoixComposant;
 import fr.unice.polytech.kaleate.menu.element.BuilderChoixElement;
 import fr.unice.polytech.kaleate.menu.element.BuilderElement;
 import fr.unice.polytech.kaleate.menu.element.ChoixElement;
+import fr.unice.polytech.kaleate.menu.supplement.ChoixSupplementElement;
 import fr.unice.polytech.kaleate.menu.supplement.BuilderChoixSupplementComposant;
 import fr.unice.polytech.kaleate.menu.supplement.BuilderChoixSupplementElement;
 
@@ -44,9 +45,16 @@ public class BuilderContenuMenu implements Builder<ContenuMenu> {
             this.builderChoixElement = builderChoixElement;
         }
 
-        public void addChoixElement() {
-            this.contenuMenu.ajouterChoixElement(builderChoixElement.getResult());
-            builderChoixElement.reset();
+        public void addChoixElement(ChoixElement choixElement) {
+            contenuMenu.ajouterChoixElement(choixElement);
+
+            //this.contenuMenu.ajouterChoixElement(builderChoixElement.getResult());
+            //builderChoixElement.reset();
+        }
+
+        public void setChoixSupplementElement(ChoixSupplementElement choixSupplementElement) {
+            contenuMenu.setChoixSupplementElement(choixSupplementElement);
+
         }
 
         @Override

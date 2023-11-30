@@ -14,6 +14,11 @@ public class SupplementElement implements Supplement {
         this.prix = prix;
     }
 
+    public SupplementElement(Element element, float prix) {
+        this.element = element;
+        this.prix = prix;
+    }
+
     @Override
     public String getNom() {
         return element.getNom();
@@ -48,6 +53,10 @@ public class SupplementElement implements Supplement {
 
     public void ajouterSupplementComposant(SupplementComposant supplementComposant) {
         element.ajoutSupplement(supplementComposant);
+    }
+
+    public void setNom(String nom) {
+        element.setNom(nom);
     }
 
 }

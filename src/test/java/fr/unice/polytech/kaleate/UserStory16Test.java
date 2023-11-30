@@ -40,9 +40,9 @@ public class UserStory16Test {
     static SupplementComposant supCo1, supCo2, supCo3;
 
     static Utilisateur utilisateur;
-    static Restaurant restaurant2 = new Restaurant();
+    static Restaurant restaurant2 ;
     static Menu m2;
-    static Menu menuChoisi;
+    static Menu menuChoisi = new Menu();
     static CommandeSimple commande;
 
     public static void creerElement(){
@@ -112,6 +112,7 @@ public class UserStory16Test {
         creerCacahuetesDansGlace();
         ajouterUnElementSupplement(m2, supEl1);
         ajouterUnElementSupplement(m2, supEl2);
+        restaurant2 = new Restaurant();
         restaurant2.ajouterMenu(m2);
     }
 
@@ -240,7 +241,7 @@ public class UserStory16Test {
     @Alors("l'utilisateur peut choisir {int} {string} entre {string}  {string} et {string}")
     public void l_utilisateur_peut_choisir_entre_et(Integer int1, String string, String string2, String string3, String string4) {
         int nbChoixMax = restaurant.getMenus().getParNom("Cheese1").getChoixElementParNom("Accompagnement")
-                .getParNom("Frite").getChoixParNom(string).getNbChoix();
+                .getParNom("Frite").getChoixParNom(string).getNbChoixPossiblePourUtilisateur();
         Assertions.assertEquals(2, nbChoixMax);
         int nbChoixSauce = restaurant.getMenus().getParNom("Cheese1").getChoixElementParNom("Accompagnement")
                 .getParNom("Frite").getChoixParNom(string).getListe().size();
@@ -276,14 +277,14 @@ public class UserStory16Test {
         ajouterChoixElement(m, choixElement1);
         ajouterChoixElement(m, choixElement2);
         ajouterChoixElement(m, choixElement3);
-        int nbSupplements = m.getChoixElementListe().get(2).getListe().get(0).getChoixSupplement().size();
+        int nbSupplements = m.getChoixElementListe().get(2).getListe().get(0).getChoixSupplementComposant().size();
         Assertions.assertEquals(2, nbSupplements);
 
     }
     @Alors("il est possible pour l'utilisateur de rajouter du {string} et du {string} dans le {string} du menu {string}")
     public void il_est_possible_pour_l_utilisateur_de_rajouter_du_et_du_dans_le_menu(String string, String string2, String string3, String string4) {
         int nbSuppBurger = restaurant.getMenus().getParNom(string4).getChoixElementParNom("Burger")
-                .getParNom(string3).getChoixSupplement().size();
+                .getParNom(string3).getChoixSupplementComposant().size();
         Assertions.assertEquals(2, nbSuppBurger);
     }
 
@@ -357,6 +358,10 @@ public class UserStory16Test {
     }
     @Quand("je veux ajouter du {string} dans mon {string} et une {string} avec des {string}")
     public void je_veux_ajouter_du_dans_mon_et_une_avec_des(String string, String string2, String string3, String string4) {
+        double prixInitial = menuChoisi.getPrix();
+        double prixSupplement = menuChoisi.getPrixAvecSupplements();
+        Assertions.assertEquals(12, prixInitial);
+        Assertions.assertEquals(12, prixSupplement);
         SupplementComposant supplementComposant = menuChoisi.getChoixElementParNom("Burger").getParNom(string2)
                 .getSupplementParNom(string);
         Assertions.assertEquals("Bacon", supplementComposant.getNom());
@@ -407,6 +412,12 @@ public class UserStory16Test {
         m2.resetMenu();
         utilisateur.getCommandeActuelle().getMenus().get(0).resetMenu();
         restaurant2.getMenus().getParNom("Cheese").resetMenu();
+        int nbSupplementElement = utilisateur.getCommandeActuelle().getMenus().get(0).getContenuMenu().getSupplementElementListeSelectionne().size();
+        Assertions.assertEquals(0, nbSupplementElement);
+        double prixApresReset = utilisateur.getCommandeActuelle().getPrix();
+        Assertions.assertEquals(12, prixApresReset);
+        utilisateur.resetCommande();
+        Assertions.assertNull(utilisateur.getCommandeActuelle());
     }
 
 
