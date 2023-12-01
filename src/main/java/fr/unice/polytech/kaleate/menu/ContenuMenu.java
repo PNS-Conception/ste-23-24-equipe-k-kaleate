@@ -53,6 +53,10 @@ public class ContenuMenu implements Monnayable {
         return (ArrayList<SupplementElement>) choixSupplementElement.getSupplementsSelectionnes();
     }
 
+    public ChoixSupplementElement getChoixSupplementElement() {
+        return choixSupplementElement;
+    }
+
     public void setSupplementElementListe(ChoixSupplementElement supplementElement) {
         choixSupplementElement = supplementElement;
     }
@@ -145,5 +149,9 @@ public class ContenuMenu implements Monnayable {
             choixElement.verifElement();
         }
 
+    }
+
+    public void supprimerChoixElementParNom(String nomChoixElement){
+        choixElementListe.remove(getChoixElementParNom(nomChoixElement));
     }
 }

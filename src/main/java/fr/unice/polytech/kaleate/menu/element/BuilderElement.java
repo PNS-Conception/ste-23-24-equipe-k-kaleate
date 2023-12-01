@@ -7,6 +7,7 @@ import fr.unice.polytech.kaleate.menu.composant.SupplementComposant;
 import fr.unice.polytech.kaleate.menu.supplement.BuilderChoixSupplement;
 import fr.unice.polytech.kaleate.menu.supplement.BuilderChoixSupplementComposant;
 import fr.unice.polytech.kaleate.menu.supplement.ChoixSupplement;
+import fr.unice.polytech.kaleate.menu.supplement.ChoixSupplementComposant;
 
 public class BuilderElement implements Builder<Element> {
 
@@ -54,7 +55,7 @@ public class BuilderElement implements Builder<Element> {
         //builderChoixComposant.reset();
     }
 
-    public void addChoixSupplement(ChoixSupplement<SupplementComposant> supplementComposant) {
+    public void addChoixSupplement(ChoixSupplementComposant supplementComposant) {
         element.ajoutChoixSupplement(supplementComposant);
 
         //element.ajoutChoixSupplement(builderChoixSupplement.getResult());

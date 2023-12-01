@@ -12,7 +12,7 @@ import java.util.List;
 public class Element implements Monnayable {
     private String nomElement;
     private List<ChoixComposant> choixComposantListe;
-    private ChoixSupplement<SupplementComposant> choixSupplementComposant;
+    private ChoixSupplementComposant choixSupplementComposant;
 
     public Element() {
         this.nomElement = "";
@@ -48,6 +48,10 @@ public class Element implements Monnayable {
         return choixSupplementComposant.getSupplementsSelectionnes();
     }
 
+    public ChoixSupplementComposant getChoixSupplementComposantDispo() {
+        return choixSupplementComposant;
+    }
+
     public boolean estParNom(String nomElement){
         return this.nomElement.equals(nomElement);
     }
@@ -67,7 +71,7 @@ public class Element implements Monnayable {
     public void ajoutSupplement(SupplementComposant supplementComposant){
         choixSupplementComposant.ajoutSupplement(supplementComposant);
     }
-    public void ajoutChoixSupplement(ChoixSupplement<SupplementComposant> choix) {
+    public void ajoutChoixSupplement(ChoixSupplementComposant choix) {
         choixSupplementComposant = choix;
     }
 
@@ -150,5 +154,9 @@ public class Element implements Monnayable {
         for (ChoixComposant cc : choixComposantListe) {
             cc.verifComposant();
         }
+    }
+
+    public void supprimerChoixComposantParNom(String nomChoixComposant) {
+        choixComposantListe.removeIf(cc -> cc.estChoixParNom(nomChoixComposant));
     }
 }
