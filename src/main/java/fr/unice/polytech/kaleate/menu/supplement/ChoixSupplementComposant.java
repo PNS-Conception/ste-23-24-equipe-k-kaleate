@@ -95,4 +95,11 @@ public class ChoixSupplementComposant implements ChoixSupplement<SupplementCompo
         }
         return null;
     }
+
+    public void supprimerSupplementSelectionneParNom(String nom) {
+        List<SupplementComposant> supplements = supplementsSelectionnes.stream().filter(supplement -> supplement.getNom().equals(nom)).collect(Collectors.toList());
+        if (supplements.size() > 0) {
+            supplementsSelectionnes.remove(supplements.get(0));
+        }
+    }
 }

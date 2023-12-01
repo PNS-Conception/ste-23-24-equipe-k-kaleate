@@ -112,7 +112,7 @@ public class Element implements Monnayable {
      * @return le supplément composant trouvé avec le string entré en paramètres
      */
     public SupplementComposant getSupplementSelectionneParNom(String nomSupplement){
-        return this.choixSupplementComposant.getSupplementsListe().stream().filter(cs -> cs.estParNom(nomSupplement)).findFirst().orElse(null);
+        return this.choixSupplementComposant.getSupplementsSelectionnes().stream().filter(cs -> cs.estParNom(nomSupplement)).findFirst().orElse(null);
     }
 
     public void reset(){
@@ -158,5 +158,9 @@ public class Element implements Monnayable {
 
     public void supprimerChoixComposantParNom(String nomChoixComposant) {
         choixComposantListe.removeIf(cc -> cc.estChoixParNom(nomChoixComposant));
+    }
+
+    public void supprimerComposantSupplementSelectionneParNom(String nomSupplement) {
+        choixSupplementComposant.supprimerSupplementSelectionneParNom(nomSupplement);
     }
 }

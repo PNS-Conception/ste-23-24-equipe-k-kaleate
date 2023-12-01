@@ -251,4 +251,17 @@ public class UserStory20Test {
         Assertions.assertNull(supplementElementChoisi);
     }
 
+    @Quand("je supprime le composant supplement {string} de mon element {string} dans mon choix element {string} de mon menu {string}")
+    public void je_supprime_le_composant_supplement_de_mon_element_dans_mon_choix_element_de_mon_menu(String string, String string2, String string3, String string4) {
+        utilisateur.getCommandeActuelle().getMenuParNom(string4).getContenuMenu().getChoixElementParNom(string3).getSelectionneParNom(string2).supprimerComposantSupplementSelectionneParNom(string);
+        Composant composantChoisi = utilisateur.getCommandeActuelle().getMenuParNom(string4).getContenuMenu().getChoixElementParNom(string3).getSelectionneParNom(string2).getSupplementSelectionneParNom(string);
+        Assertions.assertNull(composantChoisi);
+    }
+    @Alors("je ne vois pas le composant supplement {string} de mon element {string} dans mon choix element {string} de mon menu {string} de ma commande")
+    public void je_ne_vois_pas_le_composant_supplement_de_mon_element_dans_mon_choix_element_de_mon_menu_de_ma_commande(String string, String string2, String string3, String string4) {
+        Composant composantChoisi = utilisateur.getCommandeActuelle().getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getSelectionneParNom(string2).getSupplementSelectionneParNom(string);
+        Assertions.assertNull(composantChoisi);
+    }
+
+
 }
