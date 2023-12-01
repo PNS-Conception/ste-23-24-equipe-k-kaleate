@@ -192,10 +192,10 @@ public class UserStory20Test {
         Menu menuCommande = restaurant.getMenus().getParNom("menu1");
         Assertions.assertNull(menuCommande);
     }
-    @Alors("je choisis {string} {string} {string} {string} et {string} pour mon menu {string}")
-    public void je_choisis_et_pour_mon_menu(String string, String string2, String string3, String string4, String string5, String string6) {
+    @Alors("je choisis {string} {string} {string} et {string} pour mon menu {string}")
+    public void je_choisis_et_pour_mon_menu(String string, String string2, String string3, String string4, String string5) {
         choisir();
-        Element elementChoisi = utilisateur.getCommandeActuelle().getMenuParNom(string6).getContenuMenu().getChoixElementParNom("Plat").getSelectionneParNom("Burger Cheese");
+        Element elementChoisi = utilisateur.getCommandeActuelle().getMenuParNom(string5).getContenuMenu().getChoixElementParNom("Plat").getSelectionneParNom("Burger Cheese");
         Assertions.assertNotNull(elementChoisi);
         Composant composantChoisi = elementChoisi.getChoixParNom("Fromage").getSelectionneParNom("Emmental");
         Assertions.assertNotNull(composantChoisi);
@@ -220,5 +220,23 @@ public class UserStory20Test {
         utilisateur.payer();
         Element elementChoisi = utilisateur.getCommandeActuelle().getMenuParNom("menu1").getContenuMenu().getChoixElementParNom(string).getSelectionneParNom(string2);
         Assertions.assertNotNull(elementChoisi);
+    }
+
+    @Quand("je supprime l'element {string} dans mon choix composant {string} de mon element {string} dans mon choix element {string} de mon menu {string}")
+    public void je_supprime_l_element_dans_mon_choix_composant_de_mon_element_dans_mon_choix_element_de_mon_menu(String string, String string2, String string3, String string4, String string5) {
+        utilisateur.getCommandeActuelle().getMenuParNom(string5).getContenuMenu().getChoixElementParNom(string4).getSelectionneParNom(string3).getChoixParNom(string2).supprimerComposantSelectionneParNom(string);
+        Composant composantChoisi = utilisateur.getCommandeActuelle().getMenuParNom(string5).getContenuMenu().getChoixElementParNom(string4).getSelectionneParNom(string3).getChoixParNom(string2).getSelectionneParNom(string);
+        Assertions.assertNull(composantChoisi);
+    }
+    @Alors("je ne vois pas l'element {string} dans mon choix composant {string} de mon element {string} dans mon choix element {string} de mon menu {string} de ma commande")
+    public void je_ne_vois_pas_l_element_dans_mon_choix_composant_de_mon_element_dans_mon_choix_element_de_mon_menu_de_ma_commande(String string, String string2, String string3, String string4, String string5) {
+        Composant composantChoisi = utilisateur.getCommandeActuelle().getMenus().getParNom(string5).getContenuMenu().getChoixElementParNom(string4).getSelectionneParNom(string3).getChoixParNom(string2).getSelectionneParNom(string);
+        Assertions.assertNull(composantChoisi);
+    }
+    @Alors("quand je paye ma commande l'element choisi pour le choix composant {string} de mon element {string} dans mon choix element {string} est l'element par defaut soit {string}")
+    public void quand_je_paye_ma_commande_l_element_choisi_pour_le_choix_composant_de_mon_element_dans_mon_choix_element_est_l_element_par_defaut_soit(String string, String string2, String string3, String string4) {
+        utilisateur.payer();
+        Composant composantChoisi = utilisateur.getCommandeActuelle().getMenuParNom("menu1").getContenuMenu().getChoixElementParNom(string3).getSelectionneParNom(string2).getChoixParNom(string).getSelectionneParNom(string4);
+        Assertions.assertNotNull(composantChoisi);
     }
 }
