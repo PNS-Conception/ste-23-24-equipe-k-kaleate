@@ -69,6 +69,7 @@ public class Menu extends Observable implements Monnayable {
     public void setCommande(Commande c)
     {
         this.commande = c;
+        this.restaurant.supprimerMenu(this);
     }
     public Commande getCommande()
     {

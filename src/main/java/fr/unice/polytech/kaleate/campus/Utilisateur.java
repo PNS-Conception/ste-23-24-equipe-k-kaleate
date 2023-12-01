@@ -58,7 +58,7 @@ public class Utilisateur extends Evaluable implements Evalueur {
                 commandeActuelle = new CommandeSimple(this);
                 ListeCommande.getInstance().add(commandeActuelle);
             }
-            m.verifContenuMenu();
+
             return commandeActuelle.addMenu(m);
         }
         public boolean removeMenu(Menu m){
@@ -83,6 +83,9 @@ public class Utilisateur extends Evaluable implements Evalueur {
         public boolean payer(){
             if(commandeActuelle == null) return false;
             if(new PayementExterne().payer(this,commandeActuelle.getPrix())) {
+                for (Menu m : commandeActuelle.getMenus()) {
+                    m.verifContenuMenu();
+                }
                 commandeActuelle.setStatut(StatutCommande.PAYEE);
                 commandeActuelle.elligibleReduction();
                 commandeActuelle.enregistrerCommande();

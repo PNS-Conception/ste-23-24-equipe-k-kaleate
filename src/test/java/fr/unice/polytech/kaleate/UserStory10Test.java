@@ -38,29 +38,30 @@ public class UserStory10Test {
     }
     @Soit("la commande {int} validee avec une liste de {int} menus du Restaurant {string}")
     public void la_commande_validee_avec_une_liste_de_menus_du_restaurant(int int1, int int2, String string) {
-        ArrayList<Menu> lm = new ArrayList<>();
         Date db = new Date();
         Date df = new Date();
         Calendar c = Calendar.getInstance();
         c.setTime(df);
         c.add(Calendar.DATE, 1);
         df = c.getTime();
-        lm.add(new Menu(15,"pizza-fiesta",new Creneau(db,df)));
-        lm.add(new Menu(9,"pizza-solo",new Creneau(db,df)));
-        ListeMenus menus = new ListeMenus(lm);
-        pizzaroc.setMenus(menus);
+        Menu m1 = new Menu(15,"pizza-fiesta",new Creneau(db,df));
+        Menu m2 = new Menu(9,"pizza-solo",new Creneau(db,df));
+        Menu m3 = new Menu(5,"pizza-youpi",new Creneau(db,df));
+        pizzaroc.ajouterMenu(m1);
+        pizzaroc.ajouterMenu(m2);
+        pizzaroc.ajouterMenu(m3);
 
         Utilisateur michel = new Utilisateur("Michel","Legoat");
 
         com=new CommandeSimple(michel);
         com.addMenu(pizzaroc.getMenus().get(0));
         com.addMenu(pizzaroc.getMenus().get(0));
-        com.addMenu(pizzaroc.getMenus().get(1));
+        com.addMenu(pizzaroc.getMenus().get(0));
 
         assertNotEquals(com.getId(),int1);
         com.setId(int1);
         assertEquals(com.getId(),int1);
-      
+
         ListeCommande lc = new ListeCommande();
 
         lc.add(com);
