@@ -96,4 +96,22 @@ public class ChoixSupplementElement implements ChoixSupplement<SupplementElement
         }
         return null;
     }
+
+    public void supprimerSupplementSelectionneParNom(String nom) {
+        for (SupplementElement supplement : supplementsSelectionnes) {
+            if (supplement.getNom().equals(nom)) {
+                supplementsSelectionnes.remove(supplement);
+                break;
+            }
+        }
+    }
+
+    public SupplementElement getSupplementSelectionneParNom(String nom) {
+        for (SupplementElement supplement : supplementsSelectionnes) {
+            if (supplement.getNom().equals(nom)) {
+                return supplement;
+            }
+        }
+        return null;
+    }
 }

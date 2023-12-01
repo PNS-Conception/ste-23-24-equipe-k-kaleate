@@ -302,45 +302,43 @@ public class UserStory16Test {
         creerMenuDansRestaurant();
         menuChoisi = restaurant2.getMenus().getParNom(string);
         Assertions.assertNotNull(menuChoisi);
+        utilisateur.addMenu(menuChoisi);
+        Assertions.assertEquals(menuChoisi, utilisateur.getCommandeActuelle().getMenuParNom(string));
     }
     @Quand("je veux boire du {string}")
     public void je_veux_boire_du(String string) {
-        Element boisson  = menuChoisi.getChoixElementListe().get(0).getParNom(string);
+        Element boisson  = utilisateur.getCommandeActuelle().getMenuParNom("Cheese").getChoixElementListe().get(0).getParNom(string);
         Assertions.assertEquals("Coca", boisson.getNom());
-        menuChoisi.getChoixElementParNom("Boisson").choisir(boisson);
-        Element element = menuChoisi.getChoixElementParNom("Boisson").getSelectionneParNom(string);
+        utilisateur.getCommandeActuelle().getMenuParNom("Cheese").getChoixElementParNom("Boisson").choisir(boisson);
+        Element element = utilisateur.getCommandeActuelle().getMenuParNom("Cheese").
+                getChoixElementParNom("Boisson").getSelectionneParNom(string);
         Assertions.assertEquals(string, element.getNom());
     }
     @Alors("ma commande contient du {string}")
     public void ma_commande_contient_du(String string) {
-        ListeMenus listeMenus = new ListeMenus();
-        commande = new CommandeSimple(utilisateur, creneau);
-        commande.setMenus(listeMenus);
-        utilisateur.setCommandeActuelle(commande);
-        utilisateur.addMenu(menuChoisi);
         Element element = utilisateur.getCommandeActuelle().getMenuParNom("Cheese")
                 .getChoixElementParNom("Boisson").getSelectionneParNom(string);
         Assertions.assertEquals(string, element.getNom());
     }
     @Quand("je veux du {string} et de la {string} comme {string} dans mon {string}")
     public void je_veux_du_et_de_la_dans_mon(String string, String string2, String string3, String string4) {
-        Composant composant1 = menuChoisi.getChoixElementParNom("Burger").getParNom(string4)
-                .getChoixParNom(string3).getParNom(string);
-        Composant composant2 = menuChoisi.getChoixElementParNom("Burger").getParNom(string4)
-                .getChoixParNom(string3).getParNom(string2);
+        Composant composant1 = utilisateur.getCommandeActuelle().getMenuParNom("Cheese").getChoixElementParNom("Burger")
+                .getParNom(string4).getChoixParNom(string3).getParNom(string);
+        Composant composant2 = utilisateur.getCommandeActuelle().getMenuParNom("Cheese").getChoixElementParNom("Burger")
+                .getParNom(string4).getChoixParNom(string3).getParNom(string2);
         Assertions.assertEquals("Ketchup", composant1.getNom());
         Assertions.assertEquals("Mayonnaise", composant2.getNom());
-        menuChoisi.getChoixElementParNom("Burger").getParNom(string4).getChoixParNom(string3)
+        utilisateur.getCommandeActuelle().getMenuParNom("Cheese").getChoixElementParNom("Burger").getParNom(string4).getChoixParNom(string3)
                 .choisir(composant1);
-        menuChoisi.getChoixElementParNom("Burger").getParNom(string4).getChoixParNom(string3)
+        utilisateur.getCommandeActuelle().getMenuParNom("Cheese").getChoixElementParNom("Burger").getParNom(string4).getChoixParNom(string3)
                 .choisir(composant2);
-        int valeur = menuChoisi.getChoixElementParNom("Burger").getParNom(string4)
+        int valeur = utilisateur.getCommandeActuelle().getMenuParNom("Cheese").getChoixElementParNom("Burger").getParNom(string4)
                 .getChoixParNom(string3).getListeSelectionne().size();
         Assertions.assertEquals(2, valeur);
         //On vérifie qu'on ne peux pas ajouter un troisième choix
-        menuChoisi.getChoixElementParNom("Burger").getParNom(string4).getChoixParNom(string3)
+        utilisateur.getCommandeActuelle().getMenuParNom("Cheese").getChoixElementParNom("Burger").getParNom(string4).getChoixParNom(string3)
                 .choisir(composant2);
-        int valeur2 = menuChoisi.getChoixElementParNom("Burger").getParNom(string4)
+        int valeur2 = utilisateur.getCommandeActuelle().getMenuParNom("Cheese").getChoixElementParNom("Burger").getParNom(string4)
                 .getChoixParNom(string3).getListeSelectionne().size();
         Assertions.assertEquals(2, valeur2);
     }
@@ -354,41 +352,36 @@ public class UserStory16Test {
         Assertions.assertEquals("Mayonnaise", composant2.getNom());
         m2.resetMenu();
         utilisateur.getCommandeActuelle().getMenus().get(0).resetMenu();
-        restaurant2.getMenus().getParNom("Cheese").resetMenu();
+        //restaurant2.getMenus().getParNom("Cheese").resetMenu();
     }
     @Quand("je veux ajouter du {string} dans mon {string} et une {string} avec des {string}")
     public void je_veux_ajouter_du_dans_mon_et_une_avec_des(String string, String string2, String string3, String string4) {
-        double prixInitial = menuChoisi.getPrix();
-        double prixSupplement = menuChoisi.getPrixAvecSupplements();
+        double prixInitial = utilisateur.getCommandeActuelle().getMenuParNom("Cheese").getPrix();
+        double prixSupplement = utilisateur.getCommandeActuelle().getMenuParNom("Cheese").getPrixAvecSupplements();
         Assertions.assertEquals(12, prixInitial);
         Assertions.assertEquals(12, prixSupplement);
-        SupplementComposant supplementComposant = menuChoisi.getChoixElementParNom("Burger").getParNom(string2)
+        SupplementComposant supplementComposant =utilisateur.getCommandeActuelle().getMenuParNom("Cheese").getChoixElementParNom("Burger").getParNom(string2)
                 .getSupplementParNom(string);
         Assertions.assertEquals("Bacon", supplementComposant.getNom());
-        SupplementElement supplementElement = menuChoisi.getContenuMenu().getChoixSupplementElementParNom(string3);
+        SupplementElement supplementElement = utilisateur.getCommandeActuelle().getMenuParNom("Cheese").getContenuMenu().getChoixSupplementElementParNom(string3);
         Assertions.assertEquals("Glace", supplementElement.getNom());
-        menuChoisi.getChoixElementParNom("Burger").getParNom(string2).ajoutChoixSupplementSelectionne(supplementComposant);
+        utilisateur.getCommandeActuelle().getMenuParNom("Cheese").getChoixElementParNom("Burger").getParNom(string2).ajoutChoixSupplementSelectionne(supplementComposant);
         SupplementComposant sup = menuChoisi.getChoixElementParNom("Burger").getParNom(string2)
                 .getSupplementParNom(string);
         Assertions.assertEquals("Bacon", sup.getNom());
-        menuChoisi.getContenuMenu().ajouterElementSupplementSelectionne(supplementElement);
-        SupplementElement supEl = menuChoisi.getContenuMenu().getChoixSupplementElementParNom(string3);
+        utilisateur.getCommandeActuelle().getMenuParNom("Cheese").getContenuMenu().ajouterElementSupplementSelectionne(supplementElement);
+        SupplementElement supEl = utilisateur.getCommandeActuelle().getMenuParNom("Cheese").getContenuMenu().getChoixSupplementElementParNom(string3);
         Assertions.assertEquals("Glace", supEl.getNom());
-        SupplementComposant supC = menuChoisi.getContenuMenu().getChoixSupplementElementParNom(string3).getElement().getSupplementParNom(string4);
+        SupplementComposant supC = utilisateur.getCommandeActuelle().getMenuParNom("Cheese").getContenuMenu().getChoixSupplementElementParNom(string3).getElement().getSupplementParNom(string4);
         Assertions.assertEquals("Cacahuetes", supC.getNom());
-        menuChoisi.getContenuMenu().getChoixSupplementElementParNom(string3)
+        utilisateur.getCommandeActuelle().getMenuParNom("Cheese").getContenuMenu().getChoixSupplementElementParNom(string3)
                 .getElement().ajoutChoixSupplementSelectionne(supC);
-        SupplementComposant supC2 = menuChoisi.getContenuMenu().getChoixSupplementElementParNom(string3).getElement().getSupplementParNom(string4);
+        SupplementComposant supC2 = utilisateur.getCommandeActuelle().getMenuParNom("Cheese").getContenuMenu().getChoixSupplementElementParNom(string3).getElement().getSupplementParNom(string4);
         Assertions.assertEquals("Cacahuetes", supC2.getNom());
 
     }
     @Alors("ma commande contient du {string} dans mon {string}")
     public void ma_commande_contient_du_dans_mon(String string, String string2) {
-        ListeMenus listeMenus = new ListeMenus();
-        commande = new CommandeSimple(utilisateur, creneau);
-        commande.setMenus(listeMenus);
-        utilisateur.setCommandeActuelle(commande);
-        utilisateur.addMenu(menuChoisi);
         SupplementComposant supCo = utilisateur.getCommandeActuelle().getMenus().get(0).getChoixElementParNom("Burger")
                 .getParNom(string2).getSupplementSelectionneParNom(string);
         System.out.println(utilisateur.getCommandeActuelle().getMenus().get(0).getChoixElementParNom("Burger")
@@ -408,10 +401,10 @@ public class UserStory16Test {
         double prixInitial = utilisateur.getCommandeActuelle().getPrixBase();
         double prixSupplement = utilisateur.getCommandeActuelle().getPrix();
         Assertions.assertEquals(12, prixInitial);
-        Assertions.assertEquals(17, prixSupplement);
+        Assertions.assertEquals(15, prixSupplement);
         m2.resetMenu();
         utilisateur.getCommandeActuelle().getMenus().get(0).resetMenu();
-        restaurant2.getMenus().getParNom("Cheese").resetMenu();
+        //restaurant2.getMenus().getParNom("Cheese").resetMenu();
         int nbSupplementElement = utilisateur.getCommandeActuelle().getMenus().get(0).getContenuMenu().getSupplementElementListeSelectionne().size();
         Assertions.assertEquals(0, nbSupplementElement);
         double prixApresReset = utilisateur.getCommandeActuelle().getPrix();

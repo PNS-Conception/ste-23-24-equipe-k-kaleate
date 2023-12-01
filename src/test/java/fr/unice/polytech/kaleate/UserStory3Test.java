@@ -13,10 +13,7 @@ import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;
 import org.junit.platform.suite.api.Suite;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
@@ -39,38 +36,43 @@ public class UserStory3Test {
 
     static CommandeGroupee commandeGroupee;
 
-    public static List<Menu> getMenus(){
-        List<Menu> menus = new ArrayList<Menu>();
+    static Menu m1, m2, m3, m4, m5, m6;
+
+    public static void getMenus(){
 
         // date qui fonctionnent
         Date db = new Date();
         Date df = new Date();
 
         Calendar c = Calendar.getInstance();
-        c.add(Calendar.MINUTE, 1);
-        db = c.getTime();
         c.setTime(df);
-        c.add(Calendar.MINUTE, 2);
+        c.add(Calendar.DATE, 1);
         df = c.getTime();
 
-        menus.add(new Menu(10, "Burger cheese", new Creneau(db, df)));
-        menus.add(new Menu(12, "Burger double cheese", new Creneau(db, df)));
-        menus.add(new Menu(8, "Hamburger classic", new Creneau(db, df)));
+        m1 = new Menu(10, "Burger cheese", new Creneau(db, df));
+        m2 = new Menu(12, "Burger double cheese", new Creneau(db, df));
+        m3 = new Menu(8, "Hamburger classic", new Creneau(db, df));
 
-        c.setTime(df);
-        c.setTime(db);
-        c.add(Calendar.HOUR, 2);
-        db = c.getTime();
-        c.add(Calendar.HOUR,1);
-        df = c.getTime();
 
-        menus.add(new Menu(10, "Burger cheese 2", new Creneau(db, df)));
-        menus.add(new Menu(12, "Burger double cheese 2", new Creneau(db, df)));
-        menus.add(new Menu(8, "Hamburger classic 2", new Creneau(db, df)));
-        return menus;
+        // date qui ne fonctionnent pas
+        Date dnb = new Date();
+        Date dnf = new Date();
+
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(dnf);
+        c2.add(Calendar.DATE, 2);
+        dnb = c2.getTime();
+        c2.add(Calendar.DATE, 1);
+        dnf = c2.getTime();
+
+        m4 = new Menu(10, "NOT Burger cheese", new Creneau(dnb, dnf));
+        m5 = new Menu(12, "NOT Burger double cheese", new Creneau(dnb, dnf));
+        m6 = new Menu(8, "NOT Hamburger classic", new Creneau(dnb, dnf));
+
     }
 
     public void commandeMemeCreneau(){
+        getMenus();
         // date qui fonctionnent
         Date db = new Date();
         Date df = new Date();
@@ -80,7 +82,13 @@ public class UserStory3Test {
         c.add(Calendar.HOUR, 1);
         df = c.getTime();
 
-        Restaurant restaurant1 = new Restaurant("Restau 1",new ListeMenus(getMenus()));
+        Restaurant restaurant1 = new Restaurant("Restau 1");
+        restaurant1.ajouterMenu(m1);
+        restaurant1.ajouterMenu(m2);
+        restaurant1.ajouterMenu(m3);
+        restaurant1.ajouterMenu(m4);
+        restaurant1.ajouterMenu(m5);
+        restaurant1.ajouterMenu(m6);
         commandeGroupee = new CommandeGroupee();
         commandeUserA = new CommandeSimple(userA,new Creneau(db, df));
         commandeUserA.addMenu(restaurant1.getMenus().get(0));
@@ -90,7 +98,14 @@ public class UserStory3Test {
         userB.setCommandeActuelle(commandeUserB);
     }
     public void commandeDiffCreneau(){
-        Restaurant restaurant1 = new Restaurant("Restau 1",new ListeMenus(getMenus()));
+        getMenus();
+        Restaurant restaurant1 = new Restaurant("Restau 1");
+        restaurant1.ajouterMenu(m1);
+        restaurant1.ajouterMenu(m2);
+        restaurant1.ajouterMenu(m3);
+        restaurant1.ajouterMenu(m4);
+        restaurant1.ajouterMenu(m5);
+        restaurant1.ajouterMenu(m6);
 
         // date qui fonctionnent
         Date db = new Date();
@@ -177,7 +192,13 @@ public class UserStory3Test {
     @Quand("User C affiche la liste des menus")
     public void user_c_affiche_la_liste_des_menus() {
         // Write code here that turns the phrase above into concrete actions
-        ListeMenus listeMenus = new ListeMenus(getMenus());
+        ListeMenus listeMenus = new ListeMenus();
+        listeMenus.add(m1);
+        listeMenus.add(m2);
+        listeMenus.add(m3);
+        listeMenus.add(m4);
+        listeMenus.add(m5);
+        listeMenus.add(m6);
         assertEquals(userC.getCommandeActuelle().getCreneauLivraison(),commandeGroupee.getCreneauLivraison());
         menus = listeMenus.getMenusDansCreneau(userC.getCommandeActuelle().getCreneauLivraison());
 

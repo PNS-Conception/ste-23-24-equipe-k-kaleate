@@ -7,6 +7,7 @@ import fr.unice.polytech.kaleate.commande.ListeCommande;
 import fr.unice.polytech.kaleate.commande.StatutCommande;
 import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.outils.Creneau;
+import fr.unice.polytech.kaleate.restaurant.Restaurant;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Quand;
 import io.cucumber.java.fr.Soit;
@@ -31,7 +32,10 @@ public class UserStory7Test {
     static Commande commande = utilisateur.getCommandeActuelle();
 
     static ListeCommande listeCommande = new ListeCommande();
-    public static List<Menu> getMenus(){
+
+    static Menu m1, m2, m3;
+    static Restaurant restaurant = new Restaurant();
+    public static void getMenus(){
         List<Menu> menus = new ArrayList<Menu>();
 
         // date qui fonctionnent
@@ -43,15 +47,15 @@ public class UserStory7Test {
         c.add(Calendar.DATE, 1);
         df = c.getTime();
 
-        menus.add(new Menu(10, "Burger cheese", new Creneau(db, df)));
-        menus.add(new Menu(12, "Burger double cheese", new Creneau(db, df)));
-        menus.add(new Menu(8, "Hamburger classic", new Creneau(db, df)));
+        m1 = new Menu(10, "Burger cheese", new Creneau(db, df), restaurant);
+        m2 = new Menu(12, "Burger double cheese", new Creneau(db, df), restaurant);
+        m3 = new Menu(8, "Hamburger classic", new Creneau(db, df), restaurant);
 
-        return menus;
     }
     public void creerCommande(Utilisateur u1){
-        u1.addMenu(getMenus().get(0));
-        u1.addMenu(getMenus().get(1));
+        getMenus();
+        u1.addMenu(m1);
+        u1.addMenu(m2);
         listeCommande.add(u1.getCommandeActuelle());
     }
 

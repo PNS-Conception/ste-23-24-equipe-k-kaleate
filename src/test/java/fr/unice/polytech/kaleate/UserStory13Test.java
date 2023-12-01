@@ -81,13 +81,13 @@ public class UserStory13Test {
         com1.setStatut(StatutCommande.VALIDEE);
 
         Utilisateur utilisateur2 = new Utilisateur("nom2", "prenom2");
-        Menu menu2 = restaurant1.getMenus().get(1);
+        Menu menu2 = restaurant1.getMenus().get(0);
         CommandeSimple com2 = new CommandeSimple(utilisateur2);
         com2.addMenu(menu2);
         com2.setStatut(StatutCommande.EN_PREPARATION);
 
         Utilisateur utilisateur3 = new Utilisateur("nom3", "prenom3");
-        Menu menu3 = restaurant1.getMenus().get(2);
+        Menu menu3 = restaurant1.getMenus().get(0);
         CommandeSimple com3 = new CommandeSimple(utilisateur3);
         com3.addMenu(menu3);
         com3.setStatut(StatutCommande.PRETE);
@@ -106,13 +106,13 @@ public class UserStory13Test {
         com4.setStatut(StatutCommande.EN_CREATION);
 
         Utilisateur utilisateur5 = new Utilisateur("nom5", "prenom5");
-        Menu menu5 = restaurant2.getMenus().get(1);
+        Menu menu5 = restaurant2.getMenus().get(0);
         CommandeSimple com5 = new CommandeSimple(utilisateur5);
         com5.addMenu(menu5);
         com5.setStatut(StatutCommande.PRETE);
 
         Utilisateur utilisateur6 = new Utilisateur("nom3", "prenom3");
-        Menu menu6 = restaurant2.getMenus().get(2);
+        Menu menu6 = restaurant2.getMenus().get(0);
         CommandeSimple com6 = new CommandeSimple(utilisateur6);
         com6.addMenu(menu6);
         com6.setStatut(StatutCommande.PRETE);

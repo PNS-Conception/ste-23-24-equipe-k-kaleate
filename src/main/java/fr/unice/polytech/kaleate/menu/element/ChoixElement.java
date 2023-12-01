@@ -157,4 +157,8 @@ public class ChoixElement implements Choix<Element> {
     public void supprimerElementDisponibleParNom(String nom){
         elementListeDisponible.removeIf(element -> element.estParNom(nom));
     }
+
+    public void supprimerElementSelectionneParNom(String nom){
+        elementListeSelectionne.removeIf(element -> element.estParNom(nom));
+    }
 }
