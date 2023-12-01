@@ -239,4 +239,16 @@ public class UserStory20Test {
         Composant composantChoisi = utilisateur.getCommandeActuelle().getMenuParNom("menu1").getContenuMenu().getChoixElementParNom(string3).getSelectionneParNom(string2).getChoixParNom(string).getSelectionneParNom(string4);
         Assertions.assertNotNull(composantChoisi);
     }
+    @Quand("je supprime l'element supplement {string} de mon menu {string}")
+    public void je_supprime_l_element_supplement_de_mon_menu(String string, String string2) {
+        utilisateur.getCommandeActuelle().getMenuParNom(string2).getContenuMenu().getChoixSupplementElement().supprimerSupplementSelectionneParNom(string);
+        SupplementElement supplementElementChoisi = utilisateur.getCommandeActuelle().getMenuParNom(string2).getContenuMenu().getChoixSupplementElement().getSupplementSelectionneParNom(string);
+        Assertions.assertNull(supplementElementChoisi);
+    }
+    @Alors("je ne vois pas l'element supplement {string} de mon menu {string} de ma commande")
+    public void je_ne_vois_pas_l_element_supplement_de_mon_menu_de_ma_commande(String string, String string2) {
+        SupplementElement supplementElementChoisi = utilisateur.getCommandeActuelle().getMenus().getParNom(string2).getContenuMenu().getChoixSupplementElement().getSupplementSelectionneParNom(string);
+        Assertions.assertNull(supplementElementChoisi);
+    }
+
 }
