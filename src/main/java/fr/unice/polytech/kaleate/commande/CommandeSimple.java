@@ -313,4 +313,11 @@ public class CommandeSimple extends Observable implements Observer, Commande  {
     public boolean getReduction() {
         return this.reduction;
     }
+
+    public void abandonCommande(){
+        for(Menu m : menus){
+            m.resetMenu();
+            m.getRestaurant().ajouterMenu(m);
+        }
+    }
 }
