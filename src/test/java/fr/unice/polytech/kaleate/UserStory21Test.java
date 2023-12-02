@@ -291,5 +291,30 @@ public class UserStory21Test {
         Assertions.assertEquals(string5, composantChoisi.getNom());
     }
 
+    @Quand("je remplace {string} par {string} pour mon supplement composant de mon element {string} de mon choix element {string} dans mon menu {string}")
+    public void je_remplace_par_pour_mon_supplement_composant_de_mon_element_de_mon_choix_element_dans_mon_menu(String string, String string2, String string3, String string4, String string5) {
+        utilisateur.getCommandeActuelle().getMenus().getParNom(string5).getContenuMenu().getChoixElementParNom(string4)
+                .getParNom(string3).getChoixSupplementComposantDispo().supprimerSupplementSelectionneParNom(string);
+        SupplementComposant supplementComposantChoisi = utilisateur.getCommandeActuelle().getMenus().getParNom(string5).getContenuMenu().getChoixElementParNom(string4)
+                .getParNom(string3).getChoixSupplementComposantDispo().getSupplementParNom(string2);
+        utilisateur.getCommandeActuelle().getMenus().getParNom(string5).getContenuMenu().getChoixElementParNom(string4).getParNom(string3)
+                .getChoixSupplementComposantDispo().selectionnerSupplement(supplementComposantChoisi);
+        SupplementComposant nouveauSupplementComposant = utilisateur.getCommandeActuelle().getMenus().getParNom(string5).getContenuMenu().getChoixElementParNom(string4)
+                .getParNom(string3).getChoixSupplementComposantDispo().getSupplementSelectionneParNom(string2);
+        Assertions.assertNotNull(nouveauSupplementComposant);
+        Assertions.assertEquals(string2, nouveauSupplementComposant.getNom());
+        SupplementComposant ancienSupplementComposant = utilisateur.getCommandeActuelle().getMenus().getParNom(string5).getContenuMenu().getChoixElementParNom(string4)
+                .getParNom(string3).getChoixSupplementComposantDispo().getSupplementSelectionneParNom(string);
+        Assertions.assertNull(ancienSupplementComposant);
+    }
+
+    @Alors("mon menu {string} contient pour le supplement composant de mon element {string} de mon choix element {string} {string}")
+    public void mon_menu_contient_pour_le_supplement_composant_de_mon_element_de_mon_choix_element(String string, String string2, String string3, String string4) {
+        SupplementComposant supplementComposantChoisi = utilisateur.getCommandeActuelle().getMenus().getParNom(string).getContenuMenu().getChoixElementParNom(string3)
+                .getParNom(string2).getChoixSupplementComposantDispo().getSupplementSelectionneParNom(string4);
+        Assertions.assertNotNull(supplementComposantChoisi);
+        Assertions.assertEquals(string4, supplementComposantChoisi.getNom());
+    }
+
 
 }
