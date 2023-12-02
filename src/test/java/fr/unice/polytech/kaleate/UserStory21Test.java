@@ -240,4 +240,31 @@ public class UserStory21Test {
         Assertions.assertEquals(string3, elementChoisi.getNom());
     }
 
+    @Quand("je remplace {string} par {string} pour mon supplement element dans mon menu {string}")
+    public void je_remplace_par_pour_mon_supplement_element_dans_mon_menu(String string, String string2, String string3) {
+        utilisateur.getCommandeActuelle().getMenus().getParNom(string3).getContenuMenu().getChoixSupplementElement()
+                .supprimerSupplementSelectionneParNom(string);
+        SupplementElement supplementElementChoisi = utilisateur.getCommandeActuelle().getMenus().getParNom(string3)
+                .getContenuMenu().getChoixSupplementElement().getSupplementParNom(string2);
+        utilisateur.getCommandeActuelle().getMenus().getParNom(string3).getContenuMenu().getChoixSupplementElement()
+                .selectionnerSupplement(supplementElementChoisi);
+        SupplementElement nouveauSupplementElement = utilisateur.getCommandeActuelle().getMenus().getParNom(string3)
+                .getContenuMenu().getChoixSupplementElement().getSupplementSelectionneParNom(string2);
+        Assertions.assertNotNull(nouveauSupplementElement);
+        Assertions.assertEquals(string2, nouveauSupplementElement.getNom());
+        SupplementElement ancienSupplementElement = utilisateur.getCommandeActuelle().getMenus().getParNom(string3)
+                .getContenuMenu().getChoixSupplementElement().getSupplementSelectionneParNom(string);
+        Assertions.assertNull(ancienSupplementElement);
+
+    }
+
+    @Alors("mon menu {string} contient pour le supplement element {string}")
+    public void mon_menu_contient_pour_le_supplement_element(String string, String string2) {
+        SupplementElement supplementElementChoisi = utilisateur.getCommandeActuelle().getMenus().getParNom(string).getContenuMenu().getChoixSupplementElement()
+                .getSupplementSelectionneParNom(string2);
+        Assertions.assertNotNull(supplementElementChoisi);
+        Assertions.assertEquals(string2, supplementElementChoisi.getNom());
+    }
+
+
 }
