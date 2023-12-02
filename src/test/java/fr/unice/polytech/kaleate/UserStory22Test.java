@@ -177,4 +177,30 @@ public class UserStory22Test {
         return true;
     }
 
+    @Etantdonnéque("je suis un utilisateur ayant commence une commande")
+    public void je_suis_un_utilisateur_ayant_commence_une_commande() {
+        utilisateur = new Utilisateur("utilisateur", "utilisateur");
+        debutCommande();
+        Assertions.assertEquals(3, utilisateur.getCommandeActuelle().getMenus().size());
+
+    }
+    @Lorsque("j'abandonne ma commande")
+    public void j_abandonne_ma_commande() {
+        utilisateur.abandonCommande();
+    }
+    @Alors("ma commande actuelle est vide")
+    public void ma_commande_actuelle_est_vide() {
+        Assertions.assertNull(utilisateur.getCommandeActuelle());
+    }
+    @Alors("les restaurants recuperent leurs menus")
+    public void les_restaurants_recuperent_leurs_menus() {
+        Assertions.assertTrue(restaurantContientMenu(restaurant1, menu1));
+        Assertions.assertTrue(restaurantContientMenu(restaurant1, menu2));
+        Assertions.assertTrue(restaurantContientMenu(restaurant2, menu3));
+    }
+    @Alors("les menus sont reinitialises")
+    public void les_menus_sont_reinitialises() {
+        Assertions.assertTrue(menuReinitialise(restaurant1));
+        Assertions.assertTrue(menuReinitialise(restaurant2));
+    }
 }
