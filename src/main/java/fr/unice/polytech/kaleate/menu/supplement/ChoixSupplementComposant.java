@@ -102,4 +102,12 @@ public class ChoixSupplementComposant implements ChoixSupplement<SupplementCompo
             supplementsSelectionnes.remove(supplements.get(0));
         }
     }
+
+    public SupplementComposant getSupplementSelectionneParNom(String nom) {
+        List<SupplementComposant> supplements = supplementsSelectionnes.stream().filter(supplement -> supplement.getNom().equals(nom)).collect(Collectors.toList());
+        if (supplements.size() > 0) {
+            return supplements.get(0);
+        }
+        return null;
+    }
 }

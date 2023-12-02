@@ -181,4 +181,63 @@ public class UserStory21Test {
         utilisateur.getCommandeActuelle().getMenuParNom("menu1").getContenuMenu().getChoixElementParNom("Dessert").getSelectionneParNom("Glace").getChoixSupplementComposantDispo().selectionnerSupplement(supplementChantilly);
         utilisateur.getCommandeActuelle().getMenuParNom("menu1").getContenuMenu().getChoixElementParNom("Dessert").getSelectionneParNom("Glace").getChoixParNom("Parfum").choisir(vanille);
     }
+    @Etantdonnéque("je suis un utilisateur qui commande un menu {string}")
+    public void je_suis_un_utilisateur_qui_commande_un_menu(String string) {
+        utilisateur = new Utilisateur("utilisateur", "utilisateur");
+        Assertions.assertNotNull(utilisateur);
+    }
+    @Alors("quand j'ajoute ce menu {string} a ma commande")
+    public void quand_j_ajoute_ce_menu_a_ma_commande(String string) {
+        creationRestaurant();
+        menuChoisi = restaurant.getMenus().getParNom(string);
+        Assertions.assertNotNull(menuChoisi);
+        utilisateur.addMenu(menuChoisi);
+        Assertions.assertEquals(1, utilisateur.getCommandeActuelle().getMenus().size());
+        Menu menuCommande = restaurant.getMenus().getParNom("menu1");
+        Assertions.assertNull(menuCommande);
+    }
+    @Alors("je choisis {string}, {string}, {string} et {string} pour mon menu {string}")
+    public void je_choisis_et_pour_mon_menu(String string, String string2, String string3, String string4, String string5) {
+        choisir();
+        Element elementChoisiBurger = utilisateur.getCommandeActuelle().getMenuParNom(string5).getContenuMenu()
+                .getChoixElementParNom("Plat").getSelectionneParNom("Burger Cheese");
+        Assertions.assertNotNull(elementChoisiBurger);
+        Element elementChoisiGlace = utilisateur.getCommandeActuelle().getMenuParNom(string5).getContenuMenu()
+                .getChoixElementParNom("Dessert").getSelectionneParNom("Glace");
+        Assertions.assertNotNull(elementChoisiGlace);
+        SupplementElement supplementElementChoisiFrites = utilisateur.getCommandeActuelle().getMenuParNom(string5)
+                .getContenuMenu().getChoixSupplementElement().getSupplementSelectionneParNom("Frite");
+        Assertions.assertNotNull(supplementElementChoisiFrites);
+        SupplementComposant supplementComposantChoisiChantilly = utilisateur.getCommandeActuelle().getMenuParNom(string5)
+                .getContenuMenu().getChoixElementParNom("Dessert").getSelectionneParNom("Glace").getSupplementSelectionneParNom("Chantilly");
+        Assertions.assertNotNull(supplementComposantChoisiChantilly);
+        Composant composantChoisiVanille = utilisateur.getCommandeActuelle().getMenuParNom(string5).getContenuMenu()
+                .getChoixElementParNom("Dessert").getSelectionneParNom("Glace")
+                .getChoixParNom("Parfum").getSelectionneParNom("Vanille");
+        Assertions.assertNotNull(composantChoisiVanille);
+    }
+    @Quand("je remplace {string} par {string} pour mon choix element {string} dans mon menu {string}")
+    public void je_remplace_par_pour_mon_choix_element_dans_mon_menu(String string, String string2, String string3, String string4) {
+        utilisateur.getCommandeActuelle().getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3)
+                .supprimerElementSelectionneParNom(string);
+        Element elementChoisi = utilisateur.getCommandeActuelle().getMenus().getParNom(string4).getContenuMenu()
+                .getChoixElementParNom(string3).getParNom(string2);
+        utilisateur.getCommandeActuelle().getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).choisir(elementChoisi);
+        Element nouvelElement = utilisateur.getCommandeActuelle().getMenus().getParNom(string4).getContenuMenu()
+                .getChoixElementParNom(string3).getSelectionneParNom(string2);
+        Assertions.assertNotNull(nouvelElement);
+        Assertions.assertEquals(string2, nouvelElement.getNom());
+        Element ancienElement = utilisateur.getCommandeActuelle().getMenus().getParNom(string4).getContenuMenu()
+                .getChoixElementParNom(string3).getSelectionneParNom(string);
+        Assertions.assertNull(ancienElement);
+    }
+
+    @Alors("mon menu {string} contient pour le choix element {string} {string}")
+    public void mon_menu_contient_pour_le_choix_element(String string, String string2, String string3) {
+        Element elementChoisi = utilisateur.getCommandeActuelle().getMenus().getParNom(string).getContenuMenu().getChoixElementParNom(string2)
+                .getParNom(string3);
+        Assertions.assertNotNull(elementChoisi);
+        Assertions.assertEquals(string3, elementChoisi.getNom());
+    }
+
 }
