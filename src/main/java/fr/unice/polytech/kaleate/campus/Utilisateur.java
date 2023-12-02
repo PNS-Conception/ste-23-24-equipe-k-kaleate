@@ -129,6 +129,11 @@ public class Utilisateur extends Evaluable implements Evalueur {
                 }
         }
 
+        public void abandonCommande(){
+            commandeActuelle.abandonCommande();
+            commandeActuelle = null;
+        }
+
 
         public void resetCommande(){
             commandeActuelle = null;
