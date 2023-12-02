@@ -266,5 +266,30 @@ public class UserStory21Test {
         Assertions.assertEquals(string2, supplementElementChoisi.getNom());
     }
 
+    @Quand("je remplace {string} par {string} pour mon choix composant {string} de mon element {string} de mon choix element {string} dans mon menu {string}")
+    public void je_remplace_par_pour_mon_choix_composant_de_mon_element_de_mon_choix_element_dans_mon_menu(String string, String string2, String string3, String string4, String string5, String string6) {
+        utilisateur.getCommandeActuelle().getMenus().getParNom(string6).getContenuMenu().getChoixElementParNom(string5)
+                .getParNom(string4).getChoixParNom(string3).supprimerComposantSelectionneParNom(string);
+        Composant composantChoisi = utilisateur.getCommandeActuelle().getMenus().getParNom(string6).getContenuMenu().getChoixElementParNom(string5)
+                .getParNom(string4).getChoixParNom(string3).getParNom(string2);
+        utilisateur.getCommandeActuelle().getMenus().getParNom(string6).getContenuMenu().getChoixElementParNom(string5).getParNom(string4)
+                .getChoixParNom(string3).choisir(composantChoisi);
+        Composant nouveauComposant = utilisateur.getCommandeActuelle().getMenus().getParNom(string6).getContenuMenu().getChoixElementParNom(string5)
+                .getParNom(string4).getChoixParNom(string3).getSelectionneParNom(string2);
+        Assertions.assertNotNull(nouveauComposant);
+        Assertions.assertEquals(string2, nouveauComposant.getNom());
+        Composant ancienComposant = utilisateur.getCommandeActuelle().getMenus().getParNom(string6).getContenuMenu().getChoixElementParNom(string5)
+                .getParNom(string4).getChoixParNom(string3).getSelectionneParNom(string);
+        Assertions.assertNull(ancienComposant);
+    }
+
+    @Alors("mon menu {string} contient pour le choix composant {string} de mon element {string} de mon choix element {string} {string}")
+    public void mon_menu_contient_pour_le_choix_composant_de_mon_element_de_mon_choix_element(String string, String string2, String string3, String string4, String string5) {
+        Composant composantChoisi = utilisateur.getCommandeActuelle().getMenus().getParNom(string).getContenuMenu().getChoixElementParNom(string4)
+                .getParNom(string3).getChoixParNom(string2).getParNom(string5);
+        Assertions.assertNotNull(composantChoisi);
+        Assertions.assertEquals(string5, composantChoisi.getNom());
+    }
+
 
 }
