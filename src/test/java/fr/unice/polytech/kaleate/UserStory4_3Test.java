@@ -88,7 +88,7 @@ public class UserStory4_3Test {
         l.arriverADestination();
         u.recupererCommande();
         l.terminerLivraison();
-        assertEquals(StatutCommande.LIVREE,c.getStatut());
+        assertEquals(StatutCommande.LIVREE,c.getStatutCommande());
     }
     @Alors("l'historique des menus commandés est mis à jour")
     public void l_historique_des_menus_commandés_est_mis_à_jour() {

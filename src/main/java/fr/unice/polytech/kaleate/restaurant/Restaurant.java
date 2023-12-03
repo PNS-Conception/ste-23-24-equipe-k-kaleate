@@ -48,7 +48,7 @@ public class Restaurant extends Evaluable {
         this.gestionnaireCommande = new GestionnaireCommande();
         this.localisation=l;
         this.menusCommandes=new HashMap<>();
-        for (Menu m : menus){
+        for (Commandable m : menus){
             menusCommandes.put(m.getName(),0);
         }
     }
@@ -59,7 +59,7 @@ public class Restaurant extends Evaluable {
 
     public void setMenus(ListeMenus menus){
         this.menus = menus;
-        for (Menu m : menus){
+        for (Commandable m : menus){
             menusCommandes.put(m.getName(),0);
         }
     }

@@ -1,6 +1,7 @@
 package fr.unice.polytech.kaleate;
 
 import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.Commandable;
 import fr.unice.polytech.kaleate.commande.Commande;
 import fr.unice.polytech.kaleate.commande.StatutCommande;
 import fr.unice.polytech.kaleate.menu.Menu;
@@ -24,7 +25,7 @@ public class GestionnaireLivraison {
 
     public void ajouterAHistorique(){
         utilisateur.getHistorique().add(commande);
-        for (Menu m : commande.getMenus()){
+        for (Commandable m : commande.getMenus()){
             Restaurant r = m.getRestaurant();
             if (r.tendances().get(m.getName())==null){
                 r.tendances().put(m.getName(),1);
