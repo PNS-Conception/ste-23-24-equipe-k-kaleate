@@ -63,7 +63,7 @@ public class ChoixSupplementElement implements ChoixSupplement<SupplementElement
         supplementsSelectionnes = new ArrayList<>();
     }
 
-    //TODO definir la monayable
+
     @Override
     public double getPrix() {
         return supplementsSelectionnes.stream().mapToDouble(SupplementElement::getPrix).sum();
