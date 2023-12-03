@@ -11,16 +11,15 @@ import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.outils.Creneau;
 import fr.unice.polytech.kaleate.restaurant.ManagerRestaurant;
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
-import io.cucumber.java.Before;
-import io.cucumber.java.BeforeAll;
+
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Quand;
 import io.cucumber.java.fr.Soit;
 
 import java.util.Date;
-import java.util.List;
+
 import java.util.Optional;
-import java.util.Set;
+
 
 import static org.junit.Assert.assertEquals;
 

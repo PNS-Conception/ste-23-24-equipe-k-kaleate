@@ -1,6 +1,5 @@
 package fr.unice.polytech.kaleate.commande;
 
-import com.sun.management.DiagnosticCommandMBean;
 import fr.unice.polytech.kaleate.campus.Staff;
 import fr.unice.polytech.kaleate.campus.Utilisateur;
 import fr.unice.polytech.kaleate.menu.ListeMenus;

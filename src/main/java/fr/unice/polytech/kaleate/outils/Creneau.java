@@ -30,7 +30,14 @@ public class Creneau {
 
     // Retourne la durée du créneau en secondes
     public float getDuree(){
-        return (this.fin.getTime() - this.debut.getTime()) * 1000;
+        return (this.fin.getTime() - this.debut.getTime()) * 1000f;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Creneau)
+            return equals((Creneau) obj);
+        return false;
     }
 
     public boolean equals(Creneau creneau){

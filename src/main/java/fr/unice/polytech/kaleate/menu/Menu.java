@@ -9,7 +9,7 @@ import fr.unice.polytech.kaleate.outils.Creneau;
 import fr.unice.polytech.kaleate.outils.Monnayable;
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Observable;
 

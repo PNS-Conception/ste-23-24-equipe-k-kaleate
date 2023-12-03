@@ -1,10 +1,10 @@
-package fr.unice.polytech.kaleate;
+package fr.unice.polytech.kaleate.livrable;
 
 import fr.unice.polytech.kaleate.campus.Utilisateur;
 import fr.unice.polytech.kaleate.commande.Commandable;
 import fr.unice.polytech.kaleate.commande.Commande;
 import fr.unice.polytech.kaleate.commande.StatutCommande;
-import fr.unice.polytech.kaleate.menu.Menu;
+
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
 
 import java.util.Map;

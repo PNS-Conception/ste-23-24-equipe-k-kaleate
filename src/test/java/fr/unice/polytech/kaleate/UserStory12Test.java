@@ -2,22 +2,16 @@ package fr.unice.polytech.kaleate;
 
 import fr.unice.polytech.kaleate.campus.AdministrateurCampus;
 import fr.unice.polytech.kaleate.campus.Campus;
+import fr.unice.polytech.kaleate.campus.Localisation;
 import fr.unice.polytech.kaleate.menu.ListeMenus;
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
 import io.cucumber.java.fr.Alors;
-import io.cucumber.java.fr.Etantdonnéque;
 import io.cucumber.java.fr.Quand;
 import io.cucumber.java.fr.Soit;
-import org.junit.jupiter.api.Assertions;
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;
 import org.junit.platform.suite.api.Suite;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
@@ -43,7 +37,7 @@ public class UserStory12Test {
     public void j_augmente_le_rayon_autour_du_campus() {
         assertEquals(0,ac.getCampus().getRayon(),0.0);
         ac.changerRayon(15);
-        assertNotEquals(0,ac.getCampus().getRayon());
+        assertNotEquals(0,ac.getCampus().getRayon(),0.0);
 
     }
     @Alors("je peux accepter plus de restaurants")

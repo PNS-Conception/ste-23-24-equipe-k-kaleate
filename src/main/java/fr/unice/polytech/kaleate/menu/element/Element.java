@@ -3,7 +3,7 @@ package fr.unice.polytech.kaleate.menu.element;
 import fr.unice.polytech.kaleate.menu.composant.ChoixComposant;
 import fr.unice.polytech.kaleate.menu.supplement.ChoixSupplementComposant;
 import fr.unice.polytech.kaleate.menu.composant.SupplementComposant;
-import fr.unice.polytech.kaleate.menu.supplement.ChoixSupplement;
+
 import fr.unice.polytech.kaleate.outils.Monnayable;
 
 import java.util.ArrayList;

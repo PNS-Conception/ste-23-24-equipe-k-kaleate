@@ -1,9 +1,9 @@
 package fr.unice.polytech.kaleate.campus;
 
-import fr.unice.polytech.kaleate.Avis;
-import fr.unice.polytech.kaleate.CommandeException;
-import fr.unice.polytech.kaleate.Evaluable;
-import fr.unice.polytech.kaleate.Evalueur;
+import fr.unice.polytech.kaleate.Evaluation.Avis;
+import fr.unice.polytech.kaleate.commande.CommandeException;
+import fr.unice.polytech.kaleate.Evaluation.Evaluable;
+import fr.unice.polytech.kaleate.Evaluation.Evalueur;
 import fr.unice.polytech.kaleate.commande.*;
 import fr.unice.polytech.kaleate.livrable.Livreur;
 import fr.unice.polytech.kaleate.outils.PayementExterne;
@@ -56,6 +56,16 @@ public class Utilisateur extends Evaluable implements Evalueur {
                 ListeCommande.getInstance().add(commandeActuelle);
             }
             return commandeGroupee.ajouterCommande(code, commandeActuelle);
+    }
+    public CommandeGroupee creerCommandegroupee(){
+        if(commandeActuelle == null){
+            commandeActuelle = new CommandeSimple(this);
+            commandeActuelle = new CommandeGroupee(commandeActuelle);
+            ListeCommande.getInstance().add(commandeActuelle);
+        }else{
+            commandeActuelle = new CommandeGroupee(commandeActuelle);
+        }
+        return (CommandeGroupee) commandeActuelle;
     }
     public boolean addMenu(Commandable m){
         if(m instanceof Buffet){

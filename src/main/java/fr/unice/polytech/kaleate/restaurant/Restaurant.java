@@ -1,11 +1,11 @@
 package fr.unice.polytech.kaleate.restaurant;
 
-import fr.unice.polytech.kaleate.Evaluable;
-import fr.unice.polytech.kaleate.Localisation;
+import fr.unice.polytech.kaleate.Evaluation.Evaluable;
+import fr.unice.polytech.kaleate.campus.Localisation;
 import fr.unice.polytech.kaleate.commande.*;
-import fr.unice.polytech.kaleate.menu.ContenuMenu;
+
 import fr.unice.polytech.kaleate.menu.ListeMenus;
-import fr.unice.polytech.kaleate.menu.Menu;
+
 import fr.unice.polytech.kaleate.outils.Creneau;
 
 

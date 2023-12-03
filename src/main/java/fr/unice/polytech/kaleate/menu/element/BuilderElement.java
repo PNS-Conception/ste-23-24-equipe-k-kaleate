@@ -3,10 +3,10 @@ package fr.unice.polytech.kaleate.menu.element;
 import fr.unice.polytech.kaleate.builder.Builder;
 import fr.unice.polytech.kaleate.menu.composant.BuilderChoixComposant;
 import fr.unice.polytech.kaleate.menu.composant.ChoixComposant;
-import fr.unice.polytech.kaleate.menu.composant.SupplementComposant;
+
 import fr.unice.polytech.kaleate.menu.supplement.BuilderChoixSupplement;
 import fr.unice.polytech.kaleate.menu.supplement.BuilderChoixSupplementComposant;
-import fr.unice.polytech.kaleate.menu.supplement.ChoixSupplement;
+
 import fr.unice.polytech.kaleate.menu.supplement.ChoixSupplementComposant;
 
 public class BuilderElement implements Builder<Element> {

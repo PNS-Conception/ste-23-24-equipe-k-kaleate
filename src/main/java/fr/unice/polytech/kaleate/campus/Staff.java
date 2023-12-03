@@ -1,8 +1,6 @@
 package fr.unice.polytech.kaleate.campus;
 
 import fr.unice.polytech.kaleate.commande.Commandable;
-import fr.unice.polytech.kaleate.commande.Commande;
-import fr.unice.polytech.kaleate.menu.Menu;
 
 public class Staff extends Utilisateur {
 

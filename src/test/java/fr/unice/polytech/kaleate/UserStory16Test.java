@@ -2,7 +2,7 @@
 package fr.unice.polytech.kaleate;
 
 import fr.unice.polytech.kaleate.campus.Utilisateur;
-import fr.unice.polytech.kaleate.commande.Commandable;
+
 import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.menu.*;
 import fr.unice.polytech.kaleate.menu.composant.ChoixComposant;
@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Assertions;
 
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class UserStory16Test {

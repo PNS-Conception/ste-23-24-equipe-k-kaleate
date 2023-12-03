@@ -1,4 +1,4 @@
-package fr.unice.polytech.kaleate;
+package fr.unice.polytech.kaleate.commande;
 
 public class CommandeException extends Exception{
 

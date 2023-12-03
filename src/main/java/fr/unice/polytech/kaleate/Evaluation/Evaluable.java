@@ -1,4 +1,4 @@
-package fr.unice.polytech.kaleate;
+package fr.unice.polytech.kaleate.Evaluation;
 
 import java.util.HashMap;
 import java.util.Map;

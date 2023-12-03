@@ -1,8 +1,9 @@
 package fr.unice.polytech.kaleate.commande;
 
-import fr.unice.polytech.kaleate.menu.Menu;
+
 import fr.unice.polytech.kaleate.menu.StatutMenu;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,7 +14,7 @@ public class CommandeGroupee extends CommandeSimple {
 
     public CommandeGroupee(){
         super();
-        Random r = new Random();
+        SecureRandom r = new SecureRandom ();
         code = r.nextInt(10000,99999);
     }
     public CommandeGroupee(Commande commande){
@@ -81,5 +82,17 @@ public class CommandeGroupee extends CommandeSimple {
 
     public void setCode(int code) {
         this.code = code;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CommandeGroupee)) return false;
+        Boolean res = true;
+        CommandeGroupee cs = (CommandeGroupee) o;
+        if(cs.commandes.size() != commandes.size()) return false;
+        for(int i =0;i<commandes.size();i++){
+            res = res && commandes.get(i).equals(cs.commandes.get(i));
+        }
+        return res;
     }
 }

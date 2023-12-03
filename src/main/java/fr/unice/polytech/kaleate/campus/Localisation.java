@@ -1,4 +1,4 @@
-package fr.unice.polytech.kaleate;
+package fr.unice.polytech.kaleate.campus;
 
 public class Localisation {
     private float Latitude;

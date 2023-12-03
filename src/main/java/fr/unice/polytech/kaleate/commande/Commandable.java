@@ -1,6 +1,6 @@
 package fr.unice.polytech.kaleate.commande;
 
-import fr.unice.polytech.kaleate.menu.ListeMenus;
+
 import fr.unice.polytech.kaleate.menu.StatutMenu;
 import fr.unice.polytech.kaleate.outils.Creneau;
 import fr.unice.polytech.kaleate.outils.Monnayable;

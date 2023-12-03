@@ -1,5 +1,6 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.Evaluation.Avis;
 import fr.unice.polytech.kaleate.campus.AdministrateurCampus;
 import fr.unice.polytech.kaleate.campus.Campus;
 import fr.unice.polytech.kaleate.campus.Utilisateur;

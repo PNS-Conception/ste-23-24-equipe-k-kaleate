@@ -1,7 +1,5 @@
 package fr.unice.polytech.kaleate.campus;
 
-import fr.unice.polytech.kaleate.Localisation;
-import fr.unice.polytech.kaleate.commande.Commandable;
 import fr.unice.polytech.kaleate.menu.ListeMenus;
 import fr.unice.polytech.kaleate.restaurant.ListeRestaurants;
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
