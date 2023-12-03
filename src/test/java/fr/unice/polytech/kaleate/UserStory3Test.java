@@ -1,6 +1,7 @@
 package fr.unice.polytech.kaleate;
 
 import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.Commandable;
 import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.commande.CommandeGroupee;
 import fr.unice.polytech.kaleate.menu.ListeMenus;
@@ -33,14 +34,14 @@ public class UserStory3Test {
     static Utilisateur userB = new Utilisateur("User","B");
     static Utilisateur userC = new Utilisateur("User","C");
 
-    static List<Menu> menus;
+    static List<Commandable> menus;
     static CommandeSimple commandeUserA;
     static CommandeSimple commandeUserB;
 
     static CommandeGroupee commandeGroupee;
 
-    public static List<Menu> getMenus(){
-        List<Menu> menus = new ArrayList<Menu>();
+    public static List<Commandable> getMenus(){
+        List<Commandable> menus = new ArrayList<Commandable>();
 
         // date qui fonctionnent
         Date db = new Date();
@@ -83,10 +84,10 @@ public class UserStory3Test {
         Restaurant restaurant1 = new Restaurant("Restau 1",new ListeMenus(getMenus()));
         commandeGroupee = new CommandeGroupee();
         commandeUserA = new CommandeSimple(userA,new Creneau(db, df));
-        commandeUserA.addMenu(restaurant1.getMenus().get(0));
+        commandeUserA.addMenu(restaurant1.getMenus(Commandable.class).get(0));
         userA.setCommandeActuelle(commandeUserA);
         commandeUserB = new CommandeSimple(userB,new Creneau(db, df));
-        commandeUserB.addMenu(restaurant1.getMenus().get(0));
+        commandeUserB.addMenu(restaurant1.getMenus(Commandable.class).get(0));
         userB.setCommandeActuelle(commandeUserB);
     }
     public void commandeDiffCreneau(){
@@ -103,7 +104,7 @@ public class UserStory3Test {
 
          commandeGroupee = new CommandeGroupee();
          commandeUserA = new CommandeSimple(userA,new Creneau(db, df));
-        commandeUserA.addMenu(restaurant1.getMenus().get(0));
+        commandeUserA.addMenu(restaurant1.getMenus(Commandable.class).get(0));
         userA.setCommandeActuelle(commandeUserA);
         c.setTime(df);
         c.setTime(db);
@@ -112,7 +113,7 @@ public class UserStory3Test {
         c.add(Calendar.HOUR,1);
         df = c.getTime();
          commandeUserB = new CommandeSimple(userB,new Creneau(db, df));
-        commandeUserB.addMenu(restaurant1.getMenus().get(3));
+        commandeUserB.addMenu(restaurant1.getMenus(Commandable.class).get(3));
         userB.setCommandeActuelle(commandeUserB);
     }
 
@@ -179,7 +180,7 @@ public class UserStory3Test {
         // Write code here that turns the phrase above into concrete actions
         ListeMenus listeMenus = new ListeMenus(getMenus());
         assertEquals(userC.getCommandeActuelle().getCreneauLivraison(),commandeGroupee.getCreneauLivraison());
-        menus = listeMenus.getMenusDansCreneau(userC.getCommandeActuelle().getCreneauLivraison());
+        menus = listeMenus.getMenusDansCreneau(userC.getCommandeActuelle().getCreneauLivraison(), userC.getTypeMenu());
 
 
     }

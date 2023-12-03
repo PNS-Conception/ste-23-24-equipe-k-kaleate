@@ -1,9 +1,7 @@
 package fr.unice.polytech.kaleate;
 
 import fr.unice.polytech.kaleate.campus.Utilisateur;
-import fr.unice.polytech.kaleate.commande.CommandeSimple;
-import fr.unice.polytech.kaleate.commande.ListeCommande;
-import fr.unice.polytech.kaleate.commande.StatutCommande;
+import fr.unice.polytech.kaleate.commande.*;
 import fr.unice.polytech.kaleate.menu.ListeMenus;
 import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.menu.StatutMenu;
@@ -38,7 +36,7 @@ public class UserStory10Test {
     }
     @Soit("la commande {int} validee avec une liste de {int} menus du Restaurant {string}")
     public void la_commande_validee_avec_une_liste_de_menus_du_restaurant(int int1, int int2, String string) {
-        ArrayList<Menu> lm = new ArrayList<>();
+        ArrayList<Commandable> lm = new ArrayList<>();
         Date db = new Date();
         Date df = new Date();
         Calendar c = Calendar.getInstance();
@@ -53,9 +51,9 @@ public class UserStory10Test {
         Utilisateur michel = new Utilisateur("Michel","Legoat");
 
         com=new CommandeSimple(michel);
-        com.addMenu(pizzaroc.getMenus().get(0));
-        com.addMenu(pizzaroc.getMenus().get(0));
-        com.addMenu(pizzaroc.getMenus().get(1));
+        com.addMenu(pizzaroc.getMenus(Commandable.class).get(0));
+        com.addMenu(pizzaroc.getMenus(Commandable.class).get(0));
+        com.addMenu(pizzaroc.getMenus(Commandable.class).get(1));
 
         assertNotEquals(com.getId(),int1);
         com.setId(int1);
@@ -83,7 +81,7 @@ public class UserStory10Test {
     @Alors("la commande n'est pas prete")
     public void la_commande_n_est_pas_prete() {
         je_veux_dire_que_la_commande_est_prete();
-        assertNotEquals(StatutCommande.PRETE, com.getStatut());
+        assertNotEquals(StatutCommande.PRETE, com.getStatutCommande());
     }
 
     @Étantdonnéque("{int} menus de la commande {int} sont prets")
@@ -100,7 +98,7 @@ public class UserStory10Test {
     @Alors("la commande est prete")
     public void la_commande_est_prete() {
         je_veux_dire_que_la_commande_est_prete();
-        assertEquals(StatutCommande.PRETE, com.getStatut());
+        assertEquals(StatutCommande.PRETE, com.getStatutCommande());
     }
 
 }

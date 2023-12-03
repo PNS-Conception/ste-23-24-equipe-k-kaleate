@@ -142,7 +142,7 @@ public class UserStory2Test {
     public void le_restaurant_valide_la_prise_en_charge_de_la_commande() {
 
         assertTrue(restaurant.validerCommande(commandeSelectionnee));
-        assertEquals(StatutCommande.VALIDEE, commandeSelectionnee.getStatut());
+        assertEquals(StatutCommande.VALIDEE, commandeSelectionnee.getStatutCommande());
     }
 
     @Etantdonnéque("La commande doit être commmencée à être préparée pour être livrée à temps")
@@ -173,6 +173,8 @@ public class UserStory2Test {
         Date db = new Date();
         Date df = new Date();
 
+        System.out.println(commandeSelectionnee.getStatutCommande());
+        System.out.println(commandeSelectionnee.modifiable());
         assertFalse(commandeSelectionnee.addMenu(new Menu(12, "NOT Burger double cheese", new Creneau(db, df))));
         assertFalse(commandeSelectionnee.removeMenu(commandeSelectionnee.getMenus().stream().toList().get(0)));
     }
