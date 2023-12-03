@@ -59,4 +59,9 @@ public class SupplementElement implements Supplement {
         element.setNom(nom);
     }
 
+    @Override
+    public String toString() {
+        return element.toString() + " " + prix + "€";
+    }
+
 }

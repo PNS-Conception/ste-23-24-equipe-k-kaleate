@@ -158,4 +158,13 @@ public class ChoixComposant implements Choix<Composant> {
     public void supprimerComposantSelectionneParNom(String nomComposant){
         composantListeSelectionne.remove(getSelectionneParNom(nomComposant));
     }
+
+    @Override
+    public String toString() {
+        return "ChoixComposant{" +
+                "nomComposant='" + nomComposant + '\'' +
+                ", composantListeDisponible=" + composantListeDisponible + '\n' +
+                ", composantListeSelectionne=" + composantListeSelectionne +
+                '}';
+    }
 }

@@ -161,4 +161,18 @@ public class ChoixElement implements Choix<Element> {
     public void supprimerElementSelectionneParNom(String nom){
         elementListeSelectionne.removeIf(element -> element.estParNom(nom));
     }
+
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(nomElement).append(" : ");
+        for(Element e : elementListeSelectionne){
+            sb.append(e.getNom()).append(" ");
+        }
+        sb.append("\n");
+        for(Element e : elementListeDisponible){
+            sb.append(e.toString()).append("\n");
+        }
+        return sb.toString();
+    }
 }

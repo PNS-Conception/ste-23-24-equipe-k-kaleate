@@ -18,7 +18,7 @@ public class CommandeGroupee extends CommandeSimple {
     }
     public CommandeGroupee(Commande commande){
         super(commande.getUtilisateurEmetteur());
-        for (Menu m : commande.getMenus()) {
+        for (Commandable m : commande.getMenus()) {
             this.addMenu(m);
         }
         setCreneauLivraison(commande.getCreneauLivraison());
@@ -38,7 +38,6 @@ public class CommandeGroupee extends CommandeSimple {
         if(code != this.code) return false;
         if(commande.getCreneauLivraison() == null ) //la commande est pas initialisé donc pas besoin de verif)
         {
-
             commande.setCreneauLivraison(this.getCreneauLivraison());
         }
         if(!(commande.getCreneauLivraison().equals(commandes.get(0).getCreneauLivraison()))){// la commande ajoutée doit avoir le meme creneau que la commande mère
@@ -53,7 +52,7 @@ public class CommandeGroupee extends CommandeSimple {
     protected int nombreMenuPourReduc() {
         int i =0;
         for(Commande c : commandes){
-            for(Menu m : c.getMenus()){
+            for(Commandable m : c.getMenus()){
                 if(m.getStatut()!= StatutMenu.ANNULE){
                     i++;
                 }

@@ -17,4 +17,9 @@ public class Composant {
     public boolean estParNom(String nomElement){
         return this.nomComposant.equals(nomElement);
     }
+
+    @Override
+    public String toString() {
+        return nomComposant;
+    }
 }

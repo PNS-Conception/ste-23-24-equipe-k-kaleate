@@ -138,12 +138,12 @@ public class Element implements Monnayable {
 
     @Override
     public double getPrixSansReduction() {
-        return getPrix();
+        return 0;
     }
 
     @Override
     public double getPrixBase() {
-        return getPrix();
+        return 0;
     }
 
     public void ajoutChoixComposant(ChoixComposant cc) {
@@ -162,5 +162,14 @@ public class Element implements Monnayable {
 
     public void supprimerComposantSupplementSelectionneParNom(String nomSupplement) {
         choixSupplementComposant.supprimerSupplementSelectionneParNom(nomSupplement);
+    }
+
+    @Override
+    public String toString() {
+        return "Element{" +
+                "nomElement='" + nomElement + '\'' +
+                ", choixComposantListe=" + choixComposantListe +
+                ", choixSupplementComposant=" + choixSupplementComposant +
+                '}';
     }
 }

@@ -1,10 +1,7 @@
 package fr.unice.polytech.kaleate;
 
 import fr.unice.polytech.kaleate.campus.Utilisateur;
-import fr.unice.polytech.kaleate.commande.Commande;
-import fr.unice.polytech.kaleate.commande.CommandeSimple;
-import fr.unice.polytech.kaleate.commande.ListeCommande;
-import fr.unice.polytech.kaleate.commande.StatutCommande;
+import fr.unice.polytech.kaleate.commande.*;
 import fr.unice.polytech.kaleate.livrable.Livreur;
 import fr.unice.polytech.kaleate.menu.ListeMenus;
 import fr.unice.polytech.kaleate.menu.Menu;
@@ -75,19 +72,19 @@ public class UserStory13Test {
 
     public static void createCommandes(){
         Utilisateur utilisateur1 = new Utilisateur("nom1", "prenom1");
-        Menu menu1 = restaurant1.getMenus().get(0);
+        Commandable menu1 = restaurant1.getMenus(Commandable.class).get(0);
         CommandeSimple com1 = new CommandeSimple(utilisateur1);
         com1.addMenu(menu1);
         com1.setStatut(StatutCommande.VALIDEE);
 
         Utilisateur utilisateur2 = new Utilisateur("nom2", "prenom2");
-        Menu menu2 = restaurant1.getMenus().get(0);
+        Commandable menu2 = restaurant1.getMenus(Commandable.class).get(0);
         CommandeSimple com2 = new CommandeSimple(utilisateur2);
         com2.addMenu(menu2);
         com2.setStatut(StatutCommande.EN_PREPARATION);
 
         Utilisateur utilisateur3 = new Utilisateur("nom3", "prenom3");
-        Menu menu3 = restaurant1.getMenus().get(0);
+        Commandable menu3 = restaurant1.getMenus(Commandable.class).get(0);
         CommandeSimple com3 = new CommandeSimple(utilisateur3);
         com3.addMenu(menu3);
         com3.setStatut(StatutCommande.PRETE);
@@ -100,19 +97,19 @@ public class UserStory13Test {
         restaurant1.setListCommande(listeCommandeR1);
 
         Utilisateur utilisateur4 = new Utilisateur("nom4", "prenom4");
-        Menu menu4 = restaurant2.getMenus().get(0);
+        Commandable menu4 = restaurant2.getMenus(Commandable.class).get(0);
         CommandeSimple com4 = new CommandeSimple(utilisateur4);
         com4.addMenu(menu4);
         com4.setStatut(StatutCommande.EN_CREATION);
 
         Utilisateur utilisateur5 = new Utilisateur("nom5", "prenom5");
-        Menu menu5 = restaurant2.getMenus().get(0);
+        Commandable menu5 = restaurant2.getMenus(Commandable.class).get(0);
         CommandeSimple com5 = new CommandeSimple(utilisateur5);
         com5.addMenu(menu5);
         com5.setStatut(StatutCommande.PRETE);
 
         Utilisateur utilisateur6 = new Utilisateur("nom3", "prenom3");
-        Menu menu6 = restaurant2.getMenus().get(0);
+        Commandable menu6 = restaurant2.getMenus(Commandable.class).get(0);
         CommandeSimple com6 = new CommandeSimple(utilisateur6);
         com6.addMenu(menu6);
         com6.setStatut(StatutCommande.PRETE);
@@ -153,7 +150,7 @@ public class UserStory13Test {
     @Alors("je selectionne la commande numero {int}")
     public void je_selectionne_la_commande_numero(Integer int1) {
         commandeChoisie = commandesPretes.get(int1 - 1);
-        List<Menu> com = commandeChoisie.getMenus().stream().toList();
+        List<Commandable> com = commandeChoisie.getMenus().stream().toList();
         Assertions.assertEquals("Burger double cheese", com.get(0).getName());
     }
 }

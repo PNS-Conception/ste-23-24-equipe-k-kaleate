@@ -1,6 +1,7 @@
 package fr.unice.polytech.kaleate;
 
 import fr.unice.polytech.kaleate.campus.Campus;
+import fr.unice.polytech.kaleate.commande.Commandable;
 import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.outils.Creneau;
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
@@ -40,7 +41,7 @@ public class UserStory8_3Test {
             Random random = new Random();
             float randomFloat = random.nextFloat();
             float price = randomFloat * 15;
-            campus.listerRestaurants().getParNom(columns.get(0)).getMenus().add(new Menu(price,columns.get(1),new Creneau(db,df)));
+            campus.listerRestaurants().getParNom(columns.get(0)).ajouterMenu(new Menu(price,columns.get(1),new Creneau(db,df)));
         }
     }
     @Étantdonnéque("je selectionne le campus {string}")
@@ -53,9 +54,9 @@ public class UserStory8_3Test {
     }
     @Alors("je devrai avoir {int} restaurants chacun {int} menus")
     public void je_devrai_avoir_x_restaurants_avec_y_menus(int x, int y) {
-        assertEquals(campus.listerMenus().keySet().size(),x);
-        for (Restaurant r : campus.listerMenus().keySet()){
-            assertEquals(campus.listerMenus().get(r).size(),y);
+        assertEquals(campus.listerMenus(Commandable.class).keySet().size(),x);
+        for (Restaurant r : campus.listerMenus(Commandable.class).keySet()){
+            assertEquals(campus.listerMenus(Commandable.class).get(r).size(),y);
         }
     }
 }

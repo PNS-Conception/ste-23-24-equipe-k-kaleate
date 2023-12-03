@@ -1,11 +1,10 @@
 package fr.unice.polytech.kaleate.restaurant;
 
+import fr.unice.polytech.kaleate.commande.Commandable;
 import fr.unice.polytech.kaleate.commande.Commande;
-import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.commande.StatutCommande;
 import fr.unice.polytech.kaleate.menu.ContenuMenu;
 import fr.unice.polytech.kaleate.menu.Menu;
-import fr.unice.polytech.kaleate.menu.StatutMenu;
 import fr.unice.polytech.kaleate.menu.element.ChoixElement;
 import fr.unice.polytech.kaleate.outils.Creneau;
 
@@ -28,19 +27,16 @@ public class ManagerRestaurant {
         this.prenom = "Prenom";
     }
 
-    public void ajouterUnMenu(Menu m){
+    public void ajouterUnMenu(Commandable m){
         restaurant.ajouterMenu(m);
     }
 
-    public void supprimerUnMenu(Menu m){
+    public void supprimerUnMenu(Commandable m){
         restaurant.supprimerMenu(m);
     }
 
     public void modifierUnMenu(Menu m, ChoixElement choixElement){
-        Optional<Menu> optionalMenu = restaurant.getMenus()
-                .stream()
-                .filter(me -> me.estMenuParNom(m.getName()))
-                .findFirst();
+        Optional<Menu> optionalMenu = restaurant.getMenus(Menu.class).stream().map(menu -> (Menu) menu).filter(menu -> menu.getName().equals(m.getName())).findFirst();
 
         if (optionalMenu.isPresent()) {
             Menu menu = optionalMenu.get();
@@ -59,7 +55,7 @@ public class ManagerRestaurant {
         if(commande == null){
             return false;
         }
-        return commande.getStatut() == StatutCommande.PRETE;
+        return commande.getStatutCommande() == StatutCommande.PRETE;
     }
 
     public String getNom() {

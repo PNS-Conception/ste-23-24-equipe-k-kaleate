@@ -68,7 +68,7 @@ public class UserStory6Test {
     public void une_commande_avec_un_menu() {
         user = new Utilisateur("Cristiano","Ronaldo");
         user.addMenu(m);
-
+        user.payer();
     }
 
     @Quand("j'annule le menu")
@@ -76,7 +76,8 @@ public class UserStory6Test {
         assertEquals(4,restaurant.getListCommande().size());
         float solde = user.getSolde();
         restaurant.annulerPreparationMenu(user.getCommandeActuelle(),m);
-        assertEquals((int)( solde +m.getPrix()),(int)user.getSolde() );
+        assertEquals((int)(solde+m.getPrix()),(int)user.getSolde());
+        assertEquals(3, restaurant.getListCommande().size());
     }
 
     @Alors("la commande disparait de liste a faire")
@@ -89,7 +90,9 @@ public class UserStory6Test {
         user = new Utilisateur("Cristiano","Ronaldo");
         user.addMenu(m);
         user.addMenu(m2);
+        user.payer();
 
+        restaurant.preparerMenu(user.getCommandeActuelle(),m2);
     }
 
     @Quand("j'annule un seul menu")
@@ -100,6 +103,8 @@ public class UserStory6Test {
     }
     @Alors("la commande est toujours la mais avec un menu en moins")
     public void la_commande_est_toujours_la_mais_avec_un_menu_en_moins() {
+        System.out.println(ListeCommande.getInstance().stream().map(Commande::getId).toList());
+        System.out.println(user.getCommandeActuelle().getId());
         assertTrue(ListeCommande.getInstance().contains(user.getCommandeActuelle()));
         assertEquals(2,user.getCommandeActuelle().getMenus().size());
         assertEquals(11,(int)user.getCommandeActuelle().getPrix());

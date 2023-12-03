@@ -3,10 +3,7 @@ package fr.unice.polytech.kaleate;
 import fr.unice.polytech.kaleate.campus.AdministrateurCampus;
 import fr.unice.polytech.kaleate.campus.Campus;
 import fr.unice.polytech.kaleate.campus.Utilisateur;
-import fr.unice.polytech.kaleate.commande.Commande;
-import fr.unice.polytech.kaleate.commande.CommandeSimple;
-import fr.unice.polytech.kaleate.commande.ListeCommande;
-import fr.unice.polytech.kaleate.commande.StatutCommande;
+import fr.unice.polytech.kaleate.commande.*;
 import fr.unice.polytech.kaleate.livrable.Livreur;
 import fr.unice.polytech.kaleate.menu.ListeMenus;
 import fr.unice.polytech.kaleate.menu.Menu;
@@ -44,7 +41,7 @@ public class UserStory17Test {
         restaurant=new Restaurant("r");
         Menu m = new Menu(4,"tacos",new Creneau(new Date(),new Date()));
         m.setRestaurant(restaurant);
-        List<Menu> lm = new ArrayList<>();
+        List<Commandable> lm = new ArrayList<>();
         lm.add(m);
         restaurant.setMenus(new ListeMenus(lm));
         utilisateur= new Utilisateur("Michel","Dubois");
@@ -59,23 +56,32 @@ public class UserStory17Test {
         utilisateur.payer();
 
         restaurant.preparerMenu(commande,m);
+
         restaurant.finirPreparationMenu(commande,m);
 
         ManagerRestaurant r = new ManagerRestaurant(restaurant);
         ListeCommande lc = new ListeCommande();
         lc.add(commande);
         restaurant.setListCommande(lc);
-        r.commandePrete(commande.getId());
+
+
+        assertTrue(r.commandePrete(commande.getId()));
+
+
 
         livreur = new Livreur("Ca","roule");
 
+
         livreur.recupere_commande(restaurant,commande.getId());
+
+        livreur.debuterLaCourse();
 
         livreur.arriverADestination();
 
         utilisateur.recupererCommande();
 
         livreur.terminerLivraison();
+
 
     }
 
@@ -123,7 +129,7 @@ public class UserStory17Test {
     }
     @Quand("j'ai effectué une livraison")
     public void j_ai_effectué_une_livraison() {
-        assertEquals(StatutCommande.LIVREE,commande.getStatut());
+        assertEquals(StatutCommande.LIVREE,commande.getStatutCommande());
     }
     @Alors("je peux attribuer une note à l'usager")
     public void je_peux_attribuer_une_note_à_l_usager() {

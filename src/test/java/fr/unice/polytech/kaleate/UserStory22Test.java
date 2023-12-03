@@ -2,6 +2,7 @@ package fr.unice.polytech.kaleate;
 
 import fr.unice.polytech.kaleate.builder.BuilderMenu;
 import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.Commandable;
 import fr.unice.polytech.kaleate.menu.BuilderContenuMenu;
 import fr.unice.polytech.kaleate.menu.ContenuMenu;
 import fr.unice.polytech.kaleate.menu.Menu;
@@ -134,17 +135,17 @@ public class UserStory22Test {
         utilisateur.addMenu(menu1);
         utilisateur.addMenu(menu2);
         utilisateur.addMenu(menu3);
-        utilisateur.getCommandeActuelle().getMenus().getParNom("menu1").getContenuMenu().getChoixElementParNom("Dessert").choisir(glace);
-        utilisateur.getCommandeActuelle().getMenus().getParNom("menu2").getContenuMenu().getChoixSupplementElement().selectionnerSupplement(chocolatChaud);
-        utilisateur.getCommandeActuelle().getMenus().getParNom("menu1").getContenuMenu().getChoixElementParNom("Dessert").getSelectionneParNom("Glace").getChoixSupplementComposantDispo().selectionnerSupplement(chantilly);
-        utilisateur.getCommandeActuelle().getMenus().getParNom("menu1").getContenuMenu().getChoixElementParNom("Dessert").getSelectionneParNom("Glace").getChoixParNom("Parfum").choisir(vanille);
-        utilisateur.getCommandeActuelle().getMenus().getParNom("menu3").getContenuMenu().getChoixElementParNom("Dessert").choisir(glace);
-        utilisateur.getCommandeActuelle().getMenus().getParNom("menu3").getContenuMenu().getChoixElementParNom("Dessert").getSelectionneParNom("Glace").getChoixParNom("Parfum").choisir(vanille);
-        utilisateur.getCommandeActuelle().getMenus().getParNom("menu3").getContenuMenu().getChoixElementParNom("Dessert").getSelectionneParNom("Glace").getChoixParNom("Parfum").choisir(chocolat);
+        ((Menu)utilisateur.getCommandeActuelle().getMenus().getParNom("menu1")).getContenuMenu().getChoixElementParNom("Dessert").choisir(glace);
+        ((Menu)utilisateur.getCommandeActuelle().getMenus().getParNom("menu2")).getContenuMenu().getChoixSupplementElement().selectionnerSupplement(chocolatChaud);
+        ((Menu)utilisateur.getCommandeActuelle().getMenus().getParNom("menu1")).getContenuMenu().getChoixElementParNom("Dessert").getSelectionneParNom("Glace").getChoixSupplementComposantDispo().selectionnerSupplement(chantilly);
+        ((Menu)utilisateur.getCommandeActuelle().getMenus().getParNom("menu1")).getContenuMenu().getChoixElementParNom("Dessert").getSelectionneParNom("Glace").getChoixParNom("Parfum").choisir(vanille);
+        ((Menu)utilisateur.getCommandeActuelle().getMenus().getParNom("menu3")).getContenuMenu().getChoixElementParNom("Dessert").choisir(glace);
+        ((Menu)utilisateur.getCommandeActuelle().getMenus().getParNom("menu3")).getContenuMenu().getChoixElementParNom("Dessert").getSelectionneParNom("Glace").getChoixParNom("Parfum").choisir(vanille);
+        ((Menu)utilisateur.getCommandeActuelle().getMenus().getParNom("menu3")).getContenuMenu().getChoixElementParNom("Dessert").getSelectionneParNom("Glace").getChoixParNom("Parfum").choisir(chocolat);
     }
 
     static boolean restaurantContientMenu(Restaurant restaurant, Menu menu){
-        for(Menu menuRestaurant : restaurant.getMenus()){
+        for(Commandable menuRestaurant : restaurant.getMenus(utilisateur.getTypeMenu())){
             if(menuRestaurant.equals(menu)){
                 return true;
             }
@@ -154,11 +155,11 @@ public class UserStory22Test {
 
     static boolean menuReinitialise(Restaurant restaurant){
         System.out.println(restaurant.getName());
-        for(Menu m : restaurant.getMenus()){
-            if(m.getContenuMenu().getSupplementElementListeSelectionne().size() != 0){
+        for(Commandable m : restaurant.getMenus(utilisateur.getTypeMenu())){
+            if(((Menu)m).getContenuMenu().getSupplementElementListeSelectionne().size() != 0){
                 return false;
             }
-            for (ChoixElement choixElement : m.getContenuMenu().getChoixElementListe()) {
+            for (ChoixElement choixElement : ((Menu)m).getContenuMenu().getChoixElementListe()) {
                 if(choixElement.getListeSelectionne().size() != 0){
                     return false;
                 }

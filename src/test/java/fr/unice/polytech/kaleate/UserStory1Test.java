@@ -1,6 +1,8 @@
 package fr.unice.polytech.kaleate;
 
 import fr.unice.polytech.kaleate.campus.Utilisateur;
+import fr.unice.polytech.kaleate.commande.Commandable;
+import fr.unice.polytech.kaleate.commande.Commande;
 import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.menu.ListeMenus;
 import fr.unice.polytech.kaleate.menu.Menu;
@@ -32,12 +34,14 @@ public class UserStory1Test {
 
     static ListeRestaurants restaurants;
     static Utilisateur utilisateur;
-    static List<Menu> menus;
-    static List<Menu> menusDansCreneau;
+    static List<Commandable> menus;
+    static List<Commandable> menusDansCreneau;
     static Creneau creneau;
     static Restaurant restau;
-    static Menu menuChoisi;
-    static Menu m1, m2, m3, m4, m5, m6;
+    static Commandable menuChoisi;
+
+
+    static Commandable m1, m2, m3, m4, m5, m6;
     static Restaurant r1, r2;
 
 
@@ -126,20 +130,20 @@ public class UserStory1Test {
         fin = calendar.getTime();
 
         creneau = new Creneau(debut, fin);
-        menusDansCreneau = restaurants.getMenusDansCreneau(creneau);
+        menusDansCreneau = restaurants.getMenusDansCreneau(creneau, utilisateur.getTypeMenu());
         assertEquals(6,menusDansCreneau.size());
-        assertTrue(menusDansCreneau.contains(restaurants.getParNom("Burger King").getMenus().get(0)));
-        assertTrue(menusDansCreneau.contains(restaurants.getParNom("Burger King").getMenus().get(0)));
-        assertTrue(menusDansCreneau.contains(restaurants.getParNom("Burger King").getMenus().get(1)));
-        assertTrue(menusDansCreneau.contains(restaurants.getParNom("Burger King").getMenus().get(1)));
-        assertTrue(menusDansCreneau.contains(restaurants.getParNom("Burger King").getMenus().get(2)));
-        assertTrue(menusDansCreneau.contains(restaurants.getParNom("Burger King").getMenus().get(2)));
-        assertFalse(menusDansCreneau.contains(restaurants.getParNom("Burger King").getMenus().get(3)));
+        assertTrue(menusDansCreneau.contains(restaurants.getParNom("Burger King").getMenus(Commandable.class).get(0)));
+        assertTrue(menusDansCreneau.contains(restaurants.getParNom("Burger King").getMenus(Commandable.class).get(0)));
+        assertTrue(menusDansCreneau.contains(restaurants.getParNom("Burger King").getMenus(Commandable.class).get(1)));
+        assertTrue(menusDansCreneau.contains(restaurants.getParNom("Burger King").getMenus(Commandable.class).get(1)));
+        assertTrue(menusDansCreneau.contains(restaurants.getParNom("Burger King").getMenus(Commandable.class).get(2)));
+        assertTrue(menusDansCreneau.contains(restaurants.getParNom("Burger King").getMenus(Commandable.class).get(2)));
+        assertFalse(menusDansCreneau.contains(restaurants.getParNom("Burger King").getMenus(Commandable.class).get(3)));
     }
 
     @Etantdonnéque("je suis un utilisateur qui souhaite commander dans la liste des menus disponibles pour le creneau")
     public void je_suis_un_utilisateur_qui_souhaite_commander_dans_la_liste_des_menus_disponibles_pour_le_creneau() {
-        menus = new ListeRestaurants(restaurants).getMenusDansCreneau(creneau);
+        menus = new ListeRestaurants(restaurants).getMenusDansCreneau(creneau, utilisateur.getTypeMenu());
         assertNotEquals(0, menus.size());
     }
 
@@ -147,13 +151,13 @@ public class UserStory1Test {
     public void je_suis_un_utilisateur_qui_souhaite_commander_dans_la_liste_des_menus_du_restaurant(String string) {
 
         restau = restaurants.getParNom(string);
-        menus = restaurants.getParNom(string).getMenus();
+        menus = restaurants.getParNom(string).getMenus(Commandable.class);
         assertNotEquals(menus.size(),0);
     }
 
     @Alors("je selectionne le menu {string}")
     public void je_selectionne_le_menu(String string) {
-        Menu menu = new ListeMenus(menus).getParNom(string);
+        Commandable menu = new ListeMenus(menus).getParNom(string);
         menuChoisi = new ListeMenus(menus).get(0);
         assertEquals(menu, new ListeMenus(menusDansCreneau).getParNom(string));
         assertEquals(menuChoisi,menu);

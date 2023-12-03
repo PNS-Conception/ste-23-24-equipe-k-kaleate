@@ -2,7 +2,6 @@ package fr.unice.polytech.kaleate;
 
 import fr.unice.polytech.kaleate.campus.Utilisateur;
 import fr.unice.polytech.kaleate.commande.Commande;
-import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.commande.ListeCommande;
 import fr.unice.polytech.kaleate.commande.StatutCommande;
 import fr.unice.polytech.kaleate.menu.Menu;
@@ -77,7 +76,7 @@ public class UserStory7Test {
     public void la_commande_est_payée_et_change_de_statut() {
         // Write code here that turns the phrase above into concrete actions
 
-            assertEquals(StatutCommande.PAYEE, listeCommande.get(0).getStatut());
+            assertEquals(StatutCommande.PAYEE, listeCommande.get(0).getStatutCommande());
 
     }
 }

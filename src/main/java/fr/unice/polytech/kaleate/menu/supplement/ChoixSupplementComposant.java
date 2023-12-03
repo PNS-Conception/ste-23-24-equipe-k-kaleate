@@ -110,4 +110,13 @@ public class ChoixSupplementComposant implements ChoixSupplement<SupplementCompo
         }
         return null;
     }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Supplements : ");
+        for (SupplementComposant supplement : supplementsSelectionnes) {
+            sb.append(supplement.getNom()).append(" ");
+        }
+        return sb.toString();
+    }
 }

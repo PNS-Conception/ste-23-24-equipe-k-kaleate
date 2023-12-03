@@ -135,12 +135,12 @@ public class ContenuMenu implements Monnayable {
 
     @Override
     public double getPrixSansReduction() {
-        return getPrix();
+        return 0;
     }
 
     @Override
     public double getPrixBase() {
-        return getPrix();
+        return 0;
     }
 
 

@@ -1,5 +1,6 @@
 package fr.unice.polytech.kaleate.menu;
 
+import fr.unice.polytech.kaleate.commande.Commandable;
 import fr.unice.polytech.kaleate.commande.Commande;
 import fr.unice.polytech.kaleate.menu.element.ChoixElement;
 import fr.unice.polytech.kaleate.menu.supplement.Supplement;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-public class Menu extends Observable implements Monnayable {
+public class Menu extends Observable implements Monnayable, Commandable {
     private double prix;
     private String name;
     private Creneau creneau;
@@ -137,10 +138,24 @@ public class Menu extends Observable implements Monnayable {
 
     @Override
     public String toString() {
-        return "Menu : " + this.getName() + " / " + this.getPrix() + "€" + " / " + this.getCreneau().getDebut() + " - " + this.getCreneau().getFin();
+        String s =  "Menu : " + this.getName() + " / " + this.getPrix() + "€" + " / " + this.getCreneau().getDebut() + " - " + this.getCreneau().getFin();
+        s += "\n" + "Choix : \n";
+        for (ChoixElement e : contenuMenu.getChoixElementListe()) {
+            s += "\n" + e.toString();
+        }
+        s+= "\n" + "Suppléments : \n";
+        for (SupplementElement e : contenuMenu.getSupplementElementListe()) {
+            s += "\n" + e.toString();
+        }
+        return s;
     }
 
-    public int getTempsPreparation() {
+    @Override
+    public boolean modifiable() {
+        return statut == StatutMenu.COMMANDABLE;
+    }
+
+    public float getTempsPreparation() {
         return tempsPreparation;
     }
 
@@ -213,7 +228,7 @@ public class Menu extends Observable implements Monnayable {
 
     @Override
     public double getPrix() {
-        return prix;
+        return prix + contenuMenu.getPrix();
     }
 
     @Override

@@ -53,10 +53,10 @@ public class ListeCommande extends ArrayList<Commande> implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if(!(o instanceof Commande)) throw new RuntimeException("Observable not a Commande");
+        if(!(arg instanceof Commande)) throw new RuntimeException("Observable not a Commande");
         for(int i =0; i<this.size();i++){
             Commande c = this.get(i);
-            if(c.getStatut() == StatutCommande.ANNULEE ||c.getStatut() == StatutCommande.LIVREE ){
+            if(c.getStatutCommande() == StatutCommande.ANNULEE ||c.getStatutCommande() == StatutCommande.LIVREE ){
                 this.remove(c);
                 i=0;
             }

@@ -1,5 +1,6 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.commande.Commandable;
 import fr.unice.polytech.kaleate.menu.BuilderContenuMenu;
 import fr.unice.polytech.kaleate.menu.ContenuMenu;
 import fr.unice.polytech.kaleate.menu.Menu;
@@ -174,67 +175,67 @@ public class UserStory19Test {
     }
     @Quand("je supprime l'element {string} de mon choix element {string} de mon menu {string}")
     public void je_supprime_l_element_de_mon_choix_element_de_mon_menu(String string, String string2, String string3) {
-        managerRestaurant.getRestaurant().getMenus().getParNom(string3).getContenuMenu().getChoixElementParNom(string2).supprimerElementDisponibleParNom(string);
-        Assertions.assertNull(managerRestaurant.getRestaurant().getMenus().getParNom(string3).getContenuMenu().getChoixElementParNom(string2).getParNom(string));
+        ((Menu)managerRestaurant.getRestaurant().getMenus(Commandable.class).getParNom(string3)).getContenuMenu().getChoixElementParNom(string2).supprimerElementDisponibleParNom(string);
+        Assertions.assertNull(((Menu)managerRestaurant.getRestaurant().getMenus(Commandable.class).getParNom(string3)).getContenuMenu().getChoixElementParNom(string2).getParNom(string));
     }
     @Alors("l'element {string} n'est plus disponible dans mon choix element {string} de mon menu {string}")
     public void l_element_n_est_plus_disponible_dans_mon_choix_element_de_mon_menu(String string, String string2, String string3) {
-        Element element = restaurant.getMenus().getParNom(string3).getContenuMenu().getChoixElementParNom(string2).getParNom(string);
+        Element element = ((Menu)restaurant.getMenus(Commandable.class).getParNom(string3)).getContenuMenu().getChoixElementParNom(string2).getParNom(string);
         Assertions.assertNull(element);
     }
 
     @Quand("je supprime le composant {string} de mon choix composant {string} de mon element {string} de mon choix element {string} de mon menu {string}")
     public void je_supprime_le_composant_de_mon_choix_composant_de_mon_element_de_mon_choix_element_de_mon_menu(String string, String string2, String string3, String string4, String string5) {
-        managerRestaurant.getRestaurant().getMenus().getParNom(string5).getContenuMenu().getChoixElementParNom(string4).getParNom(string3).getChoixParNom(string2).supprimerComposantParNom(string);
-        Assertions.assertNull(managerRestaurant.getRestaurant().getMenus().getParNom(string5).getContenuMenu().getChoixElementParNom(string4).getParNom(string3).getChoixParNom(string2).getParNom(string));
+        ((Menu)managerRestaurant.getRestaurant().getMenus(Commandable.class).getParNom(string5)).getContenuMenu().getChoixElementParNom(string4).getParNom(string3).getChoixParNom(string2).supprimerComposantParNom(string);
+        Assertions.assertNull(((Menu)managerRestaurant.getRestaurant().getMenus(Commandable.class).getParNom(string5)).getContenuMenu().getChoixElementParNom(string4).getParNom(string3).getChoixParNom(string2).getParNom(string));
     }
     @Alors("le composant {string} n'est plus disponible dans mon choix composant {string} de mon element {string} de mon choix element {string} de mon menu {string}")
     public void le_composant_n_est_plus_disponible_dans_mon_choix_composant_de_mon_element_de_mon_choix_element_de_mon_menu(String string, String string2, String string3, String string4, String string5) {
-        Composant composant = restaurant.getMenus().getParNom(string5).getContenuMenu().getChoixElementParNom(string4).getParNom(string3).getChoixParNom(string2).getParNom(string);
+        Composant composant = ((Menu)restaurant.getMenus(Commandable.class).getParNom(string5)).getContenuMenu().getChoixElementParNom(string4).getParNom(string3).getChoixParNom(string2).getParNom(string);
         Assertions.assertNull(composant);
     }
 
     @Quand("je supprime le choix element {string} de mon menu {string}")
     public void je_supprime_le_choix_element_de_mon_menu(String string, String string2) {
-        managerRestaurant.getRestaurant().getMenus().getParNom(string2).getContenuMenu().supprimerChoixElementParNom(string);
-        Assertions.assertNull(managerRestaurant.getRestaurant().getMenus().getParNom(string2).getContenuMenu().getChoixElementParNom(string));
+        ((Menu)managerRestaurant.getRestaurant().getMenus(Commandable.class).getParNom(string2)).getContenuMenu().supprimerChoixElementParNom(string);
+        Assertions.assertNull(((Menu)managerRestaurant.getRestaurant().getMenus(Commandable.class).getParNom(string2)).getContenuMenu().getChoixElementParNom(string));
     }
     @Alors("le choix element {string} n'est plus disponible dans mon menu {string}")
     public void le_choix_element_n_est_plus_disponible_dans_mon_menu(String string, String string2) {
-        ChoixElement choixElement = restaurant.getMenus().getParNom(string2).getContenuMenu().getChoixElementParNom(string);
+        ChoixElement choixElement = ((Menu)restaurant.getMenus(Commandable.class).getParNom(string2)).getContenuMenu().getChoixElementParNom(string);
         Assertions.assertNull(choixElement);
     }
 
     @Quand("je supprime le choix composant {string} de mon element {string} de mon choix element {string} de mon menu {string}")
     public void je_supprime_le_choix_composant_de_mon_element_de_mon_choix_element_de_mon_menu(String string, String string2, String string3, String string4) {
-        managerRestaurant.getRestaurant().getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).supprimerChoixComposantParNom(string);
-        Assertions.assertNull(managerRestaurant.getRestaurant().getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixParNom(string));
+        ((Menu)managerRestaurant.getRestaurant().getMenus(Commandable.class).getParNom(string4)).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).supprimerChoixComposantParNom(string);
+        Assertions.assertNull(((Menu)managerRestaurant.getRestaurant().getMenus(Commandable.class).getParNom(string4)).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixParNom(string));
     }
     @Alors("le choix composant {string} n'est plus disponible dans mon element {string} de mon choix element {string} de mon menu {string}")
     public void le_choix_composant_n_est_plus_disponible_dans_mon_element_de_mon_choix_element_de_mon_menu(String string, String string2, String string3, String string4) {
-        ChoixComposant choixComposant = restaurant.getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixParNom(string);
+        ChoixComposant choixComposant = ((Menu)restaurant.getMenus(Commandable.class).getParNom(string4)).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixParNom(string);
         Assertions.assertNull(choixComposant);
     }
 
     @Quand("je supprime le supplement element {string} de mon menu {string}")
     public void je_supprime_le_supplement_element_de_mon_menu(String string, String string2) {
-        managerRestaurant.getRestaurant().getMenus().getParNom(string2).getContenuMenu().getChoixSupplementElement().supprimerSupplementParNom(string);
-        Assertions.assertNull(managerRestaurant.getRestaurant().getMenus().getParNom(string2).getContenuMenu().getChoixSupplementElement().getSupplementParNom(string));
+        ((Menu)managerRestaurant.getRestaurant().getMenus(Commandable.class).getParNom(string2)).getContenuMenu().getChoixSupplementElement().supprimerSupplementParNom(string);
+        Assertions.assertNull(((Menu)managerRestaurant.getRestaurant().getMenus(Commandable.class).getParNom(string2)).getContenuMenu().getChoixSupplementElement().getSupplementParNom(string));
     }
     @Alors("le supplement element {string} n'est plus disponible dans mon menu {string}")
     public void le_supplement_element_n_est_plus_disponible_dans_mon_menu(String string, String string2) {
-        SupplementElement supplement = restaurant.getMenus().getParNom(string2).getContenuMenu().getChoixSupplementElement().getSupplementParNom(string);
+        SupplementElement supplement = ((Menu)restaurant.getMenus(Commandable.class).getParNom(string2)).getContenuMenu().getChoixSupplementElement().getSupplementParNom(string);
         Assertions.assertNull(supplement);
     }
 
     @Quand("je supprime le supplement composant {string} de mon element {string} de mon choix element {string} de mon menu {string}")
     public void je_supprime_le_supplement_composant_de_mon_element_de_mon_choix_element_de_mon_menu(String string, String string2, String string3, String string4) {
-        managerRestaurant.getRestaurant().getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixSupplementComposantDispo().supprimerSupplementParNom(string);
-        Assertions.assertNull(managerRestaurant.getRestaurant().getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixSupplementComposantDispo().getSupplementParNom(string));
+        ((Menu)managerRestaurant.getRestaurant().getMenus(Commandable.class).getParNom(string4)).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixSupplementComposantDispo().supprimerSupplementParNom(string);
+        Assertions.assertNull(((Menu)managerRestaurant.getRestaurant().getMenus(Commandable.class).getParNom(string4)).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixSupplementComposantDispo().getSupplementParNom(string));
     }
     @Alors("le supplement composant {string} n'est plus disponible dans mon element {string} de mon choix element {string} de mon menu {string}")
     public void le_supplement_composant_n_est_plus_disponible_dans_mon_element_de_mon_choix_element_de_mon_menu(String string, String string2, String string3, String string4) {
-        SupplementComposant supplement = restaurant.getMenus().getParNom(string4).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixSupplementComposantDispo().getSupplementParNom(string);
+        SupplementComposant supplement = ((Menu)restaurant.getMenus(Commandable.class).getParNom(string4)).getContenuMenu().getChoixElementParNom(string3).getParNom(string2).getChoixSupplementComposantDispo().getSupplementParNom(string);
         Assertions.assertNull(supplement);
     }
 

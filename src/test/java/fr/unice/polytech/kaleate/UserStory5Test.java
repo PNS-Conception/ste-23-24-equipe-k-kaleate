@@ -1,5 +1,6 @@
 package fr.unice.polytech.kaleate;
 
+import fr.unice.polytech.kaleate.commande.Commandable;
 import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.menu.element.ChoixElement;
 import fr.unice.polytech.kaleate.outils.Creneau;
@@ -48,31 +49,31 @@ public class UserStory5Test {
 
     @Alors("le restaurant {string} propose un menu supplémentaire")
     public void le_restaurant_propose_un_menu_supplementaire(String string) {
-        assertEquals(menuChoisi.getName(), restaurant.getMenus().getParNom(menuChoisi.getName()).getName());
+        assertEquals(menuChoisi.getName(), restaurant.getMenus(Commandable.class).getParNom(menuChoisi.getName()).getName());
     }
 
     @Alors("la liste des menus augmente de {int}")
     public void la_liste_des_menus_augmente_de(Integer int1) {
-        assertEquals(1, restaurant.getMenus().size());
-        restaurant.getMenus().getAllMenus().forEach(Menu::getName);
+        assertEquals(1, restaurant.getMenus(Commandable.class).size());
+        restaurant.getMenus(Menu.class).getAllMenus(Menu.class).forEach(Commandable::getName);
         restaurant.resetMenu();
     }
 
     @Quand("il supprimer le menu {string} de la carte")
     public void il_supprimer_le_menu_de_la_carte(String string) {
         il_ajoute_un_nouveau_menu_pour_euros_a_la_carte(string, 10);
-        Menu menu = restaurant.getMenus().getParNom(string);
+        Commandable menu = restaurant.getMenus(Commandable.class).getParNom(string);
         manager.supprimerUnMenu(menu);
     }
 
     @Alors("le restaurant {string} met à jour son catalogue de menus")
     public void le_restaurant_met_a_jour_son_catalogue_de_menus(String string) {
-        restaurant.getMenus().getAllMenus().forEach(Menu::getName);
+        restaurant.getMenus(Menu.class).getAllMenus(Menu.class).forEach(Commandable::getName);
     }
 
     @Alors("la liste des menus diminue de {int}")
     public void la_liste_des_menus_diminue_de(Integer int1) {
-        assertEquals(0, restaurant.getMenus().size());
+        assertEquals(0, restaurant.getMenus(Commandable.class).size());
     }
 
     @Quand("il modifie un élément du menu {string} de la carte")
@@ -93,6 +94,6 @@ public class UserStory5Test {
 
     @Alors("le restaurant {string} met à jour son catalogue de menu")
     public void le_restaurant_met_a_jour_son_catalogue_de_menu(String string) {
-        assertTrue(restaurant.getMenus().getParNom("Burger cheese").getChoixElementListe().contains(choixElement));
+        assertTrue(((Menu) restaurant.getMenus(Commandable.class).getParNom("Burger cheese")).getChoixElementListe().contains(choixElement));
     }
 }

@@ -1,5 +1,6 @@
 package fr.unice.polytech.kaleate.menu;
 
+import fr.unice.polytech.kaleate.commande.Commandable;
 import fr.unice.polytech.kaleate.outils.Creneau;
 import fr.unice.polytech.kaleate.outils.Listeur;
 
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ListeMenus extends ArrayList<Menu> implements Listeur {
+public class ListeMenus extends ArrayList<Commandable> implements Listeur {
 
     public ListeMenus(){
         super();
@@ -16,30 +17,30 @@ public class ListeMenus extends ArrayList<Menu> implements Listeur {
     public ListeMenus(ListeMenus listeMenus){
         super(listeMenus);
     }
-    public ListeMenus(List<Menu> listeMenus){
+    public ListeMenus(List<Commandable> listeMenus){
         super(listeMenus);
     }
 
-    public Menu getParNom(String s) {
+    public Commandable getParNom(String s) {
         return this.stream().filter(menu -> menu.estMenuParNom(s)).findFirst().orElse(null);
     }
 
     @Override
-    public List<Menu> getMenusDansCreneau(Creneau creneau){
+    public List<Commandable> getMenusDansCreneau(Creneau creneau, Class typeMenu){
 
         return this.stream()
-                .filter(menu -> menu.chevaucheCreneau(creneau))
+                .filter(menu -> menu.chevaucheCreneau(creneau) && typeMenu.isInstance(menu))
                 .collect(Collectors.toList());
     }
     @Override
-    public List<Menu> getAllMenus() {
-        return this;
+    public List<Commandable> getAllMenus(Class typeMenu) {
+        return this.stream().filter(menu -> typeMenu.isInstance(menu)).collect(Collectors.toList());
     }
 
     @Override
     public String toString() {
         StringBuffer stringBuffer = new StringBuffer();
-        for (Menu menu : this){
+        for (Commandable menu : this){
             stringBuffer.append(menu.toString());
             stringBuffer.append("\n");
         }
@@ -47,6 +48,10 @@ public class ListeMenus extends ArrayList<Menu> implements Listeur {
     }
 
     public void resetListeMenu(){
-        this.forEach(Menu::resetMenu);
+        this.stream().filter(m -> m instanceof Menu).forEach(m -> ((Menu) m).resetMenu());
+    }
+
+    public Commandable getMenuParNom(String nom, Class typeMenu){
+        return stream().filter(menu -> menu.estMenuParNom(nom) && typeMenu.isInstance(menu)).findFirst().orElse(null);
     }
 }

@@ -1,15 +1,14 @@
 package fr.unice.polytech.kaleate.outils;
 
-import fr.unice.polytech.kaleate.menu.Menu;
-import fr.unice.polytech.kaleate.outils.Creneau;
+import fr.unice.polytech.kaleate.commande.Commandable;
 
 import java.util.List;
 
 public interface Listeur {
 
-    List<Menu> getMenusDansCreneau(Creneau c);
+    List<Commandable> getMenusDansCreneau(Creneau c, Class typeMenu);
 
-    List<Menu> getAllMenus();
+    List<Commandable> getAllMenus(Class typeMenu);
 
 
 }
