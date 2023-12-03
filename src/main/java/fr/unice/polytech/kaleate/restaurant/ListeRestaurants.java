@@ -1,5 +1,6 @@
 package fr.unice.polytech.kaleate.restaurant;
 
+import fr.unice.polytech.kaleate.commande.Commandable;
 import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.outils.Creneau;
 import fr.unice.polytech.kaleate.outils.Listeur;
@@ -17,17 +18,20 @@ public class ListeRestaurants extends ArrayList<Restaurant> implements Listeur {
         super(listRestaurants);
     }
 
-    public List<Menu> getMenusDansCreneau(Creneau creneau){
+    @Override
+    public List<Commandable> getMenusDansCreneau(Creneau creneau, Class typeMenu){
         List listeMenu = new ArrayList<Menu>();
         for (Restaurant restaurant : this){
-            listeMenu.addAll(restaurant.getMenusDansCreneau(creneau));
+            listeMenu.addAll(restaurant.getMenusDansCreneau(creneau, typeMenu));
         }
         return listeMenu;
     }
-    public List<Menu> getAllMenus(){
+
+    @Override
+    public List<Commandable> getAllMenus(Class typeMenu){
         List listeMenu = new ArrayList();
         for (Restaurant restaurant : this){
-            listeMenu.addAll(restaurant.getMenus());
+            listeMenu.addAll(restaurant.getMenus(typeMenu));
         }
         return listeMenu;
     }

@@ -7,7 +7,6 @@ import fr.unice.polytech.kaleate.menu.ListeMenus;
 import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.outils.Creneau;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -43,17 +42,17 @@ public class Restaurant extends Evaluable {
         this.localisation=l;
     }
 
-    public ListeMenus getMenus(){
-        return this.menus;
+    public ListeMenus getMenus(Class typeMenu){
+        return this.menus.stream().filter(typeMenu::isInstance).collect(Collectors.toCollection(ListeMenus::new));
     }
 
     public void setMenus(ListeMenus menus){
         this.menus = menus;
     }
 
-    public ListeMenus getMenusDansCreneau(Creneau creneau){
+    public ListeMenus getMenusDansCreneau(Creneau creneau, Class typeMenu){
         ListeMenus listeMenu = new ListeMenus(this.menus);
-        listeMenu = new ListeMenus(listeMenu.stream().filter(menu -> menu.chevaucheCreneau(creneau)).toList());
+        listeMenu = new ListeMenus(listeMenu.stream().filter(menu -> menu.chevaucheCreneau(creneau) && typeMenu.isInstance(menu)).toList());
         return listeMenu;
     }
 
@@ -96,16 +95,16 @@ public class Restaurant extends Evaluable {
      * @param menu
      * @return boolean
      */
-    public boolean finirPreparationMenu(Commande commande, Menu menu){
-        if(commande.getStatut() == StatutCommande.EN_PREPARATION || commande.getStatut() == StatutCommande.VALIDEE){
+    public boolean finirPreparationMenu(Commande commande, Commandable menu){
+        if(commande.getStatutCommande() == StatutCommande.EN_PREPARATION || commande.getStatutCommande() == StatutCommande.VALIDEE){
             return commande.finirPreparationMenu(menu);
         }
         return false;
     }
 
 
-    public boolean preparerMenu(Commande commande, Menu menu){
-        if(commande.getStatut() == StatutCommande.EN_PREPARATION || commande.getStatut() == StatutCommande.VALIDEE){
+    public boolean preparerMenu(Commande commande, Commandable menu){
+        if(commande.getStatutCommande() == StatutCommande.EN_PREPARATION || commande.getStatutCommande() == StatutCommande.VALIDEE){
             return commande.preparerMenu(menu);
         }
         return false;
@@ -121,12 +120,12 @@ public class Restaurant extends Evaluable {
     }
 
 
-    public void ajouterMenu(Menu m){
+    public void ajouterMenu(Commandable m){
         m.setRestaurant(this);
         menus.add(m);
     }
 
-    public void supprimerMenu(Menu m){
+    public void supprimerMenu(Commandable m){
         menus.remove(m);
     }
 
@@ -137,4 +136,5 @@ public class Restaurant extends Evaluable {
      public Localisation getLocalisation() {
         return localisation;
     }
+
 }

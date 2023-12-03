@@ -1,6 +1,7 @@
 package fr.unice.polytech.kaleate.campus;
 
 import fr.unice.polytech.kaleate.Localisation;
+import fr.unice.polytech.kaleate.commande.Commandable;
 import fr.unice.polytech.kaleate.menu.ListeMenus;
 import fr.unice.polytech.kaleate.restaurant.ListeRestaurants;
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
@@ -53,10 +54,10 @@ public class Campus {
         listeDesUtilisateurs.remove(u);
     }
 
-    public Map<Restaurant, ListeMenus> listerMenus(){
+    public Map<Restaurant, ListeMenus> listerMenus(Class typeMenu){
         Map<Restaurant, ListeMenus> m = new HashMap<>();
         for (Restaurant r : restaurantsPartenaires){
-            m.put(r,r.getMenus());
+            m.put(r,r.getMenus(typeMenu));
         }
         return m;
     }

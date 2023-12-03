@@ -6,7 +6,6 @@ import fr.unice.polytech.kaleate.Evalueur;
 import fr.unice.polytech.kaleate.GestionnaireLivraison;
 import fr.unice.polytech.kaleate.campus.Utilisateur;
 import fr.unice.polytech.kaleate.commande.Commande;
-import fr.unice.polytech.kaleate.commande.CommandeSimple;
 import fr.unice.polytech.kaleate.commande.StatutCommande;
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
 
@@ -67,7 +66,7 @@ public class Livreur extends Evaluable implements Evalueur {
      */
     public boolean recupere_commande(Restaurant r, int i){
         Commande c = r.getCommandePrete().getCommandeById(i);
-        if (c!=null & (this.gestionnaireLivraison==null||this.getCommmande().getStatut() == StatutCommande.LIVREE)){
+        if (c!=null & (this.gestionnaireLivraison==null||this.getCommmande().getStatutCommande() == StatutCommande.LIVREE)){
             attribuerCommande(c);
             debuterLaCourse();
             return true;

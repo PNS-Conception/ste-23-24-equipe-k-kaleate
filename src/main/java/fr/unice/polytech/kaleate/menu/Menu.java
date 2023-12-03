@@ -1,5 +1,6 @@
 package fr.unice.polytech.kaleate.menu;
 
+import fr.unice.polytech.kaleate.commande.Commandable;
 import fr.unice.polytech.kaleate.commande.Commande;
 import fr.unice.polytech.kaleate.menu.element.ChoixElement;
 import fr.unice.polytech.kaleate.menu.supplement.Supplement;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-public class Menu extends Observable implements Monnayable {
+public class Menu extends Observable implements Monnayable, Commandable {
     private double prix;
     private String name;
     private Creneau creneau;
@@ -130,7 +131,12 @@ public class Menu extends Observable implements Monnayable {
         return "Menu : " + this.getName() + " / " + this.getPrix() + "€" + " / " + this.getCreneau().getDebut() + " - " + this.getCreneau().getFin();
     }
 
-    public int getTempsPreparation() {
+    @Override
+    public boolean modifiable() {
+        return statut == StatutMenu.COMMANDABLE;
+    }
+
+    public float getTempsPreparation() {
         return tempsPreparation;
     }
 
