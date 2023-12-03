@@ -3,16 +3,17 @@ package fr.unice.polytech.kaleate.restaurant;
 import fr.unice.polytech.kaleate.Evaluable;
 import fr.unice.polytech.kaleate.Localisation;
 import fr.unice.polytech.kaleate.commande.*;
+import fr.unice.polytech.kaleate.menu.ContenuMenu;
 import fr.unice.polytech.kaleate.menu.ListeMenus;
 import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.outils.Creneau;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Restaurant extends Evaluable {
     private ListeMenus menus;
+    private Map<String, Integer> menusCommandes;
     private String name;
 
     private Localisation localisation;
@@ -22,18 +23,21 @@ public class Restaurant extends Evaluable {
     public Restaurant(){
         gestionnaireCommande = new GestionnaireCommande();
         this.menus = new ListeMenus();
+        this.menusCommandes=new HashMap<>();
     }
 
     public Restaurant(String name){
         this.menus = new ListeMenus();
         this.name = name;
         gestionnaireCommande = new GestionnaireCommande();
+        this.menusCommandes=new HashMap<>();
     }
 
     public Restaurant(String name, ListeMenus menus){
         this.name = name;
         this.menus = menus;
         this.gestionnaireCommande = new GestionnaireCommande();
+        this.menusCommandes=new HashMap<>();
     }
 
     public Restaurant(String name, ListeMenus menus,Localisation l){
@@ -41,6 +45,10 @@ public class Restaurant extends Evaluable {
         this.menus = menus;
         this.gestionnaireCommande = new GestionnaireCommande();
         this.localisation=l;
+        this.menusCommandes=new HashMap<>();
+        for (Menu m : menus){
+            menusCommandes.put(m.getName(),0);
+        }
     }
 
     public ListeMenus getMenus(){
@@ -49,6 +57,9 @@ public class Restaurant extends Evaluable {
 
     public void setMenus(ListeMenus menus){
         this.menus = menus;
+        for (Menu m : menus){
+            menusCommandes.put(m.getName(),0);
+        }
     }
 
     public ListeMenus getMenusDansCreneau(Creneau creneau){
@@ -134,9 +145,25 @@ public class Restaurant extends Evaluable {
 
     public void resetMenu(){
         this.menus = new ListeMenus();
+        menusCommandes.clear();
     }
 
      public Localisation getLocalisation() {
         return localisation;
+    }
+
+    public Map<String, Integer> tendances() {
+        menusCommandes = menusCommandes.entrySet()
+                .stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .collect(
+                        Collectors.toMap(
+                                Map.Entry::getKey,
+                                Map.Entry::getValue,
+                                (e1, e2) -> e1,
+                                LinkedHashMap::new
+                        )
+                );
+        return menusCommandes;
     }
 }
