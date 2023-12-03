@@ -1,6 +1,7 @@
 package fr.unice.polytech.kaleate.commande;
 
 import fr.unice.polytech.kaleate.menu.Menu;
+import fr.unice.polytech.kaleate.menu.StatutMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,33 @@ public class CommandeGroupee extends CommandeSimple {
 
         return commandes.add(commande);
 
+    }
+
+    @Override
+    protected int nombreMenuPourReduc() {
+        int i =0;
+        for(Commande c : commandes){
+            for(Commandable m : c.getMenus()){
+                if(m.getStatut()!= StatutMenu.ANNULE){
+                    i++;
+                }
+            }
+        }
+
+
+        return i;
+    }
+
+    @Override
+    public boolean elligibleReduction() {
+        if(getReduction()) return true;
+        if(nombreMenuPourReduc()>=10){
+            getUtilisateurEmetteur().addSolde((float) (getPrix()*0.1));
+            for(Commande c : commandes)
+                c.setReduction(true);
+            return true;
+        }
+        return false;
     }
 
     public int getCode() {

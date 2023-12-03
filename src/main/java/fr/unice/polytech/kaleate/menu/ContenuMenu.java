@@ -1,7 +1,6 @@
 package fr.unice.polytech.kaleate.menu;
 
 import fr.unice.polytech.kaleate.menu.element.ChoixElement;
-import fr.unice.polytech.kaleate.menu.element.Element;
 import fr.unice.polytech.kaleate.menu.supplement.ChoixSupplementElement;
 import fr.unice.polytech.kaleate.menu.supplement.Supplement;
 import fr.unice.polytech.kaleate.menu.element.SupplementElement;
@@ -13,17 +12,17 @@ import java.util.List;
 public class ContenuMenu implements Monnayable {
 
     private List<ChoixElement> choixElementListe;
-    private ChoixSupplementElement choixSupplements;
+    private ChoixSupplementElement choixSupplementElement;
 
     public ContenuMenu()
     {
         choixElementListe = new ArrayList<>();
-        choixSupplements = new ChoixSupplementElement();
+        choixSupplementElement = new ChoixSupplementElement();
     }
 
     public ContenuMenu(ArrayList<ChoixElement> choixElementListe, ChoixSupplementElement choixSupplements) {
         this.choixElementListe = choixElementListe;
-        this.choixSupplements = choixSupplements;
+        this.choixSupplementElement = choixSupplements;
     }
 
     public List<ChoixElement> getChoixElementListe() {
@@ -42,16 +41,24 @@ public class ContenuMenu implements Monnayable {
         this.choixElementListe = choixElementListe;
     }
 
+    public void setChoixSupplementElement(ChoixSupplementElement choixSupplementElement) {
+        this.choixSupplementElement = choixSupplementElement;
+    }
+
     public List<SupplementElement> getSupplementElementListe() {
-        return (ArrayList<SupplementElement>) choixSupplements.getSupplementsListe();
+        return choixSupplementElement.getSupplementsListe();
     }
 
     public ArrayList<SupplementElement> getSupplementElementListeSelectionne() {
-        return (ArrayList<SupplementElement>) choixSupplements.getSupplementsSelectionnes();
+        return (ArrayList<SupplementElement>) choixSupplementElement.getSupplementsSelectionnes();
+    }
+
+    public ChoixSupplementElement getChoixSupplementElement() {
+        return choixSupplementElement;
     }
 
     public void setSupplementElementListe(ChoixSupplementElement supplementElement) {
-        choixSupplements = supplementElement;
+        choixSupplementElement = supplementElement;
     }
 
     /**
@@ -68,7 +75,7 @@ public class ContenuMenu implements Monnayable {
      * @param supplementElement l'élément supplément que le manager de restaurant veut ajouter
      */
     public void ajouterElementSupplement(SupplementElement supplementElement){
-        choixSupplements.getSupplementsListe().add(supplementElement);
+        choixSupplementElement.getSupplementsListe().add(supplementElement);
     }
 
     /**
@@ -76,7 +83,7 @@ public class ContenuMenu implements Monnayable {
      * @param supplementElement l'élément supplément choisi par l'utilisateur
      */
     public void ajouterElementSupplementSelectionne(SupplementElement supplementElement) {
-        choixSupplements.selectionnerSupplement(supplementElement);
+        choixSupplementElement.selectionnerSupplement(supplementElement);
     }
 
 
@@ -87,7 +94,7 @@ public class ContenuMenu implements Monnayable {
      * @return le supplément élément trouvé à  partir du string entré en paramètre
      */
     public SupplementElement getChoixSupplementElementParNom(String nomSupplement){
-        return this.choixSupplements.getSupplementsListe().stream().filter(supplementElement -> (supplementElement.estSupplementParNom(nomSupplement))).findFirst().orElse(null);
+        return this.choixSupplementElement.getSupplementsListe().stream().filter(supplementElement -> (supplementElement.estSupplementParNom(nomSupplement))).findFirst().orElse(null);
     }
 
     /**
@@ -96,13 +103,17 @@ public class ContenuMenu implements Monnayable {
      * @return le supplément élément trouvé à partir du string entré en paramètre
      */
     public SupplementElement getSupplementElementListeSelectioneParNom(String nomSup){
-        return choixSupplements.getSupplementsSelectionnes().stream().filter(supplementElement -> supplementElement.estSupplementParNom(nomSup)).findFirst().orElse(null);
+        return choixSupplementElement.getSupplementsSelectionnes().stream().filter(supplementElement -> supplementElement.estSupplementParNom(nomSup)).findFirst().orElse(null);
+    }
+
+    public ChoixElement getChoixElementParNom(String nomChoixElement){
+        return choixElementListe.stream().filter(choixElement -> choixElement.estChoixParNom(nomChoixElement)).findFirst().orElse(null);
     }
 
     public void reset()
     {
         for(ChoixElement ce : choixElementListe) ce.reset();
-        choixSupplements.reset();
+        choixSupplementElement.reset();
     }
 
     /**
@@ -115,7 +126,7 @@ public class ContenuMenu implements Monnayable {
         for (ChoixElement e : choixElementListe) {
             total += e.getPrixSupplement();
         }
-        for(Supplement supplementElement : choixSupplements.getSupplementsSelectionnes()){
+        for(Supplement supplementElement : choixSupplementElement.getSupplementsSelectionnes()){
             total += supplementElement.getPrix();
 
         }
@@ -124,12 +135,12 @@ public class ContenuMenu implements Monnayable {
 
     @Override
     public double getPrixSansReduction() {
-        return getPrix();
+        return 0;
     }
 
     @Override
     public double getPrixBase() {
-        return getPrix();
+        return 0;
     }
 
 
@@ -138,5 +149,9 @@ public class ContenuMenu implements Monnayable {
             choixElement.verifElement();
         }
 
+    }
+
+    public void supprimerChoixElementParNom(String nomChoixElement){
+        choixElementListe.remove(getChoixElementParNom(nomChoixElement));
     }
 }

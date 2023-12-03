@@ -52,7 +52,8 @@ public class Utilisateur extends Evaluable implements Evalueur {
     }
     public boolean rejoindreCommandegroupee(CommandeGroupee commandeGroupee, int code){
             if(commandeActuelle == null){
-                commandeActuelle = new CommandeSimple();
+                commandeActuelle = new CommandeSimple(this);
+                ListeCommande.getInstance().add(commandeActuelle);
             }
             return commandeGroupee.ajouterCommande(code, commandeActuelle);
     }
@@ -71,7 +72,8 @@ public class Utilisateur extends Evaluable implements Evalueur {
         m.verifContenuMenu();
         return commandeActuelle.addMenu(m);
     }
-    public boolean removeMenu(Menu m){
+
+    public boolean removeMenu(Commandable m){
         return commandeActuelle.removeMenu(m);
     }
 
@@ -89,19 +91,33 @@ public class Utilisateur extends Evaluable implements Evalueur {
     public void addSolde(float solde) {
         this.solde += solde;
     }
+    public void removeSolde(float solde){this.solde -=solde;}
     public boolean payer(){
         if(commandeActuelle == null) return false;
-        if(new PayementExterne().payer(commandeActuelle.getPrix())) {
-            commandeActuelle.setStatut(StatutCommande.VALIDEE);
+        if(new PayementExterne().payer(this,commandeActuelle.getPrix())) {
+            for (Commandable m : commandeActuelle.getMenus()) {
+                m.verifContenuMenu();
+            }
+            commandeActuelle.setUtilisateurEmetteur(this);
+            commandeActuelle.setStatut(StatutCommande.PAYEE);
+            commandeActuelle.elligibleReduction();
             commandeActuelle.enregistrerCommande();
+            ListeCommande.getInstance().add(commandeActuelle);
             return true;
         }
         return false;
     }
+    public void rembourser(Commandable m){
+        new PayementExterne().rembourser(this,m.getPrix());
+    }
+
+    public boolean removeMenu(Menu m){
+        return commandeActuelle.removeMenu(m);
+    }
+
     public void recupererCommande(){
         if(commandeActuelle.getStatutCommande()==StatutCommande.A_RECUPERER){
             commandeActuelle.setStatut(StatutCommande.LIVREE);
-            resetCommandeActuelle();
         }
     }
     public void resetCommandeActuelle(){
@@ -109,30 +125,41 @@ public class Utilisateur extends Evaluable implements Evalueur {
         commandeActuelle = null;
     }
 
-    public ArrayList<Commande> getHistorique() {
-        return historique;
-    }
+        public ArrayList<Commande> getHistorique() {
+            return historique;
+        }
 
-    public int getIdCommande() throws CommandeException {;
-            if(commandeActuelle.getStatutCommande().compareTo(StatutCommande.VALIDEE)>=0)
-                return commandeActuelle.getId();
+
+        public int getIdCommande() throws CommandeException {
+                if(commandeActuelle.getStatutCommande().compareTo(StatutCommande.VALIDEE)>=0)
+                    return commandeActuelle.getId();
+                throw new CommandeException("La commande n'est pas encore payée.");
+        }
+        public Creneau getDateCommande() throws CommandeException {
+            if(commandeActuelle.getStatutCommande().compareTo(StatutCommande.PAYEE)>=0)
+                return commandeActuelle.getCreneauLivraison();
             throw new CommandeException("La commande n'est pas encore payée.");
-    }
-    public Creneau getDateCommande() throws CommandeException {
-        if(commandeActuelle.getStatutCommande().compareTo(StatutCommande.VALIDEE)>=0)
-            return commandeActuelle.getCreneauLivraison();
-        throw new CommandeException("La commande n'est pas encore payée.");
-    }
+        }
 
-    @Override
-    public void evaluer(Avis note, Evaluable evaluable) {
-            if (evaluable instanceof Livreur || evaluable instanceof Restaurant){
-                evaluable.nouvelAvis(this,note);
-            }
-    }
-   /*public Creneau getPointLivraison() throws CommandeException {
-        if(commandeActuelle.getStatut().compareTo(StatutCommande.PAYEE)>=0)
-            return commandeActuelle.get();
-        throw new CommandeException("La commande n'est pas encore payée.");
-    }*/
+        @Override
+        public void evaluer(Avis note, Evaluable evaluable) {
+                if (evaluable instanceof Livreur || evaluable instanceof Restaurant){
+                    evaluable.nouvelAvis(this,note);
+                }
+        }
+
+        public void abandonCommande(){
+            commandeActuelle.abandonCommande();
+            commandeActuelle = null;
+        }
+
+
+        public void resetCommande(){
+            commandeActuelle = null;
+        }
+       /*public Creneau getPointLivraison() throws CommandeException {
+            if(commandeActuelle.getStatut().compareTo(StatutCommande.PAYEE)>=0)
+                return commandeActuelle.get();
+            throw new CommandeException("La commande n'est pas encore payée.");
+        }*/
 }

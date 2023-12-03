@@ -59,7 +59,7 @@ public class ChoixSupplementElement implements ChoixSupplement<SupplementElement
 
     @Override
     public void reset() {
-        //TODO verifier si c'est bien ca
+
         supplementsSelectionnes = new ArrayList<>();
     }
 
@@ -77,5 +77,41 @@ public class ChoixSupplementElement implements ChoixSupplement<SupplementElement
     @Override
     public double getPrixBase() {
         return 0;
+    }
+
+    public void supprimerSupplementParNom(String nom) {
+        for (SupplementElement supplement : supplementsListe) {
+            if (supplement.getNom().equals(nom)) {
+                supplementsListe.remove(supplement);
+                break;
+            }
+        }
+    }
+
+    public SupplementElement getSupplementParNom(String nom) {
+        for (SupplementElement supplement : supplementsListe) {
+            if (supplement.getNom().equals(nom)) {
+                return supplement;
+            }
+        }
+        return null;
+    }
+
+    public void supprimerSupplementSelectionneParNom(String nom) {
+        for (SupplementElement supplement : supplementsSelectionnes) {
+            if (supplement.getNom().equals(nom)) {
+                supplementsSelectionnes.remove(supplement);
+                break;
+            }
+        }
+    }
+
+    public SupplementElement getSupplementSelectionneParNom(String nom) {
+        for (SupplementElement supplement : supplementsSelectionnes) {
+            if (supplement.getNom().equals(nom)) {
+                return supplement;
+            }
+        }
+        return null;
     }
 }

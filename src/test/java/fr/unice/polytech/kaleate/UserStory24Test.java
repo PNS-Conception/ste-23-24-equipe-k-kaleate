@@ -30,7 +30,7 @@ public class UserStory24Test {
     static Commande commande;
     static Restaurant restaurant = new Restaurant();
     public Menu creerMenu(){
-        Menu m = new Menu(10,"menu",new Creneau(new Date(),new Date()));
+        Menu m = new Menu(10,"menu",new Creneau(new Date(),new Date()), restaurant);
         return m;
 
     }

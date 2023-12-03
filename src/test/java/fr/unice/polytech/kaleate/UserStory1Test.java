@@ -41,9 +41,12 @@ public class UserStory1Test {
     static Commandable menuChoisi;
 
 
+    static Commandable m1, m2, m3, m4, m5, m6;
+    static Restaurant r1, r2;
+
+
     //Generateur de menus
-    public static List<Commandable> getMenus(){
-        List<Commandable> menus = new ArrayList<Commandable>();
+    public static void getMenus(){
 
         // date qui fonctionnent
         Date db = new Date();
@@ -54,9 +57,9 @@ public class UserStory1Test {
         c.add(Calendar.DATE, 1);
         df = c.getTime();
 
-        menus.add(new Menu(10, "Burger cheese", new Creneau(db, df)));
-        menus.add(new Menu(12, "Burger double cheese", new Creneau(db, df)));
-        menus.add(new Menu(8, "Hamburger classic", new Creneau(db, df)));
+        m1 = new Menu(10, "Burger cheese", new Creneau(db, df));
+        m2 = new Menu(12, "Burger double cheese", new Creneau(db, df));
+        m3 = new Menu(8, "Hamburger classic", new Creneau(db, df));
 
 
         // date qui ne fonctionnent pas
@@ -70,16 +73,32 @@ public class UserStory1Test {
         c2.add(Calendar.DATE, 1);
         dnf = c2.getTime();
 
-        menus.add(new Menu(10, "NOT Burger cheese", new Creneau(dnb, dnf)));
-        menus.add(new Menu(12, "NOT Burger double cheese", new Creneau(dnb, dnf)));
-        menus.add(new Menu(8, "NOT Hamburger classic", new Creneau(dnb, dnf)));
-        return menus;
+        m4 = new Menu(10, "NOT Burger cheese", new Creneau(dnb, dnf));
+        m5 = new Menu(12, "NOT Burger double cheese", new Creneau(dnb, dnf));
+        m6 = new Menu(8, "NOT Hamburger classic", new Creneau(dnb, dnf));
+
     }
 
     public static ListeRestaurants getRestaurants(){
         ListeRestaurants restaurants = new ListeRestaurants();
-        restaurants.add(new Restaurant("Burger King", new ListeMenus(getMenus())));
-        restaurants.add(new Restaurant("Not Burger King", new ListeMenus(getMenus())));
+        r1 = new Restaurant("Burger King");
+        r2 = new Restaurant("Not Burger King");
+        getMenus();
+        r1.ajouterMenu(m1);
+        r1.ajouterMenu(m2);
+        r1.ajouterMenu(m3);
+        r1.ajouterMenu(m4);
+        r1.ajouterMenu(m5);
+        r1.ajouterMenu(m6);
+        r2.ajouterMenu(m1);
+        r2.ajouterMenu(m2);
+        r2.ajouterMenu(m3);
+        r2.ajouterMenu(m4);
+        r2.ajouterMenu(m5);
+        r2.ajouterMenu(m6);
+
+        restaurants.add(r1);
+        restaurants.add(r2);
         return restaurants;
     }
 

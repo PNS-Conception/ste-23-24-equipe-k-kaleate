@@ -7,7 +7,7 @@ public class GestionnaireCommande {
     private ListeCommande listCommande;
 
     public GestionnaireCommande(){
-        listCommande = ListeCommande.getInstanc();
+        listCommande = ListeCommande.getInstance();
     }
 
     public boolean validerCommande(Commande commande){
@@ -40,8 +40,15 @@ public class GestionnaireCommande {
     public ListeCommande getListCommande() {
         return listCommande;
     }
-
+    public ListeCommande getListCommande(Restaurant restaurant) {
+        ListeCommande liste = new ListeCommande();
+        liste.addAll(listCommande.getCommandeByRestaurant(restaurant));
+        return liste;
+    }
     public void setListCommande(ListeCommande listCommande) {
         this.listCommande = listCommande;
+    }
+    public boolean annulerPreparationMenu(Commande c,Commandable m){
+        return c.removeMenuDepuisRestaurant(m);
     }
 }

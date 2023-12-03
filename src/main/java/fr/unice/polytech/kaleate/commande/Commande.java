@@ -10,10 +10,11 @@ import fr.unice.polytech.kaleate.restaurant.Restaurant;
 
 import java.util.*;
 
-public abstract class Commande implements Monnayable, Observer {
-
+public abstract class Commande extends Observable implements Monnayable, Observer {
+    protected boolean reduction =false;
+    private ListeCommande listeCommande = ListeCommande.getInstance();
     static int nextID = 1;
-    int id;
+    protected int id;
 
     protected Creneau creneauLivraison;
 
@@ -66,11 +67,18 @@ public abstract class Commande implements Monnayable, Observer {
                 m.setStatutPret();
             }
         }
+        else  if (statut.equals(StatutCommande.PAYEE)){
+            for (Commandable m : this.getMenus()){
+                m.setStatutPaye();
+            }
+        }
         else if(statut.equals(StatutCommande.EN_PREPARATION)){
             for (Commandable m : getMenus()){
                 m.setStatutEnPreparation();
             }
         }
+
+        listeCommande.update(this,this);
     }
     public void valideeCommande()
     {
@@ -98,10 +106,23 @@ public abstract class Commande implements Monnayable, Observer {
         if (contains(mp)) {
             for(int i=0; i<getMenus().size(); i++){
                 if (mp.equals(getMenus().get(i)))
-                    if(getMenus().get(i).getStatut()==StatutMenu.VALIDE || getMenus().get(i).getStatut()==StatutMenu.EN_PREPARATION){
+                    if(getMenus().get(i).getStatut()==StatutMenu.VALIDE || getMenus().get(i).getStatut()==StatutMenu.EN_PREPARATION || getMenus().get(i).getStatut()==StatutMenu.PAYEE){
                         mp.setStatut(StatutMenu.EN_PREPARATION);
                         return true;
                     }
+            }
+        }
+        return false;
+    }
+
+    public boolean annulerMenu(Menu mp){
+        if (contains(mp)) {
+            for (int i=0; i<getMenus().size(); i++){
+                if (mp.equals(getMenus().get(i))&& getMenus().get(i).getStatut()!=StatutMenu.PRET){
+                    getMenus().get(i).setStatut(StatutMenu.ANNULE);
+                    getUtilisateurEmetteur().rembourser(getMenus().get(i));
+                    return true;
+                }
             }
         }
         return false;
@@ -139,23 +160,22 @@ public abstract class Commande implements Monnayable, Observer {
         }
     }
 
+    public abstract boolean elligibleReduction();
 
     @Override
     public double getPrixBase(){
         double price = 0;
         for(Commandable menu : this.getMenus()){
-            price += menu.getPrix();
+            price += menu.getPrixBase();
         }
         return price;
     }
 
     @Override
     public double getPrix(){
-        double prix = getPrixBase();
+        double prix = 0;
         for(Commandable menu : this.getMenus()){
-            if(menu instanceof Menu)
-                prix += ((Menu) menu).getPrixAvecSupplements();
-            else
+            if(menu.getStatut() != StatutMenu.ANNULE)
                 prix += menu.getPrix();
         }
         return prix;
@@ -170,6 +190,7 @@ public abstract class Commande implements Monnayable, Observer {
     public void update(Observable o, Object arg) {
         if(!(o instanceof Menu)) throw new RuntimeException("Observable not a Menu");
         boolean isReady = true;
+        boolean isCancel = true;
         for (Commandable m : getMenus()) {
             if(m.getStatut() == StatutMenu.EN_PREPARATION || m.getStatut() == StatutMenu.PRET)
             {
@@ -178,9 +199,15 @@ public abstract class Commande implements Monnayable, Observer {
             if(m.getStatut() != StatutMenu.PRET) {
                 isReady = false;
             }
+            if(m.getStatut() != StatutMenu.ANNULE) {
+                isCancel = false;
+            }
         }
         if(isReady)
             statut = StatutCommande.PRETE;
+        if(isCancel)
+            statut = StatutCommande.ANNULEE;
+        listeCommande.update(this,this);
     }
 
 
@@ -198,5 +225,24 @@ public abstract class Commande implements Monnayable, Observer {
         return id;
     }
 
+    public void setReduction(boolean reduction) {
+        this.reduction = reduction;
+    }
+    public boolean getReduction() {
+        return this.reduction;
+    }
+
+    public void abandonCommande(){
+        for(Commandable m : getMenus()){
+            m.resetMenu();
+            m.getRestaurant().ajouterMenu(m);
+        }
+    }
     public abstract void reset();
+
+    public boolean removeMenuDepuisRestaurant(Commandable m) {
+        m.setStatut(StatutMenu.ANNULE);
+        getUtilisateurEmetteur().addSolde((float) m.getPrix());
+        return true;
+    }
 }

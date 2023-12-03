@@ -27,11 +27,20 @@ public class Menu extends Observable implements Monnayable, Commandable {
     public Menu()
     {
     }
+
+
     public Menu(float prix, String name, Creneau creneau){
         this.prix = prix;
         this.name = name;
         this.creneau = creneau;
         this.contenuMenu = new ContenuMenu();
+    }
+    public Menu(float prix, String name, Creneau creneau,Restaurant restaurant){
+        this.prix = prix;
+        this.name = name;
+        this.creneau = creneau;
+        this.contenuMenu = new ContenuMenu();
+        this.restaurant = restaurant;
     }
     public Menu(float prix, String name, Creneau creneau, int tempsPreparation){
         this.prix = prix;
@@ -61,6 +70,7 @@ public class Menu extends Observable implements Monnayable, Commandable {
     public void setCommande(Commande c)
     {
         this.commande = c;
+        this.restaurant.supprimerMenu(this);
     }
     public Commande getCommande()
     {
@@ -128,7 +138,16 @@ public class Menu extends Observable implements Monnayable, Commandable {
 
     @Override
     public String toString() {
-        return "Menu : " + this.getName() + " / " + this.getPrix() + "€" + " / " + this.getCreneau().getDebut() + " - " + this.getCreneau().getFin();
+        String s =  "Menu : " + this.getName() + " / " + this.getPrix() + "€" + " / " + this.getCreneau().getDebut() + " - " + this.getCreneau().getFin();
+        s += "\n" + "Choix : \n";
+        for (ChoixElement e : contenuMenu.getChoixElementListe()) {
+            s += "\n" + e.toString();
+        }
+        s+= "\n" + "Suppléments : \n";
+        for (SupplementElement e : contenuMenu.getSupplementElementListe()) {
+            s += "\n" + e.toString();
+        }
+        return s;
     }
 
     @Override
@@ -158,7 +177,7 @@ public class Menu extends Observable implements Monnayable, Commandable {
         for(Supplement supplementElement : contenuMenu.getSupplementElementListeSelectionne()){
             total += supplementElement.getPrix();
         }
-        return total;
+        return this.getPrix() + total;
     }
 
     /**
@@ -195,6 +214,9 @@ public class Menu extends Observable implements Monnayable, Commandable {
     public void setStatutPret() {
         setStatut(StatutMenu.PRET);
     }
+    public void setStatutPaye() {
+        setStatut(StatutMenu.PAYEE);
+    }
 
     public Restaurant getRestaurant() {
         return restaurant;
@@ -206,7 +228,7 @@ public class Menu extends Observable implements Monnayable, Commandable {
 
     @Override
     public double getPrix() {
-        return prix;
+        return prix + contenuMenu.getPrix();
     }
 
     @Override

@@ -38,4 +38,6 @@ public interface Commandable extends Monnayable {
     Creneau getCreneau();
 
     void setTempsPreparation(int i);
+
+    void setStatutPaye();
 }

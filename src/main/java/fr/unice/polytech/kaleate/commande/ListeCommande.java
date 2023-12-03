@@ -1,11 +1,15 @@
 package fr.unice.polytech.kaleate.commande;
 
+import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.outils.Creneau;
+import fr.unice.polytech.kaleate.restaurant.Restaurant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-public class ListeCommande extends ArrayList<Commande> {
+public class ListeCommande extends ArrayList<Commande> implements Observer {
     private static ListeCommande instance;
     public ListeCommande(){
         super();
@@ -18,6 +22,9 @@ public class ListeCommande extends ArrayList<Commande> {
 
     public Commande getCommandeById(int id){
         return this.stream().filter(commande -> commande.getId()==id).findFirst().orElse(null);
+    }
+    public List<Commande> getCommandeByRestaurant(Restaurant restaurant){
+        return this.stream().filter(commande -> commande.getRestaurants().contains(restaurant)).toList();
     }
     public List<Commande> getCommandeByCreneau(Creneau creneau){
         //TODO : A tester
@@ -34,11 +41,25 @@ public class ListeCommande extends ArrayList<Commande> {
         return s;
     }
 
-    public static ListeCommande getInstanc() {
+    public static ListeCommande getInstance() {
         if (instance == null) {
             instance = new ListeCommande();
         }
         return instance;
     }
+    public static void reset(){
+        instance = new ListeCommande();
+    }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        if(!(arg instanceof Commande)) throw new RuntimeException("Observable not a Commande");
+        for(int i =0; i<this.size();i++){
+            Commande c = this.get(i);
+            if(c.getStatutCommande() == StatutCommande.ANNULEE ||c.getStatutCommande() == StatutCommande.LIVREE ){
+                this.remove(c);
+                i=0;
+            }
+        }
+    }
 }

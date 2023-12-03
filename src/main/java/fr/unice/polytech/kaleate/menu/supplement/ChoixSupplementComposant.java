@@ -61,7 +61,7 @@ public class ChoixSupplementComposant implements ChoixSupplement<SupplementCompo
 
     @Override
     public void reset() {
-        //TODO verifier si c'est bien ca
+
         supplementsSelectionnes = new ArrayList<>();
     }
 
@@ -79,5 +79,44 @@ public class ChoixSupplementComposant implements ChoixSupplement<SupplementCompo
     @Override
     public double getPrixBase() {
         return 0;
+    }
+
+    public void supprimerSupplementParNom(String nom) {
+        List<SupplementComposant> supplements = supplementsListe.stream().filter(supplement -> supplement.getNom().equals(nom)).collect(Collectors.toList());
+        if (supplements.size() > 0) {
+            supplementsListe.remove(supplements.get(0));
+        }
+    }
+
+    public SupplementComposant getSupplementParNom(String nom) {
+        List<SupplementComposant> supplements = supplementsListe.stream().filter(supplement -> supplement.getNom().equals(nom)).collect(Collectors.toList());
+        if (supplements.size() > 0) {
+            return supplements.get(0);
+        }
+        return null;
+    }
+
+    public void supprimerSupplementSelectionneParNom(String nom) {
+        List<SupplementComposant> supplements = supplementsSelectionnes.stream().filter(supplement -> supplement.getNom().equals(nom)).collect(Collectors.toList());
+        if (supplements.size() > 0) {
+            supplementsSelectionnes.remove(supplements.get(0));
+        }
+    }
+
+    public SupplementComposant getSupplementSelectionneParNom(String nom) {
+        List<SupplementComposant> supplements = supplementsSelectionnes.stream().filter(supplement -> supplement.getNom().equals(nom)).collect(Collectors.toList());
+        if (supplements.size() > 0) {
+            return supplements.get(0);
+        }
+        return null;
+    }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Supplements : ");
+        for (SupplementComposant supplement : supplementsSelectionnes) {
+            sb.append(supplement.getNom()).append(" ");
+        }
+        return sb.toString();
     }
 }

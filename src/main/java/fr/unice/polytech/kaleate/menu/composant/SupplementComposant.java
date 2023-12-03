@@ -35,4 +35,9 @@ public class SupplementComposant extends Composant implements Supplement {
     public boolean estSupplementParNom(String nom) {
         return super.estParNom(nom);
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " " + this.prix + "€";
+    }
 }

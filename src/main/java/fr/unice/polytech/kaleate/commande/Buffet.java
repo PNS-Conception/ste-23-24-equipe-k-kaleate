@@ -67,6 +67,14 @@ public class Buffet extends Commande implements Commandable {
     }
 
     @Override
+    public void setStatutPaye() {
+        for (Menu menu : menus.keySet()) {
+            menu.setStatutPaye();
+        }
+        this.statut = StatutCommande.PAYEE;
+    }
+
+    @Override
     public String getName() {
         return nom;
     }
@@ -264,6 +272,11 @@ public class Buffet extends Commande implements Commandable {
         if(utilisateur instanceof Staff)
             this.emetteur = (Staff) utilisateur;
         else throw new RuntimeException("L'emetteur doit être un staff");
+    }
+
+    @Override
+    public boolean elligibleReduction() {
+        return false;
     }
 
     @Override

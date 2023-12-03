@@ -70,6 +70,10 @@ public class ManagerRestaurant {
         return restaurant;
     }
 
+    public void setRestaurant(Restaurant r) {
+        this.restaurant = r;
+    }
+
     public void modifierCreneauMenu(Menu menu, Creneau creneau){
         if (menu != null) {
             menu.setCreneau(creneau);

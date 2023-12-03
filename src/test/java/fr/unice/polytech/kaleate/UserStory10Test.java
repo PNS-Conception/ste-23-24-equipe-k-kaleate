@@ -23,7 +23,7 @@ public class UserStory10Test {
 
     public void preparerMenus(int n){
         for (int i=0; i<com.getMenus().size() & n>0;i++){
-            if (pizzaroc.finirPreparationMenu(com,com.getListeMenus().get(i))) {
+            if (pizzaroc.finirPreparationMenu(com,com.getMenus().get(i))) {
                 n--;
             }
         }
@@ -43,22 +43,24 @@ public class UserStory10Test {
         c.setTime(df);
         c.add(Calendar.DATE, 1);
         df = c.getTime();
-        lm.add(new Menu(15,"pizza-fiesta",new Creneau(db,df)));
-        lm.add(new Menu(9,"pizza-solo",new Creneau(db,df)));
-        ListeMenus menus = new ListeMenus(lm);
-        pizzaroc.setMenus(menus);
+        Menu m1 = new Menu(15,"pizza-fiesta",new Creneau(db,df));
+        Menu m2 = new Menu(9,"pizza-solo",new Creneau(db,df));
+        Menu m3 = new Menu(5,"pizza-youpi",new Creneau(db,df));
+        pizzaroc.ajouterMenu(m1);
+        pizzaroc.ajouterMenu(m2);
+        pizzaroc.ajouterMenu(m3);
 
         Utilisateur michel = new Utilisateur("Michel","Legoat");
 
         com=new CommandeSimple(michel);
         com.addMenu(pizzaroc.getMenus(Commandable.class).get(0));
         com.addMenu(pizzaroc.getMenus(Commandable.class).get(0));
-        com.addMenu(pizzaroc.getMenus(Commandable.class).get(1));
+        com.addMenu(pizzaroc.getMenus(Commandable.class).get(0));
 
         assertNotEquals(com.getId(),int1);
         com.setId(int1);
         assertEquals(com.getId(),int1);
-      
+
         ListeCommande lc = new ListeCommande();
 
         lc.add(com);
@@ -66,7 +68,7 @@ public class UserStory10Test {
         pizzaroc.setListCommande(lc);
         assertTrue(pizzaroc.validerCommande(com));
         assertTrue(pizzaroc.preparerCommande(com));
-        assertEquals(int2, com.getListeMenus().size());
+        assertEquals(int2, com.getMenus().size());
 
     }
     @Soit("je suis manager du restaurant {string}")

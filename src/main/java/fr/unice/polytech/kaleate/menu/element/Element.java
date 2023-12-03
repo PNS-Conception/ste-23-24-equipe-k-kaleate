@@ -12,18 +12,18 @@ import java.util.List;
 public class Element implements Monnayable {
     private String nomElement;
     private List<ChoixComposant> choixComposantListe;
-    private ChoixSupplement<SupplementComposant> choixSupplement;
+    private ChoixSupplementComposant choixSupplementComposant;
 
     public Element() {
         this.nomElement = "";
         this.choixComposantListe = new ArrayList<>();
-        this.choixSupplement = new ChoixSupplementComposant();
+        this.choixSupplementComposant = new ChoixSupplementComposant();
     }
 
     public Element(String nomElement) {
         this.nomElement = nomElement;
         this.choixComposantListe = new ArrayList<>();
-        this.choixSupplement = new ChoixSupplementComposant();
+        this.choixSupplementComposant = new ChoixSupplementComposant();
     }
 
     public String getNom() {
@@ -37,15 +37,19 @@ public class Element implements Monnayable {
     /**
      * @return la liste des choix composants disponibles pour l'utilisateur proposé par le manager de restaurant
      */
-    public List<SupplementComposant> getChoixSupplement() {
-        return choixSupplement.getSupplementsListe();
+    public List<SupplementComposant> getChoixSupplementComposant() {
+        return choixSupplementComposant.getSupplementsListe();
     }
 
     /**
      * @return la liste des choix composants sélectionnés par l'utilisateur
      */
     public List<SupplementComposant> getChoixSupplementSelectionne() {
-        return choixSupplement.getSupplementsSelectionnes();
+        return choixSupplementComposant.getSupplementsSelectionnes();
+    }
+
+    public ChoixSupplementComposant getChoixSupplementComposantDispo() {
+        return choixSupplementComposant;
     }
 
     public boolean estParNom(String nomElement){
@@ -57,7 +61,7 @@ public class Element implements Monnayable {
     }
 
     public void supprimeSupplement(SupplementComposant supplementComposant) {
-        choixSupplement.supprimeSupplement(supplementComposant);
+        choixSupplementComposant.supprimeSupplement(supplementComposant);
     }
 
     /**
@@ -65,10 +69,10 @@ public class Element implements Monnayable {
      * @param supplementComposant le supplement Composant à ajouter
      */
     public void ajoutSupplement(SupplementComposant supplementComposant){
-        choixSupplement.ajoutSupplement(supplementComposant);
+        choixSupplementComposant.ajoutSupplement(supplementComposant);
     }
-    public void ajoutChoixSupplement(ChoixSupplement<SupplementComposant> choix) {
-        choixSupplement = choix;
+    public void ajoutChoixSupplement(ChoixSupplementComposant choix) {
+        choixSupplementComposant = choix;
     }
 
     /**
@@ -76,11 +80,11 @@ public class Element implements Monnayable {
      * @param supplementComposant le supplément composant selectionné par l'utilisateur
      */
     public void ajoutChoixSupplementSelectionne(SupplementComposant supplementComposant){
-        choixSupplement.selectionnerSupplement(supplementComposant);
+        choixSupplementComposant.selectionnerSupplement(supplementComposant);
     }
 
     public void supprimeSupplementSelectionne(SupplementComposant supplementComposant) {
-        choixSupplement.supprimeSupplementSelectionne(supplementComposant);
+        choixSupplementComposant.supprimeSupplementSelectionne(supplementComposant);
     }
 
     /**
@@ -98,7 +102,7 @@ public class Element implements Monnayable {
      * @return le supplément composant trouvé avec le string entré en paramètres
      */
     public SupplementComposant getSupplementParNom(String nomSupplement){
-        return this.choixSupplement.getSupplementsListe().stream().filter(cs -> cs.estParNom(nomSupplement)).findFirst().orElse(null);
+        return this.choixSupplementComposant.getSupplementsListe().stream().filter(cs -> cs.estParNom(nomSupplement)).findFirst().orElse(null);
     }
 
 
@@ -108,11 +112,11 @@ public class Element implements Monnayable {
      * @return le supplément composant trouvé avec le string entré en paramètres
      */
     public SupplementComposant getSupplementSelectionneParNom(String nomSupplement){
-        return this.choixSupplement.getSupplementsListe().stream().filter(cs -> cs.estParNom(nomSupplement)).findFirst().orElse(null);
+        return this.choixSupplementComposant.getSupplementsSelectionnes().stream().filter(cs -> cs.estParNom(nomSupplement)).findFirst().orElse(null);
     }
 
     public void reset(){
-        this.choixSupplement.reset();
+        this.choixSupplementComposant.reset();
         for(ChoixComposant chCo : choixComposantListe){
             chCo.reset();
         }
@@ -125,7 +129,7 @@ public class Element implements Monnayable {
     @Override
     public double getPrix(){
         double totSup = 0;
-        for (SupplementComposant supplementComposant : choixSupplement.getSupplementsSelectionnes()){
+        for (SupplementComposant supplementComposant : choixSupplementComposant.getSupplementsSelectionnes()){
             totSup += supplementComposant.getPrix();
         }
 
@@ -134,12 +138,12 @@ public class Element implements Monnayable {
 
     @Override
     public double getPrixSansReduction() {
-        return getPrix();
+        return 0;
     }
 
     @Override
     public double getPrixBase() {
-        return getPrix();
+        return 0;
     }
 
     public void ajoutChoixComposant(ChoixComposant cc) {
@@ -150,5 +154,22 @@ public class Element implements Monnayable {
         for (ChoixComposant cc : choixComposantListe) {
             cc.verifComposant();
         }
+    }
+
+    public void supprimerChoixComposantParNom(String nomChoixComposant) {
+        choixComposantListe.removeIf(cc -> cc.estChoixParNom(nomChoixComposant));
+    }
+
+    public void supprimerComposantSupplementSelectionneParNom(String nomSupplement) {
+        choixSupplementComposant.supprimerSupplementSelectionneParNom(nomSupplement);
+    }
+
+    @Override
+    public String toString() {
+        return "Element{" +
+                "nomElement='" + nomElement + '\'' +
+                ", choixComposantListe=" + choixComposantListe +
+                ", choixSupplementComposant=" + choixSupplementComposant +
+                '}';
     }
 }

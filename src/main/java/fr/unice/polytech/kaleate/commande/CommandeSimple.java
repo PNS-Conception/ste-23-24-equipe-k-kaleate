@@ -27,6 +27,13 @@ public class CommandeSimple extends Commande implements Observer {
         this.creneauLivraison = creneauLivraison;
         this.id = getNexID();
     }
+    public CommandeSimple(Utilisateur utilisateur, Menu m ){
+        this.menus = new ListeMenus();
+        addMenu(m);
+        this.utilisateur = utilisateur;
+        this.id = getNexID();
+    }
+
 
     public CommandeSimple(){
         this.menus = new ListeMenus();
@@ -59,9 +66,30 @@ public class CommandeSimple extends Commande implements Observer {
         }
         return false;
     }
+
     @Override
     public boolean modifiable(){
-        return statut == StatutCommande.EN_CREATION || statut == StatutCommande.VALIDEE;
+        return statut == StatutCommande.EN_CREATION ||statut == StatutCommande.VALIDEE;
+    }
+
+    public boolean elligibleReduction(){
+
+        if(reduction ||nombreMenuPourReduc()>=10){
+            getUtilisateurEmetteur().addSolde((float) (getPrix()*0.1));
+            return true;
+        }
+        return false;
+    }
+
+    protected int nombreMenuPourReduc(){
+        int i =0;
+        for(Commandable m : menus){
+            if(m.getStatut()!=StatutMenu.ANNULE){
+                i++;
+            }
+        }
+
+        return i;
     }
 
     @Override
@@ -88,9 +116,11 @@ public class CommandeSimple extends Commande implements Observer {
         this.utilisateur = null;
     }
 
-
-    public List<Commandable> getListeMenus() {
-        return this.menus.stream().toList();
+    public void abandonCommande(){
+        for(Commandable m : menus){
+            m.resetMenu();
+            m.getRestaurant().ajouterMenu(m);
+        }
     }
-
 }
+

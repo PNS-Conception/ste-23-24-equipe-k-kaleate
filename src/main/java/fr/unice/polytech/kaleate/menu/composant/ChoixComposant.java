@@ -16,11 +16,11 @@ import java.util.List;
 public class ChoixComposant implements Choix<Composant> {
     private String nomComposant;
     private int nbChoixComposantMax;
-    private List<Composant> composantListe;
+    private List<Composant> composantListeDisponible;
     private List<Composant> composantListeSelectionne;
 
     public ChoixComposant(){
-        this.composantListe = new ArrayList<>();
+        this.composantListeDisponible = new ArrayList<>();
         this.composantListeSelectionne = new ArrayList<>();
         this.nbChoixComposantMax = 0;
         this.nomComposant = "";
@@ -29,15 +29,15 @@ public class ChoixComposant implements Choix<Composant> {
     public ChoixComposant(String nomComposant, int nbChoixComposantMax) {
         this.nomComposant = nomComposant;
         this.nbChoixComposantMax = nbChoixComposantMax;
-        this.composantListe = new ArrayList<>();
+        this.composantListeDisponible = new ArrayList<>();
         this.composantListeSelectionne = new ArrayList<>();
     }
 
 
-    public ChoixComposant(String nomComposant, int nbChoixComposantMax, List<Composant> composantListe) {
+    public ChoixComposant(String nomComposant, int nbChoixComposantMax, List<Composant> composantListeDisponible) {
         this.nomComposant = nomComposant;
         this.nbChoixComposantMax = nbChoixComposantMax;
-        this.composantListe = composantListe;
+        this.composantListeDisponible = composantListeDisponible;
         this.composantListeSelectionne = new ArrayList<>();
     }
 
@@ -55,24 +55,24 @@ public class ChoixComposant implements Choix<Composant> {
     }
 
     @Override
-    public void setNbChoix(int nbChoixComposantMax) {
+    public void setNbChoixPossiblePourUtilisateur(int nbChoixComposantMax) {
         this.nbChoixComposantMax = nbChoixComposantMax;
     }
 
     @Override
     public void setListe(List<Composant> composantListe) {
-        this.composantListe = composantListe;
+        this.composantListeDisponible = composantListe;
     }
 
     @Override
-    public int getNbChoix() {
+    public int getNbChoixPossiblePourUtilisateur() {
         return nbChoixComposantMax;
     }
 
     @Override
 
     public List<Composant> getListe() {
-        return composantListe;
+        return composantListeDisponible;
     }
 
     @Override
@@ -87,12 +87,12 @@ public class ChoixComposant implements Choix<Composant> {
      */
     @Override
     public void ajout(Composant composant){
-        composantListe.add(composant);
+        composantListeDisponible.add(composant);
     }
 
     @Override
     public void supprimer(Composant composant) {
-        composantListe.remove(composant);
+        composantListeDisponible.remove(composant);
     }
 
     public void ajout(String name){
@@ -106,7 +106,7 @@ public class ChoixComposant implements Choix<Composant> {
      */
     @Override
     public Composant getParNom(String s){
-        return composantListe.stream().filter(composant -> composant.estParNom(s)).findFirst().orElse(null);
+        return composantListeDisponible.stream().filter(composant -> composant.estParNom(s)).findFirst().orElse(null);
     }
 
     /**
@@ -139,14 +139,32 @@ public class ChoixComposant implements Choix<Composant> {
     @Override
     public void reset(){
         composantListeSelectionne.clear();
+        composantListeSelectionne = new ArrayList<>();
     }
     //TODO vérifier si le composant permet de choisir (+ de 1 composant, sinon pas choisissable)
     //TODO
 
     public void verifComposant(){
         if(composantListeSelectionne.size() == 0){
-            composantListeSelectionne.add(composantListe.get(0));
+            composantListeSelectionne.add(composantListeDisponible.get(0));
         }
 
+    }
+
+    public void supprimerComposantParNom(String nomComposant){
+        composantListeDisponible.remove(getParNom(nomComposant));
+    }
+
+    public void supprimerComposantSelectionneParNom(String nomComposant){
+        composantListeSelectionne.remove(getSelectionneParNom(nomComposant));
+    }
+
+    @Override
+    public String toString() {
+        return "ChoixComposant{" +
+                "nomComposant='" + nomComposant + '\'' +
+                ", composantListeDisponible=" + composantListeDisponible + '\n' +
+                ", composantListeSelectionne=" + composantListeSelectionne +
+                '}';
     }
 }

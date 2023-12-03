@@ -56,23 +56,32 @@ public class UserStory17Test {
         utilisateur.payer();
 
         restaurant.preparerMenu(commande,m);
+
         restaurant.finirPreparationMenu(commande,m);
 
         ManagerRestaurant r = new ManagerRestaurant(restaurant);
         ListeCommande lc = new ListeCommande();
         lc.add(commande);
         restaurant.setListCommande(lc);
-        r.commandePrete(commande.getId());
+
+
+        assertTrue(r.commandePrete(commande.getId()));
+
+
 
         livreur = new Livreur("Ca","roule");
 
+
         livreur.recupere_commande(restaurant,commande.getId());
+
+        livreur.debuterLaCourse();
 
         livreur.arriverADestination();
 
         utilisateur.recupererCommande();
 
         livreur.terminerLivraison();
+
 
     }
 
