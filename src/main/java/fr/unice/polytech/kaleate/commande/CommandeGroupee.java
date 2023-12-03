@@ -95,4 +95,9 @@ public class CommandeGroupee extends CommandeSimple {
         }
         return res;
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

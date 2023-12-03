@@ -20,7 +20,7 @@ public class ContenuMenu implements Monnayable {
         choixSupplementElement = new ChoixSupplementElement();
     }
 
-    public ContenuMenu(ArrayList<ChoixElement> choixElementListe, ChoixSupplementElement choixSupplements) {
+    public ContenuMenu(List<ChoixElement> choixElementListe, ChoixSupplementElement choixSupplements) {
         this.choixElementListe = choixElementListe;
         this.choixSupplementElement = choixSupplements;
     }
@@ -37,7 +37,7 @@ public class ContenuMenu implements Monnayable {
         return choixElementListe;
     }
 
-    public void setChoixElementListe(ArrayList<ChoixElement> choixElementListe) {
+    public void setChoixElementListe(List<ChoixElement> choixElementListe) {
         this.choixElementListe = choixElementListe;
     }
 

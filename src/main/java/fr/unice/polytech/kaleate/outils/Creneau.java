@@ -35,13 +35,16 @@ public class Creneau {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Creneau)
-            return equals((Creneau) obj);
+        if(obj instanceof Creneau){
+            Creneau creneau = (Creneau) obj;
+            return this.debut.equals(creneau.getDebut()) && this.fin.equals(creneau.getFin());
+        }
         return false;
     }
 
-    public boolean equals(Creneau creneau){
-        return this.debut.equals(creneau.getDebut()) && this.fin.equals(creneau.getFin());
+    @Override
+    public int hashCode() {
+        return this.debut.hashCode() + this.fin.hashCode();
     }
 
     public boolean estComprisDansCreneau(Creneau creneau){

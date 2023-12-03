@@ -1,4 +1,4 @@
-package fr.unice.polytech.kaleate.Evaluation;
+package fr.unice.polytech.kaleate.evaluation;
 
 public class Avis {
     private int note;

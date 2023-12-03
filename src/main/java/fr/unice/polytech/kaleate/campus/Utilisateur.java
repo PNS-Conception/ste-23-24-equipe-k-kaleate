@@ -1,9 +1,9 @@
 package fr.unice.polytech.kaleate.campus;
 
-import fr.unice.polytech.kaleate.Evaluation.Avis;
+import fr.unice.polytech.kaleate.evaluation.Avis;
 import fr.unice.polytech.kaleate.commande.CommandeException;
-import fr.unice.polytech.kaleate.Evaluation.Evaluable;
-import fr.unice.polytech.kaleate.Evaluation.Evalueur;
+import fr.unice.polytech.kaleate.evaluation.Evaluable;
+import fr.unice.polytech.kaleate.evaluation.Evalueur;
 import fr.unice.polytech.kaleate.commande.*;
 import fr.unice.polytech.kaleate.livrable.Livreur;
 import fr.unice.polytech.kaleate.outils.PayementExterne;
@@ -12,6 +12,7 @@ import fr.unice.polytech.kaleate.outils.Creneau;
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Utilisateur extends Evaluable implements Evalueur {
 
@@ -135,7 +136,7 @@ public class Utilisateur extends Evaluable implements Evalueur {
         commandeActuelle = null;
     }
 
-        public ArrayList<Commande> getHistorique() {
+        public List<Commande> getHistorique() {
             return historique;
         }
 

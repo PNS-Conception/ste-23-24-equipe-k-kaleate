@@ -1,8 +1,8 @@
 package fr.unice.polytech.kaleate.livrable;
 
-import fr.unice.polytech.kaleate.Evaluation.Avis;
-import fr.unice.polytech.kaleate.Evaluation.Evaluable;
-import fr.unice.polytech.kaleate.Evaluation.Evalueur;
+import fr.unice.polytech.kaleate.evaluation.Avis;
+import fr.unice.polytech.kaleate.evaluation.Evaluable;
+import fr.unice.polytech.kaleate.evaluation.Evalueur;
 import fr.unice.polytech.kaleate.campus.Utilisateur;
 import fr.unice.polytech.kaleate.commande.Commande;
 import fr.unice.polytech.kaleate.commande.StatutCommande;

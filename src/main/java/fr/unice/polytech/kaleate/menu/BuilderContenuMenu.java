@@ -10,6 +10,7 @@ import fr.unice.polytech.kaleate.menu.supplement.BuilderChoixSupplementComposant
 import fr.unice.polytech.kaleate.menu.supplement.BuilderChoixSupplementElement;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BuilderContenuMenu implements Builder<ContenuMenu> {
 
@@ -33,7 +34,7 @@ public class BuilderContenuMenu implements Builder<ContenuMenu> {
             this.contenuMenu = new ContenuMenu();
         }
 
-        public void setNomMenu(ArrayList<ChoixElement> choixElement) {
+        public void setNomMenu(List<ChoixElement> choixElement) {
             this.contenuMenu.setChoixElementListe(choixElement);
         }
 

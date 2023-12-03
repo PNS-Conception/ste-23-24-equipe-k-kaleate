@@ -1,6 +1,6 @@
 package fr.unice.polytech.kaleate.restaurant;
 
-import fr.unice.polytech.kaleate.Evaluation.Evaluable;
+import fr.unice.polytech.kaleate.evaluation.Evaluable;
 import fr.unice.polytech.kaleate.campus.Localisation;
 import fr.unice.polytech.kaleate.commande.*;
 
