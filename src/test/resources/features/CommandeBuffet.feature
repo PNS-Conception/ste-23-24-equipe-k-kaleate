@@ -29,3 +29,8 @@ Fonctionnalité: Commande Buffet
     Quand "Ronald" commande un buffet
     Alors le menu est remis dans la liste des menus du restaurant
     Et la commande de "Ronald" est un buffet
+
+  Scénario:
+    Soit "Ronald" commande un buffet
+    Quand "Ronald" annule sa commande
+    Alors la commande buffet se retrouve dans la liste de menus disponibles
