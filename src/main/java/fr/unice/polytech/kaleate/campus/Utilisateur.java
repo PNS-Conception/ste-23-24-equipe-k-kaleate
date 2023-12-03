@@ -150,6 +150,8 @@ public class Utilisateur extends Evaluable implements Evalueur {
 
         public void abandonCommande(){
             commandeActuelle.abandonCommande();
+            if(commandeActuelle instanceof Buffet)
+                ((Buffet) commandeActuelle).getRestaurant().ajouterMenu((Commandable) commandeActuelle);
             commandeActuelle = null;
         }
 

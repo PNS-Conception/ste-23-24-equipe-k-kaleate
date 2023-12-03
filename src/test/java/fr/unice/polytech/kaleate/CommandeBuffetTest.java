@@ -150,4 +150,16 @@ public class CommandeBuffetTest {
     public void la_commande_de_est_un_buffet(String string) {
         assertEquals(commandeBuffet, staff.getCommandeActuelle());
     }
+
+    @Quand("{string} annule sa commande")
+    public void annule_sa_commande(String string) {
+        staff.abandonCommande();
+        assertNull(staff.getCommandeActuelle());
+    }
+
+    @Alors("la commande buffet se retrouve dans la liste de menus disponibles")
+    public void la_commande_buffet_se_retrouve_dans_la_liste_de_menus_disponibles() {
+        ListeMenus lm = campus.listerMenus(staff.getTypeMenu()).values().stream().toList().get(0);
+        assertTrue(lm.contains(commandeBuffet));
+    }
 }

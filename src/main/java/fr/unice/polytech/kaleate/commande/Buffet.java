@@ -9,10 +9,7 @@ import fr.unice.polytech.kaleate.menu.StatutMenu;
 import fr.unice.polytech.kaleate.outils.Creneau;
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
 
-import java.util.EmptyStackException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Observable;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Buffet extends Commande implements Commandable {
@@ -47,7 +44,8 @@ public class Buffet extends Commande implements Commandable {
     }
 
     public int getNbPersonnes() {
-        return menus.values().stream().max(Integer::compareTo).get();
+        Optional<Integer> max = menus.values().stream().max(Integer::compareTo);
+        return (max.isPresent()) ? max.get() : 0;
     }
 
     public void setCreneau(Creneau creneau) {
