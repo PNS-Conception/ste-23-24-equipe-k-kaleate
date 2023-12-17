@@ -5,6 +5,8 @@ import fr.unice.polytech.kaleate.restaurant.RestauPartFacto;
 import fr.unice.polytech.kaleate.restaurant.Restaurant;
 import fr.unice.polytech.kaleate.restaurant.RestaurantFactory;
 
+import java.util.Map;
+
 public class AdministrateurCampus {
     private Campus campus;
 
@@ -82,5 +84,8 @@ public class AdministrateurCampus {
                 return utilisateur.getNote();
         }
         throw new RuntimeException(utilisateur.toString()+" n\' est pas inscrit dans la liste des utilisateurs");
+    }
+    public Map<String, Integer> tendancesRestaurant(Restaurant r){
+        return r.tendances();
     }
 }

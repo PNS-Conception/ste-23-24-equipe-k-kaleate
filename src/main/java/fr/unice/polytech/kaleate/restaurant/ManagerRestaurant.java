@@ -8,6 +8,7 @@ import fr.unice.polytech.kaleate.menu.Menu;
 import fr.unice.polytech.kaleate.menu.element.ChoixElement;
 import fr.unice.polytech.kaleate.outils.Creneau;
 
+import java.util.Map;
 import java.util.Optional;
 
 public class ManagerRestaurant {
@@ -81,5 +82,8 @@ public class ManagerRestaurant {
         else {
             System.out.println("le menu n'existe pas veillez le créer");
         }
+    }
+    public Map<String, Integer> tendancesRestaurant(){
+        return restaurant.tendances();
     }
 }
