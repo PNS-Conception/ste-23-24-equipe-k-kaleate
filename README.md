@@ -19,94 +19,53 @@ Un rôle a été attribué à chacun :
 
 ## doc
 Avant de commencer à coder nous nous sommes familiarisés avec le sujet et nous avons réalisé un <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/blob/main/doc/RapportTD1TD2-EquipeK.pdf">premier rapport</a> qui met en avant nos hypothèses et compréhension du sujet ainsi que nos différents diagrammes.
-
-## .github
-   1. Contient sous workflows/maven.yml, une version d'un fichier d'actions qui est déclenché dès que vous poussez du code. 
-Sur cette version initiale seule un test Junit5 est déclenché pour vérifier que tout fonctionne.
-       - Github Actions (See in .github/workflows) to simply make a maven+test compilation
-  2. Contient sous ISSUE_TEMPLATE, les modèles pour les issues user_story et bug. Vous pouvez le compléter à votre guise.
+Dans notre dernier rapport, nous avons conclue sur le projet ainsi que fait une rétrospective.
 
 ## src
- - pom.xml :  
-       - Cucumber 7 et JUnit 5  
-       - JDK 17   
-       - Etc.  
-   Ce pom.xml sera mis à jour avec la démonstration qui vous sera donnée ultérieurement.
+ - pom.xml :
+   - Cucumber 7 et JUnit 5
+   - JDK 17
+   - Picocontainer 2.15
+   - Mokito 4.8.1
+   - Picoli 4.7.0
  
 ---
 
 ## Ce que fait notre projet
 
 ### Principales User stories
-Vous mettez en évidence les principales user stories de votre projet.
-Chaque user story doit être décrite par 
-   - son identifiant en tant que issue github (#), 
-   - sa forme classique (As a… I want to… In order to…) (pour faciliter la lecture)
-   - Le nom du fichier feature Cucumber et le nom des scénarios qui servent de tests d’acceptation pour la story.
-   Les contenus détaillés sont dans l'issue elle-même. 
+Nous avons procédé de sorte qu'une Milestone corresponde à une User Story. Vous trouverez en description d'une milestone les différents scénarios d'une User Story. Dans chaque Milestone, nous avons les tests associés à la User Story. Les fichiers cucumber portent le nom de la User Story qu'elle teste.
+Voici une liste de nos User story et leurs références dans notre code :
+- **Milestone 1** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/3"> US1 : créer une commande simple</a>
 
+_**Un exemple d'un scénario traité dans cette User Story:**_
+```
+    En tant qu'utilisateur,
+    Je veux sélectionner un menu
+    Afin de créer une commande simple
+```
+- **Milestone 2** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/4">US2 : valider une commande en tant que restaurateur</a>
+- **Milestone 3** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/5">US8 : ajouter des restaurants et des utilisateurs en tant qu'administrateur campus</a>
+- **Milestone 4** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/6">US13 : Choisir une commande à livrer en tant que livreur</a>
+- **Milestone 5** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/7">US5 : Ajouter, Modifier et Supprimer des Menus en tant que restaurateur</a>
+- **Milestone 6** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/8">US3 : faire une commande groupée</a>
+- **Milestone 7** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/9">US16 : Diversités des menus</a>
+- **Milestone 8** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/10">US10 : commande prête à la livraison</a>
+- **Milestone 9** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/11">US7 : payer</a>
+- **Milestone 10** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/12"> US14 : valider la récupération de la commande par le livreur</a>
+- **Milestone 11** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/13"> US12 : déterminer un rayon et le centre autour de mon campus</a>
+- **Milestone 12** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/14">US4 : livraison de la commande au client</a>
+- **Milestone 13** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/15">US24 : récupérer les informations de ma commande après avoir payé</a>
+- **Milestone 14** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/16">US6 : le restaurant annule une commande</a>
+- **Milestone 15** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/17">US17 : système d'évaluation</a>
+- **Milestone 16** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/18">US9 : Manager modifie les horaires</a>
+- **Milestone 17** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/19">US18 : Modification d'un menu par le Manager de Restaurant</a>
+- **Milestone 18** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/20">US25 : réduction d'une commande</a>
+- **Milestone 19** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/21">US19 : Suppression d'un menu par le Manager de Restaurant</a>
+- **Milestone 20** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/22"> US20 : Supprimer dans un menu pour un utilisateur</a>
+- **Milestone 21** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/23">US21 : Modifier un menu pour un utilisateur</a>
+- **Milestone 22** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/24">US22 : Abandon d'un commande par un utilisateur</a>
+- **Milestone 23** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/25">historique de commande + tendance restaurant</a>
+- **Milestone 24** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/26">Commande Buffet</a>
 
 ---
-
->Choisissez entre Français et Anglais pour décrire l'issue et tenez-vous à une seule langue.
->Adaptez le patron des "US" en fonction de vos choix (il se trouve dans votre dépôt sous _.github/ISSUE_TEMPLATE_
-
-**Titre/Title :** En quelques mots, résumez l'objectif de l'US par exemple _Ajout d'un produit dans le panier_.
-
-**Description :**
-
-**As a** [type of user], **I want** [an action] **so that** [a benefit/a value]<br>
-**En tant que** [type of user], **Je veux** [an action] **afin de** [a benefit/a value]
-
-
-**Priorité/Priority :** C'est la priorité dans les attentes du client, ce qui est important c'est que toute l'équipe soit d'accord sur l'échelle, vous pouvez aussi faire le choix d'étoiles, de chiffres ou suivre l'échelle donnée ci-dessous. Mettez à jour le patron quand l'équipe a fait un choix.
-
-Proposition d'échelle, la [méthode MoSCoW](https://paper-leaf.com/insights/prioritize-user-stories/)
-1. _**Must have/Doit avoir :** la première version de ce produit nécessite absolument cette fonctionnalité - elle est essentielle au succès du produit._
-2. _**Should Have/Devrait avoir** : l'idéal serait que la première version de ce produit dispose de cette fonctionnalité, mais elle n'est pas absolument nécessaire. Elles peuvent être aussi importantes, mais pas aussi critiques en termes de temps, que les "Must Have"._
-3. _**Could have/Aurait pu**: l'histoire de l'utilisateur a de la valeur et est souhaitable, mais en fin de compte, elle n'est pas nécessaire._
-4. _**Won't have/N'aura pas** : l'histoire de l'utilisateur est considérée comme étant parmi les moins critiques ou les moins utiles._
-
-
-**Estimation/Estimate :** Préciser l'effort requis pour mettre en œuvre la US.
-Ce point est estimé avec la méthode vue en cours.
-
-
-**Règle métier /Business rules :**
-Précisez ici les règles métiers essentielles pour le développement de cette user-story.
-
-Ces règles sont écrites en français ou en anglais avec comme objectif de très facilement comprendre le travail à effectuer.
-
-
-_Voici un exemple ci-dessous sur un panier d’un site e-commerce :_
-```
-lorsque je rajoute un élément supplémentaire d'un produit dans mon 
-panier.
-    - si quantité > stock alors erreur "pas assez de stock 
-      disponible"
-    - si quantité < stock alors on ajoute +1 à la quantité_
-```
-
-**Critère d'acceptation/Acceptance criteria**
-Précisez l'ensemble des conditions que la story doit satisfaire pour être considérée comme complète et terminée.
-
-Plus spécifiquement décrivez un ensemble de scénario qui deviendront des tests d'acceptation.
-Précisez bien les données associées comme vous le voyez dans les scénarios d'exemples données ci-dessous.
-Vous pouvez faire référence ici aux tests Gherkins correspondant
-
-**Scenario:** objective <br>
-**Given** some context<br>
-**When** some action is carried out<br>
-**Then** a set of observable outcomes should occur <br>
-
-_Voici quelques exemples_<br>
-
-_**Scénario:**_<br>
-```
-    Etant donné que je suis sur mon panier 
-    Et que j'ai un produit d'id "1235" en quantité "1" <br>
-    Et que le stock restant sur ce produit est de "10"
-    Quand j'ajoute "1" quantité de mon produit
-    Alors mon produit aura "2" quantités
-```
-   
