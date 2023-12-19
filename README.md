@@ -72,8 +72,11 @@ _**Un exemple d'un scénario traité dans cette User Story:**_
 ## Comment lancer le projet et l'installer
 
 Pour installer le projet il suffit d'exécuter la commande :
+ <br/>
 ``` git clone 'https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate.git' ```
-Pour lancer le projet il suffit d'exécuter la commande : 
+ <br/>
+Pour lancer le projet il suffit d'exécuter la commande :
+ <br/>
 ``` mvn clean install ```
 
 ---
