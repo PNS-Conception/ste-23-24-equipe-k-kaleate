@@ -19,7 +19,7 @@ Un rôle a été attribué à chacun :
 
 ## doc
 Avant de commencer à coder nous nous sommes familiarisés avec le sujet et nous avons réalisé un <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/blob/main/doc/RapportTD1TD2-EquipeK.pdf">premier rapport</a> qui met en avant nos hypothèses et compréhension du sujet ainsi que nos différents diagrammes. <br/>
-Dans notre dernier rapport, nous avons conclue sur le projet ainsi que fait une rétrospective.
+Dans notre <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/blob/main/doc/TeamK-rendu2.pdf">dernier rapport</a>, nous avons conclue sur le projet ainsi que fait une rétrospective.
 
 ## src
  - pom.xml :
