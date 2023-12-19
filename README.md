@@ -69,3 +69,16 @@ _**Un exemple d'un scénario traité dans cette User Story:**_
 - **Milestone 24** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/26">Commande Buffet</a>
 
 ---
+## Comment lancer le projet et l'installer
+
+Pour installer le projet il suffit d'exécuter la commande :
+``` git clone 'https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate.git' ```
+Pour lancer le projet il suffit d'exécuter la commande : 
+``` mvn clean install ```
+
+---
+
+## Structure du projet
+![img2.png](doc/Structure_Projet.jpg)
+
+---
