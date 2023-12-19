@@ -65,7 +65,7 @@ _**Un exemple d'un scénario traité dans cette User Story:**_
 - **Milestone 20** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/22"> US20 : Supprimer dans un menu pour un utilisateur</a>
 - **Milestone 21** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/23">US21 : Modifier un menu pour un utilisateur</a>
 - **Milestone 22** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/24">US22 : Abandon d'un commande par un utilisateur</a>
-- **Milestone 23** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/25">historique de commande + tendance restaurant</a>
+- **Milestone 23** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/25">US4 : historique de commande + tendance restaurant</a>
 - **Milestone 24** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/26">Commande Buffet</a>
 
 ---
