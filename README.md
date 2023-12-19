@@ -18,7 +18,7 @@ Un rôle a été attribué à chacun :
 ---
 
 ## doc
-Avant de commencer à coder nous nous sommes familiarisés avec le sujet et nous avons réalisé un <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/blob/main/doc/RapportTD1TD2-EquipeK.pdf">premier rapport</a> qui met en avant nos hypothèses et compréhension du sujet ainsi que nos différents diagrammes.
+Avant de commencer à coder nous nous sommes familiarisés avec le sujet et nous avons réalisé un <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/blob/main/doc/RapportTD1TD2-EquipeK.pdf">premier rapport</a> qui met en avant nos hypothèses et compréhension du sujet ainsi que nos différents diagrammes. <br/>
 Dans notre dernier rapport, nous avons conclue sur le projet ainsi que fait une rétrospective.
 
 ## src
@@ -34,7 +34,7 @@ Dans notre dernier rapport, nous avons conclue sur le projet ainsi que fait une 
 ## Ce que fait notre projet
 
 ### Principales User stories
-Nous avons procédé de sorte qu'une Milestone corresponde à une User Story. Vous trouverez en description d'une milestone les différents scénarios d'une User Story. Dans chaque Milestone, nous avons les tests associés à la User Story. Les fichiers cucumber portent le nom de la User Story qu'elle teste.
+Nous avons procédé de sorte qu'une Milestone corresponde à une User Story. Vous trouverez en description d'une milestone les différents scénarios d'une User Story. Dans chaque Milestone, nous avons les tests associés à la User Story. Les fichiers cucumber portent le nom de la User Story qu'elle teste. <br/>
 Voici une liste de nos User story et leurs références dans notre code :
 - **Milestone 1** : <a href="https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate/milestone/3"> US1 : créer une commande simple</a>
 
@@ -75,6 +75,7 @@ Pour installer le projet il suffit d'exécuter la commande :
  <br/>
 ``` git clone 'https://github.com/PNS-Conception/ste-23-24-equipe-k-kaleate.git' ```
  <br/>
+ <br/>
 Pour lancer le projet il suffit d'exécuter la commande :
  <br/>
 ``` mvn clean install ```
@@ -82,6 +83,7 @@ Pour lancer le projet il suffit d'exécuter la commande :
 ---
 
 ## Structure du projet
+
 ![img2.png](doc/Structure_Projet.jpg)
 
 ---
